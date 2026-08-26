@@ -1,0 +1,10 @@
+{
+  "type": "derailed:game",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "derailed:game",
+      "layers": []
+    }
+  }
+}
