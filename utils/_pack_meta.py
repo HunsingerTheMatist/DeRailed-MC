@@ -2,6 +2,12 @@
 The MC-version lookup is offline — backed by pack_format_versions.json (refresh
 that file via fetch_pack_format_versions.py, which is the only script in this
 project that hits the network for version data).
+
+IMPORTANT: pack_format_versions.json indexes DATA PACK formats only. Data pack
+and resource pack formats are numbered independently and their values collide —
+format 88 means 1.21.10 as a data pack format but 26.2 as a resource pack
+format. Pass these functions the datapack/ directory, never resourcepack/, or
+they will resolve confidently to the wrong Minecraft version.
 """
 import json
 import sys

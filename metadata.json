@@ -10,7 +10,7 @@
     "package": "DeRailed.zip",
     "source": ".",
     "supports": [
-        "1.21.11"
+        "26.2"
     ],
     "beta": true
 }
