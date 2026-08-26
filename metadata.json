@@ -1,0 +1,16 @@
+{
+    "title": "DeRailed",
+    "summary": "",
+    "github": "DeRailed-MC",
+    "curseforge_url": "",
+    "curseforge_id": "",
+    "modrinth": "",
+    "planetminecraft": "",
+    "slicedlime": "",
+    "package": "DeRailed.zip",
+    "source": ".",
+    "supports": [
+        "1.21.11"
+    ],
+    "beta": true
+}
