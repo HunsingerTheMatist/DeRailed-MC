@@ -1,0 +1,138 @@
+{
+  "format_version": "1.21.11",
+  "credit": "Made with Blockbench",
+  "textures": {
+    "0": "derailed:item/oak_planks",
+    "1": "derailed:item/oak_log",
+    "particle": "derailed:item/oak_planks"
+  },
+  "elements": [
+    {
+      "name": "Wood Btm-4",
+      "from": [1, 0, 0],
+      "to": [4, 3, 16],
+      "faces": {
+        "east":  {"uv": [ 5,  0,  8, 16], "rotation": 270, "texture": "#1"},
+        "south": {"uv": [11,  0, 14,  3], "rotation":  90, "texture": "#0", "tintindex": 0},
+        "west":  {"uv": [ 9,  0, 12, 16], "rotation": 270, "texture": "#1"},
+        "north": {"uv": [ 4, 12,  7, 15], "rotation":   0, "texture": "#0", "tintindex": 0},
+        "up":    {"uv": [ 3,  0,  6, 16], "rotation":   0, "texture": "#1"},
+        "down":  {"uv": [ 1,  0,  4, 16], "rotation": 180, "texture": "#1"}
+      }
+    },
+    {
+      "name": "Wood Btm-3",
+      "from": [5, 0, 0],
+      "to": [8, 3, 16],
+      "faces": {
+        "east":  {"uv": [ 5,  0,  8, 16], "rotation": 270, "texture": "#1"},
+        "south": {"uv": [ 3, 12,  6, 15], "rotation":  90, "texture": "#0", "tintindex": 0},
+        "west":  {"uv": [11,  0, 14, 16], "rotation":  90, "texture": "#1"},
+        "north": {"uv": [ 8,  4, 11,  7], "rotation":   0, "texture": "#0", "tintindex": 0},
+        "up":    {"uv": [ 3,  0,  6, 16], "rotation": 180, "texture": "#1"},
+        "down":  {"uv": [ 7,  0, 10, 16], "rotation": 180, "texture": "#1"}
+      }
+    },
+    {
+      "name": "Wood Btm-2",
+      "from": [8, 0, 0],
+      "to": [11, 3, 16],
+      "faces": {
+        "east":  {"uv": [ 5, 0,  8, 16], "rotation": 270, "texture": "#1"},
+        "south": {"uv": [ 5, 8,  8, 11], "rotation":  90, "texture": "#0", "tintindex": 0},
+        "west":  {"uv": [11, 0, 14, 16], "rotation": 270, "texture": "#1"},
+        "north": {"uv": [ 9, 8, 12, 11], "rotation":   0, "texture": "#0", "tintindex": 0},
+        "up":    {"uv": [ 3, 0,  6, 16], "rotation":   0, "texture": "#1"},
+        "down":  {"uv": [ 9, 0, 12, 16], "rotation": 180, "texture": "#1"}
+      }
+    },
+    {
+      "name": "Wood Btm-1",
+      "from": [12, 0, 0],
+      "to": [15, 3, 16],
+      "faces": {
+        "east":  {"uv": [ 5, 0,  8, 16], "rotation": 270, "texture": "#1"},
+        "south": {"uv": [ 7, 8, 10, 11], "rotation":  90, "texture": "#0", "tintindex": 0},
+        "west":  {"uv": [11, 0, 14, 16], "rotation":  90, "texture": "#1"},
+        "north": {"uv": [ 4, 4,  7,  7], "rotation":   0, "texture": "#0", "tintindex": 0},
+        "up":    {"uv": [ 3, 0,  6, 16], "rotation": 180, "texture": "#1"},
+        "down":  {"uv": [ 9, 0, 12, 16], "rotation": 180, "texture": "#1"}
+      }
+    },
+    {
+      "name": "Wood Mid-3",
+      "from": [3, 3, 0],
+      "to": [6, 6, 16],
+      "faces": {
+        "east":  {"uv": [ 5, 0,  8, 16], "rotation": 270, "texture": "#1"},
+        "south": {"uv": [ 8, 4, 11,  7], "rotation":  90, "texture": "#0", "tintindex": 0},
+        "west":  {"uv": [12, 0, 15, 16], "rotation":  90, "texture": "#1"},
+        "north": {"uv": [ 4, 8,  7, 11], "rotation":   0, "texture": "#0", "tintindex": 0},
+        "up":    {"uv": [ 3, 0,  6, 16], "rotation": 180, "texture": "#1"},
+        "down":  {"uv": [ 7, 0, 10, 16], "rotation": 180, "texture": "#1"}
+      }
+    },
+    {
+      "name": "Wood Mid-2",
+      "from": [6, 3, 0],
+      "to": [9, 6, 16],
+      "faces": {
+        "east":  {"uv": [ 5, 0,  8, 16], "rotation": 270, "texture": "#1"},
+        "south": {"uv": [11, 4, 14,  7], "rotation":  90, "texture": "#0", "tintindex": 0},
+        "west":  {"uv": [11, 0, 14, 16], "rotation":  90, "texture": "#1"},
+        "north": {"uv": [ 3, 4,  6,  7], "rotation":   0, "texture": "#0", "tintindex": 0},
+        "up":    {"uv": [ 3, 0,  6, 16], "rotation": 180, "texture": "#1"},
+        "down":  {"uv": [ 7, 0, 10, 16], "rotation": 180, "texture": "#1"}
+      }
+    },
+    {
+      "name": "Wood Mid-1",
+      "from": [10, 3, 0],
+      "to": [13, 6, 16],
+      "faces": {
+        "east":  {"uv": [ 5, 0,  8, 16], "rotation":  90, "texture": "#1"},
+        "south": {"uv": [11, 4, 14,  7], "rotation":  90, "texture": "#0", "tintindex": 0},
+        "west":  {"uv": [11, 0, 14, 16], "rotation":  90, "texture": "#1"},
+        "north": {"uv": [ 6, 8,  9, 11], "rotation":   0, "texture": "#0", "tintindex": 0},
+        "up":    {"uv": [ 3, 0,  6, 16], "rotation":   0, "texture": "#1"},
+        "down":  {"uv": [ 7, 0, 10, 16], "rotation": 180, "texture": "#1"}
+      }
+    },
+    {
+      "name": "Wood Top-2",
+      "from": [4, 6, 0],
+      "to": [7, 9, 16],
+      "faces": {
+        "east":  {"uv": [ 5, 0,  8, 16], "rotation":  90, "texture": "#1"},
+        "south": {"uv": [ 9, 4, 12,  7], "rotation":  90, "texture": "#0", "tintindex": 0},
+        "west":  {"uv": [11, 0, 14, 16], "rotation": 270, "texture": "#1"},
+        "north": {"uv": [ 1, 0,  4,  3], "rotation":   0, "texture": "#0", "tintindex": 0},
+        "up":    {"uv": [ 7, 0, 10, 16], "rotation":   0, "texture": "#1"},
+        "down":  {"uv": [ 7, 0, 10, 16], "rotation": 180, "texture": "#1"}
+      }
+    },
+    {
+      "name": "Wood Top-1",
+      "from": [8, 6, 0],
+      "to": [11, 9, 16],
+      "faces": {
+        "east":  {"uv": [ 1, 0,  4, 16], "rotation": 270, "texture": "#1"},
+        "south": {"uv": [10, 8, 13, 11], "rotation":  90, "texture": "#0", "tintindex": 0},
+        "west":  {"uv": [11, 0, 14, 16], "rotation":  90, "texture": "#1"},
+        "north": {"uv": [ 4, 4,  7,  7], "rotation":   0, "texture": "#0", "tintindex": 0},
+        "up":    {"uv": [ 9, 0, 12, 16], "rotation": 180, "texture": "#1"},
+        "down":  {"uv": [ 7, 0, 10, 16], "rotation": 180, "texture": "#1"}
+      }
+    }
+  ],
+  "display": {
+    "gui":                   {"scale": [0.75, 0.75, 0.75], "rotation": [ 27, -39, 0], "translation": [0  , 2.25,   0  ]},
+    "ground":                {"scale": [0.3 , 0.3 , 0.3 ], "rotation": [  0,   0, 0], "translation": [0  , 0   ,   0  ]},
+    "fixed":                 {"scale": [2   , 2   , 2   ], "rotation": [-90,   0, 0], "translation": [0  , 0   , -14  ]},
+    "firstperson_righthand": {"scale": [0.6 , 0.6 , 0.6 ], "rotation": [  0, -10, 0], "translation": [1.5, 2   ,  -1  ]},
+    "firstperson_lefthand":  {"scale": [0.6 , 0.6 , 0.6 ], "rotation": [  0,  10, 0], "translation": [1.5, 2   ,  -1  ]},
+    "thirdperson_righthand": {"scale": [0.5 , 0.5 , 0.5 ], "rotation": [ 90,   0, 0], "translation": [0  , 4   ,   3.5]},
+    "thirdperson_lefthand":  {"scale": [0.5 , 0.5 , 0.5 ], "rotation": [ 90,   0, 0], "translation": [0  , 4   ,   3.5]}
+  },
+  "_credit": "Oslypsis (edited by Hunsinger)"
+}

@@ -1,0 +1,15 @@
+{
+  "criteria": {
+      "interact": {
+          "trigger": "player_interacted_with_entity",
+          "conditions": {
+              "entity": {
+                  "entity_type": "interaction"
+              }
+          }
+      }
+  },
+  "rewards": {
+      "function": "derailed:item/event/interaction_used"
+  }
+}
