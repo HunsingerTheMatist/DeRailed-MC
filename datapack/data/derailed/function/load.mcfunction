@@ -25,6 +25,7 @@ scoreboard objectives add dr_resource dummy "DeRailed Resource Type"
 
 # Config defaults
 execute unless score $HandCap dr_config matches 1.. run scoreboard players set $HandCap dr_config 3
+execute unless score $BucketFillTicks dr_config matches 1.. run scoreboard players set $BucketFillTicks dr_config 40
 
 # Offhand map enforcement stays off until the framebuffer map exists
 execute unless score $MapEnabled dr_config matches 0..1 run scoreboard players set $MapEnabled dr_config 0

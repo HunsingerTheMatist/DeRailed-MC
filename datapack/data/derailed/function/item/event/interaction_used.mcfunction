@@ -5,17 +5,21 @@
 #  hand for a resource already held (or an empty hand) takes, anything else
 #  gives
 
-tellraw @a HI
+#tellraw @a "HI"
+#tellraw @a [{score:{name:"temp",objective:"dr_temp"}}]
 advancement revoke @s only derailed:interaction_use
 
 function derailed:item/_find_interaction with entity @s
 
+scoreboard players operation #curr_player_id dr_arg = @s dr_player_id
+scoreboard players operation #curr_resource dr_arg = @s dr_resource
+
+execute at @n[type=interaction,distance=..10,tag=dr_water,tag=dr_current] run \
+    return run function derailed:item/event/interacted_water
+
 execute store success score #pile_found dr_temp run \
     data remove entity @n[type=interaction,distance=..10,tag=dr_resource,tag=dr_current] interaction
 execute if score #pile_found dr_temp matches 0 run return fail
-
-scoreboard players operation #curr_player_id dr_arg = @s dr_player_id
-scoreboard players operation #curr_resource dr_arg = @s dr_resource
 
 # Taking needs both room in hand and a resource that can go there. An empty hand
 #  takes anything; a full hand takes nothing and gives instead

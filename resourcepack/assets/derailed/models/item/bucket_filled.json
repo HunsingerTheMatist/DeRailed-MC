@@ -1,0 +1,7 @@
+{
+  "format_version": "1.21.11",
+  "credit": "Placeable Items (https://www.curseforge.com/minecraft/mc-mods/placeable-items)",
+  "texture_size": [32, 32],
+  "parent": "derailed:item/bucket",
+  "textures": {"particle": "derailed:item/bucket_filled", "bucket": "derailed:item/bucket_filled"}
+}

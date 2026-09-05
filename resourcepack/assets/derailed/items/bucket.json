@@ -7,7 +7,7 @@
     "cases": [
       {
         "when": "filled",
-        "model": {"type": "minecraft:model", "model": "derailed:item/water_bucket"}
+        "model": {"type": "minecraft:model", "model": "derailed:item/bucket_filled"}
       }
     ]
   }
