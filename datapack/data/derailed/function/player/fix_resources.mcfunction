@@ -5,6 +5,7 @@
 
 clear @s panda_spawn_egg
 execute if score @s dr_count matches ..0 run return 0
+execute if score @s dr_resource matches ..0 run return run scoreboard players set @s dr_count 0
 
 execute store result storage derailed:macro resource int 1 run scoreboard players get @s dr_resource
 execute store result storage derailed:macro player_id int 1 run scoreboard players get @s dr_player_id

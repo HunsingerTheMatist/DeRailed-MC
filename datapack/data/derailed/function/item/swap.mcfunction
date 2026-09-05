@@ -5,6 +5,7 @@ scoreboard players operation #swap_resource dr_arg = @n[type=interaction,distanc
 scoreboard players operation #give_count dr_arg = @n[type=interaction,distance=..0.5,tag=dr_resource] dr_count
 
 kill @e[type=interaction,distance=..0.5,tag=dr_resource]
+kill @e[type=item_display,distance=..0.5,tag=dr_resource]
 
 function derailed:item/place_new
 
