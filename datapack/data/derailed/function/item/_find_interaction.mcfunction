@@ -1,4 +1,4 @@
-# Tag the pile this player just clicked. Run as the player
+# Tag the placement this player just clicked. Run as the player
 #
 # Args: $(UUID)
 

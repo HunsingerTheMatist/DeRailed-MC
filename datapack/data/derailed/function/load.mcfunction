@@ -15,13 +15,13 @@ scoreboard objectives add dr_temp dummy "DeRailed Function-Local Scratch"
 # Item system
 scoreboard objectives add dr_count dummy "DeRailed Item Counts"
 
-# Owner id. Held by BOTH players and the markers/piles they create, so ownership
+# Owner id. Held by BOTH players and the markers/placements they create, so ownership
 #  is a direct score comparison with no macro and no proximity guess
 scoreboard objectives add dr_player_id dummy "DeRailed Owner Id"
 scoreboard players add $NextPid dr_var 0
 
-# Resource type, shared by markers, piles and held stacks
-scoreboard objectives add dr_resource dummy "DeRailed Resource Type"
+# Item type, shared by markers, placements and held stacks
+scoreboard objectives add dr_item dummy "DeRailed Item Type"
 
 # Config defaults
 execute unless score $HandCap dr_config matches 1.. run scoreboard players set $HandCap dr_config 3
@@ -30,14 +30,21 @@ execute unless score $BucketFillTicks dr_config matches 1.. run scoreboard playe
 # Offhand map enforcement stays off until the framebuffer map exists
 execute unless score $MapEnabled dr_config matches 0..1 run scoreboard players set $MapEnabled dr_config 0
 
+# Item ids are grouped so a single comparison tells the categories apart
+#    1-9    resources, which stack to $HandCap and are consumed
+#    10-19  equipment, carried one at a time, mining tools from $FirstTool up
+#    20+    anything else
 scoreboard players set $Wood dr_const 1
 scoreboard players set $Iron dr_const 2
 scoreboard players set $Rail dr_const 3
-scoreboard players set $Bucket dr_const 4
+scoreboard players set $Bucket dr_const 10
 
-scoreboard players set $ResourcePhysicalHeight dr_const 45
-scoreboard players set $ResourcePhysicalHeight2 dr_const 38
-scoreboard players set $ResourceBatchHeight dr_const 3
+scoreboard players set $LastResource dr_const 9
+scoreboard players set $FirstTool dr_const 11
+
+scoreboard players set $PlacementHeight dr_const 45
+scoreboard players set $SmallPlacementHeight dr_const 38
+scoreboard players set $BatchHeight dr_const 3
 scoreboard players set $RotationStep dr_const 90
 scoreboard players set $HalfTurn dr_const 180
 

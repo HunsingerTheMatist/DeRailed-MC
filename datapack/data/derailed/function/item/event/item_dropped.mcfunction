@@ -18,11 +18,11 @@ execute unless entity @p[distance=..10,tag=dr_current] run return run kill @s
 execute unless score @p[distance=..10,tag=dr_current] dr_count matches 1.. run return run kill @s
 
 scoreboard players operation #curr_player_id dr_arg = @p[distance=..10,tag=dr_current] dr_player_id
-scoreboard players operation #curr_resource dr_arg = @p[distance=..10,tag=dr_current] dr_resource
+scoreboard players operation #curr_item dr_arg = @p[distance=..10,tag=dr_current] dr_item
 
 # Get count from item
-execute store result score #curr_resource_count dr_arg run data get entity @s Item.count
-scoreboard players operation #curr_resource_count dr_arg < @p[distance=..10,tag=dr_current] dr_count
+execute store result score #curr_item_count dr_arg run data get entity @s Item.count
+scoreboard players operation #curr_item_count dr_arg < @p[distance=..10,tag=dr_current] dr_count
 
 scoreboard players set #swap_allowed dr_arg 0
 execute as @p[distance=..10,tag=dr_current] at @s align xyz positioned ~0.5 ~ ~0.5 run function derailed:item/try_place
