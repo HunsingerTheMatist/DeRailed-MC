@@ -1,0 +1,231 @@
+{
+  "format_version": "1.21.11",
+  "credit": "Made with Blockbench",
+  "textures": {
+    "planks": "derailed:item/oak_planks",
+    "log": "derailed:item/oak_log",
+    "particle": "derailed:item/oak_planks"
+  },
+  "elements": [
+    {
+      "name": "Wood Btm-4",
+      "from": [3.5, 0, 3.5],
+      "to": [6.25, 3, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
+      "faces": {
+        "north": {"uv": [10,  8, 13, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 5,  7,  8, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 9, 12, 12, 15], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [ 9,  0, 12,  9], "rotation": 270, "texture": "#log"},
+        "up":    {"uv": [ 3,  0,  6,  9], "rotation":   0, "texture": "#log"},
+        "down":  {"uv": [ 1,  0,  4,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Btm-3",
+      "from": [6.625, 0, 3.5],
+      "to": [9.375, 3, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
+      "faces": {
+        "north": {"uv": [ 3, 8,  6, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 5, 7,  8, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 9, 8, 12, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [11, 7, 14, 16], "rotation":  90, "texture": "#log"},
+        "up":    {"uv": [ 3, 7,  6, 16], "rotation": 180, "texture": "#log"},
+        "down":  {"uv": [ 7, 0, 10,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Btm-2",
+      "from": [9.75, 0, 3.5],
+      "to": [12.5, 3, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
+      "faces": {
+        "north": {"uv": [ 2,  4,  5,  7], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 4,  7,  7, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 1, 12,  4, 15], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [11,  0, 14,  9], "rotation": 270, "texture": "#log"},
+        "up":    {"uv": [ 2,  0,  5,  9], "rotation":   0, "texture": "#log"},
+        "down":  {"uv": [ 9,  0, 12,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Mid-3",
+      "from": [4.75, 3, 3.5],
+      "to": [7.5, 6, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
+      "faces": {
+        "north": {"uv": [ 5, 8,  8, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 5, 7,  8, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [10, 0, 13,  3], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [12, 7, 15, 16], "rotation":  90, "texture": "#log"},
+        "up":    {"uv": [ 3, 7,  6, 16], "rotation": 180, "texture": "#log"},
+        "down":  {"uv": [ 7, 0, 10,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Mid-2",
+      "from": [7.75, 3, 3.5],
+      "to": [10.5, 6, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
+      "faces": {
+        "north": {"uv": [ 4, 4,  7,  7], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 4, 7,  7, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 4, 8,  7, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [11, 7, 14, 16], "rotation":  90, "texture": "#log"},
+        "up":    {"uv": [ 3, 7,  6, 16], "rotation": 180, "texture": "#log"},
+        "down":  {"uv": [ 7, 0, 10,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Btm-4",
+      "from": [3.5, 6, 3.5],
+      "to": [6.25, 9, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 9, 8]},
+      "faces": {
+        "north": {"uv": [10,  8, 13, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 5,  7,  8, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 9, 12, 12, 15], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [ 9,  0, 12,  9], "rotation": 270, "texture": "#log"},
+        "up":    {"uv": [ 3,  0,  6,  9], "rotation":   0, "texture": "#log"},
+        "down":  {"uv": [ 1,  0,  4,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Btm-3",
+      "from": [6.625, 6, 3.5],
+      "to": [9.375, 9, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 9, 8]},
+      "faces": {
+        "north": {"uv": [ 3, 8,  6, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 5, 7,  8, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 9, 8, 12, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [11, 7, 14, 16], "rotation":  90, "texture": "#log"},
+        "up":    {"uv": [ 3, 7,  6, 16], "rotation": 180, "texture": "#log"},
+        "down":  {"uv": [ 7, 0, 10,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Btm-2",
+      "from": [9.75, 6, 3.5],
+      "to": [12.5, 9, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 9, 8]},
+      "faces": {
+        "north": {"uv": [ 2,  4,  5,  7], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 4,  7,  7, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 1, 12,  4, 15], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [11,  0, 14,  9], "rotation": 270, "texture": "#log"},
+        "up":    {"uv": [ 2,  0,  5,  9], "rotation":   0, "texture": "#log"},
+        "down":  {"uv": [ 9,  0, 12,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Mid-3",
+      "from": [4.75, 9, 3.5],
+      "to": [7.5, 12, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 9, 8]},
+      "faces": {
+        "north": {"uv": [ 5, 8,  8, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 5, 7,  8, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [10, 0, 13,  3], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [12, 7, 15, 16], "rotation":  90, "texture": "#log"},
+        "up":    {"uv": [ 3, 7,  6, 16], "rotation": 180, "texture": "#log"},
+        "down":  {"uv": [ 7, 0, 10,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Mid-2",
+      "from": [7.75, 9, 3.5],
+      "to": [10.5, 12, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 9, 8]},
+      "faces": {
+        "north": {"uv": [ 4, 4,  7,  7], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 4, 7,  7, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 4, 8,  7, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [11, 7, 14, 16], "rotation":  90, "texture": "#log"},
+        "up":    {"uv": [ 3, 7,  6, 16], "rotation": 180, "texture": "#log"},
+        "down":  {"uv": [ 7, 0, 10,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Btm-4",
+      "from": [3.5, 12, 3.5],
+      "to": [6.25, 15, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 15, 8]},
+      "faces": {
+        "north": {"uv": [10,  8, 13, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 5,  7,  8, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 9, 12, 12, 15], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [ 9,  0, 12,  9], "rotation": 270, "texture": "#log"},
+        "up":    {"uv": [ 3,  0,  6,  9], "rotation":   0, "texture": "#log"},
+        "down":  {"uv": [ 1,  0,  4,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Btm-3",
+      "from": [6.625, 12, 3.5],
+      "to": [9.375, 15, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 15, 8]},
+      "faces": {
+        "north": {"uv": [ 3, 8,  6, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 5, 7,  8, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 9, 8, 12, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [11, 7, 14, 16], "rotation":  90, "texture": "#log"},
+        "up":    {"uv": [ 3, 7,  6, 16], "rotation": 180, "texture": "#log"},
+        "down":  {"uv": [ 7, 0, 10,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Btm-2",
+      "from": [9.75, 12, 3.5],
+      "to": [12.5, 15, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 15, 8]},
+      "faces": {
+        "north": {"uv": [ 2,  4,  5,  7], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 4,  7,  7, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 1, 12,  4, 15], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [11,  0, 14,  9], "rotation": 270, "texture": "#log"},
+        "up":    {"uv": [ 2,  0,  5,  9], "rotation":   0, "texture": "#log"},
+        "down":  {"uv": [ 9,  0, 12,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Mid-3",
+      "from": [4.75, 15, 3.5],
+      "to": [7.5, 18, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 15, 8]},
+      "faces": {
+        "north": {"uv": [ 5, 8,  8, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 5, 7,  8, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [10, 0, 13,  3], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [12, 7, 15, 16], "rotation":  90, "texture": "#log"},
+        "up":    {"uv": [ 3, 7,  6, 16], "rotation": 180, "texture": "#log"},
+        "down":  {"uv": [ 7, 0, 10,  9], "rotation": 180, "texture": "#log"}
+      }
+    },
+    {
+      "name": "Wood Mid-2",
+      "from": [7.75, 15, 3.5],
+      "to": [10.5, 18, 12.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 15, 8]},
+      "faces": {
+        "north": {"uv": [ 4, 4,  7,  7], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "east":  {"uv": [ 4, 7,  7, 16], "rotation": 270, "texture": "#log"},
+        "south": {"uv": [ 4, 8,  7, 11], "rotation":   0, "texture": "#planks", "tintindex": 0},
+        "west":  {"uv": [11, 7, 14, 16], "rotation":  90, "texture": "#log"},
+        "up":    {"uv": [ 3, 7,  6, 16], "rotation": 180, "texture": "#log"},
+        "down":  {"uv": [ 7, 0, 10,  9], "rotation": 180, "texture": "#log"}
+      }
+    }
+  ],
+  "display": {
+    "gui":                   {"scale": [0.75, 0.75, 0.75], "rotation": [ 27, -35, 0], "translation": [0, -0.5,   0  ]},
+    "ground":                {"scale": [0.3 , 0.3 , 0.3 ], "rotation": [  0,   0, 0], "translation": [0,  0  ,   0  ]},
+    "fixed":                 {"scale": [2   , 2   , 2   ], "rotation": [-90,   0, 0], "translation": [0,  0  , -14  ]},
+    "firstperson_righthand": {"scale": [0.9 , 0.9 , 0.9 ], "rotation": [  0, -10, 0], "translation": [1,  5  ,   0  ]},
+    "firstperson_lefthand":  {"scale": [0.9 , 0.9 , 0.9 ], "rotation": [  0,  10, 0], "translation": [1,  5  ,   0  ]},
+    "thirdperson_righthand": {"scale": [0.7 , 0.7 , 0.7 ], "rotation": [ 90,   0, 0], "translation": [0,  3  ,   5.5]},
+    "thirdperson_lefthand":  {"scale": [0.7 , 0.7 , 0.7 ], "rotation": [ 90,   0, 0], "translation": [0,  3  ,   5.5]}
+  },
+  "_credit": "Oslypsis (edited by Hunsinger)"
+}

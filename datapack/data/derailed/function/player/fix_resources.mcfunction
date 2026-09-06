@@ -10,10 +10,13 @@ execute if score @s dr_resource matches ..0 run return run scoreboard players se
 execute store result storage derailed:macro resource int 1 run scoreboard players get @s dr_resource
 execute store result storage derailed:macro player_id int 1 run scoreboard players get @s dr_player_id
 execute store result storage derailed:macro stack_size int 1 run scoreboard players get @s dr_count
+
 execute if score @s dr_resource = $Wood dr_const run data modify storage derailed:macro resource_name set value "wood"
 execute if score @s dr_resource = $Iron dr_const run data modify storage derailed:macro resource_name set value "iron"
 execute if score @s dr_resource = $Rail dr_const run data modify storage derailed:macro resource_name set value "rail"
 execute if score @s dr_resource = $Bucket dr_const run data modify storage derailed:macro resource_name set value "bucket"
+execute if score @s dr_resource matches 10 run data modify storage derailed:macro resource_name set value "_small_wood"
+execute if score @s dr_resource matches 11 run data modify storage derailed:macro resource_name set value "_small_iron"
 
 data modify storage derailed:macro custom_model_data set value ""
 execute if score @s dr_resource = $Bucket dr_const if score #bucket_is_filled dr_var matches 1 run data modify storage derailed:macro custom_model_data set value "filled"

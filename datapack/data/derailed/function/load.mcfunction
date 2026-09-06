@@ -36,6 +36,7 @@ scoreboard players set $Rail dr_const 3
 scoreboard players set $Bucket dr_const 4
 
 scoreboard players set $ResourcePhysicalHeight dr_const 45
+scoreboard players set $ResourcePhysicalHeight2 dr_const 38
 scoreboard players set $ResourceBatchHeight dr_const 3
 scoreboard players set $RotationStep dr_const 90
 scoreboard players set $HalfTurn dr_const 180

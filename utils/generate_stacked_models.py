@@ -34,6 +34,8 @@ MODELS = ROOT / "resourcepack" / "assets" / "derailed" / "models" / "item"
 # (series name, pixels between layers, highest variant to emit)
 STACKS = (
     ("wood", 9, 3),
+    ("_small_wood", 6, 3),
+    ("_small_iron", 6, 3),
 )
 
 

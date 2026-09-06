@@ -6,11 +6,11 @@
 # The pile's scores are copied out rather than tested with `as`, which would
 #  hand the pile's identity to whatever gets called next
 
-# If the position isn't air no resource can be placed there
-execute unless block ~ ~ ~ air run \
+# If the position isn't a valid placement no resource can be placed there
+execute unless block ~ ~ ~ #derailed:valid_placements run \
     return fail
 
-tellraw @a "Is Air"
+tellraw @a "Valid place"
 # If there is no resource there then place always succeeds (unless searching for same resource type)
 execute if score #only_same_resource dr_arg matches 0 unless entity @n[type=interaction,distance=..0.5,tag=dr_resource] run \
     return run function derailed:item/place_new

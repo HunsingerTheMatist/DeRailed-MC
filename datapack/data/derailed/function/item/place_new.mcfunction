@@ -2,7 +2,9 @@
 # Run as the player, at the tile
 
 tellraw @a "Placing new stack"
-summon interaction ~ ~ ~ {width:0.7, height:0.5, response:true, Tags:["dr_resource"]}
+execute if score #curr_resource dr_arg matches 1..3 run function derailed:item/new_res_stack
+execute if score #curr_resource dr_arg matches 10.. run function derailed:item/new_res_stack
+execute if score #curr_resource dr_arg = $Bucket dr_const run function derailed:item/new_bucket_stack
 scoreboard players operation @n[type=interaction,distance=..0.5,tag=dr_resource] dr_resource = #curr_resource dr_arg
 scoreboard players operation @n[type=interaction,distance=..0.5,tag=dr_resource] dr_count = #curr_resource_count dr_arg
 

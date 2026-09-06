@@ -1,0 +1,15 @@
+Block hitbox sizes:
+# Pickles: 12x7x12
+# Copper golem: 10x14x10
+# Dried ghast: 10x10x10
+# Conduit: 6x11x6
+# Large amethyst: 10x7x10
+# Pickles2: 10x6x10
+#      Medium amethyst: 10x5x10
+# Small amethyst: 10x4x10
+# Turtle egg: 9x7x9
+# Dripstone: 6x11x6 (offset)
+# Head: 8x8x8
+# Lantern: 6x7x6 (6x9x6)
+# Flower pot: 6x6x6
+# Candles: 5x6x6 (offset)
