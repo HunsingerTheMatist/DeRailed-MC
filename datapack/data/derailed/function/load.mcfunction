@@ -23,9 +23,17 @@ scoreboard players add $NextPid dr_var 0
 # Item type, shared by markers, placements and held stacks
 scoreboard objectives add dr_item dummy "DeRailed Item Type"
 
+# Dash
+scoreboard objectives add dr_dash_cd dummy "DeRailed Dash Cooldown"
+scoreboard objectives add dr_dash_burst dummy "DeRailed Dash Burst"
+
 # Config defaults
 execute unless score $HandCap dr_config matches 1.. run scoreboard players set $HandCap dr_config 3
 execute unless score $BucketFillTicks dr_config matches 1.. run scoreboard players set $BucketFillTicks dr_config 40
+
+# Ticks the dash lasts, and how long until it can be used again
+execute unless score $DashBurst dr_config matches 1.. run scoreboard players set $DashBurst dr_config 4
+execute unless score $DashCooldown dr_config matches 1.. run scoreboard players set $DashCooldown dr_config 40
 
 # Offhand map enforcement stays off until the framebuffer map exists
 execute unless score $MapEnabled dr_config matches 0..1 run scoreboard players set $MapEnabled dr_config 0
