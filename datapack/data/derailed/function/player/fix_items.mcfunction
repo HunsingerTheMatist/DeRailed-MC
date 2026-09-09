@@ -11,12 +11,14 @@ execute store result storage derailed:macro item int 1 run scoreboard players ge
 execute store result storage derailed:macro player_id int 1 run scoreboard players get @s dr_player_id
 execute store result storage derailed:macro stack_size int 1 run scoreboard players get @s dr_count
 
-execute if score @s dr_item = $Wood dr_const run data modify storage derailed:macro item_name set value "wood"
-execute if score @s dr_item = $Iron dr_const run data modify storage derailed:macro item_name set value "iron"
-execute if score @s dr_item = $Rail dr_const run data modify storage derailed:macro item_name set value "rail"
-execute if score @s dr_item = $Bucket dr_const run data modify storage derailed:macro item_name set value "bucket"
-execute if score @s dr_item matches 4 run data modify storage derailed:macro item_name set value "_small_wood"
-execute if score @s dr_item matches 5 run data modify storage derailed:macro item_name set value "_small_iron"
+execute if score @s dr_item = $Wood dr_const run data modify storage derailed:macro item_name set value "derailed:wood"
+execute if score @s dr_item = $Iron dr_const run data modify storage derailed:macro item_name set value "derailed:iron"
+execute if score @s dr_item = $Rail dr_const run data modify storage derailed:macro item_name set value "derailed:rail"
+execute if score @s dr_item = $Axe dr_const run data modify storage derailed:macro item_name set value "minecraft:stone_axe"
+execute if score @s dr_item = $Pickaxe dr_const run data modify storage derailed:macro item_name set value "minecraft:stone_pickaxe"
+execute if score @s dr_item = $Bucket dr_const run data modify storage derailed:macro item_name set value "derailed:bucket"
+execute if score @s dr_item matches 4 run data modify storage derailed:macro item_name set value "derailed:_small_wood"
+execute if score @s dr_item matches 5 run data modify storage derailed:macro item_name set value "derailed:_small_iron"
 
 data modify storage derailed:macro custom_model_data set value ""
 execute if score @s dr_item = $Bucket dr_const if score #bucket_is_filled dr_var matches 1 run data modify storage derailed:macro custom_model_data set value "filled"

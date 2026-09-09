@@ -37,10 +37,13 @@ execute unless score $MapEnabled dr_config matches 0..1 run scoreboard players s
 scoreboard players set $Wood dr_const 1
 scoreboard players set $Iron dr_const 2
 scoreboard players set $Rail dr_const 3
-scoreboard players set $Bucket dr_const 10
+scoreboard players set $Axe dr_const 10
+scoreboard players set $Pickaxe dr_const 11
+scoreboard players set $Bucket dr_const 20
 
 scoreboard players set $LastResource dr_const 9
-scoreboard players set $FirstTool dr_const 11
+scoreboard players set $FirstTool dr_const 10
+scoreboard players set $LastTool dr_const 19
 
 scoreboard players set $PlacementHeight dr_const 45
 scoreboard players set $SmallPlacementHeight dr_const 38

@@ -2,8 +2,7 @@
 # Run as the player, at the tile
 
 tellraw @a "Placing new stack"
-execute if score #curr_item dr_arg <= $LastResource dr_const run function derailed:item/new_placement
-execute unless score #curr_item dr_arg <= $LastResource dr_const run function derailed:item/new_equipment_placement
+function derailed:item/new_placement
 scoreboard players operation @n[type=interaction,distance=..0.5,tag=dr_placement] dr_item = #curr_item dr_arg
 scoreboard players operation @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count = #curr_item_count dr_arg
 

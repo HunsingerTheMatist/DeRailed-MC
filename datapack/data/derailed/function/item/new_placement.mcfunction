@@ -1,3 +1,10 @@
 
-summon interaction ~ ~ ~ {width:0.626, height:0.376, Tags:["dr_placement"]}
-setblock ~ ~ ~ sea_pickle[pickles=2,waterlogged=false] strict
+execute if score #curr_item dr_arg <= $LastResource dr_const run \
+    return run function derailed:item/_new_resource_placement
+execute if score #curr_item dr_arg >= $FirstTool dr_const if score #curr_item dr_arg <= $LastTool dr_const run \
+    return run function derailed:item/_new_tool_placement
+execute if score #curr_item dr_arg = $Bucket dr_const run \
+    return run function derailed:item/_new_bucket_placement
+
+#TODO: Make this error more descriptive
+tellraw @a "Error!"

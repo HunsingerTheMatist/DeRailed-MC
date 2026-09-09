@@ -11,7 +11,7 @@ scoreboard players set #hand_ok dr_temp 0
 execute if score #hand_count dr_temp = @s dr_count if score #hand_type dr_temp = @s dr_item run scoreboard players set #hand_ok dr_temp 1
 execute if score @s dr_count matches 0 if score #hand_count dr_temp matches 0 run scoreboard players set #hand_ok dr_temp 1
 
-execute if score #hand_ok dr_temp matches 0 run tellraw @a [{text:"[inv] ",color:"gold"},{selector:"@s"},{text:" hand "},{score:{name:"#hand_count",objective:"dr_temp"},color:"red"},{text:" of type "},{score:{name:"#hand_type",objective:"dr_temp"},color:"red"},{text:" but record says "},{score:{name:"@s",objective:"dr_count"},color:"green"},{text:" of type "},{score:{name:"@s",objective:"dr_placement"},color:"green"}]
+execute if score #hand_ok dr_temp matches 0 run tellraw @a [{text:"[inv] ",color:"gold"},{selector:"@s"},{text:" hand "},{score:{name:"#hand_count",objective:"dr_temp"},color:"red"},{text:" of type "},{score:{name:"#hand_type",objective:"dr_temp"},color:"red"},{text:" but record says "},{score:{name:"@s",objective:"dr_count"},color:"green"},{text:" of type "},{score:{name:"@s",objective:"dr_item"},color:"green"}]
 execute if score #hand_ok dr_temp matches 0 run function derailed:player/fix_items
 
 # If the map check is enabled and the offhand does not hold exactly the one map,
