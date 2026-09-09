@@ -8,5 +8,25 @@
     "replace": true,
     "sounds": ["step/stone1", "step/stone2", "step/stone3", "step/stone4", "step/stone5", "step/stone6"],
     "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.glass.break": {
+    "replace": true,
+    "sounds": ["dig/wood1", "dig/wood2", "dig/wood3", "dig/wood4"],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.glass.hit": {
+    "replace": true,
+    "sounds": ["step/wood1", "step/wood2", "step/wood3", "step/wood4", "step/wood5", "step/wood6"],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.grass.break": {
+    "replace": true,
+    "sounds": ["dig/wood1", "dig/wood2", "dig/wood3", "dig/wood4"],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.grass.hit": {
+    "replace": true,
+    "sounds": ["step/wood1", "step/wood2", "step/wood3", "step/wood4", "step/wood5", "step/wood6"],
+    "subtitle": "subtitles.block.generic.hit"
   }
 }
