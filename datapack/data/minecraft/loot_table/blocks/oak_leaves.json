@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat_seeds",
+          "conditions": [
+            {
+              "condition": "block_state_property",
+              "block": "oak_leaves",
+              "properties": {
+                "persistent": "true"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{dr_mined:{item:4,stage:1}}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat_seeds",
+          "conditions": [
+            {
+              "condition": "block_state_property",
+              "block": "oak_leaves",
+              "properties": {
+                "persistent": "false"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{dr_mined:{item:4,stage:2}}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
