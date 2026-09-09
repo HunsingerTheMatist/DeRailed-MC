@@ -5,4 +5,4 @@
 # entity_data sets the owner on the marker this egg spawns
 # custom_data records the item type on the item itself
 
-$item replace entity @s weapon.mainhand with minecraft:panda_spawn_egg[entity_data={id:"marker",Tags:["dr_item"],data:{owner:$(player_id)}},custom_data={item:$(item)},custom_model_data={strings:[$(custom_model_data)]},item_model="derailed:$(item_name)"] $(stack_size)
+$item replace entity @s weapon.mainhand with minecraft:panda_spawn_egg[entity_data={id:"marker",Tags:["dr_item"],data:{owner:$(player_id)}},item_model="$(item_name)",custom_data={item:$(item)}$(extra_components)] $(stack_size)

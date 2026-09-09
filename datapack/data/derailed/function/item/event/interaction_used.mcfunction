@@ -13,6 +13,7 @@ function derailed:item/_find_interaction with entity @s
 
 scoreboard players operation #curr_player_id dr_arg = @s dr_player_id
 scoreboard players operation #curr_item dr_arg = @s dr_item
+execute store result score #curr_rotation dr_arg run data get entity @s Rotation[0] 1
 
 execute at @n[type=interaction,distance=..10,tag=dr_water,tag=dr_current] run \
     return run function derailed:item/event/interacted_water

@@ -19,6 +19,7 @@ execute unless score @p[distance=..10,tag=dr_current] dr_count matches 1.. run r
 
 scoreboard players operation #curr_player_id dr_arg = @p[distance=..10,tag=dr_current] dr_player_id
 scoreboard players operation #curr_item dr_arg = @p[distance=..10,tag=dr_current] dr_item
+execute store result score #curr_rotation dr_arg run data get entity @p[distance=..10,tag=dr_current] Rotation[0] 1
 
 # Get count from item
 execute store result score #curr_item_count dr_arg run data get entity @s Item.count

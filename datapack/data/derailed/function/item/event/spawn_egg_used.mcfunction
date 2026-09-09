@@ -14,6 +14,7 @@ scoreboard players operation #curr_player_id dr_arg = @s dr_player_id
 tag @e[type=marker,distance=..10,tag=dr_item] remove dr_current
 execute as @e[type=marker,distance=..10,tag=dr_item] if score @s dr_player_id = #curr_player_id dr_arg run tag @s add dr_current
 scoreboard players operation #curr_item dr_arg = @s dr_item
+execute store result score #curr_rotation dr_arg run data get entity @s Rotation[0] 1
 
 scoreboard players operation #curr_item_count dr_arg = @s dr_count
 
