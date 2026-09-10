@@ -29,7 +29,7 @@ scoreboard objectives add dr_dash_burst dummy "DeRailed Dash Burst"
 
 # Config defaults
 execute unless score $HandCap dr_config matches 1.. run scoreboard players set $HandCap dr_config 3
-execute unless score $BucketFillTicks dr_config matches 1.. run scoreboard players set $BucketFillTicks dr_config 40
+execute unless score $BucketFillTicks dr_config matches 1.. run scoreboard players set $BucketFillTicks dr_config 20
 
 # Ticks the dash lasts, and how long until it can be used again
 execute unless score $DashBurst dr_config matches 1.. run scoreboard players set $DashBurst dr_config 4
