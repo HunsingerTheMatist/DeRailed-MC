@@ -1,0 +1,10 @@
+{
+    "multipart": [
+        {
+            "apply": { "model": "minecraft:block/scaffolding_stable" }
+        },
+        {
+            "apply": { "model": "derailed:block/fake_water" }
+        }
+    ]
+}

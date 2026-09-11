@@ -1,0 +1,16 @@
+{
+    "multipart": [
+        {
+            "when": { "bottom": "false" },
+            "apply": { "model": "minecraft:block/scaffolding_stable" }
+        },
+        {
+            "when": { "bottom": "true" },
+            "apply": { "model": "minecraft:block/scaffolding_unstable" }
+        },
+        {
+            "when": { "waterlogged": "true" },
+            "apply": { "model": "derailed:block/fake_water" }
+        }
+    ]
+}

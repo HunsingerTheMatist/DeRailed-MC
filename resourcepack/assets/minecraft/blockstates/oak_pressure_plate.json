@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "derailed:block/fake_water" }
+    }
+}
