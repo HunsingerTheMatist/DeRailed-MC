@@ -1,0 +1,6 @@
+{
+	"parent": "derailed:block/trees/oak_tree1",
+	"textures": {
+		"particle": "derailed:block/transparent"
+	}
+}

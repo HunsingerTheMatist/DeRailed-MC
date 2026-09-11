@@ -4,7 +4,7 @@
 	"textures": {
 		"log": "block/spruce_log",
 		"leaves": "derailed:block/spruce_sapling_leaves",
-		"particle": "block/spruce_sapling"
+		"particle": "derailed:block/oak_spruce_particles"
 	},
 	"elements": [
 		{
@@ -25,12 +25,12 @@
 			"to": [12, 12, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [3, 10.5, 3]},
 			"faces": {
-				"north": {"uv": [2, 1.5, 6, 3.5], "texture": "#leaves", "tintindex": 0},
-				"east": {"uv": [2, 1.5, 6, 3.5], "texture": "#leaves", "tintindex": 0},
-				"south": {"uv": [2, 1.5, 6, 3.5], "texture": "#leaves", "tintindex": 0},
-				"west": {"uv": [2, 1.5, 6, 3.5], "texture": "#leaves", "tintindex": 0},
-				"up": {"uv": [2, 2, 6, 6], "texture": "#leaves", "tintindex": 0},
-				"down": {"uv": [2, 2, 6, 6], "texture": "#leaves", "tintindex": 0}
+				"north": {"uv": [2, 1.5, 6, 3.5], "texture": "#leaves"},
+				"east": {"uv": [2, 1.5, 6, 3.5], "texture": "#leaves"},
+				"south": {"uv": [2, 1.5, 6, 3.5], "texture": "#leaves"},
+				"west": {"uv": [2, 1.5, 6, 3.5], "texture": "#leaves"},
+				"up": {"uv": [2, 2, 6, 6], "texture": "#leaves"},
+				"down": {"uv": [2, 2, 6, 6], "texture": "#leaves"}
 			}
 		},
 		{
@@ -38,12 +38,12 @@
 			"to": [10, 15, 10],
 			"rotation": {"angle": 0, "axis": "y", "origin": [3, 10.5, 3]},
 			"faces": {
-				"north": {"uv": [3, 0, 5, 1.5], "texture": "#leaves", "tintindex": 0},
-				"east": {"uv": [3, 0, 5, 1.5], "texture": "#leaves", "tintindex": 0},
-				"south": {"uv": [3, 0, 5, 1.5], "texture": "#leaves", "tintindex": 0},
-				"west": {"uv": [3, 0, 5, 1.5], "texture": "#leaves", "tintindex": 0},
-				"up": {"uv": [3, 3, 5, 5], "texture": "#leaves", "tintindex": 0},
-				"down": {"uv": [3, 3, 5, 5], "texture": "#leaves", "tintindex": 0}
+				"north": {"uv": [3, 0, 5, 1.5], "texture": "#leaves"},
+				"east": {"uv": [3, 0, 5, 1.5], "texture": "#leaves"},
+				"south": {"uv": [3, 0, 5, 1.5], "texture": "#leaves"},
+				"west": {"uv": [3, 0, 5, 1.5], "texture": "#leaves"},
+				"up": {"uv": [3, 3, 5, 5], "texture": "#leaves"},
+				"down": {"uv": [3, 3, 5, 5], "texture": "#leaves"}
 			}
 		}
 	]
