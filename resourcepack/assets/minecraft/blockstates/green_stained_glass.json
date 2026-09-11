@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "": [
-      { "model": "derailed:block/oak_tree3" },
-      { "model": "derailed:block/spruce_tree3" }
-    ]
-  }
-}
