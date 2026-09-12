@@ -39,7 +39,7 @@ matters because mining time is `ceil(hardness * 30 / speed)`.
 | Stained Glass  | 0.3 | 16 | nothing odd at all |
 | Glass          | 0.3 | 1  | |
 | Tinted Glass   | 0.3 | 1  | |
-| Leaves         | 0.2 | 12 | decays unless `persistent=true` |
+| Leaves         | 0.2 | 11 | decays unless `persistent=true` |
 | Mangrove Roots | 0.7 | 1  | waterloggable |
 | Copper Grate   | 3   | 4 oxidation stages, 4 waxed | |
 | Ice            | 0.5 | 1  | slippery, melts near light |
@@ -83,7 +83,7 @@ behaviour - `isValidSpawn`, `isRedstoneConductor`, `isSuffocating` and
 `isViewBlocking` are all set to never, so standing inside one does nothing.
 Add `glass` and `tinted_glass` and that is 18 blocks from one family.
 
-Leaves are the next best and add another 12, at the cost of remembering
+Leaves are the next best and add another 11, at the cost of remembering
 `persistent=true` on every placement - a leaf block placed without it disappears
 on its own once it is more than six blocks from a log.
 
@@ -112,12 +112,12 @@ mechanism that `randomTickSpeed 0` has no effect on.
 | family | ids | usable states | total |
 |---|---|---|---|
 | Stained Glass + Glass + Tinted Glass | 18 | none | **18** |
-| Leaves | 12 | `persistent` x2 | **24** |
+| Leaves | 11 | `persistent` x2 | **22** |
 | Copper Grate | 8 | - | **8** |
 | Mangrove Roots | 1 | - | **1** |
 | Sniffer Egg | 1 | - | **1** |
 
-Roughly 50, and that is the ceiling. Leaves, mangrove roots and copper grate are
+Fifty exactly, and that is the ceiling. Leaves, mangrove roots and copper grate are
 all waterloggable, which would double each of them, but breaking a waterlogged
 block leaves the water source behind. Clearing it after the fact does not help:
 a mined block is only noticed once its marker seed appears, so the water is

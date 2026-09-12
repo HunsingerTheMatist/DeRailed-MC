@@ -59,6 +59,8 @@ scoreboard players set $BatchHeight dr_const 3
 scoreboard players set $RotationStep dr_const 90
 scoreboard players set $HalfTurn dr_const 180
 
+gamerule random_tick_speed 0
+
 # Set the current version
 data modify storage derailed:data Version set value "0.1"
 
