@@ -1,0 +1,6 @@
+{
+	"parent": "derailed:block/stone/iron_ore_ow1",
+	"textures": {
+		"particle": "derailed:block/transparent"
+	}
+}

@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "derailed:block/stone/iron_ore_ow1"
+      },
+      {
+        "model": "derailed:block/stone/iron_ore_ow1_2"
+      }
+    ]
+  }
+}

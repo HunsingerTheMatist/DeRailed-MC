@@ -1,0 +1,150 @@
+{
+    "_comment": "Source of truth for mineable resource blocks. Run generate_resource_blocks.py to build the loot tables, blockstates, block tags and mined-block dispatch from this file. Nothing it generates should be hand-edited.",
+
+    "hardness_families": {
+        "_comment": "Every block a resource_block object may draw on, grouped by vanilla hardness. Mining time is ceil(hardness * 30 / speed), so tool speeds are solved per family from each resource type's stage_ticks. Blocks below the blank line are spare - nothing generates for a block until a resource_block object uses it.",
+        "leaves": {
+            "hardness": 0.2,
+            "blocks": [
+                "acacia_leaves",
+                "azalea_leaves",
+                "birch_leaves",
+                "cherry_leaves",
+                "dark_oak_leaves",
+                "flowering_azalea_leaves",
+                "jungle_leaves",
+                "oak_leaves",
+
+                "mangrove_leaves",
+                "pale_oak_leaves",
+                "spruce_leaves"
+            ]
+        },
+        "glass": {
+            "hardness": 0.3,
+            "blocks": [
+                "black_stained_glass",
+                "blue_stained_glass",
+                "brown_stained_glass",
+                "cyan_stained_glass",
+                "gray_stained_glass",
+                "green_stained_glass",
+                "light_blue_stained_glass",
+                "light_gray_stained_glass",
+                "lime_stained_glass",
+                "magenta_stained_glass",
+                "orange_stained_glass",
+                "pink_stained_glass",
+                "purple_stained_glass",
+                "red_stained_glass",
+                "white_stained_glass",
+                "yellow_stained_glass",
+                "glass",
+                "tinted_glass"
+            ]
+        },
+        "iron_ore": {
+            "hardness": 1,
+            "blocks": [
+                "emerald_ore",
+                "iron_ore"
+            ]
+        }
+    },
+
+    "resource_types": {
+        "_comment": "category names the folder this resource's block tags and models live under, so the two cannot drift apart.",
+        "wood": {
+            "id": "$Wood",
+            "category": "trees",
+            "stage_ticks": 13
+        },
+        "iron": {
+            "id": "$Iron",
+            "category": "stone",
+            "stage_ticks": 13
+        }
+    },
+
+    "_resource_blocks_comment": "Stage 0 spends one state of a locked leaf, so a single locked id covers four biomes. Stages 1 to 3 take three states of one mineable leaf, so that leaf belongs to exactly one biome. A locked id is never a mineable stage anywhere, because a tool rule takes a block tag and a tag cannot see state.",
+
+    "resource_blocks": [
+        {
+            "biome": 1,
+            "resource_type": "wood",
+            "model_names": ["oak_tree", "spruce_tree"],
+            "stages": [
+                {"block": "acacia_leaves[persistent=true,waterlogged=false]",   "model_id": 0, "mineable": false},
+                {"block": "azalea_leaves[persistent=true,waterlogged=false]",   "model_id": 1},
+                {"block": "azalea_leaves[persistent=false,waterlogged=false]",  "model_id": 2},
+                {"block": "azalea_leaves[persistent=true,waterlogged=true]",    "model_id": 3}
+            ]
+        },
+        {
+            "biome": 2,
+            "resource_type": "wood",
+            "model_names": [],
+            "stages": [
+                {"block": "acacia_leaves[persistent=false,waterlogged=false]", "model_id": 0, "mineable": false},
+                {"block": "birch_leaves[persistent=true,waterlogged=false]",   "model_id": 1},
+                {"block": "birch_leaves[persistent=false,waterlogged=false]",  "model_id": 2},
+                {"block": "birch_leaves[persistent=true,waterlogged=true]",    "model_id": 3}
+            ]
+        },
+        {
+            "biome": 3,
+            "resource_type": "wood",
+            "model_names": [],
+            "stages": [
+                {"block": "acacia_leaves[persistent=true,waterlogged=true]",    "model_id": 0, "mineable": false},
+                {"block": "cherry_leaves[persistent=true,waterlogged=false]",   "model_id": 1},
+                {"block": "cherry_leaves[persistent=false,waterlogged=false]",  "model_id": 2},
+                {"block": "cherry_leaves[persistent=true,waterlogged=true]",    "model_id": 3}
+            ]
+        },
+        {
+            "biome": 4,
+            "resource_type": "wood",
+            "model_names": [],
+            "stages": [
+                {"block": "acacia_leaves[persistent=false,waterlogged=true]",     "model_id": 0, "mineable": false},
+                {"block": "dark_oak_leaves[persistent=true,waterlogged=false]",   "model_id": 1},
+                {"block": "dark_oak_leaves[persistent=false,waterlogged=false]",  "model_id": 2},
+                {"block": "dark_oak_leaves[persistent=true,waterlogged=true]",    "model_id": 3}
+            ]
+        },
+        {
+            "biome": 5,
+            "resource_type": "wood",
+            "model_names": [],
+            "stages": [
+                {"block": "oak_leaves[persistent=true,waterlogged=false]",                "model_id": 0, "mineable": false},
+                {"block": "flowering_azalea_leaves[persistent=true,waterlogged=false]",   "model_id": 1},
+                {"block": "flowering_azalea_leaves[persistent=false,waterlogged=false]",  "model_id": 2},
+                {"block": "flowering_azalea_leaves[persistent=true,waterlogged=true]",    "model_id": 3}
+            ]
+        },
+        {
+            "biome": 6,
+            "resource_type": "wood",
+            "model_names": [],
+            "stages": [
+                {"block": "oak_leaves[persistent=false,waterlogged=false]",    "model_id": 0, "mineable": false},
+                {"block": "jungle_leaves[persistent=true,waterlogged=false]",  "model_id": 1},
+                {"block": "jungle_leaves[persistent=false,waterlogged=false]", "model_id": 2},
+                {"block": "jungle_leaves[persistent=true,waterlogged=true]",   "model_id": 3}
+            ]
+        },
+        {
+            "biome": 1,
+            "resource_type": "iron",
+            "model_names": ["iron_ore_ow"],
+            "stages": [
+                {"block": "emerald_ore",          "model_id": 0, "mineable": false},
+                {"block": "iron_ore",             "model_id": 1},
+                {"block": "black_stained_glass",  "model_id": 2},
+                {"block": "blue_stained_glass",   "model_id": 3}
+            ]
+        }
+    ]
+}
