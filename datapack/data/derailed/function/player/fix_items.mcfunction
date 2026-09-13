@@ -11,12 +11,19 @@ execute store result storage derailed:macro item int 1 run scoreboard players ge
 execute store result storage derailed:macro player_id int 1 run scoreboard players get @s dr_player_id
 execute store result storage derailed:macro stack_size int 1 run scoreboard players get @s dr_count
 
-execute if score @s dr_item = $Wood dr_const run data modify storage derailed:macro item_name set value "derailed:wood"
-execute if score @s dr_item = $Iron dr_const run data modify storage derailed:macro item_name set value "derailed:iron"
-execute if score @s dr_item = $Rail dr_const run data modify storage derailed:macro item_name set value "derailed:rail"
-execute if score @s dr_item = $Axe dr_const run data modify storage derailed:macro item_name set value "minecraft:stone_axe"
-execute if score @s dr_item = $Pickaxe dr_const run data modify storage derailed:macro item_name set value "minecraft:stone_pickaxe"
-execute if score @s dr_item = $Bucket dr_const run data modify storage derailed:macro item_name set value "derailed:bucket"
+execute if score @s dr_item = $Wood dr_const run data modify storage derailed:macro item_model set value "derailed:wood"
+execute if score @s dr_item = $Iron dr_const run data modify storage derailed:macro item_model set value "derailed:iron"
+execute if score @s dr_item = $Rail dr_const run data modify storage derailed:macro item_model set value "derailed:rail"
+execute if score @s dr_item = $Axe dr_const run data modify storage derailed:macro item_model set value "minecraft:stone_axe"
+execute if score @s dr_item = $Pickaxe dr_const run data modify storage derailed:macro item_model set value "minecraft:stone_pickaxe"
+execute if score @s dr_item = $Bucket dr_const run data modify storage derailed:macro item_model set value "derailed:bucket"
+
+execute if score @s dr_item = $Wood dr_const run data modify storage derailed:macro item_name set value "Wood"
+execute if score @s dr_item = $Iron dr_const run data modify storage derailed:macro item_name set value "Iron"
+execute if score @s dr_item = $Rail dr_const run data modify storage derailed:macro item_name set value "Rail"
+execute if score @s dr_item = $Axe dr_const run data modify storage derailed:macro item_name set value "Stone Axe"
+execute if score @s dr_item = $Pickaxe dr_const run data modify storage derailed:macro item_name set value "Stone Pickaxe"
+execute if score @s dr_item = $Bucket dr_const run data modify storage derailed:macro item_name set value "Bucket"
 
 #give @a acacia_boat[tool={default_mining_speed:0,rules:[{blocks:'#leaves',speed:0.48,correct_for_drops:true},{blocks:'#derailed:glass',speed:0.7,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]]
 #give @a acacia_boat[tool={default_mining_speed:0,rules:[{blocks:'#derailed:stone/mineable_glass',speed:0.3,correct_for_drops:true},{blocks:'iron_ore',speed:2.3,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]]
