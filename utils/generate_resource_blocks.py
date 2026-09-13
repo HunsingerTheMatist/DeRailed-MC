@@ -3,15 +3,17 @@ Builds every artifact that describes a mineable resource block from the single
 source of truth in resource_blocks.json:
 
   datapack/data/minecraft/loot_table/blocks/<block>.json
-      The seed each stage drops, stamped with the resource block index and the
-      stage that dropped it. Nothing else reports a broken block to a datapack.
+      The seed each stage drops, stamped with the resource type, the biome and
+      the stage it came from. Nothing else reports a broken block to a datapack.
   datapack/data/derailed/tags/block/<category>/mineable_<family>.json
       One tag per tool rule, so a rule can carry the speed that family needs.
   datapack/data/derailed/tags/block/<category>/unmineable.json
       Stage 0 blocks, which no tool may mine until reachability unlocks them.
       Rolled up with the mineable tags into <category>/all.json.
   datapack/data/derailed/function/generated/mined/*.mcfunction
-      Two-layer dispatch: block index picks the file, stage picks the line.
+      Three-layer dispatch: resource type, then biome, then stage. A seed names
+      its chain by resource type and biome rather than by an entry's position,
+      so reordering entries leaves an already placed block meaning the same.
   resourcepack/assets/minecraft/blockstates/<block>.json
       Each stage's model, one random variant per entry in model_names. The
       models themselves are hand-made and live under
@@ -128,9 +130,24 @@ def family_of(families, block_id):
     return None
 
 
-def describe(index, entry):
-    """How an entry is named in warnings, since entries carry no name field"""
-    return "resource_blocks[%d] (biome %s, %s)" % (index, entry["biome"], entry["resource_type"])
+def entry_name(types, entry):
+    """What an entry is called wherever a name is needed - its category and the
+    biome it belongs to, so 'tree3' reads as biome 3's trees"""
+    return "%s%s" % (types[entry["resource_type"]]["category"], entry["biome"])
+
+
+def resource_number(types, resource_ids, entry):
+    """The dr_const value standing for this entry's resource type
+
+    A seed records this and the biome rather than the entry's position, so
+    inserting or reordering a biome cannot change what an already placed block
+    means"""
+    return resource_ids[types[entry["resource_type"]]["id"]]
+
+
+def describe(types, entry):
+    """How an entry is named in warnings"""
+    return "%s (biome %s, %s)" % (entry_name(types, entry), entry["biome"], entry["resource_type"])
 
 
 def stage_models(types, entry, stage):
@@ -153,13 +170,26 @@ def validate(families, types, blocks, resource_ids, warn):
     #  lands on it has to agree about what it is
     role = {}
     owner = {}
-    for index, entry in enumerate(blocks):
-        label = describe(index, entry)
+    seen_ids = {}
+    for entry in blocks:
         resource = entry["resource_type"]
         if resource not in types:
-            raise SourceError("%s uses undeclared resource_type %r" % (label, resource))
+            raise SourceError("the biome %s entry uses undeclared resource_type %r"
+                              % (entry["biome"], resource))
         if types[resource]["id"] not in resource_ids:
-            raise SourceError("%s: %s is not set in load.mcfunction" % (label, types[resource]["id"]))
+            raise SourceError("%s: %s is not set in load.mcfunction"
+                              % (describe(types, entry), types[resource]["id"]))
+
+        label = describe(types, entry)
+
+        # A resource type and biome pair names a chain in every seed already
+        #  lying in a world, so two entries answering to one would silently
+        #  reroute a mined block
+        if label in seen_ids:
+            raise SourceError("two entries are both %s - a resource type and biome pair may "
+                              "appear only once" % label)
+        seen_ids[label] = True
+
         if len(entry["stages"]) < 2:
             raise SourceError("%s needs a locked stage and at least one mineable stage" % label)
 
@@ -194,12 +224,12 @@ def validate(families, types, blocks, resource_ids, warn):
 
     # A model named by an entry but never drawn is a silent missing texture in
     #  game, so say so here instead
-    for index, entry in enumerate(blocks):
+    for entry in blocks:
         for stage in entry["stages"]:
             for path in stage_models(types, entry, stage):
                 if not (MODEL_DIR / (path + ".json")).is_file():
                     warn("%s references missing model derailed:block/%s"
-                         % (describe(index, entry), path))
+                         % (describe(types, entry), path))
 
 
 def solved_speed(hardness, ticks):
@@ -223,20 +253,21 @@ def solved_speed(hardness, ticks):
         "narrows as the tick count grows" % (MAX_SPEED_DECIMALS, hardness, ticks))
 
 
-def build_loot_tables(blocks, out):
+def build_loot_tables(types, resource_ids, blocks, out):
     """One loot table per block id, with an entry for every mineable stage that
     lands on it"""
     entries_by_block = defaultdict(list)
-    for index, entry in enumerate(blocks):
+    for entry in blocks:
         for stage_index, stage in enumerate(entry["stages"]):
             if not stage.get("mineable", True):
                 continue
             block_id, states = parse_block(stage["block"])
-            entries_by_block[block_id].append((states, index, stage_index))
+            entries_by_block[block_id].append(
+                (states, resource_number(types, resource_ids, entry), entry["biome"], stage_index))
 
     for block_id, stages in sorted(entries_by_block.items()):
         pool_entries = []
-        for states, index, stage_index in stages:
+        for states, resource, biome, stage_index in stages:
             pool_entry = {
                 "type": "minecraft:item",
                 "name": SEED_ITEM,
@@ -249,7 +280,7 @@ def build_loot_tables(blocks, out):
                 }]
             pool_entry["functions"] = [{
                 "function": "minecraft:set_custom_data",
-                "tag": "{dr_mined:{block:%d,stage:%d}}" % (index, stage_index),
+                "tag": "{dr_mined:{resource:%d,biome:%d,stage:%d}}" % (resource, biome, stage_index),
             }]
             pool_entries.append(pool_entry)
 
@@ -317,20 +348,39 @@ def build_tags(types, families, blocks, out):
         out[TAG_DIR / category / "all.json"] = {"values": sorted(tags)}
 
 
-def build_functions(types, blocks, out):
-    """Layer one dispatches on the resource block index, layer two on the stage
-    that was mined"""
+def build_functions(types, resource_ids, blocks, out):
+    """Three layers: the resource type picks a category file, the biome picks a
+    chain, the stage picks a line. Splitting them keeps each file short and lets
+    a seed be read without decoding anything"""
+    by_resource = defaultdict(list)
+    for entry in blocks:
+        by_resource[entry["resource_type"]].append(entry)
+
     lines = [
         GENERATED_HEADER,
-        "# Dispatches a mined block to its chain. Run as the seed, at the seed",
+        "# Sends a mined block to its resource type. Run as the seed, at the seed",
         "",
     ]
-    for index, entry in enumerate(blocks):
-        lines.append("execute if score #mined_block dr_temp matches %d run "
-                     "return run function derailed:generated/mined/block%d" % (index, index))
+    for resource in sorted(by_resource, key=lambda r: resource_ids[types[r]["id"]]):
+        lines.append("execute if score #mined_resource dr_temp matches %d run "
+                     "return run function derailed:generated/mined/%s"
+                     % (resource_ids[types[resource]["id"]], types[resource]["category"]))
     out[FUNCTION_DIR / "dispatch.mcfunction"] = lines
 
-    for index, entry in enumerate(blocks):
+    for resource, entries in sorted(by_resource.items()):
+        category = types[resource]["category"]
+        body = [
+            GENERATED_HEADER,
+            "# Sends a mined %s to its biome. Run as the seed, at the seed" % resource,
+            "",
+        ]
+        for entry in sorted(entries, key=lambda e: e["biome"]):
+            body.append("execute if score #mined_biome dr_temp matches %d run "
+                        "return run function derailed:generated/mined/%s"
+                        % (entry["biome"], entry_name(types, entry)))
+        out[FUNCTION_DIR / ("%s.mcfunction" % category)] = body
+
+    for entry in blocks:
         stages = entry["stages"]
         resource = entry["resource_type"]
         body = [
@@ -353,7 +403,7 @@ def build_functions(types, blocks, out):
             "scoreboard players set #curr_rotation dr_arg 0",
             "execute align xyz positioned ~0.5 ~ ~0.5 run function derailed:item/place_new",
         ]
-        out[FUNCTION_DIR / ("block%d.mcfunction" % index)] = body
+        out[FUNCTION_DIR / ("%s.mcfunction" % entry_name(types, entry))] = body
 
 
 def check_dangling_models(rendered, warn):
@@ -371,6 +421,17 @@ def check_dangling_models(rendered, warn):
             if not (MODEL_DIR / (ref + ".json")).is_file():
                 warn("%s references missing model derailed:block/%s"
                      % (path.relative_to(ROOT).as_posix(), ref))
+
+    # A model's parent is the same kind of reference and breaks the same way,
+    #  but only the parent - a textures entry spelled derailed:block/x names a
+    #  texture, not a model
+    for path in sorted(MODEL_DIR.rglob("*.json")):
+        parent = json.loads(path.read_text(encoding="utf-8")).get("parent", "")
+        if parent.startswith("derailed:block/"):
+            ref = parent[len("derailed:block/"):]
+            if not (MODEL_DIR / (ref + ".json")).is_file():
+                warn("%s has a missing parent %s"
+                     % (path.relative_to(ROOT).as_posix(), parent))
 
 
 def prune_empty_dirs(directory):
@@ -413,10 +474,10 @@ def main():
         return 1
 
     out = {}
-    build_loot_tables(blocks, out)
+    build_loot_tables(types, resource_ids, blocks, out)
     build_blockstates(types, blocks, out)
     build_tags(types, families, blocks, out)
-    build_functions(types, blocks, out)
+    build_functions(types, resource_ids, blocks, out)
 
     rendered = {path: render(path, content) for path, content in out.items()}
     new_paths = sorted(p.relative_to(ROOT).as_posix() for p in rendered)

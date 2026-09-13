@@ -20,7 +20,7 @@
           "functions": [
             {
               "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{block:0,stage:1}}"
+              "tag": "{dr_mined:{resource:1,biome:1,stage:1}}"
             }
           ]
         },
@@ -40,7 +40,7 @@
           "functions": [
             {
               "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{block:1,stage:1}}"
+              "tag": "{dr_mined:{resource:1,biome:2,stage:1}}"
             }
           ]
         },
@@ -60,7 +60,7 @@
           "functions": [
             {
               "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{block:2,stage:1}}"
+              "tag": "{dr_mined:{resource:1,biome:3,stage:1}}"
             }
           ]
         },
@@ -80,7 +80,7 @@
           "functions": [
             {
               "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{block:3,stage:1}}"
+              "tag": "{dr_mined:{resource:1,biome:4,stage:1}}"
             }
           ]
         }

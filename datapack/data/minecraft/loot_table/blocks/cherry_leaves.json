@@ -20,7 +20,7 @@
           "functions": [
             {
               "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{block:4,stage:1}}"
+              "tag": "{dr_mined:{resource:1,biome:5,stage:1}}"
             }
           ]
         },
@@ -40,7 +40,7 @@
           "functions": [
             {
               "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{block:5,stage:1}}"
+              "tag": "{dr_mined:{resource:1,biome:6,stage:1}}"
             }
           ]
         }

@@ -29,7 +29,7 @@ execute if score @s dr_item = $Bucket dr_const run data modify storage derailed:
 #give @a acacia_boat[tool={default_mining_speed:0,rules:[{blocks:'#derailed:stone/mineable_glass',speed:0.3,correct_for_drops:true},{blocks:'iron_ore',speed:2.3,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]]
 data modify storage derailed:macro extra_components set value ""
 execute if score @s dr_item = $Axe dr_const run \
-    data modify storage derailed:macro extra_components set value ",tool={default_mining_speed:0,rules:[{blocks:'#derailed:trees/mineable_glass',speed:0.7,correct_for_drops:true},{blocks:'#derailed:trees/mineable_leaves',speed:0.47,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]"
+    data modify storage derailed:macro extra_components set value ",tool={default_mining_speed:0,rules:[{blocks:'#derailed:tree/mineable_glass',speed:0.7,correct_for_drops:true},{blocks:'#derailed:tree/mineable_leaves',speed:0.47,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]"
 execute if score @s dr_item = $Pickaxe dr_const run \
     data modify storage derailed:macro extra_components set value ",tool={default_mining_speed:0,rules:[{blocks:'#derailed:stone/mineable_copper',speed:7,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]"
 execute if score @s dr_item = $Bucket dr_const if score #bucket_is_filled dr_var matches 1 run \

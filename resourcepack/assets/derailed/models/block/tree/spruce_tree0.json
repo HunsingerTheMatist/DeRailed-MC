@@ -1,5 +1,5 @@
 {
-	"parent": "derailed:block/trees/spruce_tree1",
+	"parent": "derailed:block/tree/spruce_tree1",
 	"textures": {
 		"particle": "derailed:block/transparent"
 	}

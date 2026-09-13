@@ -2,10 +2,10 @@
   "variants": {
     "persistent=true,waterlogged=false": [
       {
-        "model": "derailed:block/trees/oak_tree1"
+        "model": "derailed:block/tree/oak_tree1"
       },
       {
-        "model": "derailed:block/trees/spruce_tree1"
+        "model": "derailed:block/tree/spruce_tree1"
       }
     ]
   }

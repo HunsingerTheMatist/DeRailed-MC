@@ -83,7 +83,7 @@
         "_comment": "category names the folder this resource's block tags and models live under, so the two cannot drift apart.",
         "wood": {
             "id": "$Wood",
-            "category": "trees",
+            "category": "tree",
             "stage_ticks": 13
         },
         "iron": {

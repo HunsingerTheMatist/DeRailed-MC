@@ -10,7 +10,7 @@
           "functions": [
             {
               "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{block:6,stage:1}}"
+              "tag": "{dr_mined:{resource:2,biome:1,stage:1}}"
             }
           ]
         }
