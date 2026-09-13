@@ -53,8 +53,7 @@ scoreboard players set $LastResource dr_const 9
 scoreboard players set $FirstTool dr_const 10
 scoreboard players set $LastTool dr_const 19
 
-scoreboard players set $PlacementHeight dr_const 45
-scoreboard players set $SmallPlacementHeight dr_const 38
+scoreboard players set $PlacementHeight dr_const 38
 scoreboard players set $BatchHeight dr_const 3
 scoreboard players set $RotationStep dr_const 90
 scoreboard players set $HalfTurn dr_const 180

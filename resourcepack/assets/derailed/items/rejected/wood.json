@@ -7,16 +7,10 @@
       "type": "minecraft:range_dispatch",
       "property": "minecraft:count",
       "normalize": false,
-      "fallback": {"type": "minecraft:model", "model": "derailed:item/_small_wood1"},
+      "fallback": {"type": "minecraft:model", "model": "derailed:item/wood1"},
       "entries": [
-        {
-          "threshold": 2,
-          "model": {"type": "minecraft:model", "model": "derailed:item/_small_wood2"}
-        },
-        {
-          "threshold": 3,
-          "model": {"type": "minecraft:model", "model": "derailed:item/_small_wood3"}
-        }
+        {"threshold": 2, "model": {"type": "minecraft:model", "model": "derailed:item/wood2"}},
+        {"threshold": 3, "model": {"type": "minecraft:model", "model": "derailed:item/wood3"}}
       ]
     },
     "cases": [
@@ -28,7 +22,7 @@
           "normalize": false,
           "fallback": {
             "type": "minecraft:model",
-            "model": "derailed:item/_small_wood1",
+            "model": "derailed:item/wood1",
             "tints": [
               {"type": "minecraft:constant", "value": [0.75, 0.75, 0.75]}
             ]
@@ -38,7 +32,7 @@
               "threshold": 2,
               "model": {
                 "type": "minecraft:model",
-                "model": "derailed:item/_small_wood2",
+                "model": "derailed:item/wood2",
                 "tints": [
                   {"type": "minecraft:constant", "value": [0.75, 0.75, 0.75]}
                 ]
@@ -48,7 +42,7 @@
               "threshold": 3,
               "model": {
                 "type": "minecraft:model",
-                "model": "derailed:item/_small_wood3",
+                "model": "derailed:item/wood3",
                 "tints": [
                   {"type": "minecraft:constant", "value": [0.75, 0.75, 0.75]}
                 ]
