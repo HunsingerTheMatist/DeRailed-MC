@@ -44,7 +44,7 @@
             ]
         },
         "iron_ore": {
-            "hardness": 1,
+            "hardness": 3,
             "blocks": [
                 "emerald_ore",
                 "iron_ore"
