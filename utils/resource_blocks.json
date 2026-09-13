@@ -4,23 +4,25 @@
     "hardness_families": {
         "_comment": "Every block a resource_block object may draw on, grouped by vanilla hardness. Mining time is ceil(hardness * 30 / speed), so tool speeds are solved per family from each resource type's stage_ticks. Blocks below the blank line are spare - nothing generates for a block until a resource_block object uses it.",
         "leaves": {
+            "_comment": "A leaf carries four stage slots, persistent x waterlogged. Both properties hold still only because random_tick_speed is 0 - a persistent=false leaf with no log within six blocks is decaying, and decay calls dropResources, which would post a mined-block seed no player earned. A leaf is also a full collision block, so getShadeBrightness returns 0.2 and it darkens whatever sits beside it, which is why only the first two stages use one.",
             "hardness": 0.2,
             "blocks": [
                 "acacia_leaves",
                 "azalea_leaves",
-                "birch_leaves",
                 "cherry_leaves",
+                "oak_leaves",
+
+                "birch_leaves",
                 "dark_oak_leaves",
                 "flowering_azalea_leaves",
                 "jungle_leaves",
-                "oak_leaves",
-
                 "mangrove_leaves",
                 "pale_oak_leaves",
                 "spruce_leaves"
             ]
         },
         "glass": {
+            "_comment": "TransparentBlock overrides getShadeBrightness to 1.0, so unlike a leaf these never darken a neighbour. No usable state property, so one id is one stage slot. tinted_glass shares the 0.3 hardness but blocks light at opacity 15 where the rest are 0, so it is not a drop-in.",
             "hardness": 0.3,
             "blocks": [
                 "black_stained_glass",
@@ -35,6 +37,7 @@
                 "magenta_stained_glass",
                 "orange_stained_glass",
                 "pink_stained_glass",
+
                 "purple_stained_glass",
                 "red_stained_glass",
                 "white_stained_glass",
@@ -43,11 +46,35 @@
                 "tinted_glass"
             ]
         },
-        "iron_ore": {
+        "copper": {
+            "_comment": "All hardness 3. copper_block and cut_copper are opaque, so a stage on one has to fill its whole cube or the blocks around it lose their faces and the world shows through - fine for the full-cube early stages. copper_grate is noOcclusion and a WaterloggedTransparentBlock, so it neither occludes nor darkens, and its waterlogged property gives each id two stage slots. Oxidation is a random tick, so the unwaxed variants hold still only while random_tick_speed is 0.",
             "hardness": 3,
             "blocks": [
-                "emerald_ore",
-                "iron_ore"
+                "copper_block",
+                "cut_copper",
+                "copper_grate",
+
+                "exposed_copper_block",
+                "weathered_copper_block",
+                "oxidized_copper_block",
+                "waxed_copper_block",
+                "waxed_exposed_copper_block",
+                "waxed_weathered_copper_block",
+                "waxed_oxidized_copper_block",
+                "exposed_cut_copper",
+                "weathered_cut_copper",
+                "oxidized_cut_copper",
+                "waxed_cut_copper",
+                "waxed_exposed_cut_copper",
+                "waxed_weathered_cut_copper",
+                "waxed_oxidized_cut_copper",
+                "exposed_copper_grate",
+                "weathered_copper_grate",
+                "oxidized_copper_grate",
+                "waxed_copper_grate",
+                "waxed_exposed_copper_grate",
+                "waxed_weathered_copper_grate",
+                "waxed_oxidized_copper_grate"
             ]
         }
     },
@@ -66,7 +93,7 @@
         }
     },
 
-    "_resource_blocks_comment": "Stage 0 spends one state of a locked leaf, so a single locked id covers four biomes. Stages 1 to 3 take three states of one mineable leaf, so that leaf belongs to exactly one biome. A locked id is never a mineable stage anywhere, because a tool rule takes a block tag and a tag cannot see state.",
+    "_resource_blocks_comment": "A tree spends one state of a locked leaf on stage 0 and one state of a mineable leaf on stage 1, so a pair of leaf ids covers four biomes, then takes a glass id for each of stages 2 and 3. A locked id is never a mineable stage anywhere, because a tool rule takes a block tag and a tag cannot see state. model_suffixes lets a stage draw more than one random variant per name.",
 
     "resource_blocks": [
         {
@@ -74,10 +101,10 @@
             "resource_type": "wood",
             "model_names": ["oak_tree", "spruce_tree"],
             "stages": [
-                {"block": "acacia_leaves[persistent=true,waterlogged=false]",   "model_id": 0, "mineable": false},
-                {"block": "azalea_leaves[persistent=true,waterlogged=false]",   "model_id": 1},
-                {"block": "azalea_leaves[persistent=false,waterlogged=false]",  "model_id": 2},
-                {"block": "azalea_leaves[persistent=true,waterlogged=true]",    "model_id": 3}
+                {"block": "acacia_leaves[persistent=true,waterlogged=false]", "model_id": 0, "mineable": false},
+                {"block": "azalea_leaves[persistent=true,waterlogged=false]", "model_id": 1},
+                {"block": "black_stained_glass",                             "model_id": 2},
+                {"block": "blue_stained_glass",                              "model_id": 3}
             ]
         },
         {
@@ -86,9 +113,9 @@
             "model_names": [],
             "stages": [
                 {"block": "acacia_leaves[persistent=false,waterlogged=false]", "model_id": 0, "mineable": false},
-                {"block": "birch_leaves[persistent=true,waterlogged=false]",   "model_id": 1},
-                {"block": "birch_leaves[persistent=false,waterlogged=false]",  "model_id": 2},
-                {"block": "birch_leaves[persistent=true,waterlogged=true]",    "model_id": 3}
+                {"block": "azalea_leaves[persistent=false,waterlogged=false]", "model_id": 1},
+                {"block": "brown_stained_glass",                              "model_id": 2},
+                {"block": "cyan_stained_glass",                               "model_id": 3}
             ]
         },
         {
@@ -96,10 +123,10 @@
             "resource_type": "wood",
             "model_names": [],
             "stages": [
-                {"block": "acacia_leaves[persistent=true,waterlogged=true]",    "model_id": 0, "mineable": false},
-                {"block": "cherry_leaves[persistent=true,waterlogged=false]",   "model_id": 1},
-                {"block": "cherry_leaves[persistent=false,waterlogged=false]",  "model_id": 2},
-                {"block": "cherry_leaves[persistent=true,waterlogged=true]",    "model_id": 3}
+                {"block": "acacia_leaves[persistent=true,waterlogged=true]", "model_id": 0, "mineable": false},
+                {"block": "azalea_leaves[persistent=true,waterlogged=true]", "model_id": 1},
+                {"block": "gray_stained_glass",                             "model_id": 2},
+                {"block": "green_stained_glass",                            "model_id": 3}
             ]
         },
         {
@@ -107,10 +134,10 @@
             "resource_type": "wood",
             "model_names": [],
             "stages": [
-                {"block": "acacia_leaves[persistent=false,waterlogged=true]",     "model_id": 0, "mineable": false},
-                {"block": "dark_oak_leaves[persistent=true,waterlogged=false]",   "model_id": 1},
-                {"block": "dark_oak_leaves[persistent=false,waterlogged=false]",  "model_id": 2},
-                {"block": "dark_oak_leaves[persistent=true,waterlogged=true]",    "model_id": 3}
+                {"block": "acacia_leaves[persistent=false,waterlogged=true]", "model_id": 0, "mineable": false},
+                {"block": "azalea_leaves[persistent=false,waterlogged=true]", "model_id": 1},
+                {"block": "light_blue_stained_glass",                        "model_id": 2},
+                {"block": "light_gray_stained_glass",                        "model_id": 3}
             ]
         },
         {
@@ -118,10 +145,10 @@
             "resource_type": "wood",
             "model_names": [],
             "stages": [
-                {"block": "oak_leaves[persistent=true,waterlogged=false]",                "model_id": 0, "mineable": false},
-                {"block": "flowering_azalea_leaves[persistent=true,waterlogged=false]",   "model_id": 1},
-                {"block": "flowering_azalea_leaves[persistent=false,waterlogged=false]",  "model_id": 2},
-                {"block": "flowering_azalea_leaves[persistent=true,waterlogged=true]",    "model_id": 3}
+                {"block": "oak_leaves[persistent=true,waterlogged=false]",    "model_id": 0, "mineable": false},
+                {"block": "cherry_leaves[persistent=true,waterlogged=false]", "model_id": 1},
+                {"block": "lime_stained_glass",                               "model_id": 2},
+                {"block": "magenta_stained_glass",                            "model_id": 3}
             ]
         },
         {
@@ -130,9 +157,9 @@
             "model_names": [],
             "stages": [
                 {"block": "oak_leaves[persistent=false,waterlogged=false]",    "model_id": 0, "mineable": false},
-                {"block": "jungle_leaves[persistent=true,waterlogged=false]",  "model_id": 1},
-                {"block": "jungle_leaves[persistent=false,waterlogged=false]", "model_id": 2},
-                {"block": "jungle_leaves[persistent=true,waterlogged=true]",   "model_id": 3}
+                {"block": "cherry_leaves[persistent=false,waterlogged=false]", "model_id": 1},
+                {"block": "orange_stained_glass",                              "model_id": 2},
+                {"block": "pink_stained_glass",                                "model_id": 3}
             ]
         },
         {
@@ -140,10 +167,10 @@
             "resource_type": "iron",
             "model_names": ["iron_ore_ow"],
             "stages": [
-                {"block": "emerald_ore",          "model_id": 0, "mineable": false},
-                {"block": "iron_ore",             "model_id": 1},
-                {"block": "black_stained_glass",  "model_id": 2},
-                {"block": "blue_stained_glass",   "model_id": 3}
+                {"block": "copper_block",                    "model_id": 0, "mineable": false, "model_suffixes": ["", "_2", "_3"]},
+                {"block": "cut_copper",                      "model_id": 1, "model_suffixes": ["", "_2", "_3"]},
+                {"block": "copper_grate[waterlogged=false]", "model_id": 2},
+                {"block": "copper_grate[waterlogged=true]",  "model_id": 3}
             ]
         }
     ]

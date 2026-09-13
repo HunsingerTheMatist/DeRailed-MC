@@ -1,27 +1,11 @@
 {
   "variants": {
-    "persistent=false,waterlogged=false": [
-      {
-        "model": "derailed:block/trees/oak_tree2"
-      },
-      {
-        "model": "derailed:block/trees/spruce_tree2"
-      }
-    ],
     "persistent=true,waterlogged=false": [
       {
         "model": "derailed:block/trees/oak_tree1"
       },
       {
         "model": "derailed:block/trees/spruce_tree1"
-      }
-    ],
-    "persistent=true,waterlogged=true": [
-      {
-        "model": "derailed:block/trees/oak_tree3"
-      },
-      {
-        "model": "derailed:block/trees/spruce_tree3"
       }
     ]
   }

@@ -2,7 +2,10 @@
   "variants": {
     "": [
       {
-        "model": "derailed:block/stone/iron_ore_ow2"
+        "model": "derailed:block/trees/oak_tree2"
+      },
+      {
+        "model": "derailed:block/trees/spruce_tree2"
       }
     ]
   }

@@ -68,8 +68,8 @@ SEED_ITEM = "minecraft:wheat_seeds"
 # Vanilla's mining time formula, ceil(hardness * 30 / speed)
 TICKS_PER_HARDNESS = 30
 
-# How precisely a solved tool speed is written into the component
-SPEED_DECIMALS = 4
+# The most decimals a solved tool speed may use before the solver gives up
+MAX_SPEED_DECIMALS = 6
 
 BLOCK_SPEC = re.compile(r"^([a-z_]+)(?:\[([a-z_=,]+)\])?$")
 CONST_SETTER = re.compile(r"^scoreboard players set (\$\w+) dr_const (\d+)\s*$")
@@ -133,13 +133,17 @@ def describe(index, entry):
     return "resource_blocks[%d] (biome %s, %s)" % (index, entry["biome"], entry["resource_type"])
 
 
-def model_path(types, entry, stage, model_name):
-    """Where one of a stage's models lives, relative to derailed:block/
+def stage_models(types, entry, stage):
+    """Every model a stage draws, relative to derailed:block/
 
     The resource type's category names the folder, the same one its block tags
-    use, so a model and the tags describing it cannot end up apart"""
+    use, so a model and the tags describing it cannot end up apart. A stage that
+    wants more than one random variant per name lists model_suffixes, which keeps
+    model_names meaning one entry per species rather than one per variant"""
     category = types[entry["resource_type"]]["category"]
-    return "%s/%s%d" % (category, model_name, stage["model_id"])
+    return ["%s/%s%d%s" % (category, name, stage["model_id"], suffix)
+            for name in entry["model_names"]
+            for suffix in stage.get("model_suffixes", [""])]
 
 
 def validate(families, types, blocks, resource_ids, warn):
@@ -191,24 +195,32 @@ def validate(families, types, blocks, resource_ids, warn):
     # A model named by an entry but never drawn is a silent missing texture in
     #  game, so say so here instead
     for index, entry in enumerate(blocks):
-        for model_name in entry["model_names"]:
-            for stage in entry["stages"]:
-                path = model_path(types, entry, stage, model_name)
+        for stage in entry["stages"]:
+            for path in stage_models(types, entry, stage):
                 if not (MODEL_DIR / (path + ".json")).is_file():
                     warn("%s references missing model derailed:block/%s"
                          % (describe(index, entry), path))
 
 
 def solved_speed(hardness, ticks):
-    """The lowest tool speed that mines a block of this hardness in `ticks`
+    """The shortest tool speed that mines a block of this hardness in `ticks`
 
-    The exact speed is hardness * 30 / ticks, but it has to be written into a
-    component with a finite number of decimals. Rounding it down leaves the
-    division a hair above the tick it was solved for, and the formula's ceil
-    turns that hair into a whole extra tick, so the rounding goes up"""
+    Because the formula ceils, a whole range of speeds share a tick count -
+    every s with hardness * 30 / ticks <= s < hardness * 30 / (ticks - 1). So
+    rather than writing the exact quotient out to a fixed width, this walks
+    decimal places from none upward and takes the first value that lands inside
+    the window, which keeps the number in the tool rule readable. Rounding is
+    always up, since rounding down leaves the division a hair past the tick it
+    was solved for and the ceil turns that hair into a whole extra tick"""
     exact = hardness * TICKS_PER_HARDNESS / ticks
-    speed = math.ceil(exact * 10 ** SPEED_DECIMALS) / 10 ** SPEED_DECIMALS
-    return round(speed, SPEED_DECIMALS)
+    for decimals in range(MAX_SPEED_DECIMALS + 1):
+        scale = 10 ** decimals
+        speed = math.ceil(exact * scale) / scale
+        if speed > 0 and math.ceil(hardness * TICKS_PER_HARDNESS / speed) == ticks:
+            return int(speed) if decimals == 0 else round(speed, decimals)
+    raise SourceError(
+        "no speed within %d decimals mines hardness %s in %d ticks - the window "
+        "narrows as the tick count grows" % (MAX_SPEED_DECIMALS, hardness, ticks))
 
 
 def build_loot_tables(blocks, out):
@@ -257,8 +269,8 @@ def build_blockstates(types, blocks, out):
         for stage in entry["stages"]:
             block_id, states = parse_block(stage["block"])
             key = state_key(states)
-            models = [{"model": "derailed:block/" + model_path(types, entry, stage, model_name)}
-                      for model_name in entry["model_names"]]
+            models = [{"model": "derailed:block/" + path}
+                      for path in stage_models(types, entry, stage)]
             variants_by_block[block_id].setdefault(key, []).extend(models)
 
     for block_id, variants in sorted(variants_by_block.items()):

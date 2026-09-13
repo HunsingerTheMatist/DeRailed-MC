@@ -1,7 +1,6 @@
 {
   "values": [
-    "#derailed:stone/mineable_glass",
-    "#derailed:stone/mineable_iron_ore",
+    "#derailed:stone/mineable_copper",
     "#derailed:stone/unmineable"
   ]
 }
