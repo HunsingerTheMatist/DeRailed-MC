@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "axis=y": [
+      {
+        "model": "derailed:block/impenetrable_stone"
+      }
+    ],
+    "axis=x": [
+      {
+        "model": "derailed:block/impenetrable_stone2"
+      }
+    ],
+    "axis=z": [
+      {
+        "model": "derailed:block/impenetrable_stone3"
+      }
+    ]
+  }
+}
