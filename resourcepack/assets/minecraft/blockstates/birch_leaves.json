@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "persistent=true,waterlogged=false": [
+      {
+        "model": "derailed:block/tree/crimson_tree1"
+      },
+      {
+        "model": "derailed:block/tree/warped_tree1"
+      },
+      {
+        "model": "derailed:block/tree/crimson_tree1",
+        "y": 90
+      },
+      {
+        "model": "derailed:block/tree/warped_tree1",
+        "y": 90
+      },
+      {
+        "model": "derailed:block/tree/crimson_tree1",
+        "y": 180
+      },
+      {
+        "model": "derailed:block/tree/warped_tree1",
+        "y": 180
+      },
+      {
+        "model": "derailed:block/tree/crimson_tree1",
+        "y": 270
+      },
+      {
+        "model": "derailed:block/tree/warped_tree1",
+        "y": 270
+      }
+    ]
+  }
+}
