@@ -22,14 +22,9 @@ execute store success score #placement_found dr_temp run \
     data remove entity @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] interaction
 execute if score #placement_found dr_temp matches 0 run return fail
 
-# Taking needs both room in hand and an item that can go there. An empty hand
-#  takes anything; a full hand takes nothing and gives instead
-scoreboard players set #can_take dr_temp 0
-execute if score @s dr_count matches 0 run scoreboard players set #can_take dr_temp 1
-execute if score @s dr_item = @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] dr_item run scoreboard players set #can_take dr_temp 1
-execute if score @s dr_count >= $HandCap dr_config run scoreboard players set #can_take dr_temp 0
-
-execute if score #can_take dr_temp matches 1 run return run execute at @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] run function derailed:item/pickup
+# Pickup if the player has an empty hand
+execute if score @s dr_count matches 0 run \
+    return run execute at @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] run function derailed:item/pickup
 
 # Otherwise give what is held to the placement
 scoreboard players operation #curr_item_count dr_arg = @s dr_count
