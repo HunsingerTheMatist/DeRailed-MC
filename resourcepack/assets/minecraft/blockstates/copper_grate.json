@@ -3,6 +3,9 @@
     "waterlogged=false": [
       {
         "model": "derailed:block/stone/iron_ore_ow2"
+      },
+      {
+        "model": "derailed:block/stone/iron_ore_ow2_2"
       }
     ],
     "waterlogged=true": [

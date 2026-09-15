@@ -9,6 +9,18 @@
       },
       {
         "model": "derailed:block/stone/iron_ore_ow1_3"
+      },
+      {
+        "model": "derailed:block/stone/iron_ore_ow1",
+        "y": 180
+      },
+      {
+        "model": "derailed:block/stone/iron_ore_ow1_2",
+        "y": 180
+      },
+      {
+        "model": "derailed:block/stone/iron_ore_ow1_3",
+        "y": 180
       }
     ]
   }
