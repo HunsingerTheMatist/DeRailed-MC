@@ -7,12 +7,10 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:wheat_seeds",
-          "functions": [
-            {
-              "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{resource:1,biome:6,stage:3}}"
-            }
-          ]
+          "modifier": {
+            "type": "minecraft:set_custom_data",
+            "tag": "{dr_mined:{resource:1,biome:6,stage:3}}"
+          }
         }
       ]
     }

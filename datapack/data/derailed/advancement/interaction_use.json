@@ -4,7 +4,11 @@
           "trigger": "player_interacted_with_entity",
           "conditions": {
               "entity": {
-                  "entity_type": "interaction"
+                  "type": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                      "entity_type": "interaction"
+                  }
               }
           }
       }

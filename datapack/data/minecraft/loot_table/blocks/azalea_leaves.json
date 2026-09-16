@@ -7,82 +7,66 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:wheat_seeds",
-          "conditions": [
-            {
-              "condition": "minecraft:block_state_property",
-              "block": "minecraft:azalea_leaves",
-              "properties": {
-                "persistent": "true",
-                "waterlogged": "false"
-              }
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "minecraft:azalea_leaves",
+            "state": {
+              "persistent": "true",
+              "waterlogged": "false"
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{resource:1,biome:1,stage:1}}"
-            }
-          ]
+          },
+          "modifier": {
+            "type": "minecraft:set_custom_data",
+            "tag": "{dr_mined:{resource:1,biome:1,stage:1}}"
+          }
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:wheat_seeds",
-          "conditions": [
-            {
-              "condition": "minecraft:block_state_property",
-              "block": "minecraft:azalea_leaves",
-              "properties": {
-                "persistent": "false",
-                "waterlogged": "false"
-              }
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "minecraft:azalea_leaves",
+            "state": {
+              "persistent": "false",
+              "waterlogged": "false"
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{resource:1,biome:2,stage:1}}"
-            }
-          ]
+          },
+          "modifier": {
+            "type": "minecraft:set_custom_data",
+            "tag": "{dr_mined:{resource:1,biome:2,stage:1}}"
+          }
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:wheat_seeds",
-          "conditions": [
-            {
-              "condition": "minecraft:block_state_property",
-              "block": "minecraft:azalea_leaves",
-              "properties": {
-                "persistent": "true",
-                "waterlogged": "true"
-              }
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "minecraft:azalea_leaves",
+            "state": {
+              "persistent": "true",
+              "waterlogged": "true"
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{resource:1,biome:3,stage:1}}"
-            }
-          ]
+          },
+          "modifier": {
+            "type": "minecraft:set_custom_data",
+            "tag": "{dr_mined:{resource:1,biome:3,stage:1}}"
+          }
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:wheat_seeds",
-          "conditions": [
-            {
-              "condition": "minecraft:block_state_property",
-              "block": "minecraft:azalea_leaves",
-              "properties": {
-                "persistent": "false",
-                "waterlogged": "true"
-              }
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "minecraft:azalea_leaves",
+            "state": {
+              "persistent": "false",
+              "waterlogged": "true"
             }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_custom_data",
-              "tag": "{dr_mined:{resource:1,biome:4,stage:1}}"
-            }
-          ]
+          },
+          "modifier": {
+            "type": "minecraft:set_custom_data",
+            "tag": "{dr_mined:{resource:1,biome:4,stage:1}}"
+          }
         }
       ]
     }

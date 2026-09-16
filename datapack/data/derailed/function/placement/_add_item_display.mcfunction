@@ -17,7 +17,7 @@ execute if score #curr_item dr_arg = $Rail dr_const run \
 
 execute if score #curr_item dr_arg = $Bucket dr_const run \
     summon minecraft:item_display ~ ~ ~ {item: {id:"bucket",     components: {item_model:"derailed:bucket"}}, transformation: {left_rotation:[0,0,0,1], right_rotation:[0,0,0,1], scale:[0.8,0.8,0.8], translation:[0,-0.1,0]}, Glowing:true, Tags:["dr_placement"]}
-execute if score #curr_item dr_arg = $Bucket dr_const if score #bucket_is_filled dr_var matches 1 run item modify entity @n[type=item_display,distance=..0.1,tag=dr_placement] container.0 [{function:"set_components",components:{custom_model_data:{strings:["filled"]}}}]
+execute if score #curr_item dr_arg = $Bucket dr_const if score #bucket_is_filled dr_var matches 1 run item modify entity @n[type=item_display,distance=..0.1,tag=dr_placement] container.0 [{type:"set_components",components:{custom_model_data:{strings:["filled"]}}}]
 
 execute if score #curr_item dr_arg = $Axe dr_const run \
     summon minecraft:item_display ~ ~ ~ {item: {id:"stone_axe"},     transformation: {left_rotation:[1,0,0,1], right_rotation:[0,0,0,1], scale:[0.8,0.8,0.8], translation:[0,-0.475,0]}, Glowing:true, Tags:["dr_placement"]}

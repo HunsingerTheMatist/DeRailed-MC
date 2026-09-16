@@ -273,15 +273,15 @@ def build_loot_tables(types, resource_ids, blocks, out):
                 "name": SEED_ITEM,
             }
             if states:
-                pool_entry["conditions"] = [{
-                    "condition": "minecraft:block_state_property",
-                    "block": "minecraft:" + block_id,
-                    "properties": states,
-                }]
-            pool_entry["functions"] = [{
-                "function": "minecraft:set_custom_data",
+                pool_entry["condition"] = {
+                    "type": "minecraft:match_block",
+                    "blocks": "minecraft:" + block_id,
+                    "state": states,
+                }
+            pool_entry["modifier"] = {
+                "type": "minecraft:set_custom_data",
                 "tag": "{dr_mined:{resource:%d,biome:%d,stage:%d}}" % (resource, biome, stage_index),
-            }]
+            }
             pool_entries.append(pool_entry)
 
         out[LOOT_TABLE_DIR / (block_id + ".json")] = {
