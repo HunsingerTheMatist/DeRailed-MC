@@ -1,0 +1,280 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"particle": "derailed:block/iron_ore",
+		"iron_ore": "derailed:block/iron_ore"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 1],
+			"to": [2, 5, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [7, 12.5, 7.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [0.5, 12.5, 1, 15], "texture": "#iron_ore"},
+				"up": {"uv": [0.5, 8.5, 1, 9], "texture": "#iron_ore"},
+				"down": {"uv": [0.5, 15, 1, 15.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [2, 0, 1],
+			"to": [4, 7, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [6, 11.5, 7, 15], "texture": "#iron_ore"},
+				"west": {"uv": [0.5, 11.5, 1, 15], "texture": "#iron_ore"},
+				"up": {"uv": [1, 8.5, 2, 9], "texture": "#iron_ore"},
+				"down": {"uv": [1, 15, 2, 15.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [1, 0, 2],
+			"to": [4, 7, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [6, 11.5, 7.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [1, 11.5, 2, 15], "texture": "#iron_ore"},
+				"up": {"uv": [0.5, 9, 2, 10], "texture": "#iron_ore"},
+				"down": {"uv": [0.5, 14, 2, 15], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [1, 0, 4],
+			"to": [4, 8, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [6, 11, 7.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [2, 11, 3.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [0.5, 10, 2, 11.5], "texture": "#iron_ore"},
+				"down": {"uv": [0.5, 12.5, 2, 14], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [4, 0, 1],
+			"to": [7, 8, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [4.5, 11, 6, 15], "texture": "#iron_ore"},
+				"west": {"uv": [0.5, 11, 3.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [2, 8.5, 3.5, 11.5], "texture": "#iron_ore"},
+				"down": {"uv": [2, 12.5, 3.5, 15.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [1, 0, 7],
+			"to": [6, 9, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [5, 10.5, 7.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [3.5, 10.5, 5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [0.5, 11.5, 3, 13], "texture": "#iron_ore"},
+				"down": {"uv": [0.5, 11, 3, 12.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [6, 0, 7],
+			"to": [7, 10, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [4.5, 10, 5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [3.5, 10, 5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [3, 11.5, 3.5, 13], "texture": "#iron_ore"},
+				"down": {"uv": [3, 11, 3.5, 12.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [6, 10, 8],
+			"to": [7, 11, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [4.5, 9.5, 5, 10], "texture": "#iron_ore"},
+				"west": {"uv": [4, 9.5, 5, 10], "texture": "#iron_ore"},
+				"up": {"uv": [3, 12, 3.5, 13], "texture": "#iron_ore"}
+			}
+		},
+		{
+			"from": [1, 0, 10],
+			"to": [5, 10, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [5.5, 10, 7.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [5, 10, 6.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [0.5, 13, 2.5, 14.5], "texture": "#iron_ore"},
+				"down": {"uv": [0.5, 9.5, 2.5, 11], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [5, 0, 10],
+			"to": [6, 11, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [5, 9.5, 5.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [5, 9.5, 6, 15], "texture": "#iron_ore"},
+				"up": {"uv": [2.5, 13, 3, 14], "texture": "#iron_ore"},
+				"down": {"uv": [2.5, 10, 3, 11], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [5, 0, 12],
+			"to": [6, 12, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [5, 9, 5.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [6, 9, 6.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [2.5, 14, 3, 14.5], "texture": "#iron_ore"},
+				"down": {"uv": [2.5, 9.5, 3, 10], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [6, 0, 10],
+			"to": [7, 12, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [4.5, 9, 5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [5, 9, 6.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [3, 13, 3.5, 14.5], "texture": "#iron_ore"},
+				"down": {"uv": [3, 9.5, 3.5, 11], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [1, 0, 13],
+			"to": [4, 11, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [6, 9.5, 7.5, 15], "texture": "#iron_ore"},
+				"south": {"uv": [0.5, 9.5, 2, 15], "texture": "#iron_ore"},
+				"west": {"uv": [6.5, 9.5, 7.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [0.5, 14.5, 2, 15.5], "texture": "#iron_ore"},
+				"down": {"uv": [0.5, 8.5, 2, 9.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [4, 0, 13],
+			"to": [7, 12, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [4.5, 9, 6, 15], "texture": "#iron_ore"},
+				"south": {"uv": [2, 9, 3.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [6.5, 9, 7.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [2, 14.5, 3.5, 15.5], "texture": "#iron_ore"},
+				"down": {"uv": [2, 8.5, 3.5, 9.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [7, 0, 1],
+			"to": [10, 9, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [3, 10.5, 4.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [0.5, 10.5, 3, 15], "texture": "#iron_ore"},
+				"up": {"uv": [3.5, 8.5, 5, 11], "texture": "#iron_ore"},
+				"down": {"uv": [3.5, 13, 5, 15.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [7, 0, 6],
+			"to": [10, 10, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [3, 10, 4.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [3, 10, 3.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [3.5, 11, 5, 11.5], "texture": "#iron_ore"},
+				"down": {"uv": [3.5, 12.5, 5, 13], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [8, 10, 6],
+			"to": [10, 11, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [3, 9.5, 4, 10], "texture": "#iron_ore"},
+				"west": {"uv": [3, 9.5, 3.5, 10], "texture": "#iron_ore"},
+				"up": {"uv": [4, 11, 5, 11.5], "texture": "#iron_ore"}
+			}
+		},
+		{
+			"from": [7, 0, 7],
+			"to": [10, 12, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [3, 9, 4.5, 15], "texture": "#iron_ore"},
+				"south": {"uv": [3.5, 9, 5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [3.5, 9, 7.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [3.5, 11.5, 5, 15.5], "texture": "#iron_ore"},
+				"down": {"uv": [3.5, 8.5, 5, 12.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [10, 0, 1],
+			"to": [13, 10, 5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [1.5, 10, 3, 15], "texture": "#iron_ore"},
+				"west": {"uv": [0.5, 10, 2.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [5, 8.5, 6.5, 10.5], "texture": "#iron_ore"},
+				"down": {"uv": [5, 13.5, 6.5, 15.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [10, 0, 5],
+			"to": [12, 11, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [2, 9.5, 3, 15], "texture": "#iron_ore"},
+				"west": {"uv": [2.5, 9.5, 3, 15], "texture": "#iron_ore"},
+				"up": {"uv": [5, 10.5, 6, 11], "texture": "#iron_ore"},
+				"down": {"uv": [5, 13, 6, 13.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [12, 0, 5],
+			"to": [13, 12, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [1.5, 9, 2, 15], "texture": "#iron_ore"},
+				"west": {"uv": [2.5, 9, 3, 15], "texture": "#iron_ore"},
+				"up": {"uv": [6, 10.5, 6.5, 11], "texture": "#iron_ore"},
+				"down": {"uv": [6, 13, 6.5, 13.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [10, 0, 6],
+			"to": [13, 12, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [1.5, 9, 3, 15], "texture": "#iron_ore"},
+				"south": {"uv": [5, 9, 6.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [3, 9, 7.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [5, 11, 6.5, 15.5], "texture": "#iron_ore"},
+				"down": {"uv": [5, 8.5, 6.5, 13], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [13, 0, 1],
+			"to": [15, 11, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [0.5, 9.5, 1.5, 15], "texture": "#iron_ore"},
+				"east": {"uv": [6, 9.5, 7.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [0.5, 9.5, 2, 15], "texture": "#iron_ore"},
+				"up": {"uv": [6.5, 8.5, 7.5, 10], "texture": "#iron_ore"},
+				"down": {"uv": [6.5, 14, 7.5, 15.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		},
+		{
+			"from": [13, 0, 4],
+			"to": [15, 12, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [0.5, 9, 1.5, 15], "texture": "#iron_ore"},
+				"east": {"uv": [0.5, 9, 6, 15], "texture": "#iron_ore"},
+				"south": {"uv": [6.5, 9, 7.5, 15], "texture": "#iron_ore"},
+				"west": {"uv": [2, 9, 7.5, 15], "texture": "#iron_ore"},
+				"up": {"uv": [6.5, 10, 7.5, 15.5], "texture": "#iron_ore"},
+				"down": {"uv": [6.5, 8.5, 7.5, 14], "texture": "#iron_ore", "cullface": "down"}
+			}
+		}
+	]
+}
