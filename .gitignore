@@ -3,3 +3,4 @@ credentials.json
 .claude/
 __pycache__/
 *.pyc
+utils/scratchpad/
