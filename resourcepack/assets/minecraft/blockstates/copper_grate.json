@@ -2,20 +2,18 @@
   "variants": {
     "waterlogged=false": [
       {
-        "model": "derailed:block/stone/iron_ore_ow2_4"
+        "model": "derailed:block/stone/iron_ore_ow2_5"
       },
       {
-        "model": "derailed:block/stone/iron_ore_ow2_4",
-        "y": 180
+        "model": "derailed:block/stone/iron_ore_ow2_6"
       }
     ],
     "waterlogged=true": [
       {
-        "model": "derailed:block/stone/iron_ore_ow3_4"
+        "model": "derailed:block/stone/iron_ore_ow3_5"
       },
       {
-        "model": "derailed:block/stone/iron_ore_ow3_4",
-        "y": 180
+        "model": "derailed:block/stone/iron_ore_ow3_6"
       }
     ]
   }

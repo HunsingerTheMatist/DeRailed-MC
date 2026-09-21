@@ -1,0 +1,24 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"particle": "derailed:block/iron_ore",
+		"iron_ore": "derailed:block/iron_ore"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 1],
+			"to": [15, 10, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0.5, 11, 7.5, 16], "texture": "#iron_ore", "cullface": "north"},
+				"east": {"uv": [0, 13, 7.5, 8], "texture": "#iron_ore", "cullface": "east"},
+				"south": {"uv": [0.5, 11, 7.5, 16], "texture": "#iron_ore", "cullface": "south"},
+				"west": {"uv": [0.5, 13, 8, 8], "texture": "#iron_ore", "cullface": "west"},
+				"up": {"uv": [0.5, 8.5, 7.5, 16], "texture": "#iron_ore", "cullface": "up"},
+				"down": {"uv": [0.5, 8, 7.5, 15.5], "texture": "#iron_ore", "cullface": "down"}
+			}
+		}
+	]
+}

@@ -16,7 +16,7 @@
 				"east": {"uv": [0.5, 13, 7.5, 9], "texture": "#iron_ore"},
 				"south": {"uv": [0.5, 11.5, 7.5, 15.5], "texture": "#iron_ore"},
 				"west": {"uv": [0.5, 12.5, 7.5, 8.5], "texture": "#iron_ore"},
-				"up": {"uv": [0.5, 8.5, 7.5, 15.5], "texture": "#iron_ore"},
+				"up": {"uv": [0.5, 0.5, 7.5, 7.5], "texture": "#iron_ore"},
 				"down": {"uv": [0.5, 8.5, 7.5, 15.5], "texture": "#iron_ore", "cullface": "down"}
 			}
 		},
@@ -28,7 +28,7 @@
 				"north": {"uv": [0.5, 11.5, 4.5, 12], "texture": "#iron_ore"},
 				"east": {"uv": [4.5, 13.5, 7.5, 13], "texture": "#iron_ore"},
 				"west": {"uv": [0.5, 12.5, 3.5, 12], "texture": "#iron_ore"},
-				"up": {"uv": [3.5, 8.5, 7.5, 11.5], "texture": "#iron_ore"}
+				"up": {"uv": [3.5, 0.5, 7.5, 3.5], "texture": "#iron_ore"}
 			}
 		},
 		{
@@ -40,7 +40,7 @@
 				"east": {"uv": [0.5, 13.5, 4.5, 13], "texture": "#iron_ore"},
 				"south": {"uv": [0.5, 11, 7.5, 11.5], "texture": "#iron_ore"},
 				"west": {"uv": [3.5, 13, 7.5, 12.5], "texture": "#iron_ore"},
-				"up": {"uv": [0.5, 11.5, 7.5, 15.5], "texture": "#iron_ore"}
+				"up": {"uv": [0.5, 3.5, 7.5, 7.5], "texture": "#iron_ore"}
 			}
 		},
 		{
@@ -50,7 +50,7 @@
 			"faces": {
 				"north": {"uv": [3, 11, 3.5, 11.5], "texture": "#iron_ore"},
 				"west": {"uv": [3, 13, 4, 12.5], "texture": "#iron_ore"},
-				"up": {"uv": [4.5, 11, 5, 12], "texture": "#iron_ore"}
+				"up": {"uv": [4.5, 3, 5, 4], "texture": "#iron_ore"}
 			}
 		},
 		{
@@ -60,7 +60,7 @@
 			"faces": {
 				"north": {"uv": [3, 11, 5, 11.5], "texture": "#iron_ore"},
 				"west": {"uv": [4, 13, 5, 12.5], "texture": "#iron_ore"},
-				"up": {"uv": [3, 12, 5, 13], "texture": "#iron_ore"}
+				"up": {"uv": [3, 4, 5, 5], "texture": "#iron_ore"}
 			}
 		},
 		{
@@ -141,7 +141,7 @@
 				"north": {"uv": [3, 11, 7.5, 11.5], "texture": "#iron_ore"},
 				"south": {"uv": [0.5, 10.5, 5, 11], "texture": "#iron_ore"},
 				"west": {"uv": [5, 13.5, 7.5, 13], "texture": "#iron_ore"},
-				"up": {"uv": [0.5, 13, 5, 15.5], "texture": "#iron_ore"}
+				"up": {"uv": [0.5, 5, 5, 7.5], "texture": "#iron_ore"}
 			}
 		},
 		{
@@ -153,7 +153,7 @@
 				"east": {"uv": [0.5, 13, 7.5, 12.5], "texture": "#iron_ore"},
 				"south": {"uv": [5, 10.5, 7.5, 11], "texture": "#iron_ore"},
 				"west": {"uv": [0.5, 13, 7.5, 12.5], "texture": "#iron_ore"},
-				"up": {"uv": [5, 8.5, 7.5, 15.5], "texture": "#iron_ore"}
+				"up": {"uv": [5, 0.5, 7.5, 7.5], "texture": "#iron_ore"}
 			}
 		}
 	]
