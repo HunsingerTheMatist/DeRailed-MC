@@ -1,5 +1,8 @@
 # Runs every tick
 
+# Hold everything while a benchmark is running
+execute if score #bench dr_var matches 1 run return fail
+
 # If a player has no id, assign one
 execute as @a unless score @s dr_player_id matches 1.. run function derailed:player/init
 
