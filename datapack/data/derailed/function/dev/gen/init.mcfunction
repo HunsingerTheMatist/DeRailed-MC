@@ -15,6 +15,7 @@ function derailed:dev/gen/_kill_waves
 kill @e[type=marker,tag=dr_riv_path,distance=0..]
 kill @e[type=marker,tag=dr_riv_node,distance=0..]
 kill @e[type=marker,tag=dr_riv_head,distance=0..]
+kill @e[type=marker,tag=dr_riv_best,distance=0..]
 kill @e[type=marker,tag=dr_riv_seed,distance=0..]
 kill @e[type=armor_stand,tag=dr_seed_mark,distance=0..]
 
@@ -26,13 +27,8 @@ scoreboard players set #gen_failed dr_var 0
 scoreboard players set #gen_fail_path dr_var 0
 scoreboard players set #gen_fail_supply dr_var 0
 scoreboard players set #gen_no_river dr_var 0
-scoreboard players set #riv_no_join dr_var 0
+scoreboard players set #riv_fell dr_var 0
 scoreboard players set #riv_joins dr_var 0
 scoreboard players set #riv_lakes dr_var 0
 scoreboard players set #riv_cuts dr_var 0
-scoreboard players set #riv_extra dr_var 0
 scoreboard players set #riv_dry dr_var 0
-
-# Nothing to carry into the first section of a fresh run
-scoreboard players set #riv_hand dr_var 0
-

@@ -3,9 +3,9 @@
 # Run as the head, positioned on it: the reckoning needs a real entity to read a
 #  position from, which is why the head is stood up before it is asked
 
-# Any of the three ways on will do, not only straight inward: a corner on the
-#  western border has the section before's terrain the other side of it rather
-#  than air, though a way west is not allowed out of column 0
+# Only straight inward can be open from a border corner, since the two ways along
+#  the border have air on their far side, but the reckoning answers for all three
+#  and there is nothing to gain by asking it for less
 function derailed:dev/gen/_river_look
 scoreboard players operation #riv_tot dr_var = #riv_v0 dr_var
 scoreboard players operation #riv_tot dr_var += #riv_v1 dr_var

@@ -1,38 +1,24 @@
 
-# Cuts a river along the boundaries between regions
-# A section that took one over the seam and got barely anywhere with it gets a
-#  second search of its own on top
+# Cuts two rivers along the boundaries between regions, both in from the one
+#  border and out by the other, the second allowed to end in the first
 # Positioned at the section's corner
 
 function derailed:dev/gen/_river_wipe
+kill @e[type=marker,tag=dr_riv_best,distance=0..]
 kill @e[type=marker,tag=dr_riv_seed,distance=0..]
 
-# The river is cut into a copy of what it reads, so nothing it lays can change the
-#  answer to a later look
+# The rivers are cut into a copy of what they read, so nothing they lay can
+#  change the answer to a later look
 clone ~ ~5 ~ ~47 ~5 ~15 ~ ~9 ~ strict
 
-# What the section before handed over, taken now so that this section's own
-#  handing over does not write over it
-scoreboard players operation #riv_carry dr_var = #riv_hand dr_var
-scoreboard players operation #riv_carry_row dr_var = #riv_hand_row dr_var
-scoreboard players set #riv_hand dr_var 0
+# The border is rolled once, so the second river comes in beside the first
+execute store result score #riv_from dr_var run random value 0..1
 
-scoreboard players set #riv_done dr_var 0
-scoreboard players set #riv_len dr_var 0
-scoreboard players set #riv_dead dr_var 0
-scoreboard players set #riv_depth dr_var 0
-scoreboard players set #riv_forced dr_var 0
-scoreboard players set #riv_best dr_var 0
-scoreboard players set #riv_short dr_var 0
-
-# Walks are cheap to start and dear to finish, so misses get their own budget and
-#  the whole search shares one count of steps
-scoreboard players set #riv_tries dr_var 8
-scoreboard players set #riv_rolls dr_var 200
-scoreboard players set #riv_steps dr_var 1000
-
-function derailed:dev/gen/_river_try
-execute if score #riv_short dr_var matches 1 run function derailed:dev/gen/_river_second
+# The first river has nothing to keep clear of
+scoreboard players set #riv_col1 dr_var -100
+scoreboard players operation #riv_need dr_var = #gen_riv_min dr_var
+function derailed:dev/gen/_river_one
+scoreboard players operation #riv_first dr_var = #riv_got dr_var
 
 # The search leaves its markers standing whether it got anywhere or not
 # Holding them leaves the corners the walk ran over there to be read, which the
@@ -40,4 +26,19 @@ execute if score #riv_short dr_var matches 1 run function derailed:dev/gen/_rive
 #  place
 execute if score #gen_riv_hold dr_var matches 1 run return 0
 function derailed:dev/gen/_river_wipe
+kill @e[type=marker,tag=dr_riv_best,distance=0..]
+
+# The second sets out clear of where the first did and makes the pair up to
+#  length between them, with a floor of its own so that a long first river does
+#  not leave it a puddle
+scoreboard players operation #riv_col1 dr_var = #riv_col_got dr_var
+scoreboard players operation #riv_need dr_var = #gen_riv_pair dr_var
+scoreboard players operation #riv_need dr_var -= #riv_got dr_var
+scoreboard players operation #riv_need dr_var > #gen_riv_2nd dr_var
+function derailed:dev/gen/_river_one
+scoreboard players operation #riv_second dr_var = #riv_got dr_var
+
+execute if score #gen_riv_hold dr_var matches 1 run return 0
+function derailed:dev/gen/_river_wipe
+kill @e[type=marker,tag=dr_riv_best,distance=0..]
 kill @e[type=marker,tag=dr_riv_seed,distance=0..]

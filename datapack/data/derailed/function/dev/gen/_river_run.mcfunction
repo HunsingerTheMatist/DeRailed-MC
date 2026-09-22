@@ -7,17 +7,17 @@ execute if score #riv_steps dr_var matches ..0 run return run function derailed:
 
 function derailed:dev/gen/_river_look
 
-# Leaving by a side that is neither the west nor the one it set out from is the
-#  river finished, so long as it has run far enough to be worth having
+# Leaving by the border across from the one it set out from is the river
+#  finished, and so is coming up against water already laid, so long as it has
+#  run far enough to be worth having
 # A river that has not is turned back rather than kept: the search has a whole
 #  section of boundaries to look through for a longer way out
 scoreboard players set #riv_out dr_var 0
 execute if score #riv_exit dr_var matches 0 unless score #riv_exit dr_var = #riv_side dr_var run scoreboard players set #riv_out dr_var 1
-execute if score #riv_exit dr_var matches 2..3 unless score #riv_exit dr_var = #riv_side dr_var run scoreboard players set #riv_out dr_var 1
+execute if score #riv_exit dr_var matches 2 unless score #riv_exit dr_var = #riv_side dr_var run scoreboard players set #riv_out dr_var 1
+execute if score #riv_join dr_var matches 1 run scoreboard players set #riv_out dr_var 1
 
-# One picking up from the section before is already as long as the river it joins
-execute if score #riv_out dr_var matches 1 if score #riv_forced dr_var matches 1 run return run function derailed:dev/gen/_river_done
-execute if score #riv_out dr_var matches 1 if score #riv_len dr_var >= #gen_riv_min dr_var run return run function derailed:dev/gen/_river_done
+execute if score #riv_out dr_var matches 1 if score #riv_len dr_var >= #riv_need dr_var run return run function derailed:dev/gen/_river_done
 execute if score #riv_out dr_var matches 1 run return run function derailed:dev/gen/_river_back
 
 # A river long past the width of a section is wandering the boundaries rather

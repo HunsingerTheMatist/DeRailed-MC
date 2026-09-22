@@ -3,9 +3,8 @@
 #  being looked at
 # Run as the corner's marker, positioned on it
 
-# A corner on the southern or eastern border stands outside the section, and so
-#  does the one a river crossing eastward leaves by: nothing is laid there, which
-#  is what keeps a section to its own ground
+# A corner on the southern border stands outside the section: nothing is laid
+#  there, which is what keeps a section to its own ground
 # Whether the corner is inside at all is asked of the base, while the water goes
 #  on the copy the river is cut into
 execute if block ~ ~ ~ air run return fail

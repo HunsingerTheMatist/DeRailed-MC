@@ -17,6 +17,10 @@ execute unless block ~ ~5 ~-1 #derailed:gen_is_kind run scoreboard players set #
 execute unless block ~-1 ~5 ~ #derailed:gen_is_kind run scoreboard players set #riv_bleed dr_var 0
 execute unless block ~ ~5 ~ #derailed:gen_is_kind run scoreboard players set #riv_bleed dr_var 0
 
+# Whether a way on comes up against water already laid, which is the river the
+#  section cut first and which the second may end in
+scoreboard players set #riv_join dr_var 0
+
 execute if score #riv_dir dr_var matches 0 run return run function derailed:dev/gen/_river_look_s
 execute if score #riv_dir dr_var matches 1 run return run function derailed:dev/gen/_river_look_w
 execute if score #riv_dir dr_var matches 2 run return run function derailed:dev/gen/_river_look_n

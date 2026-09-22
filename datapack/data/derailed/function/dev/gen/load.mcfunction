@@ -22,8 +22,9 @@ scoreboard players set $NegOne dr_const -1
 #  than as it grew - which is the same thing a region carried over the seam is
 #  standing in. Nothing reads it as regions again afterwards, so painting swaps
 #  them for kinds in place
-# y9 is y5 with the river cut into it, and the branches the search gave up on
-#  drawn over that, which is only ever there to be looked at
+# y9 is y5 with the rivers cut into it, and the branches the search gave up on
+#  drawn over that. The second river reads it to find the first, and otherwise
+#  it is only there to be looked at
 # y15 is the section as it is meant to be seen: y5 with the river lifted onto it,
 #  with the flood that checks it running two above
 
@@ -51,8 +52,7 @@ scoreboard objectives add dr_wave dummy "DeRailed Claim Wave"
 scoreboard objectives add dr_wake dummy "DeRailed Seam Wake"
 
 # What a river's search hangs on its markers: how deep in choices a tile was
-#  laid, how far into the search, and the way the head arrived and the side it
-#  was hugging
+#  laid, how far into the search, and the way the head arrived
 scoreboard objectives add dr_depth dummy "DeRailed River Depth"
 scoreboard objectives add dr_step dummy "DeRailed River Step"
 scoreboard objectives add dr_dir dummy "DeRailed River Heading"
@@ -65,8 +65,8 @@ scoreboard players set $SectionWidth dr_const 48
 #  this off is how the terrain either side of a seam gets looked at on its own
 scoreboard players set #gen_rivers dr_var 1
 
-# Whether a section stops as soon as its river is cut, keeping the corner markers
-#  and leaving the regions in the blocks they grew as
+# Whether a section stops as soon as its first river is cut, keeping the corner
+#  markers and leaving the regions in the blocks they grew as
 # Where the water lands is not where the walk stood, so reading a river back off
 #  the map is guesswork; this leaves both the line and the boundaries it was
 #  following there to be read outright
@@ -78,11 +78,22 @@ scoreboard players set #gen_riv_hold dr_var 0
 #  going straight there; the room is for that rather than for wandering
 scoreboard players set #gen_riv_max dr_var 120
 
-# The shortest a river may be and still be worth keeping
-# One that reaches a border before then is turned back to look for a longer
-#  way out; one picking up where the section before left off is let through,
-#  since it carries on a river that is already long
-scoreboard players set #gen_riv_min dr_var 20
+# The shortest the first river may be and still be worth keeping
+# One that reaches the far border before then is turned back to look for a
+#  longer way out
+scoreboard players set #gen_riv_min dr_var 25
+
+# The least the two rivers may come to between them, which is what the second is
+#  held to when the first left it short
+scoreboard players set #gen_riv_pair dr_var 50
+
+# The shortest the second river may be whatever the first came to, so that a
+#  long first river does not leave it a puddle
+scoreboard players set #gen_riv_2nd dr_var 10
+
+# How many columns the second river sets out from where the first did, so that
+#  it does not run into it at once
+scoreboard players set #gen_riv_apart dr_var 10
 
 # Whether a seed gets an armour stand standing over it
 # They are only there to be looked at, and a benchmark builds enough sections for

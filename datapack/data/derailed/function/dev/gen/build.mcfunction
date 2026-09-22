@@ -18,7 +18,6 @@ execute if score #gen_rivers dr_var matches 1 run function derailed:dev/gen/rive
 
 # Nothing a reroll does can put a river into a section that would not take one,
 #  so there is no point trying the terrain five times over
-execute if score #riv_done dr_var matches 0 run scoreboard players add #gen_no_river dr_var 1
 execute if score #riv_done dr_var matches 0 run return run scoreboard players add #gen_failed dr_var 1
 
 # Held for a look at the river, the section stops here with nothing drawn over it

@@ -33,7 +33,7 @@ every question about a section answerable for as long as the section takes:
 |---|---|---|---|
 | 17 | the flood's working layer | `validate` | `_flood`, `_trace` |
 | 15 | the section as it is meant to be seen | the attempt loop | `_edge_kind`, `validate` |
-| 9 | y5 with the river cut into it | the river stamp | nothing - it is the record |
+| 9 | y5 with the rivers cut into it | the river stamp | the second river, to find the first |
 | 5 | **what the river reads, then the kinds** | `build`, then `paint` | `_river_look_*`, lifted to y15 |
 | 0 | **the regions as they grew** | growth only | `_river_lake`, `_read_id` |
 
@@ -210,8 +210,8 @@ though its seed sat a single tile past the western border.
 
 ### 5. Rivers
 
-`rivers` cuts one channel of water along the boundaries between regions, before
-any of them knows what kind it will be drawn as. It is a **search, not a walk**:
+`rivers` cuts two channels of water along the boundaries between regions, before
+any of them knows what kind it will be drawn as. Each is a **search, not a walk**:
 where it runs out of boundary it goes back to the last choice it passed and takes
 a different one.
 
@@ -223,19 +223,21 @@ being air instead means that edge leaves the section, which is how a border is
 recognised. A tile is laid at each corner the search keeps, and consecutive
 corners are neighbours, so the tiles come out joined.
 
-A river sets out from a border. The first section picks **north, south or west**;
-any section after it starts where its neighbour's river left off, and failing
-that picks north or south - a west start on a section with a neighbour would be a
-river appearing from nothing at the boundary.
+Both rivers run **between north and south**. A border is rolled once for the
+section, and each river sets out from it at a random column and is finished only
+when it leaves by the border across from it. The east and west borders are
+walls, nothing crosses a seam, and a section's rivers owe nothing to its
+neighbours'.
 
-It is finished when it leaves by a border that is neither the **west** nor the
-one it set out from, and when it has run at least `#gen_riv_min` corners - 20. A
-river that reaches a border sooner is turned back rather than kept, since the
-search has a whole section of boundaries to look through for a longer way out. A
-branch that passes `#gen_riv_max` - 120 - is given up on instead. A section 48
-wide could be crossed in far fewer, but a river only turns where a boundary does,
-so it spends length getting to somewhere it can leave from rather than going
-straight there.
+The first river has to run at least `#gen_riv_min` corners - 25. A river that
+reaches the far border sooner is turned back rather than kept, since the search
+has a whole section of boundaries to look through for a longer way out. A branch
+that passes `#gen_riv_max` - 120 - is given up on instead. A section 48 wide
+could be crossed in far fewer, but a river only turns where a boundary does, so
+it spends length getting to somewhere it can leave from rather than going
+straight there. Lengths are the search's own count of corners, taken before the
+shortcut, so a river can come out a little under its floor once its loops are
+cut.
 
 A step **west out of column 0** is shut off: the section before's terrain lies
 the other side of that line rather than air, so such a step reads as an ordinary
@@ -271,9 +273,9 @@ drops by one, and it goes back further. Reaching depth 0 with nothing left means
 no river can be had from that start, which is left behind as one not to try again
 while the search begins somewhere else.
 
-Three budgets bound it: rolls for starts that turn out to sit on no boundary,
-which are cheap, tries for searches actually run, and one count of steps across
-the whole section.
+Three budgets bound each river: rolls for starts that turn out to sit on no
+boundary, which are cheap, **five** starts that a search is actually run from,
+and one count of steps shared by all of them.
 
 #### The shortcut
 
@@ -290,34 +292,44 @@ Nothing else is asked of that step. The two corners are one apart and both stand
 on the line, so going between them is the river taking the near way round. Only
 the corners the walk passes through are kept.
 
-#### Where it ends
+#### The second river
 
-A river leaving by the **east** hands the corner it left by to the next section,
-which starts there - the same corner in the world, so the two join squarely
-rather than touching at a diagonal.
+The second river sets out from the same border as the first, at a column at
+least `#gen_riv_apart` - 10 - away from where the first did, so that it does not
+run into it at once. It may finish by the far border like the first, or by
+**running into the first**: a way on whose corner already holds water is an exit
+like any other, and the river stops on the corner beside it. The first river's
+water is on y9 by then, which is the one thing about the first that the second
+can see. Water in the section before is not looked at, since that is another
+section's river and a river joining it would be a river leaving by the west.
 
-A section starting that way has nowhere else it may begin, so the search keeps
-hold of the longest path it manages and settles for that if nothing reaches a
-border. There is no length floor on it: whatever it adds joins a river that
-already crosses the section before. Two things follow from settling:
+It is held to whatever brings the pair up to `#gen_riv_pair` - 50 - between
+them, and never less than `#gen_riv_2nd` - 10 - so that a long first river does
+not leave it a puddle.
 
-- **A lake is marked.** A river stopping in the middle of dry ground reads as
-  unfinished, so one of the regions around the corner it ran out on is drawn
-  evenly from the four and its seed is marked to come out water. The seed is
-  marked rather than the ground painted, since the kinds are not rolled until
-  afterwards and a reroll would draw over it. Only regions the section grew
-  itself are eligible: a carried one shares its block with every other carried
-  region of that kind, so there is no way to turn one of them alone
-- **A second river may be owed.** If the settled river is 6 corners or fewer the
-  section searches again from the north or south under the ordinary rules, on top
-  of the short one it already laid
+#### Falling back
+
+A river none of whose five starts reached an exit lays the **longest line any of
+them found** instead. The line is kept from one start to the next by letting go
+of its place on the lattice, so the next start is free to run over its corners.
+
+A river that stops in the middle of dry ground reads as unfinished, so one of
+the regions around the corner it ran out on is drawn evenly from the four and
+its seed is marked to come out water. The seed is marked rather than the ground
+painted, since the kinds are not rolled until afterwards and a reroll would draw
+over it. Only regions the section grew itself are eligible: a carried one shares
+its block with every other carried region of that kind, so there is no way to
+turn one of them alone.
+
+When the first river falls back short, the second is asked for the whole of the
+rest and will usually fall back too, so that section ends up with two short
+rivers and two lakes. The report counts how often.
 
 The water goes on **the corner the head stood on**, so a river is as wide as the
 line the search walked and two corners next to each other are two tiles next to
-each other, whichever way the line turned between them. A corner standing outside
-the section - the southern and eastern borders, and the one a river crossing
-eastward leaves by - lays nothing, which is what keeps a section to its own
-ground.
+each other, whichever way the line turned between them. A corner standing on the
+southern border is outside the section and lays nothing, which is what keeps a
+section to its own ground.
 
 It is cut as a **glaze pointing back the way the head came**, with the branches
 the search gave up on in red beside it. That is the search drawn out, and it is
@@ -369,7 +381,8 @@ since water can be bridged.
 
 The flood marks each tile on a layer two above the section, in a colour recording
 **which way it arrived**. That turns the layer into a set of arrows pointing
-home, so the route can be walked back from the exit afterwards.
+home, so the route can be walked back from the exit afterwards. Once the route
+is drawn the arrows are cleared, and the route is all that stays on the layer.
 
 A ring of grey glass is laid around the section first, filling only air, so the
 flood stays inside its own section without painting over its neighbour's route.
@@ -382,8 +395,9 @@ the seeds and the chain. Up to 5 attempts.
 Measured 2026-09-21 with `dev/gen/profile` run from a command block every tick
 for the profiler's ten seconds - about a hundred whole three-section maps, with
 the stands and the report switched off so that only the generating is timed.
-The sections were 35 by 20 then; at 48 by 16 a section has a tenth more tiles
-and has not been profiled since, so read these as a tenth under.
+The sections were 35 by 20 then, with one river each. At 48 by 16 with two
+rivers a section has a tenth more tiles and twice the river search, and has not
+been profiled since.
 
 | stage | per section | share of generation |
 |---|---|---|
@@ -445,16 +459,15 @@ nothing at all spread across three or four.
 
 The finished section is at **y=15**. Above it, **y=16** holds a red block over
 every chain seed and a gold one over the seed the track must end on, and **y=17**
-holds the flood: pale blue, cyan, purple and white glass where it went, red along
-the route it found. Red only means it walked straight to the exit without a wrong
-turn.
+holds the route the flood found, in red glass, inside a grey ring. Red only
+means it walked straight to the exit without a wrong turn.
 
 Below it are the working layers, and they are worth reading when a river needs
 explaining: **y=9** has the line the search walked with everything it gave up on
 in red, **y=5** the kinds without the river, and **y=0** the regions as they
 grew. `utils/worldread.py` takes `--y` and reads any of them out of the save.
 
-`#gen_riv_hold` stops each section the moment its river is cut, keeping the
+`#gen_riv_hold` stops each section the moment its first river is cut, keeping the
 corner markers standing and the kinds never drawn over the regions on y5. Where the
 water lands is not where the walk stood, so reading a river back off the map is
 guesswork; this leaves the line itself there to be read.
