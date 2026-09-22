@@ -28,6 +28,10 @@ scoreboard players set #gen_route dr_var 0
 scoreboard players set #gen_steps dr_var 400
 execute if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_trace_from with storage derailed:gen r
 
+# The arrows have done their work once the route is drawn, so they go, and what
+#  stays on the layer is the route alone
+fill ~ ~2 ~ ~47 ~2 ~15 air replace #derailed:flood_arrows strict
+
 # Counted as seeds rather than tiles, since a seed is a whole patch and the
 #  topping up already works in those terms
 execute store result score #gen_wood dr_var if entity @e[type=marker,tag=dr_seed,scores={dr_kind=1},distance=0..]
