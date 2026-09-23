@@ -12,10 +12,6 @@ function derailed:dev/gen/_pick_exit
 scoreboard players operation #gen_exit_z dr_var = #gen_cz dr_var
 scoreboard players operation #gen_exit_z dr_var += #gen_exit dr_var
 
-# Which way the flood should lean when it comes to look for a way across
-scoreboard players set #gen_south dr_var 0
-execute if score #gen_exit dr_var > #gen_entry dr_var run scoreboard players set #gen_south dr_var 1
-
 execute store result storage derailed:gen r.entry int 1 run scoreboard players get #gen_entry dr_var
 execute store result storage derailed:gen r.exit int 1 run scoreboard players get #gen_exit dr_var
 function derailed:dev/gen/_mark_exit with storage derailed:gen r

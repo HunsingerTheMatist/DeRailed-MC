@@ -11,6 +11,15 @@ scoreboard players set $Three dr_const 3
 # For flipping a difference to its absolute value
 scoreboard players set $NegOne dr_const -1
 
+# For keeping a rate in hundredths, since a score is a whole number
+scoreboard players set $Hundred dr_const 100
+
+# What a bag of kind weights holds between its kinds, in hundredths of a percent
+scoreboard players set $TenThousand dr_const 10000
+
+# How many tiles a section has
+scoreboard players set $SectionTiles dr_const 768
+
 # A section is built on four layers, each one laid out from the one below it
 # y0 holds the block each region grew as and is never drawn over, so whatever asks
 #  which region a tile belongs to gets a straight answer however far along the
@@ -94,6 +103,29 @@ scoreboard players set #gen_riv_2nd dr_var 10
 # How many columns the second river sets out from where the first did, so that
 #  it does not run into it at once
 scoreboard players set #gen_riv_apart dr_var 10
+
+# Which tier every section is built to: 0 easy, 1 medium, 2 hard
+# It picks the weights the kinds are drawn with and what the cheapest way across
+#  may cost a rail, and can be changed between one section and the next
+scoreboard players set #gen_difficulty dr_var 1
+
+# How much dearer a rail every rail past a straight crossing makes the route, in
+#  percent: a longer section is more rails out of the same supply and more time
+#  at the same pace, so its cost a rail is not the whole story
+scoreboard players set #gen_rail_pen dr_var 1
+
+# How much of one seed's share of the bag a draw takes off the kind drawn, in
+#  percent, to be handed out to the others
+# The whole share holds every kind to its weight within a region or so; half
+#  lets sections differ while still keeping any kind from running away
+scoreboard players set #gen_bag_take dr_var 50
+
+# The fewest regions of each kind a section may have, met by holding back the
+#  last seeds drawn for whatever is still owed
+# Rock's floor is the tier's, set with its bounds in 'dev/gen/build'
+scoreboard players set #gen_min_wood dr_var 5
+scoreboard players set #gen_min_iron dr_var 5
+scoreboard players set #gen_min_water dr_var 2
 
 # Whether a seed gets an armour stand standing over it
 # They are only there to be looked at, and a benchmark builds enough sections for

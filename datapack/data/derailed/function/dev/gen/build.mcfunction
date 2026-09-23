@@ -3,6 +3,23 @@
 #  can get across
 # Positioned at the section's corner
 
+# The tier sets what the cheapest way across may cost a rail, in hundredths of a
+#  point, counting ground 1, wood or iron 2 and water 4 a tile and a little more
+#  for every rail past a straight crossing: under the floor is too easy a
+#  section and over the ceiling too hard
+execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_rate_min dr_var 155
+execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_rate_max dr_var 220
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_rate_min dr_var 185
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_rate_max dr_var 250
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_min dr_var 265
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_max dr_var 330
+
+# And the fewest rock regions, since rock is what makes a section hard to move
+#  about in rather than just dear to cross
+execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_min_rock dr_var 4
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_min_rock dr_var 4
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_rock dr_var 6
+
 function derailed:dev/gen/scatter
 function derailed:dev/gen/route
 function derailed:dev/gen/grow

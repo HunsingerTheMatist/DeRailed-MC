@@ -17,6 +17,7 @@ kill @e[type=marker,tag=dr_riv_node,distance=0..]
 kill @e[type=marker,tag=dr_riv_head,distance=0..]
 kill @e[type=marker,tag=dr_riv_best,distance=0..]
 kill @e[type=marker,tag=dr_riv_seed,distance=0..]
+kill @e[type=marker,tag=dr_flood,distance=0..]
 kill @e[type=armor_stand,tag=dr_seed_mark,distance=0..]
 
 # The first section has to come in somewhere, so it comes in at the middle
@@ -25,7 +26,12 @@ scoreboard players set #gen_entry dr_var 8
 scoreboard players set #gen_rerolls dr_var 0
 scoreboard players set #gen_failed dr_var 0
 scoreboard players set #gen_fail_path dr_var 0
-scoreboard players set #gen_fail_supply dr_var 0
+scoreboard players set #gen_fail_cheap dr_var 0
+scoreboard players set #gen_fail_dear dr_var 0
+scoreboard players set #gen_rate_n dr_var 0
+scoreboard players set #gen_rate_sum dr_var 0
+scoreboard players set #gen_rate_lo dr_var 2147483647
+scoreboard players set #gen_rate_hi dr_var 0
 scoreboard players set #gen_no_river dr_var 0
 scoreboard players set #riv_fell dr_var 0
 scoreboard players set #riv_joins dr_var 0

@@ -10,6 +10,14 @@ fill ~ ~ ~ ~47 ~ ~15 black_concrete strict
 scoreboard players set #gen_pending dr_var 0
 scoreboard players set #gen_waiting dr_var 0
 
+# How many tiles the regions carried over the seam take, by kind, which the
+#  kinds charge their draw for
+scoreboard players set #bleed_ground dr_var 0
+scoreboard players set #bleed_wood dr_var 0
+scoreboard players set #bleed_iron dr_var 0
+scoreboard players set #bleed_water dr_var 0
+scoreboard players set #bleed_rock dr_var 0
+
 execute as @e[type=marker,tag=dr_seed,distance=0..] at @s run function derailed:dev/gen/_seed_claim
 function derailed:dev/gen/seam
 

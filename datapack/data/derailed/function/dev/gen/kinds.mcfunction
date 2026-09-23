@@ -1,23 +1,40 @@
 
-# Gives every seed its kind, then makes sure the section has enough to build with
+# Gives every seed the kind its region will be drawn as, and sees that each kind
+#  gets at least its floor of regions
 # Positioned at the section's corner
 
-execute as @e[type=marker,tag=dr_seed,distance=0..] run function derailed:dev/gen/_roll_kind
+# What each floor is still owed, and the total of it
+scoreboard players operation #kind_owe_wood dr_var = #gen_min_wood dr_var
+scoreboard players operation #kind_owe_iron dr_var = #gen_min_iron dr_var
+scoreboard players operation #kind_owe_water dr_var = #gen_min_water dr_var
+scoreboard players operation #kind_owe_rock dr_var = #gen_min_rock dr_var
+scoreboard players operation #kind_owed dr_var = #kind_owe_wood dr_var
+scoreboard players operation #kind_owed dr_var += #kind_owe_iron dr_var
+scoreboard players operation #kind_owed dr_var += #kind_owe_water dr_var
+scoreboard players operation #kind_owed dr_var += #kind_owe_rock dr_var
 
-# Drawing per seed makes a section lumpy: with two dozen seeds it can easily roll
-#  only one patch of wood, so the thin kinds are topped up out of ground rather
-#  than the section being thrown away
-# Four wood, four iron, four rock and two water is fourteen of the twenty four,
-#  which holds the cost of getting across up as well as keeping it stocked
-# Rock draws first because it is the only one that cannot take just any ground
-#  seed: the seeds the track runs through are shut out of it. The others would
-#  otherwise be free to spend the seeds rock needs and leave it only those
-scoreboard players set #gen_tries dr_var 6
-function derailed:dev/gen/_top_rock
+# How many seeds are still to be given a kind, and how many of them the track
+#  runs through
+execute store result score #kind_left dr_var if entity @e[type=marker,tag=dr_seed,distance=0..]
+scoreboard players operation #kind_all dr_var = #kind_left dr_var
+execute store result score #kind_chain dr_var if entity @e[type=marker,tag=dr_seed,tag=dr_chain,distance=0..]
+scoreboard players operation #kind_off dr_var = #kind_left dr_var
+scoreboard players operation #kind_off dr_var -= #kind_chain dr_var
 
-scoreboard players set #gen_tries dr_var 6
-function derailed:dev/gen/_top_wood
-scoreboard players set #gen_tries dr_var 6
-function derailed:dev/gen/_top_iron
-scoreboard players set #gen_tries dr_var 6
-function derailed:dev/gen/_top_water
+# The seeds the track runs through go first, so that the seeds held back for the
+#  floors at the end are never among them, where rock may not go
+# Each lot draws from a bag of its own, filled for the tier
+scoreboard players set #bag_chain dr_var 1
+function derailed:dev/gen/_bag_fill
+scoreboard players operation #bag_n dr_var = #kind_chain dr_var
+function derailed:dev/gen/_bag_share
+execute as @e[type=marker,tag=dr_seed,tag=dr_chain,distance=0..] run function derailed:dev/gen/_kind_seed
+
+# The rest draw from a bag first charged for what the seam carried in, so that a
+#  section whose western strip arrived as one kind draws that much less of it
+scoreboard players set #bag_chain dr_var 0
+function derailed:dev/gen/_bag_fill
+function derailed:dev/gen/_bag_bleed
+scoreboard players operation #bag_n dr_var = #kind_off dr_var
+function derailed:dev/gen/_bag_share
+execute as @e[type=marker,tag=dr_seed,tag=!dr_chain,distance=0..] run function derailed:dev/gen/_kind_seed

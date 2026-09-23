@@ -31,7 +31,7 @@ every question about a section answerable for as long as the section takes:
 
 | y | what | written by | read by |
 |---|---|---|---|
-| 17 | the flood's working layer | `validate` | `_flood`, `_trace` |
+| 17 | the flood's working layer | `validate` | `_cost_spread`, `_trace` |
 | 15 | the section as it is meant to be seen | the attempt loop | `_edge_kind`, `validate` |
 | 9 | y5 with the rivers cut into it | the river stamp | the second river, to find the first |
 | 5 | **what the river reads, then the kinds** | `build`, then `paint` | `_river_look_*`, lifted to y15 |
@@ -342,20 +342,51 @@ lifted at all.
 
 ### 6. Kinds
 
-`kinds` gives every seed the kind its region will be drawn as, weighted **ground
-20, rock 12, wood 10, iron 10, water 5** out of 57.
+`kinds` gives every seed the kind its region will be drawn as. There are three
+**tiers**, picked by `#gen_difficulty` - 0 easy, 1 medium, 2 hard - and each
+has two tables, one for the seeds the track runs through and one for the rest.
+Rock is never in a chain table, so the corridor cannot be closed.
 
-Two guarantees are made here rather than checked later:
+| tier | on the chain | off the chain |
+|---|---|---|
+| easy | ground 60, wood 16, iron 16, water 8 | ground 24, rock 24, wood 20, iron 20, water 10 |
+| medium | ground 20, wood 32, iron 32, water 16 | ground 35, rock 21, wood 18, iron 18, water 9 |
+| hard | wood 40, iron 40, water 20 | rock 43, water 29, wood 14, iron 14 |
 
-- **Rock is left out of the draw for chain seeds.** The corridor cannot be
-  blocked because rock was never an option along it
-- **The resources are topped up.** Drawing per seed makes resources lumpy - with
-  two dozen seeds a section can easily roll a single patch of wood - so ground
-  seeds picked at random are converted until there are at least 4 rock, 4 wood,
-  4 iron and 2 water. Rock goes first, since it is the one that may not land on
-  a chain seed and so has the fewest seeds to choose from
+Hard has no ground at all, so every tile of a route there costs at least 2.
 
-The top-up removed nine rerolls in every eighty sections.
+A table is not rolled from directly. It fills a **bag** - the five weights in
+hundredths of a percent, ten thousand in all - and every draw then takes
+`#gen_bag_take` percent of one seed's share off the kind drawn, half a share,
+and hands the same amount out to the other kinds **in the tier's own ratios**.
+A kind is charged the whole take whatever it holds, so it can fall below
+nothing, and while it is there it is out of the roll: every pick of another
+kind pays it back its part of what was taken, so a rare kind drawn too often
+sits out for most of the bag while a common one is back in a few picks. The
+roll runs over whatever the bag holds above nothing. Simulated over 200,000
+hard sections, nine or more iron regions came up in one section in 80 and ten
+or more in one in 700, against one in 26 and one in 84 for independent rolls,
+while eight still came up one section in sixteen. The bag is filled twice a
+section, once for the chain seeds and once for the rest, and the second is
+first charged for what the seam carried in: each kind's bled tiles, counted as
+the regions grew, over the average region of 768 tiles by the seed count, taken
+off that kind as whole shares. A seed the river marked for a lake takes water
+out of the bag like any other draw.
+
+Every section is also held to a floor of **5 wood, 5 iron and 2 water** regions,
+and **4 rock on easy and medium or 6 on hard**, and the floors are met without
+converting anything. The chain seeds
+draw first, then the rest, and a running count keeps what is still owed to the
+floors against how many seeds are left. While there are more seeds than owed,
+each draws from its table; the moment the two are equal the remaining seeds take
+what is owed instead, wood first, then iron, water and rock last. That keeps the
+tables' ratios for as long as they can be kept and lands the forced kinds on the
+last few seeds, which are random ones anyway. Rock going last is also what keeps
+it off a chain seed if a long chain ever reaches the forced phase: a chain seed
+owed only rock draws as usual and the rock floor goes short.
+
+A seed the river marked for a lake is water whatever the bag says, and pays the
+water floor like any other draw.
 
 ### 7. Paint
 
@@ -376,8 +407,15 @@ found.
 ### 8. Validate
 
 `validate` floods from the entry tile across everything that is not rock and not
-outside the section, and checks it reaches the exit tile. Water is crossable,
-since water can be bridged.
+outside the section, **cheapest tiles first**, and stops the moment it reaches
+the exit tile. Each tile costs something to step onto - ground 1, wood or iron
+2, water 4 since water can be bridged - and a tile is taken on the wave its cost
+falls due, so the first wave to take a tile is the cheapest way there and the
+wave the exit is taken on is **the cost of the cheapest route across**. The
+waves are the trick growth uses with a tile's cost as its delay: eight rotating
+tags, one marker per tile taken, and no queue to keep sorted. The cost sits on
+the tile being stepped onto rather than on the step, which is what makes taking
+a tile on first arrival exact.
 
 The flood marks each tile on a layer two above the section, in a colour recording
 **which way it arrived**. That turns the layer into a set of arrows pointing
@@ -387,17 +425,36 @@ is drawn the arrows are cleared, and the route is all that stays on the layer.
 A ring of grey glass is laid around the section first, filling only air, so the
 flood stays inside its own section without painting over its neighbour's route.
 
-If the section fails, every seed's kind is rolled again and it regrows, keeping
-the seeds and the chain. Up to 5 attempts.
+The route is then judged by **what it costs a rail**, not by its total. The time
+the players get is the rails they lay, so a longer way across is not a harder
+one on its own: a zig-zag buys the time to match its cost. What a longer way is
+is more rails out of the same supply and more time at the same pace, so the
+cost a rail is raised by `#gen_rail_pen` percent - 1 - for every rail past the
+48 of a straight crossing. The figure is kept in hundredths of a point a rail
+so that it stays a whole number.
+
+A section is usable when the exit was reached and that figure lies between the
+tier's floor and ceiling, set in `build`: 1.55 to 2.20 on easy, 1.85 to 2.50 on
+medium and 2.65 to 3.30 on hard. The hard pair comes from ten measured sections;
+easy and medium are placeholders until a batch has printed theirs. Wood and iron
+need no check here, since the floors in `kinds` guarantee them. If the section
+fails, every seed's kind is rolled again and it is painted again, keeping the
+regions, the seeds and the chain. Up to 5 attempts.
+
+The figure is taken on the cheapest route by total cost, which is the natural
+line across. A longer detour can average less a rail, so this overstates a
+little what a player padding their route with ground could get. The true
+lowest-average path is out of reach in commands, and without a rail budget it is
+not even well defined, since a loop through ground drags any average toward 1.
 
 ## What it costs
 
 Measured 2026-09-21 with `dev/gen/profile` run from a command block every tick
 for the profiler's ten seconds - about a hundred whole three-section maps, with
 the stands and the report switched off so that only the generating is timed.
-The sections were 35 by 20 then, with one river each. At 48 by 16 with two
-rivers a section has a tenth more tiles and twice the river search, and has not
-been profiled since.
+The sections were 35 by 20 then, with one river each and a depth-first flood.
+At 48 by 16 with two rivers and the least-cost flood a section has a tenth more
+tiles and a good deal more searching, and has not been profiled since.
 
 | stage | per section | share of generation |
 |---|---|---|
@@ -448,8 +505,12 @@ nothing at all spread across three or four.
 
 ## Looking at it
 
-- `dev/gen/test` builds three chained sections at x 1000 and prints a report. It
-  positions itself, so it is safe to call from anywhere
+- `dev/gen/test` builds three chained sections at x 1000, one on each tier -
+  easy, then medium, then hard - saying what each cost against its bounds, and
+  prints a report. It positions itself, so it is safe to call from anywhere, and
+  it puts the tier back to what it was
+- `#gen_difficulty` is the tier every section from then on is built to: 0 easy,
+  1 medium, 2 hard. `run_grow` builds all of its sections on it
 - `dev/gen/run_grow` is the benchmark: four repetitions of 21 sections, profiled
   with F3+L, cleaning up on the tick after
 - `dev/gen/clear` empties the whole stack. `init` and each benchmark pass call it,
@@ -459,8 +520,7 @@ nothing at all spread across three or four.
 
 The finished section is at **y=15**. Above it, **y=16** holds a red block over
 every chain seed and a gold one over the seed the track must end on, and **y=17**
-holds the route the flood found, in red glass, inside a grey ring. Red only
-means it walked straight to the exit without a wrong turn.
+holds the cheapest route across in red glass, inside a grey ring.
 
 Below it are the working layers, and they are worth reading when a river needs
 explaining: **y=9** has the line the search walked with everything it gave up on
@@ -524,13 +584,9 @@ at all**, and its seam fails silently. Play builds into fresh ground and
 - **No station or other set pieces**
 - **Placeholder blocks**, not DeRailed's own
 - **No queue.** Sections are built in one go rather than spread over ticks
-- **Nothing stops a section being trivially easy.** About one in fifty has no
-  rock at all. Guarding against that properly means scoring the cheapest way
-  across - ground 1, resource 2, water 4 - and requiring a minimum, which needs
-  a least-cost search rather than the depth-first flood
+- **The easy and medium bounds are placeholders.** Only hard's cost a rail has
+  been measured; the other two want a batch run before their floors mean
+  anything
 - **Seeds sit at tile corners**, since the scatter rolls whole tiles. Sub-tile
   seed positions would take blob accuracy from about 92% to about 98% against
   true Voronoi
-- **The traced route is not the shortest one.** Depth-first search finds a way
-  through, not the best way, so the red line wanders and its length overstates a
-  real track. Nothing reads it - it is there to be looked at

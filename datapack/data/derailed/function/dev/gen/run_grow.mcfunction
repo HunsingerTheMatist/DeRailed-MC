@@ -20,7 +20,12 @@ scoreboard players set #wave_leftover dr_var 0
 scoreboard players set #gen_rerolls dr_var 0
 scoreboard players set #gen_failed dr_var 0
 scoreboard players set #gen_fail_path dr_var 0
-scoreboard players set #gen_fail_supply dr_var 0
+scoreboard players set #gen_fail_cheap dr_var 0
+scoreboard players set #gen_fail_dear dr_var 0
+scoreboard players set #gen_rate_n dr_var 0
+scoreboard players set #gen_rate_sum dr_var 0
+scoreboard players set #gen_rate_lo dr_var 2147483647
+scoreboard players set #gen_rate_hi dr_var 0
 scoreboard players set #gen_no_river dr_var 0
 scoreboard players set #riv_fell dr_var 0
 scoreboard players set #riv_joins dr_var 0
