@@ -110,15 +110,25 @@ reserved for the track: where it can go is settled by the terrain and by
 
 ### The wall
 
-On hard, before anything grows, `wall` runs a band of rock from the north
-border to the south. It starts at the seed nearest a random point on the north
-border and steps south seed to seed, taking the nearest seed in a window eight
-rows deep and six columns either side, until it stands in the last four rows.
-Those seeds come out rock whatever the draw says, and pay the rock floor and
-charge the bag like any draw. The band is one region thick, so the cheapest way
-across has to cut through it somewhere, and the cut is a passage one tile wide.
-Two of its regions can fail to touch, and then the route slips through the gap
-without cutting; the report's cut count shows when that happened.
+On hard, once the regions have grown, `wall` runs a band of rock from the
+north border to the south. It starts at the seed nearest a random point on the
+north border and steps south seed to seed, taking the nearest seed in a window
+eight rows deep and six columns either side, until it stands in the last four
+rows, has taken eight steps, or finds no seed in the window, and from there it
+runs straight south to the border. Between the border point and the first seed,
+and between each seed and the next, it walks a line of tiles a step at a time,
+always the way that has further to go, and puts every region under that line
+on the band. So the band is joined from end to end and reaches both borders,
+and it meanders wherever the seeds lead it. Its seeds come out rock whatever
+the draw says, and pay the rock floor and charge the bag like any draw. The
+cheapest way across has to cut through the band somewhere, and the cut is a
+passage one tile wide with the band's rock either side of it, which is what
+gives a hard section its pinch; the floor check stays behind that for the rare
+cut through a thin diagonal of rock with nothing beside it.
+
+A region carried over the seam keeps its kind and has no seed to put on the
+band, so a line through one leaves a hole. The band is laid again from another
+column, up to four times, and a hole left after that is counted in the report.
 
 ### 3. Grow
 
@@ -454,18 +464,24 @@ cannot pass through it, so what matters is whether rock closes both of its
 sides at once. Sliding the box along the route a half step at a time comes to
 a window of three route cells: each side is closed when rock stands beside any
 of the three, on that side of the box, and the window is pinched when both are.
-Only rock counts; everything else the players can clear. The box's left is its
-own, so it turns with the track at a corner, which needs no case of its own. A
-run of consecutive pinched windows costs its length cubed, so one long pinch
-weighs far more than the same length broken up, and two short runs a cell apart
-score the same as one long one, which is what a box two long makes true. The
-section's score is the sum over its runs.
+Only rock counts; everything else the players can clear. The section's edges
+count as rock too: the north and south edges, since nobody gets round the
+train past the edge of the map, and the east edge, since what stands past it
+is not built yet. The west edge never comes up, since the route never runs
+along the western column. The box's left is its own, so it turns with the
+track at a corner, which needs no case of its own. A run of consecutive
+pinched windows costs its length cubed, so one long pinch weighs far more than
+the same length broken up, and two short runs a cell apart score the same as
+one long one, which is what a box two long makes true. The section's score is
+the sum over its runs.
 
 The tier sets a ceiling on that score and hard sets a floor as well. Over the
 ceiling the section is not thrown away: the longest run is **opened up**, the
-rock on the box's left cut back from the exit end just far enough that what is
-left of the run would pass, the route is found again, and the score taken
-afresh, for up to four rounds. Under hard's floor is a reroll like a cheap
+rock along one side of it cut back from the exit end just far enough that what
+is left of the run would pass, taking whichever side has less rock along those
+cells and never a side that faces out of the section, since the edge cannot be
+cut; then the route is found again, and the score taken afresh, for up to four
+rounds. Under hard's floor is a reroll like a cheap
 route. The bands: easy allows no pinch at all; medium allows 54, two single
 rows of rock either side far enough apart not to touch, at 27 each; hard wants
 at least 27, one such row, and allows up to 343, a corridor five rows long,

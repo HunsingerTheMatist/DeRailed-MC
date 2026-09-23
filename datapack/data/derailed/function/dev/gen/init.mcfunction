@@ -31,6 +31,7 @@ scoreboard players set #gen_failed dr_var 0
 scoreboard players set #gen_fail_path dr_var 0
 scoreboard players set #gen_cuts dr_var 0
 scoreboard players set #gen_relieved dr_var 0
+scoreboard players set #gen_wall_gaps dr_var 0
 scoreboard players set #gen_fail_flat dr_var 0
 scoreboard players set #gen_fail_cheap dr_var 0
 scoreboard players set #gen_fail_dear dr_var 0

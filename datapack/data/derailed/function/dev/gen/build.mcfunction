@@ -34,12 +34,12 @@ execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_rock dr_var 4
 
 function derailed:dev/gen/scatter
-
-# Hard gets a band of rock across it for the route to have to cut through
-execute if score #gen_difficulty dr_var matches 2 run function derailed:dev/gen/wall
-
 function derailed:dev/gen/route
 function derailed:dev/gen/grow
+
+# Hard gets a band of rock across it for the route to have to cut through,
+#  picked from the regions once they have grown so that it has no gap
+execute if score #gen_difficulty dr_var matches 2 run function derailed:dev/gen/wall
 
 # The kinds layer starts out as the regions exactly as they grew, which is both
 #  what the river reads and what painting swaps out from under itself

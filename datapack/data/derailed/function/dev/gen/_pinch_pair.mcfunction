@@ -5,7 +5,8 @@
 #  the box slides through between them: pinched when rock closes both sides
 #  somewhere along it
 # Left is the box's own left, so it turns with the track at a corner
-# Positioned on the cell, with '#gen_back' the way its parent lies
+# Positioned on the cell, with '#gen_back' the way its parent lies and
+#  '#trace_x' and '#trace_z' its column and row
 
 scoreboard players set #pinch_l dr_var 0
 scoreboard players set #pinch_r dr_var 0
@@ -33,6 +34,18 @@ execute if score #gen_back dr_var matches 4 if block ~-1 ~ ~ gray_concrete run s
 execute if score #gen_back dr_var matches 4 if block ~-1 ~ ~1 gray_concrete run scoreboard players set #pinch_l dr_var 1
 execute if score #gen_back dr_var matches 4 if block ~1 ~ ~ gray_concrete run scoreboard players set #pinch_r dr_var 1
 execute if score #gen_back dr_var matches 4 if block ~1 ~ ~1 gray_concrete run scoreboard players set #pinch_r dr_var 1
+
+# The section's edges close a side the way rock does: nobody gets round the
+#  train past the north or south edge of the map, and nothing is known to stand
+#  past the east edge, the section after not being built yet
+# The west edge never comes up, since the route never runs along the western
+#  column
+execute if score #gen_back dr_var matches 1 if score #trace_z dr_var matches 0 run scoreboard players set #pinch_l dr_var 1
+execute if score #gen_back dr_var matches 1 if score #trace_z dr_var matches 15 run scoreboard players set #pinch_r dr_var 1
+execute if score #gen_back dr_var matches 2 if score #trace_z dr_var matches 15 run scoreboard players set #pinch_l dr_var 1
+execute if score #gen_back dr_var matches 2 if score #trace_z dr_var matches 0 run scoreboard players set #pinch_r dr_var 1
+execute if score #gen_back dr_var matches 3 if score #trace_x dr_var matches 31 run scoreboard players set #pinch_l dr_var 1
+execute if score #gen_back dr_var matches 4 if score #trace_x dr_var matches 31 run scoreboard players set #pinch_r dr_var 1
 
 scoreboard players operation #pinch_wl dr_var = #pinch_l dr_var
 scoreboard players operation #pinch_wl dr_var += #pinch_pl dr_var

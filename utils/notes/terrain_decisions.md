@@ -41,9 +41,12 @@ tile
 is kept off rock where any row of the east edge is clear of it, so a section
 never has to dig in at its very edge for want of a better row.
 
-On hard that is made to happen. Before anything grows, a **wall** of rock is
-run from the north border to the south, seed to seed, one region thick. Every
-hard section's route has to cut through it somewhere.
+On hard that is made to happen. Once the regions have grown, a **wall** of rock
+is run from the north border to the south, seed to seed, one region thick and
+meandering wherever the seeds lead it, with every region on the way from one
+seed to the next taken into it, so that it has no gap and reaches both borders.
+Every hard section's route has to cut through it somewhere, and the cut, one
+tile wide with rock either side, is the pinch hard asks for.
 
 ## Rivers
 
@@ -93,7 +96,9 @@ slide that box along the track and note where rock closes both its sides at
 once. A run of pinched positions costs its length cubed, so one long squeeze
 counts far more than the same length in pieces, and the section's pinch score
 is the sum over its runs. Only rock counts as a wall, since the players can
-clear anything else.
+clear anything else, and the map's edges count as rock too: nobody gets round
+the train past the north or south edge, and what lies past the east edge is not
+built yet.
 
 Each tier has a ceiling for that score, and hard has a floor: easy allows none,
 medium two single rows of rock either side far enough apart not to touch, hard
@@ -154,8 +159,8 @@ with the bag in place they rarely have to act.
   in the game
 - There is no hard cap on how many regions of a kind a section can hold, only
   the bag's thin tail. A cap would be a few lines if the tail ever shows
-- The wall is one region thick by construction, but two of its regions can fail
-  to touch, and then the route slips through the gap without cutting. The
-  report's cut count shows when that happened
+- The wall cannot take in a region carried over the seam, which keeps its kind,
+  so a wall laid through one has a hole; it is laid again from another column,
+  up to four times, and the report counts any hole left
 - Sections are placeholder blocks in a test area, built in one go. Real blocks,
   a queue spread over ticks, and stations are all still to come

@@ -3,6 +3,8 @@
 #  brings what is left of it under the ceiling
 # Positioned at the section's corner
 
+execute summon marker run function derailed:dev/gen/_read_corner
+
 # The longest run that would pass, counted down from the run as it is
 scoreboard players operation #pinch_keep dr_var = #pinch_top dr_var
 function derailed:dev/gen/_pinch_fit
@@ -15,5 +17,14 @@ scoreboard players operation #pinch_last dr_var = #pinch_first dr_var
 scoreboard players operation #pinch_last dr_var += #pinch_top dr_var
 scoreboard players operation #pinch_last dr_var -= #pinch_keep dr_var
 scoreboard players add #pinch_last dr_var 1
+
+# The side opened is whichever has less rock along those cells, so that the
+#  opening cuts as little as it can, and never one that faces out of the
+#  section, since the edge closes a side but is not rock to cut
+scoreboard players set #pinch_lrock dr_var 0
+scoreboard players set #pinch_rrock dr_var 0
+execute as @e[type=marker,tag=dr_pinch,distance=0..] if score @s dr_step = #pinch_top_id dr_var if score @s dr_wave <= #pinch_last dr_var at @s run function derailed:dev/gen/_pinch_side
+scoreboard players set #pinch_side dr_var 1
+execute if score #pinch_rrock dr_var < #pinch_lrock dr_var run scoreboard players set #pinch_side dr_var 2
 
 execute as @e[type=marker,tag=dr_pinch,distance=0..] if score @s dr_step = #pinch_top_id dr_var if score @s dr_wave <= #pinch_last dr_var at @s run function derailed:dev/gen/_pinch_open_at

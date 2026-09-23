@@ -30,7 +30,12 @@ function derailed:dev/gen/_pinch_pair
 setblock ~ ~2 ~ red_stained_glass strict
 scoreboard players add #gen_route dr_var 1
 
+# The column and row go along with the step, for telling the edges
+execute if score #gen_back dr_var matches 1 run scoreboard players remove #trace_x dr_var 1
 execute if score #gen_back dr_var matches 1 run return run execute positioned ~-1 ~ ~ run function derailed:dev/gen/_trace
+execute if score #gen_back dr_var matches 2 run scoreboard players add #trace_x dr_var 1
 execute if score #gen_back dr_var matches 2 run return run execute positioned ~1 ~ ~ run function derailed:dev/gen/_trace
+execute if score #gen_back dr_var matches 3 run scoreboard players remove #trace_z dr_var 1
 execute if score #gen_back dr_var matches 3 run return run execute positioned ~ ~ ~-1 run function derailed:dev/gen/_trace
+scoreboard players add #trace_z dr_var 1
 execute positioned ~ ~ ~1 run function derailed:dev/gen/_trace
