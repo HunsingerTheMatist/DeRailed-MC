@@ -94,11 +94,11 @@ scoreboard players set #gen_riv_max dr_var 80
 # The shortest the first river may be and still be worth keeping
 # One that reaches the far border before then is turned back to look for a
 #  longer way out
-scoreboard players set #gen_riv_min dr_var 25
+scoreboard players set #gen_riv_min dr_var 20
 
 # The least a section's rivers may come to between them: a first river this
 #  long stands alone, and a shorter one gets a second held to the difference
-scoreboard players set #gen_riv_pair dr_var 50
+scoreboard players set #gen_riv_pair dr_var 40
 
 # The shortest the second river may be whatever the first came to, so that a
 #  long first river does not leave it a puddle

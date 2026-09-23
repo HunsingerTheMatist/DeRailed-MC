@@ -235,7 +235,7 @@ walls, nothing crosses a seam, and a section's rivers owe nothing to its
 neighbours'. Every section gets a first river; it gets a second only when the
 first came up short.
 
-The first river has to run at least `#gen_riv_min` corners - 25. A river that
+The first river has to run at least `#gen_riv_min` corners - 20. A river that
 reaches the far border sooner is turned back rather than kept, since the search
 has a whole section of boundaries to look through for a longer way out. A branch
 that passes `#gen_riv_max` - 80 - is given up on instead. A section 32 wide
@@ -300,7 +300,7 @@ the corners the walk passes through are kept.
 
 #### The second river
 
-A first river of `#gen_riv_pair` corners or more - 50 - is the section's whole
+A first river of `#gen_riv_pair` corners or more - 40 - is the section's whole
 river. A shorter one gets a second, which sets out from the same border as the
 first, at a column at least `#gen_riv_apart` - 10 - away from where the first
 did, so that it does not run into it at once. It may finish by the far border like the first, or by
@@ -310,7 +310,7 @@ water is on y9 by then, which is the one thing about the first that the second
 can see. Water in the section before is not looked at, since that is another
 section's river and a river joining it would be a river leaving by the west.
 
-It is held to whatever brings the pair up to `#gen_riv_pair` - 50 - between
+It is held to whatever brings the pair up to `#gen_riv_pair` - 40 - between
 them, and never less than `#gen_riv_2nd` - 10 - so that a long first river does
 not leave it a puddle.
 
