@@ -12,6 +12,9 @@ execute if block ~ ~9 ~ magenta_glazed_terracotta run return fail
 scoreboard players set #gen_id dr_var -1
 function derailed:dev/gen/_read_id
 
+# A region that is to be the wall's rock is no use as a lake either
+execute as @e[type=marker,tag=dr_seed,tag=dr_wall,distance=0..] if score @s dr_id = #gen_id dr_var run return fail
+
 # Only a region of this section's own may be turned: one carried over the seam
 #  keeps the kind it came with, and changing it here would leave it a different
 #  kind either side of the boundary

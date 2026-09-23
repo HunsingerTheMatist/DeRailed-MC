@@ -102,19 +102,23 @@ until the river is cut. The kinds go on at the end, in `paint`.
 
 ### 2. Route
 
-`route` decides where the track enters and leaves, and marks the seeds it runs
-through as the **chain**.
+`route` decides where the track leaves. The entry row is inherited from the
+section before, and the exit row is the furthest of three rolls from it, which
+leans exits toward the top and bottom edges rather than the middle. Nothing is
+reserved for the track: where it can go is settled by the terrain and by
+`validate`, which cuts through rock where it must.
 
-- The entry row is inherited from the section before
-- The exit row is the furthest of three rolls from the entry row, which leans
-  exits toward the top and bottom edges rather than the middle
-- The chain walks seed to seed in two legs: forward across the section, then
-  along the east side to the seed nearest the exit row
+### The wall
 
-The forward leg only ever looks ahead, in a window reaching 12 east and 14 deep,
-leaning to the side the exit lies on. Reaching only 12 ahead matters: a longer
-step jumps over whatever sits between, and anything jumped over is free to come
-out as rock.
+On hard, before anything grows, `wall` runs a band of rock from the north
+border to the south. It starts at the seed nearest a random point on the north
+border and steps south seed to seed, taking the nearest seed in a window eight
+rows deep and six columns either side, until it stands in the last four rows.
+Those seeds come out rock whatever the draw says, and pay the rock floor and
+charge the bag like any draw. The band is one region thick, so the cheapest way
+across has to cut through it somewhere, and the cut is a passage one tile wide.
+Two of its regions can fail to touch, and then the route slips through the gap
+without cutting; the report's cut count shows when that happened.
 
 ### 3. Grow
 
@@ -347,16 +351,16 @@ lifted at all.
 
 `kinds` gives every seed the kind its region will be drawn as. There are three
 **tiers**, picked by `#gen_difficulty` - 0 easy, 1 medium, 2 hard - and each
-has two tables, one for the seeds the track runs through and one for the rest.
-Rock is never in a chain table, so the corridor cannot be closed.
+has a table of weights:
 
-| tier | on the chain | off the chain |
-|---|---|---|
-| easy | ground 60, wood 16, iron 16, water 8 | ground 24, rock 24, wood 20, iron 20, water 10 |
-| medium | ground 20, wood 32, iron 32, water 16 | ground 35, rock 21, wood 18, iron 18, water 9 |
-| hard | wood 40, iron 40, water 20 | rock 43, water 29, wood 14, iron 14 |
+| tier | ground | rock | wood | iron | water |
+|---|---|---|---|---|---|
+| easy | 45 | 15 | 15 | 15 | 10 |
+| medium | 35 | 21 | 18 | 18 | 9 |
+| hard | 0 | 43 | 14 | 14 | 29 |
 
-Hard has no ground at all, so every tile of a route there costs at least 2.
+Hard has no ground at all, so every tile of a route there costs at least 2, and
+it has the wall on top.
 
 A table is not rolled from directly. It fills a **bag** - the five weights in
 hundredths of a percent, ten thousand in all - and every draw then takes
@@ -369,27 +373,23 @@ sits out for most of the bag while a common one is back in a few picks. The
 roll runs over whatever the bag holds above nothing. Simulated over 200,000
 hard sections of 18 seeds, seven or more iron regions came up in one section in
 67 and eight or more in one in 1000, against one in 22 and one in 91 for
-independent rolls, while six still came up one section in eleven. The bag is filled twice a
-section, once for the chain seeds and once for the rest, and the second is
-first charged for what the seam carried in: each kind's bled tiles, counted as
-the regions grew, over the average region of 512 tiles by the seed count, taken
-off that kind as whole shares. A seed the river marked for a lake takes water
+independent rolls, while six still came up one section in eleven. The bag is
+filled once a section and first charged for what the seam carried in: each
+kind's bled tiles, counted as the regions grew, over the average region of 512
+tiles by the seed count, taken off that kind as whole shares. A seed the river marked for a lake takes water
 out of the bag like any other draw.
 
 Every section is also held to a floor of **3 wood, 3 iron and 2 water** regions,
 and **3 rock on easy and medium or 4 on hard**, and the floors are met without
-converting anything. The chain seeds
-draw first, then the rest, and a running count keeps what is still owed to the
-floors against how many seeds are left. While there are more seeds than owed,
-each draws from its table; the moment the two are equal the remaining seeds take
-what is owed instead, wood first, then iron, water and rock last. That keeps the
-tables' ratios for as long as they can be kept and lands the forced kinds on the
-last few seeds, which are random ones anyway. Rock going last is also what keeps
-it off a chain seed if a long chain ever reaches the forced phase: a chain seed
-owed only rock draws as usual and the rock floor goes short.
+converting anything. A running count keeps what is still owed to the floors
+against how many seeds are left. While there are more seeds than owed, each
+draws from the bag; the moment the two are equal the remaining seeds take what
+is owed instead, wood first, then iron, water and rock. That keeps the table's
+ratios for as long as they can be kept and lands the forced kinds on the last
+few seeds, which are random ones anyway.
 
-A seed the river marked for a lake is water whatever the bag says, and pays the
-water floor like any other draw.
+A seed on the wall is rock and a seed the river marked for a lake is water,
+whatever the bag says, and each pays its floor like any other draw.
 
 ### 7. Paint
 
@@ -409,16 +409,66 @@ found.
 
 ### 8. Validate
 
-`validate` floods from the entry tile across everything that is not rock and not
-outside the section, **cheapest tiles first**, and stops the moment it reaches
-the exit tile. Each tile costs something to step onto - ground 1, wood or iron
-2, water 4 since water can be bridged - and a tile is taken on the wave its cost
+`validate` floods from the entry tile across everything inside the section,
+**cheapest tiles first**, and stops the moment it reaches the exit tile. Each
+tile costs something to step onto - ground 1, wood or iron 2, water 4 since
+water can be bridged, rock 1000 - and a tile is taken on the wave its cost
 falls due, so the first wave to take a tile is the cheapest way there and the
 wave the exit is taken on is **the cost of the cheapest route across**. The
 waves are the trick growth uses with a tile's cost as its delay: eight rotating
 tags, one marker per tile taken, and no queue to keep sorted. The cost sits on
 the tile being stepped onto rather than on the step, which is what makes taking
 a tile on first arrival exact.
+
+Rock's thousand is done in **levels** rather than waves. A rock tile the flood
+comes up against is claimed with its arrow and parked with the wave it was
+reached on. When the level has run out without reaching the exit, the next
+level starts the wave count over and wakes each parked tile on the wave it was
+parked with, so a tile taken on level k at wave w costs k thousand plus w, which
+is exactly the number the thousand stands for. Rock is therefore only ever
+crossed where no way round it exists, and there at its thinnest.
+
+A route that went through rock is then **cut**. The trace marks every rock tile
+on it, numbered from the exit end, and once the whole route is known the cut is
+filled in from both ends at once - first tile, then last, then second and last
+but one - each becoming whatever terrain other than rock is nearest, looking
+next door first, then at the corners, then two away, on the visible layer and
+the kinds layer both. River is never copied, and a tile with nothing but rock
+and river round it becomes ground. On hard a cut that came out water from end
+to end becomes river instead. The flood then runs once more over what it cut,
+since that rock-free route is the one the players will have, and that is the
+route judged.
+
+The same walk measures how much the route **pinches the train**. The train is
+a box two long and one wide, pointing the way the track runs, and the players
+cannot pass through it, so what matters is whether rock closes both of its
+sides at once. Sliding the box along the route a half step at a time comes to
+a window of three route cells: each side is closed when rock stands beside any
+of the three, on that side of the box, and the window is pinched when both are.
+Only rock counts; everything else the players can clear. The box's left is its
+own, so it turns with the track at a corner, which needs no case of its own. A
+run of consecutive pinched windows costs its length cubed, so one long pinch
+weighs far more than the same length broken up, and two short runs a cell apart
+score the same as one long one, which is what a box two long makes true. The
+section's score is the sum over its runs.
+
+The tier sets a ceiling on that score and hard sets a floor as well. Over the
+ceiling the section is not thrown away: the longest run is **opened up**, the
+rock on the box's left cut back from the exit end just far enough that what is
+left of the run would pass, the route is found again, and the score taken
+afresh, for up to four rounds. Under hard's floor is a reroll like a cheap
+route. The bands: easy allows no pinch at all; medium allows 54, two single
+rows of rock either side far enough apart not to touch, at 27 each; hard wants
+at least 27, one such row, and allows up to 343, a corridor five rows long,
+which is seven windows. Two short corridors a row apart count as the one long
+one, so hard's ceiling is as much about spacing as about length.
+
+Before any of that, the **exit tile is kept off rock**: if the row picked lands
+on rock and any other row of the east edge is clear, the exit moves there,
+keeping the lean away from the entry row. The first section's entry is kept off
+rock the same way. Without this a section whose exit region grew as rock would
+have to dig into it at the very edge, and the section after would have to dig
+its way out, where any other row would have done.
 
 The flood marks each tile on a layer two above the section, in a colour recording
 **which way it arrived**. That turns the layer into a set of arrows pointing
@@ -427,6 +477,8 @@ is drawn the arrows are cleared, and the route is all that stays on the layer.
 
 A ring of grey glass is laid around the section first, filling only air, so the
 flood stays inside its own section without painting over its neighbour's route.
+The western column gets the same glass, all but the entry tile, so the route
+never runs along the seam, where the station will stand.
 
 The route is then judged by **what it costs a rail**, not by its total. The time
 the players get is the rails they lay, so a longer way across is not a harder
@@ -442,7 +494,7 @@ medium and 2.65 to 3.30 on hard. The hard pair comes from ten measured sections;
 easy and medium are placeholders until a batch has printed theirs. Wood and iron
 need no check here, since the floors in `kinds` guarantee them. If the section
 fails, every seed's kind is rolled again and it is painted again, keeping the
-regions, the seeds and the chain. Up to 5 attempts.
+regions and the seeds. Up to 5 attempts.
 
 The figure is taken on the cheapest route by total cost, which is the natural
 line across. A longer detour can average less a rail, so this overstates a
@@ -508,7 +560,7 @@ half ticks as a burst and nothing at all spread across three or four.
 
 ## Looking at it
 
-- `dev/gen/test` builds three chained sections at x 1000, one on each tier -
+- `dev/gen/test` builds three joined sections at x 1000, one on each tier -
   easy, then medium, then hard - saying what each cost against its bounds, and
   prints a report. It positions itself, so it is safe to call from anywhere, and
   it puts the tier back to what it was
@@ -521,9 +573,8 @@ half ticks as a burst and nothing at all spread across three or four.
   border and no river can then find its way out
 - `dev/bench/stop` clears the area and lets the game tick run again
 
-The finished section is at **y=15**. Above it, **y=16** holds a red block over
-every chain seed and a gold one over the seed the track must end on, and **y=17**
-holds the cheapest route across in red glass, inside a grey ring.
+The finished section is at **y=15**. Above it, **y=17** holds the cheapest
+route across in red glass, inside a grey ring.
 
 Below it are the working layers, and they are worth reading when a river needs
 explaining: **y=9** has the line the search walked with everything it gave up on

@@ -1,9 +1,12 @@
 
-# Walks back the way the flood came, painting the route it took
+# Walks back the way the flood came, painting the route it took and marking any
+#  rock it ran through to be cut
 # The tile the flood started on is the one with no direction on it
 
 scoreboard players remove #gen_steps dr_var 1
 execute if score #gen_steps dr_var matches ..0 run return fail
+
+execute if block ~ ~ ~ gray_concrete run function derailed:dev/gen/_cut_mark
 
 execute if block ~ ~2 ~ white_stained_glass run scoreboard players add #gen_route dr_var 1
 execute if block ~ ~2 ~ white_stained_glass run return run setblock ~ ~2 ~ red_stained_glass strict
@@ -16,6 +19,10 @@ execute if block ~ ~2 ~ purple_stained_glass run scoreboard players set #gen_bac
 
 # Anything else means the trace has wandered off the flood
 execute if score #gen_back dr_var matches 0 run return fail
+
+# The way it came is also the way the track runs through here, which is what
+#  the pinching is measured along
+function derailed:dev/gen/_pinch_pair
 
 setblock ~ ~2 ~ red_stained_glass strict
 scoreboard players add #gen_route dr_var 1

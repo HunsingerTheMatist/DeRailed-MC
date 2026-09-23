@@ -1,7 +1,12 @@
 
 # Puts this tile on the wave its cost falls due, or, for the tile the track
 #  leaves on, takes that wave as the cost of the route
+# Rock is not stepped onto while any way round it is left: a tile of it costs a
+#  thousand, so it is parked for the level after this one instead of put on a
+#  wave
 # Positioned on the tile
+
+execute if block ~ ~ ~ gray_concrete run return run function derailed:dev/gen/_cost_park
 
 scoreboard players set #cost_c dr_var 1
 execute if block ~ ~ ~ #derailed:cost_resource run scoreboard players set #cost_c dr_var 2

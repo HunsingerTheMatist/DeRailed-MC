@@ -4,9 +4,14 @@
 #  that every floor is met without any seed being changed afterwards
 # Run as the seed
 
-# A region the river ran out against is water whatever else would have come up,
-#  so a reroll cannot leave the river ending on dry ground; it comes out of the
-#  bag like any other draw of water
+# A seed on the wall is rock, and a region the river ran out against is water,
+#  whatever else would have come up; either comes out of the bag like any other
+#  draw of its kind
+execute if entity @s[tag=dr_wall] run scoreboard players set #gen_kind dr_var 4
+execute if entity @s[tag=dr_wall] run scoreboard players operation #bag_take dr_var = #bag_share dr_var
+execute if entity @s[tag=dr_wall] run function derailed:dev/gen/_bag_shift
+execute if entity @s[tag=dr_wall] run return run function derailed:dev/gen/_kind_take
+
 execute if entity @s[tag=dr_lake] run scoreboard players set #gen_kind dr_var 3
 execute if entity @s[tag=dr_lake] run scoreboard players operation #bag_take dr_var = #bag_share dr_var
 execute if entity @s[tag=dr_lake] run function derailed:dev/gen/_bag_shift

@@ -1,6 +1,6 @@
 
-# Builds one whole section, retrying the terrain up to 5 times until the track
-#  can get across
+# Builds one whole section, retrying the kinds up to 5 times until the cheapest
+#  way across costs what the tier asks
 # Positioned at the section's corner
 
 # The tier sets what the cheapest way across may cost a rail, in hundredths of a
@@ -14,6 +14,19 @@ execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_min dr_var 265
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_max dr_var 330
 
+# And how much the route may pinch the train, a run of n pinched windows
+#  counting n cubed: over the ceiling is opened up rather than thrown away, and
+#  hard wants some
+# Easy allows none, medium two single rows of rock either side far enough apart
+#  not to touch, and hard from one such row up to a corridor five long, which is
+#  seven windows
+execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_pinch_max dr_var 0
+execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_pinch_min dr_var 0
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_pinch_max dr_var 54
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_pinch_min dr_var 0
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_max dr_var 343
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_min dr_var 27
+
 # And the fewest rock regions, since rock is what makes a section hard to move
 #  about in rather than just dear to cross
 execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_min_rock dr_var 3
@@ -21,6 +34,10 @@ execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_rock dr_var 4
 
 function derailed:dev/gen/scatter
+
+# Hard gets a band of rock across it for the route to have to cut through
+execute if score #gen_difficulty dr_var matches 2 run function derailed:dev/gen/wall
+
 function derailed:dev/gen/route
 function derailed:dev/gen/grow
 

@@ -23,5 +23,7 @@ execute in derailed:game run kill @e[type=marker,tag=dr_riv_head]
 execute in derailed:game run kill @e[type=marker,tag=dr_riv_best]
 execute in derailed:game run kill @e[type=marker,tag=dr_riv_seed]
 execute in derailed:game run kill @e[type=marker,tag=dr_flood]
+execute in derailed:game run kill @e[type=marker,tag=dr_cut]
+execute in derailed:game run kill @e[type=marker,tag=dr_pinch]
 execute in derailed:game run kill @e[type=armor_stand,tag=dr_seed_mark]
 function derailed:dev/gen/clear

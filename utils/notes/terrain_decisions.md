@@ -23,17 +23,24 @@ section carries on into the next, so a forest is not sliced flat at every 32
 tiles. A carried region keeps its kind, and the section it enters draws that much
 less of that kind for itself.
 
-## The corridor
+## No corridor, and a wall
 
-Before anything grows, the section picks a **chain** of seeds from the entry row
-to the exit row: forward across the section, then along the far side to the seed
-nearest the exit. Those regions are the corridor the track will want, and they
-are never rock. Everything else about them - what they are drawn as, how wide
-the corridor comes out - falls out of the growth and the draw.
+Nothing is reserved for the track. The section picks the row it will leave by,
+leaning toward the top and bottom edges so that the track wanders up and down
+the map over a run rather than holding a line, and the terrain is drawn without
+regard to it. Where the track can go is settled afterwards: rock is not
+impassable but very dear, a thousand a tile, so the cheapest way across only
+ever goes through rock where no way round it exists, and where it does, that
+rock is **cut out**, leaving a passage one tile wide. The cut is filled in from
+both ends at once, each tile becoming whatever terrain other than rock is
+nearest, never river, so the passage takes the terrain it opens onto at each
+end. On hard a cut that came out water end to end becomes river. The exit tile
+is kept off rock where any row of the east edge is clear of it, so a section
+never has to dig in at its very edge for want of a better row.
 
-The exit row leans toward the top and bottom edges rather than the middle, so
-that the track wanders up and down the map over a run rather than holding a
-line.
+On hard that is made to happen. Before anything grows, a **wall** of rock is
+run from the north border to the south, seed to seed, one region thick. Every
+hard section's route has to cut through it somewhere.
 
 ## Rivers
 
@@ -61,8 +68,8 @@ section has to cost.
 
 The measure of a section is **what the cheapest way across costs a rail**. Each
 tile costs something to lay track through - ground 1, wood or iron 2, water 4,
-rock never - and the cheapest route from entry to exit is found over the finished
-terrain. Its cost is divided by its length in rails, because the time the players
+rock 1000 - and the cheapest route from entry to exit is found over the finished
+terrain, then measured again over what it cut if it had to cut through rock. Its cost is divided by its length in rails, because the time the players
 get is the rails they lay: a zig-zag route is not harder, it just takes longer
 and buys the time to match. On top of that, every rail past the 32 of a straight
 crossing adds one percent, since a longer section is more rails out of the same
@@ -74,20 +81,42 @@ placeholders** until a batch run on each has shown where they land. A section
 outside its band redraws its kinds and tries again, up to five times, and then
 ships as it is and is counted.
 
+### How pinched the train is
+
+Cost per rail says how much work the route is. It says nothing about the
+players getting round the train, which is a solid body two long and one wide
+that nobody can pass through. So the route is also scored for **pinching**:
+slide that box along the track and note where rock closes both its sides at
+once. A run of pinched positions costs its length cubed, so one long squeeze
+counts far more than the same length in pieces, and the section's pinch score
+is the sum over its runs. Only rock counts as a wall, since the players can
+clear anything else.
+
+Each tier has a ceiling for that score, and hard has a floor: easy allows none,
+medium two single rows of rock either side far enough apart not to touch, hard
+anything from one such row up to a corridor five long. A section over its ceiling is not
+rejected: the rock beside its worst run is cut back until it passes, the same
+cutting the route uses to get through rock at all. A hard section under its
+floor rerolls its kinds like a cheap one.
+
+This replaces the idea of a pinch as a property of a tile, which asks whether
+a tile is the only local link between two open areas. That is a question about
+the map; ours is a question about the route, which is the only place the train
+ever is.
+
 ### What regions are drawn as
 
-Each tier has two tables of weights, one for the corridor and one for the rest:
+Each tier has a table of weights:
 
-| tier | on the chain | off the chain |
-|---|---|---|
-| easy | ground 60, wood 16, iron 16, water 8 | ground 24, rock 24, wood 20, iron 20, water 10 |
-| medium | ground 20, wood 32, iron 32, water 16 | ground 35, rock 21, wood 18, iron 18, water 9 |
-| hard | wood 40, iron 40, water 20 | rock 43, water 29, wood 14, iron 14 |
+| tier | ground | rock | wood | iron | water |
+|---|---|---|---|---|---|
+| easy | 45 | 15 | 15 | 15 | 10 |
+| medium | 35 | 21 | 18 | 18 | 9 |
+| hard | 0 | 43 | 14 | 14 | 29 |
 
-Easy is a corridor of open ground with the supply piled up beside it. Medium
-is the base mix, with the corridor packed a little denser than the sides. Hard
-has no ground at all, so every tile of a route costs at least 2, and the sides
-are mostly rock and water.
+Easy is mostly open ground. Medium is the base mix. Hard has no ground at all,
+so every tile of a route costs at least 2, most of the rest is rock and water,
+and the wall runs through it.
 
 ### Why the draw is not a plain roll
 
@@ -122,5 +151,8 @@ with the bag in place they rarely have to act.
   in the game
 - There is no hard cap on how many regions of a kind a section can hold, only
   the bag's thin tail. A cap would be a few lines if the tail ever shows
+- The wall is one region thick by construction, but two of its regions can fail
+  to touch, and then the route slips through the gap without cutting. The
+  report's cut count shows when that happened
 - Sections are placeholder blocks in a test area, built in one go. Real blocks,
   a queue spread over ticks, and stations are all still to come

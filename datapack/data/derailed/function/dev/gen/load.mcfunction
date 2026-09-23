@@ -60,6 +60,10 @@ data modify storage derailed:gen kinds set value ["lime_concrete", "brown_concre
 scoreboard objectives add dr_wave dummy "DeRailed Claim Wave"
 scoreboard objectives add dr_wake dummy "DeRailed Seam Wake"
 
+# Which level of the least-cost flood a rock tile it came up against is stepped
+#  onto on, a level being a thousand of cost
+scoreboard objectives add dr_level dummy "DeRailed Flood Level"
+
 # What a river's search hangs on its markers: how deep in choices a tile was
 #  laid, how far into the search, and the way the head arrived
 scoreboard objectives add dr_depth dummy "DeRailed River Depth"
