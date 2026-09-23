@@ -21,9 +21,9 @@ scoreboard players set $TenThousand dr_const 10000
 scoreboard players set $SectionTiles dr_const 512
 
 # A section is built on four layers, each one laid out from the one below it
-# y0 holds the block each region grew as and is never drawn over, so whatever asks
-#  which region a tile belongs to gets a straight answer however far along the
-#  section is
+# y0 holds the block each region grew as, and only the stray sweep after the
+#  rivers ever changes it, so whatever asks which region a tile belongs to gets a
+#  straight answer however far along the section is
 # y5 is what the river reads and then where the kinds are drawn, one after the
 #  other. It is laid out as a copy of y0 before the river is cut, and by then
 #  every section before it has had its kinds painted there, so a river looking
@@ -32,8 +32,9 @@ scoreboard players set $SectionTiles dr_const 512
 #  standing in. Nothing reads it as regions again afterwards, so painting swaps
 #  them for kinds in place
 # y9 is y5 with the rivers cut into it, and the branches the search gave up on
-#  drawn over that. The second river reads it to find the first, and otherwise
-#  it is only there to be looked at
+#  drawn over that. The second river reads it to find the first, the stray sweep
+#  reads where the river runs off it, and otherwise it is only there to be
+#  looked at
 # y15 is the section as it is meant to be seen: y5 with the river lifted onto it,
 #  with the flood that checks it running two above
 

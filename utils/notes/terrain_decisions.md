@@ -18,6 +18,10 @@ rock. Big forests and rock fields are two or three blobs that happen to touch.
 The density is one seed to about 28 tiles, so regions are the size they were
 at every earlier section size, and a section always looks like a section.
 
+A region holds together edge to edge. Growth never leaves a tile hanging off a
+corner of its region, and a tile a river cuts off from its region is handed to
+the region beside it, so a lone tile of one kind never sits inside another.
+
 Regions cross the seam. Whatever blob was cut off by the eastern edge of one
 section carries on into the next, so a forest is not sliced flat at every 32
 tiles. A carried region keeps its kind, and the section it enters draws that much

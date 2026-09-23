@@ -20,8 +20,10 @@ execute store result storage derailed:gen r.exit int 1 run scoreboard players ge
 execute if score #gen_section dr_var matches 0 run function derailed:dev/gen/_entry_clear
 
 # The glass that marks where the last attempt cut goes, so that only this
-#  attempt's cuts are shown
-fill ~ ~1 ~ ~31 ~1 ~15 air strict
+#  attempt's cuts are shown; the glass over what the stray sweep handed on stays,
+#  since that was done once for the section
+fill ~ ~1 ~ ~31 ~1 ~15 air replace orange_stained_glass strict
+fill ~ ~1 ~ ~31 ~1 ~15 air replace yellow_stained_glass strict
 
 scoreboard players set #gen_carved dr_var 0
 function derailed:dev/gen/_validate_pass

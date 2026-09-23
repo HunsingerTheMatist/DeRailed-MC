@@ -54,6 +54,10 @@ execute if score #gen_rivers dr_var matches 1 run function derailed:dev/gen/rive
 # Held for a look at the river, the section stops here with nothing drawn over it
 execute if score #gen_riv_hold dr_var matches 1 run return 0
 
+# A tile left with no edge to another of its own region, which is what a river
+#  can leave behind, is handed to a region beside it before the kinds are drawn
+function derailed:dev/gen/strays
+
 scoreboard players set #gen_attempts dr_var 5
 function derailed:dev/gen/_build_attempt
 

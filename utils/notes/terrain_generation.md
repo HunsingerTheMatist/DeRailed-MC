@@ -33,13 +33,14 @@ every question about a section answerable for as long as the section takes:
 |---|---|---|---|
 | 17 | the flood's working layer | `validate` | `_cost_spread`, `_trace` |
 | 15 | the section as it is meant to be seen | the attempt loop | `_edge_kind`, `validate` |
-| 9 | y5 with the rivers cut into it | the river stamp | the second river, to find the first |
-| 5 | **what the river reads, then the kinds** | `build`, then `paint` | `_river_look_*`, lifted to y15 |
-| 0 | **the regions as they grew** | growth only | `_river_lake`, `_read_id` |
+| 9 | y5 with the rivers cut into it | the river stamp | the second river, to find the first; `strays`, for where the river runs |
+| 5 | **what the river reads, then the kinds** | `build`, `strays`, then `paint` | `_river_look_*`, `strays`, lifted to y15 |
+| 0 | **the regions as they grew** | growth, then `strays` | `_river_lake`, `_read_id` |
 
-y0 holds the block each region grew as and is never drawn over, so whatever asks
-which region a tile belongs to gets a straight answer however far along the
-section is.
+y0 holds the block each region grew as, and only `strays` ever changes it, when
+it hands a tile to another region after the rivers, so whatever asks which
+region a tile belongs to gets a straight answer however far along the section
+is.
 
 y5 does two jobs, one after the other, and that is the thing worth understanding.
 `build` lays it out as a copy of y0 before the river is cut, so while the search
@@ -138,6 +139,13 @@ claims its own tile and grows outward in waves.
 - A straight step lands **5 waves** later, a diagonal one **7**. That ratio
   approximates the real 1.41 closely enough that blobs come out round rather
   than diamond shaped
+- A diagonal step is taken **only where one of the two tiles between holds the
+  region already**, one `execute if blocks` per bridge, tested on tiles still
+  free. Without that a diagonal lands a tile whose bridges other regions took a
+  wave or two earlier, joined to its region by a corner alone, and it is
+  painted as a lone spot of one kind inside another. A corner refused goes to
+  whichever region reaches it straight on, so every tile meets its region
+  along an edge
 - Waves are carried by **eight rotating tags**. Since the delays are only 5 and
   7, eight tags cycle without a delay ever landing back on the wave being woken,
   so no marker needs a wave score and nothing has to be aged
@@ -357,6 +365,28 @@ What comes up to y15 is the glaze alone, and a fill swaps it there for **light
 blue concrete** - a river can then be told from the blue a water region is drawn
 in, and the finished section carries none of the search on it. The red is never
 lifted at all.
+
+### Strays
+
+Once both rivers are down, `strays` walks every tile of the section and hands
+on any **stray**: a tile that meets no other tile of its own region along an
+edge, which is what a river leaves when it cuts round the last tile of a thin
+part of a region. Growth never makes one, so this is the river's doing alone,
+and since a stray shares its region with nothing beside it, handing it on can
+strand nothing else and one pass is enough. The regions are read on y5, which
+still holds them, and where the river runs is read off y9, so a tile the river
+took counts as no one's and the red branches stay out of the way.
+
+The stray goes to the **nearest seed among the regions beside it**, written to
+y0 and y5 both. Where none of those regions has a seed here, all of them being
+carried over the seam, it copies the tile to its north, or failing that the
+first other neighbour that is terrain; with river all round it stays as it is.
+Some tiles are never handed on: the wall's rock, since a river cutting a thin
+part of the wall would leave a stray beside the cut and handing it on would
+open the cut two wide; a lake's water, since water beside a river looks as it
+should; and tiles carried over the seam, since they have to match the section
+before. The report counts the tiles handed on, and light blue glass on y16
+marks each of them.
 
 ### 6. Kinds
 
@@ -599,9 +629,10 @@ half ticks as a burst and nothing at all spread across three or four.
 - `dev/bench/stop` clears the area and lets the game tick run again
 
 The finished section is at **y=15**. Above it, **y=16** holds orange glass over
-every tile the route cut through rock and yellow over every tile cut to open a
-pinch, and **y=17** holds the cheapest route across in red glass, inside a grey
-ring.
+every tile the route cut through rock, yellow over every tile cut to open a
+pinch, and light blue over every stray tile the sweep after the rivers handed
+to another region, and **y=17** holds the cheapest route across in red glass,
+inside a grey ring.
 
 Below it are the working layers, and they are worth reading when a river needs
 explaining: **y=9** has the line the search walked with everything it gave up on
