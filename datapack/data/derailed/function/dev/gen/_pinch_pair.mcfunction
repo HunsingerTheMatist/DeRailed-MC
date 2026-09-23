@@ -41,5 +41,10 @@ scoreboard players operation #pinch_wr dr_var += #pinch_pr dr_var
 scoreboard players operation #pinch_pl dr_var = #pinch_l dr_var
 scoreboard players operation #pinch_pr dr_var = #pinch_r dr_var
 
-execute if score #pinch_wl dr_var matches 1.. if score #pinch_wr dr_var matches 1.. run return run function derailed:dev/gen/_pinch_hit
-function derailed:dev/gen/_pinch_close
+execute if score #pinch_wl dr_var matches 1.. if score #pinch_wr dr_var matches 1.. run function derailed:dev/gen/_pinch_hit
+execute unless score #pinch_wl dr_var matches 1.. run function derailed:dev/gen/_pinch_close
+execute if score #pinch_wl dr_var matches 1.. unless score #pinch_wr dr_var matches 1.. run function derailed:dev/gen/_pinch_close
+
+# Which way this cell's parent lay is what the next cell needs to find this one
+#  again, should its window be pinched
+scoreboard players operation #pinch_pback dr_var = #gen_back dr_var

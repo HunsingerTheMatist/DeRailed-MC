@@ -5,6 +5,6 @@
 
 tag @s add dr_pinch
 scoreboard players operation @s dr_step = #pinch_runs dr_var
-scoreboard players operation @s dr_dir = #gen_back dr_var
+scoreboard players operation @s dr_dir = #pinch_dir dr_var
 scoreboard players add #pinch_seq dr_var 1
 scoreboard players operation @s dr_wave = #pinch_seq dr_var

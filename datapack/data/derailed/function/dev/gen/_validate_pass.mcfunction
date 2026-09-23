@@ -48,6 +48,7 @@ scoreboard players set #pinch_top dr_var 0
 scoreboard players set #pinch_top_id dr_var 0
 scoreboard players set #pinch_pl dr_var 0
 scoreboard players set #pinch_pr dr_var 0
+scoreboard players set #pinch_pback dr_var 0
 
 execute if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_trace_from with storage derailed:gen r
 function derailed:dev/gen/_pinch_close

@@ -106,7 +106,7 @@ scoreboard players set #gen_riv_2nd dr_var 10
 
 # How many columns the second river sets out from where the first did, so that
 #  it does not run into it at once
-scoreboard players set #gen_riv_apart dr_var 10
+scoreboard players set #gen_riv_apart dr_var 6
 
 # Which tier every section is built to: 0 easy, 1 medium, 2 hard
 # It picks the weights the kinds are drawn with and what the cheapest way across

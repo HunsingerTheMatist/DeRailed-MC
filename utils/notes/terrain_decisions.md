@@ -53,7 +53,7 @@ each section's rivers are its own and the seam rule holds.
 
 Every section gets a first river of at least 20 corners. If that river came to
 fewer than 40, it gets a second one as well, starting from the same border at
-least ten columns away and held to whatever brings the pair to 40 between them,
+least six columns away and held to whatever brings the pair to 40 between them,
 never less than 10, and allowed to end by running into the first. A river that
 can find no way out from five different starts lays the longest line it found
 and ends in a lake, so a river never just stops on dry ground.

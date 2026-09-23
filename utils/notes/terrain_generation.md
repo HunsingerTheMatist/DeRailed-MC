@@ -303,7 +303,7 @@ the corners the walk passes through are kept.
 
 A first river that laid `#gen_riv_pair` tiles or more - 40 - is the section's
 whole river. A shorter one gets a second, which sets out from the same border as the
-first, at a column at least `#gen_riv_apart` - 10 - away from where the first
+first, at a column at least `#gen_riv_apart` - 6 - away from where the first
 did, so that it does not run into it at once. It may finish by the far border like the first, or by
 **running into the first**: a way on whose corner already holds water is an exit
 like any other, and the river stops on the corner beside it. The first river's
