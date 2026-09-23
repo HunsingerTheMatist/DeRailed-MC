@@ -1,6 +1,6 @@
 
 # Walks the line the search settled on and keeps only the corners the walk passes
-#  through, then lays it
+#  through, then lays it and counts what it laid
 # The line is marked out with 'dr_riv_line' beforehand
 
 # Where a line doubles back, the corner it came from and the corner it came back
@@ -15,3 +15,7 @@ execute as @n[type=marker,tag=dr_riv_line,scores={dr_step=0},distance=0..] run s
 execute as @n[type=marker,tag=dr_riv_line,scores={dr_step=0},distance=0..] at @s run function derailed:dev/gen/_river_short
 
 function derailed:dev/gen/_river_stamp
+
+# What the river came to once its loops were cut, which is the length the pair
+#  is reckoned by: the search's own count can run to three times it
+execute store result score #riv_got dr_var if entity @e[type=marker,tag=dr_riv_keep,distance=0..]

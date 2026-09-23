@@ -4,8 +4,8 @@
 
 scoreboard players set #riv_done dr_var 1
 
-# What the river after this one is told about it
-scoreboard players operation #riv_got dr_var = #riv_len dr_var
+# What the river after this one is told about it; its length is counted once
+#  it is laid
 scoreboard players operation #riv_col_got dr_var = #riv_col_try dr_var
 execute if score #riv_join dr_var matches 1 run scoreboard players add #riv_joins dr_var 1
 

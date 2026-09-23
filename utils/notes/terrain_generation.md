@@ -241,9 +241,10 @@ has a whole section of boundaries to look through for a longer way out. A branch
 that passes `#gen_riv_max` - 80 - is given up on instead. A section 32 wide
 could be crossed in far fewer, but a river only turns where a boundary does, so
 it spends length getting to somewhere it can leave from rather than going
-straight there. Lengths are the search's own count of corners, taken before the
-shortcut, so a river can come out a little under its floor once its loops are
-cut.
+straight there. That floor is the search's own count of corners, taken before
+the shortcut, so a river can come out under it once its loops are cut; the
+pair's reckoning below uses the tiles actually laid, since the search count
+was seen running to three times them.
 
 A step **west out of column 0** is shut off: the section before's terrain lies
 the other side of that line rather than air, so such a step reads as an ordinary
@@ -300,8 +301,8 @@ the corners the walk passes through are kept.
 
 #### The second river
 
-A first river of `#gen_riv_pair` corners or more - 40 - is the section's whole
-river. A shorter one gets a second, which sets out from the same border as the
+A first river that laid `#gen_riv_pair` tiles or more - 40 - is the section's
+whole river. A shorter one gets a second, which sets out from the same border as the
 first, at a column at least `#gen_riv_apart` - 10 - away from where the first
 did, so that it does not run into it at once. It may finish by the far border like the first, or by
 **running into the first**: a way on whose corner already holds water is an exit
@@ -581,8 +582,10 @@ half ticks as a burst and nothing at all spread across three or four.
   border and no river can then find its way out
 - `dev/bench/stop` clears the area and lets the game tick run again
 
-The finished section is at **y=15**. Above it, **y=17** holds the cheapest
-route across in red glass, inside a grey ring.
+The finished section is at **y=15**. Above it, **y=16** holds orange glass over
+every tile the route cut through rock and yellow over every tile cut to open a
+pinch, and **y=17** holds the cheapest route across in red glass, inside a grey
+ring.
 
 Below it are the working layers, and they are worth reading when a river needs
 explaining: **y=9** has the line the search walked with everything it gave up on

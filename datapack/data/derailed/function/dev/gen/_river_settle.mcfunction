@@ -5,7 +5,6 @@
 scoreboard players set #riv_done dr_var 1
 scoreboard players add #riv_fell dr_var 1
 
-scoreboard players operation #riv_got dr_var = #riv_best dr_var
 scoreboard players operation #riv_col_got dr_var = #riv_best_col dr_var
 
 execute as @e[type=marker,tag=dr_riv_best,distance=0..] run tag @s add dr_riv_line

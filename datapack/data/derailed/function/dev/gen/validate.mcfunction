@@ -19,6 +19,10 @@ execute store result storage derailed:gen r.exit int 1 run scoreboard players ge
 #  same way
 execute if score #gen_section dr_var matches 0 run function derailed:dev/gen/_entry_clear
 
+# The glass that marks where the last attempt cut goes, so that only this
+#  attempt's cuts are shown
+fill ~ ~1 ~ ~31 ~1 ~15 air strict
+
 scoreboard players set #gen_carved dr_var 0
 function derailed:dev/gen/_validate_pass
 
