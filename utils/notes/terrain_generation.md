@@ -210,8 +210,9 @@ though its seed sat a single tile past the western border.
 
 ### 5. Rivers
 
-`rivers` cuts two channels of water along the boundaries between regions, before
-any of them knows what kind it will be drawn as. Each is a **search, not a walk**:
+`rivers` cuts one or two channels of water along the boundaries between regions,
+before any of them knows what kind it will be drawn as. Each is a **search, not
+a walk**:
 where it runs out of boundary it goes back to the last choice it passed and takes
 a different one.
 
@@ -223,11 +224,12 @@ being air instead means that edge leaves the section, which is how a border is
 recognised. A tile is laid at each corner the search keeps, and consecutive
 corners are neighbours, so the tiles come out joined.
 
-Both rivers run **between north and south**. A border is rolled once for the
+Rivers run **between north and south**. A border is rolled once for the
 section, and each river sets out from it at a random column and is finished only
 when it leaves by the border across from it. The east and west borders are
 walls, nothing crosses a seam, and a section's rivers owe nothing to its
-neighbours'.
+neighbours'. Every section gets a first river; it gets a second only when the
+first came up short.
 
 The first river has to run at least `#gen_riv_min` corners - 25. A river that
 reaches the far border sooner is turned back rather than kept, since the search
@@ -294,9 +296,10 @@ the corners the walk passes through are kept.
 
 #### The second river
 
-The second river sets out from the same border as the first, at a column at
-least `#gen_riv_apart` - 10 - away from where the first did, so that it does not
-run into it at once. It may finish by the far border like the first, or by
+A first river of `#gen_riv_pair` corners or more - 50 - is the section's whole
+river. A shorter one gets a second, which sets out from the same border as the
+first, at a column at least `#gen_riv_apart` - 10 - away from where the first
+did, so that it does not run into it at once. It may finish by the far border like the first, or by
 **running into the first**: a way on whose corner already holds water is an exit
 like any other, and the river stops on the corner beside it. The first river's
 water is on y9 by then, which is the one thing about the first that the second

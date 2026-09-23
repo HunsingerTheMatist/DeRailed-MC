@@ -92,8 +92,8 @@ scoreboard players set #gen_riv_max dr_var 80
 #  longer way out
 scoreboard players set #gen_riv_min dr_var 25
 
-# The least the two rivers may come to between them, which is what the second is
-#  held to when the first left it short
+# The least a section's rivers may come to between them: a first river this
+#  long stands alone, and a shorter one gets a second held to the difference
 scoreboard players set #gen_riv_pair dr_var 50
 
 # The shortest the second river may be whatever the first came to, so that a
