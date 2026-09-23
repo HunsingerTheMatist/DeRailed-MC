@@ -28,7 +28,14 @@ function derailed:dev/gen/_cost_from with storage derailed:gen r
 #  be walked back from the exit
 scoreboard players set #gen_route dr_var 0
 scoreboard players set #gen_steps dr_var 400
+
+# Rock on the route is gathered into runs as the trace goes, each knowing what
+#  stands at its two ends, and nothing is left from the last time
+kill @e[type=marker,tag=dr_cut_run,distance=0..]
 scoreboard players set #cut_n dr_var 0
+scoreboard players set #cut_runs dr_var 0
+scoreboard players set #cut_open dr_var 0
+scoreboard players set #cut_last dr_var -1
 
 # How pinched the train is along the route is measured on the same walk, run
 #  by run, and starts from nothing each time the route is found
@@ -46,7 +53,7 @@ execute if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_tr
 function derailed:dev/gen/_pinch_close
 
 # Rock the route ran through is filled in once the whole route is known, since
-#  which terrain a cut tile takes depends on what lies at either end of the cut
+#  which terrain a cut takes depends on what lies at either end of it
 execute if score #cut_n dr_var matches 1.. run function derailed:dev/gen/_cut_resolve
 
 # The arrows have done their work once the route is drawn, so they go, and the

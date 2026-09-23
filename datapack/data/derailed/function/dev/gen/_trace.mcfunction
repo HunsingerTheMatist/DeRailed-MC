@@ -6,7 +6,10 @@
 scoreboard players remove #gen_steps dr_var 1
 execute if score #gen_steps dr_var matches ..0 run return fail
 
+# Rock on the route is marked to be cut, run by run, and every other tile is
+#  noted for what stands at the ends of the runs
 execute if block ~ ~ ~ gray_concrete run function derailed:dev/gen/_cut_mark
+execute unless block ~ ~ ~ gray_concrete run function derailed:dev/gen/_cut_seen
 
 execute if block ~ ~2 ~ white_stained_glass run scoreboard players add #gen_route dr_var 1
 execute if block ~ ~2 ~ white_stained_glass run return run setblock ~ ~2 ~ red_stained_glass strict

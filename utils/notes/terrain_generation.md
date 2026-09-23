@@ -428,16 +428,24 @@ parked with, so a tile taken on level k at wave w costs k thousand plus w, which
 is exactly the number the thousand stands for. Rock is therefore only ever
 crossed where no way round it exists, and there at its thinnest.
 
-A route that went through rock is then **cut**. The trace marks every rock tile
-on it, numbered from the exit end, and once the whole route is known the cut is
-filled in from both ends at once - first tile, then last, then second and last
-but one - each becoming whatever terrain other than rock is nearest, looking
-next door first, then at the corners, then two away, on the visible layer and
-the kinds layer both. River is never copied, and a tile with nothing but rock
-and river round it becomes ground. On hard a cut that came out water from end
-to end becomes river instead. The flood then runs once more over what it cut,
-since that rock-free route is the one the players will have, and that is the
-route judged.
+A route that went through rock is then **cut**. The trace gathers the rock on
+it into runs, each numbered from its exit end and each knowing what stands on
+the route at its two ends, and once the whole route is known every run is
+filled in by its ends. **Water at both ends, river or lake either, runs
+through the whole cut as river.** A river at one end gives way to the land at
+the other, ground, wood or iron, which then fills the whole cut. Any other run
+is filled from both ends at once - first tile, then last, then second and last
+but one - each tile becoming whatever terrain other than rock or river is
+nearest, looking next door first, then at the corners, then two away, so that
+the cut takes the terrain it opens onto at each end and the two meet in the
+middle; a tile with nothing but rock and river round it becomes ground. All of
+it goes on the visible layer and the kinds layer both. A run still open at the entry tile
+ends against the section before, whose tile is read as its entry end. The flood
+then runs once more over what it cut, since that rock-free route is the one
+the players will have, and that is the route judged.
+
+Rock cut to open a pinch up is filled the second way only, tile by tile from
+the nearest terrain, never river.
 
 The same walk measures how much the route **pinches the train**. The train is
 a box two long and one wide, pointing the way the track runs, and the players

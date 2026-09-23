@@ -19,6 +19,7 @@ kill @e[type=marker,tag=dr_riv_best,distance=0..]
 kill @e[type=marker,tag=dr_riv_seed,distance=0..]
 kill @e[type=marker,tag=dr_flood,distance=0..]
 kill @e[type=marker,tag=dr_cut,distance=0..]
+kill @e[type=marker,tag=dr_cut_run,distance=0..]
 kill @e[type=marker,tag=dr_pinch,distance=0..]
 kill @e[type=armor_stand,tag=dr_seed_mark,distance=0..]
 

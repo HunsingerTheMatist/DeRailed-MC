@@ -31,10 +31,13 @@ the map over a run rather than holding a line, and the terrain is drawn without
 regard to it. Where the track can go is settled afterwards: rock is not
 impassable but very dear, a thousand a tile, so the cheapest way across only
 ever goes through rock where no way round it exists, and where it does, that
-rock is **cut out**, leaving a passage one tile wide. The cut is filled in from
-both ends at once, each tile becoming whatever terrain other than rock is
-nearest, never river, so the passage takes the terrain it opens onto at each
-end. On hard a cut that came out water end to end becomes river. The exit tile
+rock is **cut out**, leaving a passage one tile wide. Water at both ends of a
+cut, river or lake either, runs through the whole of it as river; a river at
+one end gives way to the land at the other, ground, wood or iron. Any other
+cut is filled in from both ends at once, each tile becoming whatever terrain
+other than rock or river is nearest, so the passage takes the terrain it opens
+onto at each end. Rock cut to open a pinch up never becomes river. The exit
+tile
 is kept off rock where any row of the east edge is clear of it, so a section
 never has to dig in at its very edge for want of a better row.
 
