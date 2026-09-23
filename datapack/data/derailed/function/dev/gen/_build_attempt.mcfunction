@@ -10,17 +10,17 @@ execute positioned ~ ~5 ~ run function derailed:dev/gen/paint
 
 # What is meant to be seen is the kinds with the river lifted onto them, taking
 #  only the blocks the river was cut in and leaving the rest of that layer behind
-clone ~ ~5 ~ ~47 ~5 ~15 ~ ~15 ~ strict
+clone ~ ~5 ~ ~31 ~5 ~15 ~ ~15 ~ strict
 
 # Only the water comes up: what the search gave up on stays down on the layer the
 #  river was cut into, where it is there to be looked at when a river wants
 #  explaining without standing in the finished section
-clone ~ ~9 ~ ~47 ~9 ~15 ~ ~15 ~ strict filtered #derailed:river_cut
+clone ~ ~9 ~ ~31 ~9 ~15 ~ ~15 ~ strict filtered #derailed:river_cut
 
 # The river is cut as a glaze pointing the way the head came, which is worth
 #  having on the layer it was cut into and no use on the finished section, so it
 #  comes up and is swapped for plain water
-fill ~ ~15 ~ ~47 ~15 ~15 light_blue_concrete replace magenta_glazed_terracotta strict
+fill ~ ~15 ~ ~31 ~15 ~15 light_blue_concrete replace magenta_glazed_terracotta strict
 
 execute positioned ~ ~15 ~ run function derailed:dev/gen/validate
 execute if score #gen_valid dr_var matches 1 run return 0
@@ -32,6 +32,6 @@ scoreboard players remove #gen_attempts dr_var 1
 #  means laying the regions out afresh to have something left to swap
 # The first attempt paints straight onto what the section was left standing as,
 #  which is why this is here rather than at the head of an attempt
-execute if score #gen_attempts dr_var matches 1.. run clone ~ ~ ~ ~47 ~ ~15 ~ ~5 ~ strict
+execute if score #gen_attempts dr_var matches 1.. run clone ~ ~ ~ ~31 ~ ~15 ~ ~5 ~ strict
 execute if score #gen_attempts dr_var matches 1.. run return run function derailed:dev/gen/_build_attempt
 scoreboard players add #gen_failed dr_var 1

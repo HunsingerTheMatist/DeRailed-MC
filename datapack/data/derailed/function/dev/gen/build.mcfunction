@@ -16,9 +16,9 @@ execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #ge
 
 # And the fewest rock regions, since rock is what makes a section hard to move
 #  about in rather than just dear to cross
-execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_min_rock dr_var 4
-execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_min_rock dr_var 4
-execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_rock dr_var 6
+execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_min_rock dr_var 3
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_min_rock dr_var 3
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_rock dr_var 4
 
 function derailed:dev/gen/scatter
 function derailed:dev/gen/route
@@ -28,7 +28,7 @@ function derailed:dev/gen/grow
 #  what the river reads and what painting swaps out from under itself
 # The sections before have theirs drawn in kinds by now, so a river running along
 #  the seam compares like with like across it
-clone ~ ~ ~ ~47 ~ ~15 ~ ~5 ~ strict
+clone ~ ~ ~ ~31 ~ ~15 ~ ~5 ~ strict
 
 scoreboard players set #riv_done dr_var 1
 execute if score #gen_rivers dr_var matches 1 run function derailed:dev/gen/rivers

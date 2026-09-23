@@ -14,4 +14,4 @@ execute in derailed:game run function derailed:dev/gen/_pass
 # Short of what was asked for means the spacing is crowding the section, since a
 #  seed that cannot find a clear spot in 30 tries is skipped
 execute in derailed:game store result score #gen_count dr_var if entity @e[type=marker,tag=dr_seed,distance=0..]
-tellraw @a [{text:"[gen] seeds placed: ",color:"gray"},{score:{name:"#gen_count",objective:"dr_var"}},{text:" of 26"}]
+tellraw @a [{text:"[gen] seeds placed: ",color:"gray"},{score:{name:"#gen_count",objective:"dr_var"}},{text:" of 18"}]

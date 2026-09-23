@@ -7,16 +7,16 @@
 
 # Tiles already reached are kept on a layer two above the section, so the flood
 #  can tell where it has been
-fill ~ ~2 ~ ~47 ~2 ~15 air strict
+fill ~ ~2 ~ ~31 ~2 ~15 air strict
 
 # A ring of already-seen tiles around the section, so the flood stays inside it
 #  rather than wandering into the section before
 # Only the gaps are filled, since the section before left its own route along
 #  that edge and it counts as already seen just as well
 fill ~-1 ~2 ~-1 ~-1 ~2 ~16 gray_stained_glass replace air strict
-fill ~48 ~2 ~-1 ~48 ~2 ~16 gray_stained_glass replace air strict
-fill ~-1 ~2 ~-1 ~48 ~2 ~-1 gray_stained_glass replace air strict
-fill ~-1 ~2 ~16 ~48 ~2 ~16 gray_stained_glass replace air strict
+fill ~32 ~2 ~-1 ~32 ~2 ~16 gray_stained_glass replace air strict
+fill ~-1 ~2 ~-1 ~32 ~2 ~-1 gray_stained_glass replace air strict
+fill ~-1 ~2 ~16 ~32 ~2 ~16 gray_stained_glass replace air strict
 
 function derailed:dev/gen/_mark_goal with storage derailed:gen r
 function derailed:dev/gen/_cost_from with storage derailed:gen r
@@ -29,7 +29,7 @@ execute if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_tr
 
 # The arrows have done their work once the route is drawn, so they go, and what
 #  stays on the layer is the route alone
-fill ~ ~2 ~ ~47 ~2 ~15 air replace #derailed:flood_arrows strict
+fill ~ ~2 ~ ~31 ~2 ~15 air replace #derailed:flood_arrows strict
 
 # The route is judged by what it costs a rail, since the time the players get is
 #  the rails they lay, so a longer way across is not a harder one on its own

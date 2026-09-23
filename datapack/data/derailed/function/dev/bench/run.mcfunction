@@ -1,5 +1,5 @@
 
-# Times 100 sections worth of placement, each 768 markers and 768 blocks, at
+# Times 100 sections worth of placement, each 512 markers and 512 blocks, at
 #  (1000, 0, 0) in 'derailed:game'
 # The whole run happens in one tick, so profile the tick this is called on
 

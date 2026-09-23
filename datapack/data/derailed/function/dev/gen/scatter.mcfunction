@@ -1,6 +1,6 @@
 
 # Scatters one section worth of seeds from the section's corner
-# 26 seeds over 48x16 is the grass density, the sparsest of the biomes
+# 18 seeds over 32x16 is the grass density, the sparsest of the biomes
 
 # The section before keeps its seeds through the scatter, so the spacing carries
 #  over the boundary: without them a seed can land a tile inside this section
@@ -10,7 +10,7 @@
 kill @e[type=marker,tag=dr_prev_seed,distance=0..]
 execute as @e[type=marker,tag=dr_seed,distance=0..] run function derailed:dev/gen/_age_seed
 
-scoreboard players set #gen_left dr_var 26
+scoreboard players set #gen_left dr_var 18
 function derailed:dev/gen/_seed
 
 # Each region grows as its own block so that the boundary between two of them can

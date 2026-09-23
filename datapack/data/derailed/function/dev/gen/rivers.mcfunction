@@ -9,7 +9,7 @@ kill @e[type=marker,tag=dr_riv_seed,distance=0..]
 
 # The rivers are cut into a copy of what they read, so nothing they lay can
 #  change the answer to a later look
-clone ~ ~5 ~ ~47 ~5 ~15 ~ ~9 ~ strict
+clone ~ ~5 ~ ~31 ~5 ~15 ~ ~9 ~ strict
 
 # The border is rolled once, so the second river comes in beside the first
 execute store result score #riv_from dr_var run random value 0..1

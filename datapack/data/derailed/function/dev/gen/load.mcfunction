@@ -18,7 +18,7 @@ scoreboard players set $Hundred dr_const 100
 scoreboard players set $TenThousand dr_const 10000
 
 # How many tiles a section has
-scoreboard players set $SectionTiles dr_const 768
+scoreboard players set $SectionTiles dr_const 512
 
 # A section is built on four layers, each one laid out from the one below it
 # y0 holds the block each region grew as and is never drawn over, so whatever asks
@@ -40,8 +40,8 @@ scoreboard players set $SectionTiles dr_const 768
 # The kind each seed grows its region as
 scoreboard objectives add dr_kind dummy "DeRailed Region Kind"
 
-# Which of the 26 regions a seed is, so two of them that roll the same kind can
-#  still be told apart while the river is being cut
+# Which of the section's regions a seed is, so two of them that roll the same
+#  kind can still be told apart while the river is being cut
 scoreboard objectives add dr_id dummy "DeRailed Region Id"
 
 # Light blue concrete is left out, since it is what the river is drawn in on the
@@ -67,7 +67,7 @@ scoreboard objectives add dr_step dummy "DeRailed River Step"
 scoreboard objectives add dr_dir dummy "DeRailed River Heading"
 
 # How far apart section corners sit
-scoreboard players set $SectionWidth dr_const 48
+scoreboard players set $SectionWidth dr_const 32
 
 # Whether sections get a river at all
 # A river crossing a boundary sits on top of what the seam left there, so turning
@@ -82,10 +82,10 @@ scoreboard players set #gen_rivers dr_var 1
 scoreboard players set #gen_riv_hold dr_var 0
 
 # The longest a river may run before the search gives that way up
-# A section 48 wide could be crossed in far fewer, but a river only turns where a
+# A section 32 wide could be crossed in far fewer, but a river only turns where a
 #  boundary does, so it spends length getting to where it can leave rather than
 #  going straight there; the room is for that rather than for wandering
-scoreboard players set #gen_riv_max dr_var 120
+scoreboard players set #gen_riv_max dr_var 80
 
 # The shortest the first river may be and still be worth keeping
 # One that reaches the far border before then is turned back to look for a
@@ -123,8 +123,8 @@ scoreboard players set #gen_bag_take dr_var 50
 # The fewest regions of each kind a section may have, met by holding back the
 #  last seeds drawn for whatever is still owed
 # Rock's floor is the tier's, set with its bounds in 'dev/gen/build'
-scoreboard players set #gen_min_wood dr_var 5
-scoreboard players set #gen_min_iron dr_var 5
+scoreboard players set #gen_min_wood dr_var 3
+scoreboard players set #gen_min_iron dr_var 3
 scoreboard players set #gen_min_water dr_var 2
 
 # Whether a seed gets an armour stand standing over it

@@ -3,9 +3,9 @@
 The game only writes chunks to disk on autosave or on quit, so run /save-all in
 game before reading, or what comes back will be the state at the last save.
 
-    py utils/worldread.py blocks 1048 0 1053 15
-    py utils/worldread.py blocks 1048 0 1053 15 --y 2
-    py utils/worldread.py entities 1000 0 1143 15
+    py utils/worldread.py blocks 1032 0 1037 15
+    py utils/worldread.py blocks 1032 0 1037 15 --y 2
+    py utils/worldread.py entities 1000 0 1095 15
     py utils/worldread.py scores gen
 """
 

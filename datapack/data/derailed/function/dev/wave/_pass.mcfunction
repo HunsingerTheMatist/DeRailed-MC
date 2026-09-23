@@ -1,5 +1,5 @@
 
-# Runs one section worth of wave driven growth: schedule 768 tiles, spread them
+# Runs one section worth of wave driven growth: schedule 512 tiles, spread them
 #  over 45 waves, then wake the waves in order
 
 scoreboard players set #wave_z dr_var 16

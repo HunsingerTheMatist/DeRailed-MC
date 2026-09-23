@@ -3,7 +3,7 @@
 # Positioned at the section's corner
 
 # Unclaimed ground, which is also what stops growth at the section edge
-fill ~ ~ ~ ~47 ~ ~15 black_concrete strict
+fill ~ ~ ~ ~31 ~ ~15 black_concrete strict
 
 # How many tiles are due to spread and how many are waiting on a carried region,
 #  kept as counts so the wave loop never has to go looking for them

@@ -6,7 +6,7 @@ scoreboard objectives add dr_wave dummy "DeRailed Bench Wave"
 
 function derailed:dev/idmap/load
 
-execute in derailed:game run forceload add 999 -1 1144 16
+execute in derailed:game run forceload add 999 -1 1096 16
 
 # The limit a chain runs under is fixed when the chain starts, so raising it
 #  inside 'dev/bench/run' does nothing for that run

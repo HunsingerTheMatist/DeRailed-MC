@@ -6,7 +6,7 @@ folder: it builds into a test area rather than into a running game.
 
 ## What it builds
 
-The map is a row of **sections**, each 48 tiles east to west and 16 north to
+The map is a row of **sections**, each 32 tiles east to west and 16 north to
 south, laid end to end going east. Every section is generated whole and joins
 the one before it, so the map is continuous rather than a row of tiles.
 
@@ -64,10 +64,10 @@ works out where that corner is and hands the previous section's exit row on.
 
 ### 1. Scatter
 
-`scatter` places 26 seeds as markers, each rolled into a random tile and rejected
+`scatter` places 18 seeds as markers, each rolled into a random tile and rejected
 if another seed is already within 4 blocks. Seeds average 3.4 tries each, and a
 seed that cannot find a clear spot in 30 tries is skipped, so a section
-occasionally has 25.
+occasionally has 17.
 
 The spacing is what keeps regions an even size. Nothing relaxes them afterwards,
 so it is also **the knob for how blotchy a section looks**: seeds free to cluster
@@ -93,10 +93,10 @@ exactly what happened.
 Every seed also gets an armour stand over it, which is only there to be looked
 at. `dev/gen/init` clears them along with everything else a run leaves behind.
 
-Each seed is then numbered 0 to 25 and **grows as its own block** rather than as
-its kind. The blocks are the sixteen terracottas and ten of the concretes, with
-light blue concrete left out because it is what the river is drawn in on the
-visible layer, and white wool making up the count. Two regions that roll the same kind are still different regions, and
+Each seed is then numbered from 0 and **grows as its own block** rather than as
+its kind. The palette has room for 26: the sixteen terracottas and ten of the
+concretes, with light blue concrete left out because it is what the river is
+drawn in on the visible layer, and white wool making up the count. Two regions that roll the same kind are still different regions, and
 the boundary between them is what a river runs along, so it has to stay visible
 until the river is cut. The kinds go on at the end, in `paint`.
 
@@ -232,7 +232,7 @@ neighbours'.
 The first river has to run at least `#gen_riv_min` corners - 25. A river that
 reaches the far border sooner is turned back rather than kept, since the search
 has a whole section of boundaries to look through for a longer way out. A branch
-that passes `#gen_riv_max` - 120 - is given up on instead. A section 48 wide
+that passes `#gen_riv_max` - 80 - is given up on instead. A section 32 wide
 could be crossed in far fewer, but a river only turns where a boundary does, so
 it spends length getting to somewhere it can leave from rather than going
 straight there. Lengths are the search's own count of corners, taken before the
@@ -364,17 +364,17 @@ nothing, and while it is there it is out of the roll: every pick of another
 kind pays it back its part of what was taken, so a rare kind drawn too often
 sits out for most of the bag while a common one is back in a few picks. The
 roll runs over whatever the bag holds above nothing. Simulated over 200,000
-hard sections, nine or more iron regions came up in one section in 80 and ten
-or more in one in 700, against one in 26 and one in 84 for independent rolls,
-while eight still came up one section in sixteen. The bag is filled twice a
+hard sections of 18 seeds, seven or more iron regions came up in one section in
+67 and eight or more in one in 1000, against one in 22 and one in 91 for
+independent rolls, while six still came up one section in eleven. The bag is filled twice a
 section, once for the chain seeds and once for the rest, and the second is
 first charged for what the seam carried in: each kind's bled tiles, counted as
-the regions grew, over the average region of 768 tiles by the seed count, taken
+the regions grew, over the average region of 512 tiles by the seed count, taken
 off that kind as whole shares. A seed the river marked for a lake takes water
 out of the bag like any other draw.
 
-Every section is also held to a floor of **5 wood, 5 iron and 2 water** regions,
-and **4 rock on easy and medium or 6 on hard**, and the floors are met without
+Every section is also held to a floor of **3 wood, 3 iron and 2 water** regions,
+and **3 rock on easy and medium or 4 on hard**, and the floors are met without
 converting anything. The chain seeds
 draw first, then the rest, and a running count keeps what is still owed to the
 floors against how many seeds are left. While there are more seeds than owed,
@@ -430,7 +430,7 @@ the players get is the rails they lay, so a longer way across is not a harder
 one on its own: a zig-zag buys the time to match its cost. What a longer way is
 is more rails out of the same supply and more time at the same pace, so the
 cost a rail is raised by `#gen_rail_pen` percent - 1 - for every rail past the
-48 of a straight crossing. The figure is kept in hundredths of a point a rail
+32 of a straight crossing. The figure is kept in hundredths of a point a rail
 so that it stays a whole number.
 
 A section is usable when the exit was reached and that figure lies between the
@@ -453,8 +453,8 @@ Measured 2026-09-21 with `dev/gen/profile` run from a command block every tick
 for the profiler's ten seconds - about a hundred whole three-section maps, with
 the stands and the report switched off so that only the generating is timed.
 The sections were 35 by 20 then, with one river each and a depth-first flood.
-At 48 by 16 with two rivers and the least-cost flood a section has a tenth more
-tiles and a good deal more searching, and has not been profiled since.
+At 32 by 16 with two rivers and the least-cost flood a section has fewer tiles
+but more searching, and has not been profiled since.
 
 | stage | per section | share of generation |
 |---|---|---|
@@ -499,9 +499,9 @@ command string back to the file it lives in and summing by stage, which is what
 the script that produced them does. It bottoms out inside the recursive parts
 either way, so the wave loop and the river search are attributed as wholes.
 
-A section is 768 tile claims, about 33 waves, and a flood visiting around 290
-tiles. Three sections come to about 80ms, one and a half ticks as a burst and
-nothing at all spread across three or four.
+A section is 512 tile claims, about 30 waves, and a flood visiting a couple of
+hundred tiles. Three sections at the old size came to about 75ms, one and a
+half ticks as a burst and nothing at all spread across three or four.
 
 ## Looking at it
 
