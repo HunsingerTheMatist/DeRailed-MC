@@ -11,14 +11,11 @@ scoreboard players operation #cost_mod dr_var %= $Eight dr_const
 #  much as a hundred block tests
 execute if score #cost_waiting dr_var matches 1.. as @e[type=marker,tag=dr_rock_wait,distance=0..] if score @s dr_level = #cost_level dr_var if score @s dr_wave = #cost_wave dr_var at @s run function derailed:dev/gen/_cost_wake
 
-execute if score #cost_mod dr_var matches 0 as @e[type=marker,tag=dr_f0,distance=0..] at @s run function derailed:dev/gen/_cost_spread
-execute if score #cost_mod dr_var matches 1 as @e[type=marker,tag=dr_f1,distance=0..] at @s run function derailed:dev/gen/_cost_spread
-execute if score #cost_mod dr_var matches 2 as @e[type=marker,tag=dr_f2,distance=0..] at @s run function derailed:dev/gen/_cost_spread
-execute if score #cost_mod dr_var matches 3 as @e[type=marker,tag=dr_f3,distance=0..] at @s run function derailed:dev/gen/_cost_spread
-execute if score #cost_mod dr_var matches 4 as @e[type=marker,tag=dr_f4,distance=0..] at @s run function derailed:dev/gen/_cost_spread
-execute if score #cost_mod dr_var matches 5 as @e[type=marker,tag=dr_f5,distance=0..] at @s run function derailed:dev/gen/_cost_spread
-execute if score #cost_mod dr_var matches 6 as @e[type=marker,tag=dr_f6,distance=0..] at @s run function derailed:dev/gen/_cost_spread
-execute if score #cost_mod dr_var matches 7 as @e[type=marker,tag=dr_f7,distance=0..] at @s run function derailed:dev/gen/_cost_spread
+function derailed:dev/gen/_cost_sweep
+
+# The second route's flood has tiles that cost nothing, which fall due on the
+#  wave that reached them, so that wave is gone round again until none is left
+execute if score #cost_mode dr_var matches 1 run function derailed:dev/gen/_cost_sweep_more
 
 scoreboard players add #cost_wave dr_var 1
 

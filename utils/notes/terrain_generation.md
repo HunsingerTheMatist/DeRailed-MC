@@ -31,7 +31,8 @@ every question about a section answerable for as long as the section takes:
 
 | y | what | written by | read by |
 |---|---|---|---|
-| 17 | the flood's working layer | `validate` | `_cost_spread`, `_trace` |
+| 18 | the first route and the band round it, while the second is found | `second` | `_cost_take2`, `_second_pass`, `_pinch_cut` |
+| 17 | the flood's working layer, then both routes | `validate`, `second` | `_cost_spread`, `_trace` |
 | 15 | the section as it is meant to be seen | the attempt loop | `_edge_kind`, `validate` |
 | 9 | y5 with the rivers cut into it | the river stamp | the second river, to find the first; `strays`, for where the river runs |
 | 5 | **what the river reads, then the kinds** | `build`, `strays`, then `paint` | `_river_look_*`, `strays`, lifted to y15 |
@@ -557,6 +558,37 @@ little what a player padding their route with ground could get. The true
 lowest-average path is out of reach in commands, and without a rail budget it is
 not even well defined, since a loop through ground drags any average toward 1.
 
+### The second route
+
+Once the section has settled on its route, `second` finds a **second way
+across** for the players to get round the train by, on the rule the original
+game checks: from the entry tile to the exit tile, keeping off every cell of
+the first route where the train is pinched, and free to use the rest of it.
+The first route is copied up to y18 and its pinched cells marked there, a
+**band** is drawn round it - white on the eight tiles beside each of its cells,
+black out to four tiles - and the flood runs again in a second mode: a tile on
+the first route or beside it costs nothing, any other tile costs 1, and the
+pinched cells count as seen already, so the flood never steps onto them. What
+the flood counts is how far the second route **strays** from the first, and
+the report prints that.
+
+Rock is cut for it as for the first route, but at a price: a rock tile is
+parked for `#gen_second_rock` waves - 16 - so a cut is taken only where the way
+round would stray more than fifteen tiles, a little tighter than the twenty at
+which the original would have thrown the section away. Rock in the black band, within four tiles of the
+first route, is never cut for it, so a cut for the second route cannot widen
+the gap the first route cut. A tile costing nothing falls due on the wave that
+reached it, which the wave loop handles by going round the wave again until
+nothing is left on it.
+
+The second route is then judged for pinching like the first and opened up the
+same way, against the tier's ceiling only, never the floor, and rock beside
+the first route is never opened for it, since that rock is what pinches the
+first. It is never judged for cost. On y17 it is drawn in **purple**, with
+**pink** wherever the two routes share a tile, and the first route stays red.
+A section with no pinch on its first route gets the first route back as its
+second, all pink, which is what the rule comes to there.
+
 ## What it costs
 
 Measured 2026-09-21 with `dev/gen/profile` run from a command block every tick
@@ -632,7 +664,8 @@ The finished section is at **y=15**. Above it, **y=16** holds orange glass over
 every tile the route cut through rock, yellow over every tile cut to open a
 pinch, and light blue over every stray tile the sweep after the rivers handed
 to another region, and **y=17** holds the cheapest route across in red glass,
-inside a grey ring.
+the second way across in purple, and pink where the two share a tile, inside a
+grey ring.
 
 Below it are the working layers, and they are worth reading when a river needs
 explaining: **y=9** has the line the search walked with everything it gave up on

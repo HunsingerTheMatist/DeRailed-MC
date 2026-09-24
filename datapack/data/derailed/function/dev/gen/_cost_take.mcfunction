@@ -6,6 +6,10 @@
 #  wave
 # Positioned on the tile
 
+# The second route's flood prices tiles by how far they lie from the first
+#  route rather than by what they are
+execute if score #cost_mode dr_var matches 1 run return run function derailed:dev/gen/_cost_take2
+
 execute if block ~ ~ ~ gray_concrete run return run function derailed:dev/gen/_cost_park
 
 scoreboard players set #cost_c dr_var 1

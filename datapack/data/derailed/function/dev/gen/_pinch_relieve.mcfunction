@@ -9,5 +9,6 @@ execute if score #pinch_rounds dr_var matches ..0 run return fail
 scoreboard players remove #pinch_rounds dr_var 1
 
 function derailed:dev/gen/_pinch_open
-function derailed:dev/gen/_validate_pass
+execute if score #cost_mode dr_var matches 0 run function derailed:dev/gen/_validate_pass
+execute if score #cost_mode dr_var matches 1 run function derailed:dev/gen/_second_pass
 function derailed:dev/gen/_pinch_relieve

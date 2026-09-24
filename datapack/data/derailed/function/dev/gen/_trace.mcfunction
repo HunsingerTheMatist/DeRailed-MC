@@ -27,6 +27,10 @@ execute if score #gen_back dr_var matches 0 run return fail
 #  the pinching is measured along
 function derailed:dev/gen/_pinch_pair
 
+# The second route is counted for how far it strays from the first, whose band
+#  lies three above
+execute if score #cost_mode dr_var matches 1 unless block ~ ~3 ~ #derailed:second_band run scoreboard players add #gen_astray dr_var 1
+
 setblock ~ ~2 ~ red_stained_glass strict
 scoreboard players add #gen_route dr_var 1
 

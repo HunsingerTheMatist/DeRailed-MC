@@ -36,7 +36,8 @@ scoreboard players set $SectionTiles dr_const 512
 #  reads where the river runs off it, and otherwise it is only there to be
 #  looked at
 # y15 is the section as it is meant to be seen: y5 with the river lifted onto it,
-#  with the flood that checks it running two above
+#  with the flood that checks it running two above and, three above, the band
+#  round the first route that the second route is priced by while it is found
 
 # The kind each seed grows its region as
 scoreboard objectives add dr_kind dummy "DeRailed Region Kind"
@@ -118,6 +119,14 @@ scoreboard players set #gen_difficulty dr_var 1
 #  percent: a longer section is more rails out of the same supply and more time
 #  at the same pace, so its cost a rail is not the whole story
 scoreboard players set #gen_rail_pen dr_var 1
+
+# What a tile of rock costs the second way across, in tiles strayed from the
+#  first route: it is cut only where the way round would stray further, and
+#  fifteen is as far as the way round is meant to stray
+scoreboard players set #gen_second_rock dr_var 16
+
+# Which route the flood is finding: 0 the first, 1 the second
+scoreboard players set #cost_mode dr_var 0
 
 # How much of one seed's share of the bag a draw takes off the kind drawn, in
 #  percent, to be handed out to the others

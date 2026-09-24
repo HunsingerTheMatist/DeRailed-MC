@@ -8,4 +8,4 @@
 #  through and the river finds no way out
 # It takes two fills because the whole stack at once is past what one will move
 execute in derailed:game run fill 999 0 -1 1096 8 16 air strict
-execute in derailed:game run fill 999 9 -1 1096 17 16 air strict
+execute in derailed:game run fill 999 9 -1 1096 18 16 air strict

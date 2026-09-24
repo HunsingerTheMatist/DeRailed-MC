@@ -116,6 +116,22 @@ a tile is the only local link between two open areas. That is a question about
 the map; ours is a question about the route, which is the only place the train
 ever is.
 
+### A second way round
+
+The players have to be able to get past the train, so every section also has
+a **second way across**, found the way the original game checks for one: from
+the entry to the exit, keeping off every cell of the route where the train is
+pinched, free to use the rest of it, and staying close, since a tile on the
+route or beside it is free and any other tile counts one against it. Where the
+original threw a section away for want of such a way, ours cuts one: rock is
+priced at 16 of those tiles, so the cut comes only where the way round would
+stray more than fifteen, a little tighter than the original's twenty, and
+never within four tiles of the route, so that it cannot widen the route's own
+cut. The second way is judged for pinching like
+the first and opened up the same way, but never for cost, and on hard it is not
+asked to pinch. It is drawn purple beside the route's red, pink where the two
+share a tile.
+
 ### What regions are drawn as
 
 Each tier has a table of weights:
