@@ -1,6 +1,6 @@
 
 # Rolls the kinds, paints the regions and keeps the section if the track can get
-#  across, otherwise tries again
+#  across and the players have a second way round, otherwise tries again
 # Each attempt rolls every seed's kind afresh, keeping the seeds, the chain, the
 #  region shapes and the river
 # Positioned at the section's corner
@@ -23,6 +23,13 @@ clone ~ ~9 ~ ~31 ~9 ~15 ~ ~15 ~ strict filtered #derailed:river_cut
 fill ~ ~15 ~ ~31 ~15 ~15 light_blue_concrete replace magenta_glazed_terracotta strict
 
 execute positioned ~ ~15 ~ run function derailed:dev/gen/validate
+
+# The second way across is found on every section the track can cross, so the
+#  one that ships has it whatever the checks said, and a section without one
+#  is a reroll like a cheap one
+execute if score #gen_reached dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/second
+execute if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_fail_second dr_var 1
+execute if score #sec_reached dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
 execute if score #gen_valid dr_var matches 1 run return 0
 
 scoreboard players add #gen_rerolls dr_var 1

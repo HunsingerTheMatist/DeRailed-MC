@@ -37,7 +37,9 @@ scoreboard players set $SectionTiles dr_const 512
 #  looked at
 # y15 is the section as it is meant to be seen: y5 with the river lifted onto it,
 #  with the flood that checks it running two above and, three above, the band
-#  round the first route that the second route is priced by while it is found
+#  round the first route that the second route is priced by while it is found,
+#  and then the routes kept aside and the bridges to the resources while the
+#  supply is checked
 
 # The kind each seed grows its region as
 scoreboard objectives add dr_kind dummy "DeRailed Region Kind"
@@ -71,6 +73,12 @@ scoreboard objectives add dr_level dummy "DeRailed Flood Level"
 scoreboard objectives add dr_depth dummy "DeRailed River Depth"
 scoreboard objectives add dr_step dummy "DeRailed River Step"
 scoreboard objectives add dr_dir dummy "DeRailed River Heading"
+
+# What the supply check hangs on a seed: how many tiles of its resource the
+#  flood got to in its region, and how many tiles of water lie between the
+#  route and it
+scoreboard objectives add dr_size dummy "DeRailed Region Size"
+scoreboard objectives add dr_bridge dummy "DeRailed Region Bridges"
 
 # How far apart section corners sit
 scoreboard players set $SectionWidth dr_const 32
@@ -125,8 +133,17 @@ scoreboard players set #gen_rail_pen dr_var 1
 #  fifteen is as far as the way round is meant to stray
 scoreboard players set #gen_second_rock dr_var 16
 
-# Which route the flood is finding: 0 the first, 1 the second
+# Which route the flood is finding: 0 the first, 1 the second, 2 the way from
+#  the first route out to the resources
 scoreboard players set #cost_mode dr_var 0
+
+# Which resource a bridge over water is built from, 1 wood or 2 iron, which is
+#  what the water under a route and on the way to a resource is charged to
+scoreboard players set #gen_bridge dr_var 1
+
+# How much of what the routes need the section has to hold within reach, in
+#  percent, so that there is some to spare
+scoreboard players set #gen_supply_over dr_var 120
 
 # How much of one seed's share of the bag a draw takes off the kind drawn, in
 #  percent, to be handed out to the others

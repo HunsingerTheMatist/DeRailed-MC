@@ -10,6 +10,9 @@
 #  route rather than by what they are
 execute if score #cost_mode dr_var matches 1 run return run function derailed:dev/gen/_cost_take2
 
+# The supply check's flood prices tiles by the water on the way to them
+execute if score #cost_mode dr_var matches 2 run return run function derailed:dev/gen/_cost_take3
+
 execute if block ~ ~ ~ gray_concrete run return run function derailed:dev/gen/_cost_park
 
 scoreboard players set #cost_c dr_var 1

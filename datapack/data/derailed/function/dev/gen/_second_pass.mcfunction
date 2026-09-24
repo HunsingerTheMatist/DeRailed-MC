@@ -23,6 +23,7 @@ function derailed:dev/gen/_mark_goal with storage derailed:gen r
 function derailed:dev/gen/_cost_from with storage derailed:gen r
 
 scoreboard players set #gen_route dr_var 0
+scoreboard players set #gen_wet dr_var 0
 scoreboard players set #gen_astray dr_var 0
 scoreboard players set #gen_steps dr_var 400
 

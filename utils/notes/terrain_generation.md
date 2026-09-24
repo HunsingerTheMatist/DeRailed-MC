@@ -589,6 +589,45 @@ first. It is never judged for cost. On y17 it is drawn in **purple**, with
 A section with no pinch on its first route gets the first route back as its
 second, all pink, which is what the rule comes to there.
 
+It runs inside the attempt loop, on every attempt the track got across, and a
+section where even cutting finds no second way is a **reroll** like a cheap
+one, counted on the rerolls line. That happens where the first route runs the
+length of a river channel through a wide rock mass: the channel's cells are
+barred, and the four-tile rule bars every cut through the rock beside it.
+
+### 9. Supply
+
+`supply` checks that the section holds enough wood and iron within reach of
+the route to lay it. Each route needs one wood and one iron for every rail and
+a bridge for every tile of water under it, a bridge being one wood
+(`#gen_bridge` picks wood or iron, for a biome whose bridges are iron), and
+the section is held to the dearer of the two routes on each count, with a
+fifth on top (`#gen_supply_over`, 120 percent, rounded up).
+
+What is within reach is found by a third mode of the flood, set out from every
+tile of the first route at once: water costs one, the bridge to it, rock is
+never crossed, and everything else is free. Every seed the flood got to has
+the water on the cheapest way from the route to it counted by walking the
+flood's marks back. Supply is counted on the finished terrain, tile by tile:
+a reached tile of wood or iron counts to its region's seed where the region
+is one of this section's own drawn as that kind, and otherwise, carried over
+the seam or cut into a resource, as a free tile. Nothing under a river counts.
+Regions are then taken **cheapest first**: the free tiles, then each reached
+region of wood or iron by its water count, each taken only while its kind is
+still short, its tiles added and the water on the way to it charged as
+bridges and marked, so that a crossing two regions share is paid once.
+
+A section that comes up short **repaints** a region as the missing kind, a
+round at a time up to six: first a region of the other resource whose tiles
+that resource can spare, taken at random; then ground, then water; never rock,
+a wall, a lake, or a region the first route runs through, since that would
+change what the route was judged to cost. A region the second route runs
+through may be repainted, and if it was water the second route's bridges
+change with it. The repaint goes onto y15 and y5 both,
+leaving the river where it crosses the region, with magenta glass over it on
+y16. A section still short after that ships as it is and is counted in the
+report.
+
 ## What it costs
 
 Measured 2026-09-21 with `dev/gen/profile` run from a command block every tick
@@ -662,8 +701,9 @@ half ticks as a burst and nothing at all spread across three or four.
 
 The finished section is at **y=15**. Above it, **y=16** holds orange glass over
 every tile the route cut through rock, yellow over every tile cut to open a
-pinch, and light blue over every stray tile the sweep after the rivers handed
-to another region, and **y=17** holds the cheapest route across in red glass,
+pinch, light blue over every stray tile the sweep after the rivers handed to
+another region, and magenta over every tile repainted for the supply, and
+**y=17** holds the cheapest route across in red glass,
 the second way across in purple, and pink where the two share a tile, inside a
 grey ring.
 

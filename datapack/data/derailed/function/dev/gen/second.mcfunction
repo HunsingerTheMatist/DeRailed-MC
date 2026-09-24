@@ -11,11 +11,14 @@
 
 # A section the first route never got across has nothing to go round
 scoreboard players set #sec_reached dr_var 0
+scoreboard players set #sec_route dr_var 0
+scoreboard players set #sec_wet dr_var 0
 execute if score #gen_reached dr_var matches 0 run return 0
 
 # What the first route came to is kept, since the second is measured with the
 #  same figures and the report wants the first's back afterwards
 scoreboard players operation #crit_route dr_var = #gen_route dr_var
+scoreboard players operation #crit_wet dr_var = #gen_wet dr_var
 scoreboard players operation #crit_cost dr_var = #gen_cost dr_var
 scoreboard players operation #crit_carved dr_var = #gen_carved dr_var
 scoreboard players operation #crit_pinch dr_var = #gen_pinch dr_var
@@ -59,12 +62,14 @@ fill ~ ~3 ~ ~31 ~3 ~15 air strict
 scoreboard players set #cost_mode dr_var 0
 
 scoreboard players operation #sec_route dr_var = #gen_route dr_var
+scoreboard players operation #sec_wet dr_var = #gen_wet dr_var
 scoreboard players operation #sec_astray dr_var = #gen_astray dr_var
 scoreboard players operation #sec_carved dr_var = #gen_carved dr_var
 scoreboard players operation #sec_pinch dr_var = #gen_pinch dr_var
 scoreboard players operation #sec_opened dr_var = #gen_opened dr_var
 scoreboard players operation #sec_reached dr_var = #gen_reached dr_var
 scoreboard players operation #gen_route dr_var = #crit_route dr_var
+scoreboard players operation #gen_wet dr_var = #crit_wet dr_var
 scoreboard players operation #gen_cost dr_var = #crit_cost dr_var
 scoreboard players operation #gen_carved dr_var = #crit_carved dr_var
 scoreboard players operation #gen_pinch dr_var = #crit_pinch dr_var

@@ -27,7 +27,10 @@ scoreboard players set #gen_strays dr_var 0
 scoreboard players set #gen_cuts2 dr_var 0
 scoreboard players set #gen_relieved2 dr_var 0
 scoreboard players set #gen_no_second dr_var 0
+scoreboard players set #gen_supply_short dr_var 0
+scoreboard players set #gen_repaints dr_var 0
 scoreboard players set #gen_fail_flat dr_var 0
+scoreboard players set #gen_fail_second dr_var 0
 scoreboard players set #gen_fail_cheap dr_var 0
 scoreboard players set #gen_fail_dear dr_var 0
 scoreboard players set #gen_rate_n dr_var 0

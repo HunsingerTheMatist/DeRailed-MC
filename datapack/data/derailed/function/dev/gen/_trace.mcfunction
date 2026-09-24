@@ -11,6 +11,9 @@ execute if score #gen_steps dr_var matches ..0 run return fail
 execute if block ~ ~ ~ gray_concrete run function derailed:dev/gen/_cut_mark
 execute unless block ~ ~ ~ gray_concrete run function derailed:dev/gen/_cut_seen
 
+# Water under the route is counted, since every tile of it is a bridge to build
+execute if block ~ ~ ~ #derailed:cost_water run scoreboard players add #gen_wet dr_var 1
+
 execute if block ~ ~2 ~ white_stained_glass run scoreboard players add #gen_route dr_var 1
 execute if block ~ ~2 ~ white_stained_glass run return run setblock ~ ~2 ~ red_stained_glass strict
 

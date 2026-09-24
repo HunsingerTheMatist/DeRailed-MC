@@ -127,10 +127,25 @@ original threw a section away for want of such a way, ours cuts one: rock is
 priced at 16 of those tiles, so the cut comes only where the way round would
 stray more than fifteen, a little tighter than the original's twenty, and
 never within four tiles of the route, so that it cannot widen the route's own
-cut. The second way is judged for pinching like
+cut. A section where even that finds no second way is rerolled, since nothing
+short of new terrain can give it one. The second way is judged for pinching like
 the first and opened up the same way, but never for cost, and on hard it is not
 asked to pinch. It is drawn purple beside the route's red, pink where the two
 share a tile.
+
+### Enough to build with
+
+A section has to hold what its routes need. Every rail is a wood and an iron,
+every tile of water under a route is a bridge, one wood, and the section is
+held to the dearer of its two routes, with a fifth to spare. What counts is
+what the players can reach from the route without crossing rock, and a
+resource behind water is charged the bridge it takes to get there, once,
+cheapest resources first. A section that comes up short is not thrown away: a
+region is repainted as the missing kind, first one of the other resource that
+can be spared, then ground, then water, and never rock, a wall, a lake or a
+region the route runs through. This stands in for the original's supply
+check, which was a flow through the terrain with a limit on what a narrow gap
+could carry; reachability with bridges is the part that decides sections.
 
 ### What regions are drawn as
 

@@ -61,9 +61,8 @@ function derailed:dev/gen/strays
 scoreboard players set #gen_attempts dr_var 5
 function derailed:dev/gen/_build_attempt
 
-# The second way across, for the players to get round the train by, once the
-#  section has settled on its first
-execute positioned ~ ~15 ~ run function derailed:dev/gen/second
+# Whether there is enough wood and iron within reach to lay either route
+execute positioned ~ ~15 ~ run function derailed:dev/gen/supply
 
 # The notes left along the eastern edge only learn their kind once the section is
 #  settled, since a reroll would have changed it under them

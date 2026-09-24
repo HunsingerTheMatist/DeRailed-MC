@@ -13,9 +13,10 @@ execute if score #cost_waiting dr_var matches 1.. as @e[type=marker,tag=dr_rock_
 
 function derailed:dev/gen/_cost_sweep
 
-# The second route's flood has tiles that cost nothing, which fall due on the
-#  wave that reached them, so that wave is gone round again until none is left
-execute if score #cost_mode dr_var matches 1 run function derailed:dev/gen/_cost_sweep_more
+# The second route's flood and the supply check's have tiles that cost
+#  nothing, which fall due on the wave that reached them, so that wave is gone
+#  round again until none is left
+execute if score #cost_mode dr_var matches 1.. run function derailed:dev/gen/_cost_sweep_more
 
 scoreboard players add #cost_wave dr_var 1
 
