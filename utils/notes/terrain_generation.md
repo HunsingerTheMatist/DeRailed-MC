@@ -617,6 +617,25 @@ region of wood or iron by its water count, each taken only while its kind is
 still short, its tiles added and the water on the way to it charged as
 bridges and marked, so that a crossing two regions share is paid once.
 
+Before the adding up, the resources have to come along at a steady rate as
+well: every **thirty-column window** ending in this section, taken one column
+at a time and never starting before the map does, must hold at least two
+seeds of wood and two of iron within reach of a route (`#gen_spread_span`,
+`#gen_spread_min`). The section before counts for its part, since its seeds
+stay behind carrying a mark for every resource its own route could reach. A
+window that is wanting has the missing kind **swapped in** from elsewhere in
+the section rather than added: a reached region inside the window's part of
+this section takes the missing kind, and a region of that kind outside the
+window takes the kind the first one had, so the section keeps its mix and only
+the placing changes. The region inside is of the other resource where the
+window has more of that than it needs, else ground, else water, picked at
+random and never a wall, a lake, or one the first route runs through; the
+region outside is picked at random too, and never one the first route runs
+through. Where there is no region of the missing kind outside the window to
+swap with, the one inside is repainted outright. The window is then looked at
+again, up to eight swaps a section. A window nothing in this section can help,
+because the gap was left by the section before, is counted in the report.
+
 A section that comes up short **repaints** a region as the missing kind, a
 round at a time up to six: first a region of the other resource whose tiles
 that resource can spare, taken at random; then ground, then water; never rock,

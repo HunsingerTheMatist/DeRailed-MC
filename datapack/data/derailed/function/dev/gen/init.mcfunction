@@ -38,6 +38,7 @@ scoreboard players set #gen_relieved2 dr_var 0
 scoreboard players set #gen_no_second dr_var 0
 scoreboard players set #gen_supply_short dr_var 0
 scoreboard players set #gen_repaints dr_var 0
+scoreboard players set #gen_spread_total dr_var 0
 scoreboard players set #gen_fail_flat dr_var 0
 scoreboard players set #gen_fail_second dr_var 0
 scoreboard players set #gen_fail_cheap dr_var 0

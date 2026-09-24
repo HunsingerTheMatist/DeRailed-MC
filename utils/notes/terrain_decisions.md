@@ -140,12 +140,20 @@ every tile of water under a route is a bridge, one wood, and the section is
 held to the dearer of its two routes, with a fifth to spare. What counts is
 what the players can reach from the route without crossing rock, and a
 resource behind water is charged the bridge it takes to get there, once,
-cheapest resources first. A section that comes up short is not thrown away: a
-region is repainted as the missing kind, first one of the other resource that
-can be spared, then ground, then water, and never rock, a wall, a lake or a
-region the route runs through. This stands in for the original's supply
-check, which was a flow through the terrain with a limit on what a narrow gap
-could carry; reachability with bridges is the part that decides sections.
+cheapest resources first. The resources also have to come along steadily,
+not just add up: any thirty columns of the map, wherever they are taken and
+whichever sections they fall across, hold at least two regions of wood and
+two of iron within reach, so a section that ends in a forest is not followed
+by one whose forest is at its far end. A stretch found wanting has a region
+of the missing kind swapped in from elsewhere in the section, trading kinds
+with a region there, so the section keeps its mix and only the placing
+changes. A section that comes up short is not
+thrown away: a region is repainted as the missing kind, first one of the
+other resource that can be spared, then ground, then water, and never rock, a
+wall, a lake or a region the route runs through. This stands in for the
+original's supply check, which was a flow through the terrain with a limit on
+what a narrow gap could carry; reachability with bridges is the part that
+decides sections.
 
 ### What regions are drawn as
 

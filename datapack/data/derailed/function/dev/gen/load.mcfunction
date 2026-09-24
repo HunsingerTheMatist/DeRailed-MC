@@ -145,6 +145,12 @@ scoreboard players set #gen_bridge dr_var 1
 #  percent, so that there is some to spare
 scoreboard players set #gen_supply_over dr_var 120
 
+# How wide a window of columns has to hold '#gen_spread_min' seeds of wood and
+#  of iron within reach, wherever along the map it is taken, so that neither
+#  runs dry for long
+scoreboard players set #gen_spread_span dr_var 30
+scoreboard players set #gen_spread_min dr_var 2
+
 # How much of one seed's share of the bag a draw takes off the kind drawn, in
 #  percent, to be handed out to the others
 # The whole share holds every kind to its weight within a region or so; half

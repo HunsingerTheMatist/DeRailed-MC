@@ -45,8 +45,17 @@ function derailed:dev/gen/_each
 
 # Which seeds the flood got to, each with the water on the way to it
 execute as @e[type=marker,tag=dr_seed,distance=0..] at @s positioned ~ ~15 ~ run function derailed:dev/gen/_supply_seed
-
 scoreboard players set #gen_repainted dr_var 0
+
+# Wood and iron have to come along at a steady rate as well as add up, so the
+#  seeds of either within reach are marked, and kept marked once the section
+#  is done for the section after to count, and any thirty-column window short
+#  of them has a region repainted
+tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_supply
+execute as @e[type=marker,tag=dr_seed,tag=dr_reach,distance=0..] if score @s dr_kind matches 1..2 run tag @s add dr_supply
+function derailed:dev/gen/_spread
+scoreboard players operation #gen_spread_total dr_var += #gen_spread_gaps dr_var
+
 function derailed:dev/gen/_supply_count
 scoreboard players set #sup_rounds dr_var 6
 function derailed:dev/gen/_supply_short
@@ -66,5 +75,7 @@ fill ~ ~3 ~ ~31 ~3 ~15 air strict
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_reach
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_used
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_cand
+tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_in
+tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_win
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_on_first
 scoreboard players set #gen_reached dr_var 1
