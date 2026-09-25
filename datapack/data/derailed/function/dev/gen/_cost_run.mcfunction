@@ -1,7 +1,7 @@
 
-# Floods out from this tile, cheapest tiles first, until the tile the track
-#  leaves on is reached or there is nowhere left to go
-# Positioned on the entry tile, with the exit tile marked in gold two above
+# Floods out from this tile, cheapest tiles first, until a tile the track's
+#  last rail may lie on is reached or there is nowhere left to go
+# Positioned on the entry tile, with those tiles marked in gold two above
 # Each tile costs something to step onto - ground 1, wood or iron 2, water 4 -
 #  and a tile is taken on the wave its cost falls due, so the first wave to take
 #  a tile is the cheapest way there and the wave the exit is taken on is what the

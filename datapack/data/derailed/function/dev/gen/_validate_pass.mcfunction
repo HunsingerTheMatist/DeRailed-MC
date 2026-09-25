@@ -1,16 +1,11 @@
 
-# Floods from the entry tile to the exit tile, walks the route back, and cuts
-#  out any rock it ran through
+# Floods from the first tile the track is laid on to the last, walks the route
+#  back, and cuts out any rock it ran through
 # Positioned at the section's corner
 
 # Tiles already reached are kept on a layer two above the section, so the flood
 #  can tell where it has been
 fill ~ ~2 ~ ~31 ~2 ~15 air strict
-
-# The route may not run along the western column, where the station will
-#  stand: every tile of it but the one the track comes in on counts as seen
-#  already, and the start is stood on that one afterwards
-fill ~ ~2 ~ ~ ~2 ~15 gray_stained_glass strict
 
 # A ring of already-seen tiles around the section, so the flood stays inside it
 #  rather than wandering into the section before
@@ -47,9 +42,6 @@ scoreboard players set #pinch_runs dr_var 0
 scoreboard players set #pinch_seq dr_var 0
 scoreboard players set #pinch_top dr_var 0
 scoreboard players set #pinch_top_id dr_var 0
-scoreboard players set #pinch_pl dr_var 0
-scoreboard players set #pinch_pr dr_var 0
-scoreboard players set #pinch_pback dr_var 0
 
 execute if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_trace_from with storage derailed:gen r
 function derailed:dev/gen/_pinch_close
@@ -58,8 +50,9 @@ function derailed:dev/gen/_pinch_close
 #  which terrain a cut takes depends on what lies at either end of it
 execute if score #cut_n dr_var matches 1.. run function derailed:dev/gen/_cut_resolve
 
-# The arrows have done their work once the route is drawn, so they go, and the
-#  western column with them, and what stays on the layer is the route alone,
-#  inside the ring, which stays as the section's border to be looked at
+# The arrows have done their work once the route is drawn, so they go, along
+#  with the station's rails counted as seen, and what stays on the layer is
+#  the route alone, inside the ring, which stays as the section's border to be
+#  looked at
 fill ~ ~2 ~ ~31 ~2 ~15 air replace #derailed:flood_arrows strict
-fill ~ ~2 ~ ~ ~2 ~15 air replace gray_stained_glass strict
+fill ~ ~2 ~ ~31 ~2 ~15 air replace gray_stained_glass strict

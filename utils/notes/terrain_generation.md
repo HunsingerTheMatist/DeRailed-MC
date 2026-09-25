@@ -64,6 +64,43 @@ y9 where they can be looked at without standing in the finished section.
 `build` runs these in order, positioned at the section's corner. `next_section`
 works out where that corner is and hands the previous section's exit row on.
 
+### The station, before anything
+
+`route` picks the exit row first, since the station stands on it, clamped to
+rows 1 to 13 so the piece fits, and `_station_stamp` lays the piece on y0 in
+blocks of its own before a seed is placed: **bedrock** for its ground, the
+rail row from column 28 to the edge, the tile above its buffer stop, the two
+rows below it from column 29 and the yard in the section after (columns 0 and
+1 on the entry row, column 0 on the rows either side), all of it open to the
+players and the track alike, and **obsidian** for the building, the two tiles
+above its first two rails, which nothing crosses. Those two
+blocks are what every later step reads: seeds are never placed on them,
+growth never claims them, no region id answers for them so no region owns
+them, the wall counts a line through them as a hole, the stray sweep and the
+repaints skip them, and no cut and no relief ever opens them. `grow` lays the
+piece again over its black fill, and every attempt draws it on y15 after
+painting, ground everywhere but the building and rock there, with powered
+rails, a buffer stop and bricks on y16 above. `#gen_station` in `load` turns
+the whole of it off.
+
+Both routes run from the first tile the track is laid on, column 0 of the
+entry row, to the last, which is either of the two tiles beside the station's
+first rail, the yard tile west of it or the ground south of it, whichever the
+flood reaches first: both are marked as the goal, and the trace starts from
+the one the flood left an arrow on. The station's three rails are laid
+already, its buffer stop becoming the third when the section after is built,
+so they are neither rails to lay nor route to measure: they count as seen
+already on the flood's layer, so neither route ever runs over them, and the
+straight crossing a route is judged against is 29 rails. Leaving the buffer
+stop south
+into the ground below it, rather than east into the yard, lays the same number
+of rails to reach the same yard tile, so the flood from column 0 prices that
+way too. The first route's flood never steps onto the building, while the
+second route and the supply flood walk everything but it, since the players
+can. The station's four tiles on the eastern edge leave notes reading ground,
+so the section after carries ground in from them and grows it from there on
+whatever rows its yard does not already cover.
+
 ### 1. Scatter
 
 `scatter` places 18 seeds as markers, each rolled into a random tile and rejected
@@ -352,11 +389,22 @@ When the first river falls back short, the second is asked for the whole of the
 rest and will usually fall back too, so that section ends up with two short
 rivers and two lakes. The report counts how often.
 
-The water goes on **the corner the head stood on**, so a river is as wide as the
-line the search walked and two corners next to each other are two tiles next to
-each other, whichever way the line turned between them. A corner standing on the
-southern border is outside the section and lays nothing, which is what keeps a
-section to its own ground.
+The water goes on **one tile of the four round the corner the head stood on**,
+the same one for the whole river, so a river is as wide as the line the search
+walked and two corners next to each other are two tiles next to each other,
+whichever way the line turned between them. A tile past the border is outside
+the section and gets nothing, which is what keeps a section to its own ground.
+
+Which tile of the four is settled once per river by `_river_side` after the
+walk: south-east first, then south-west, north-east and north-west, and the
+first whose tiles carve no prefab and put no water across the seam into the
+section before is kept for every corner, so a line with a corner on the west
+border cannot shift west. Each choice gives the same river shifted a tile,
+still one wide and still joined. A line that can be laid on none of them is
+refused, and the loops its walk cut are not counted: a river
+that had reached an exit goes back to its last choice as if the exit were a
+dead end, and a longest line falling back is given up, the section going
+without that river. The report counts the lines refused.
 
 It is cut as a **glaze pointing back the way the head came**, with the branches
 the search gave up on in red beside it. That is the search drawn out, and it is
@@ -451,8 +499,10 @@ found.
 
 ### 8. Validate
 
-`validate` floods from the entry tile across everything inside the section,
-**cheapest tiles first**, and stops the moment it reaches the exit tile. Each
+`validate` floods from the first tile the track is laid on, column 0 of the
+entry row, across everything inside the section, **cheapest tiles first**, and
+stops the moment it reaches the last: either tile beside the station's first
+rail, or the exit tile itself with the station off. Each
 tile costs something to step onto - ground 1, wood or iron 2, water 4 since
 water can be bridged, rock 1000 - and a tile is taken on the wave its cost
 falls due, so the first wave to take a tile is the cheapest way there and the
@@ -490,35 +540,38 @@ Rock cut to open a pinch up is filled the second way only, tile by tile from
 the nearest terrain, never river.
 
 The same walk measures how much the route **pinches the train**. The train is
-a box two long and one wide, pointing the way the track runs, and the players
-cannot pass through it, so what matters is whether rock closes both of its
-sides at once. Sliding the box along the route a half step at a time comes to
-a window of three route cells: each side is closed when rock stands beside any
-of the three, on that side of the box, and the window is pinched when both are.
-Only rock counts; everything else the players can clear. The section's edges
-count as rock too: the north and south edges, since nobody gets round the
-train past the edge of the map, and the east edge, since what stands past it
-is not built yet. The west edge never comes up, since the route never runs
-along the western column. The box's left is its own, so it turns with the
-track at a corner, which needs no case of its own. A run of consecutive
-pinched windows costs its length cubed, so one long pinch weighs far more than
-the same length broken up, and two short runs a cell apart score the same as
-one long one, which is what a box two long makes true. The section's score is
-the sum over its runs.
+a box two long and one wide, standing on a route cell and the one ahead of it
+and pointing the way the track runs, and the players cannot pass through it,
+so what matters is whether rock closes both of its sides at once: a side is
+closed when rock stands beside either of the two cells on that side, and the
+cell the box stands on is pinched when both are. Only rock counts; everything
+else the players can clear. The section's edges count as rock too: the north
+and south edges, since nobody gets round the train past the edge of the map,
+and the east edge, since what stands past it is not built yet. The west edge
+is the section before, and is read as what stands there. The box's left is
+its own, so it turns with the track at a corner, which needs no case of its
+own. Before a station the train runs on from the last rail onto the station's
+first, so the box standing on those two is judged as well, with the building
+beside the rail counting as rock. A run of consecutive pinched cells costs its
+length cubed, so one long pinch weighs far more than the same length broken
+up, and two short runs a cell apart score the same as one long one, which is
+what a box two long makes true. The section's score is the sum over its runs.
 
 The tier sets a ceiling on that score and hard sets a floor as well. Over the
 ceiling the section is not thrown away: the longest run is **opened up**, the
 rock along one side of it cut back from the exit end just far enough that the
-section as a whole would pass, the other runs counted, and on hard never so
-far that the floor is lost; the side taken is whichever has less rock along
-those cells, never one with none, and never a side that faces out of the
-section, since the edge cannot be cut; then the route is found again, and the
-score taken afresh, for up to four rounds. Under hard's floor is a reroll like a cheap
-route. The bands: easy allows no pinch at all; medium allows 54, two single
-rows of rock either side far enough apart not to touch, at 27 each; hard wants
-at least 27, one such row, and allows up to 343, a corridor five rows long,
-which is seven windows. Two short corridors a row apart count as the one long
-one, so hard's ceiling is as much about spacing as about length.
+section as a whole would pass, beside each opened cell and the cell ahead of
+it, the other runs counted, and on hard never so far that the floor is lost;
+the side taken is whichever has less rock along those boxes, never one with
+none, and never a side that faces out of the section, since the edge cannot
+be cut; then the route is found again, and the score taken afresh, for up to
+four rounds. Under hard's floor is a reroll like a cheap route. The bands:
+easy allows no pinch at all; medium allows 16, two single rows of rock either
+side far enough apart not to touch, at 8 each, since the train is pinched on
+the cell before such a row and on the row itself; hard wants at least 8, one
+such row, and allows up to 216, a corridor five rows long, which is six cells.
+Two short corridors a row apart count as the one long one, so hard's ceiling
+is as much about spacing as about length.
 
 Before any of that, the **exit tile is kept off rock**: if the row picked lands
 on rock and any other row of the east edge is clear, the exit moves there,
@@ -534,15 +587,18 @@ is drawn the arrows are cleared, and the route is all that stays on the layer.
 
 A ring of grey glass is laid around the section first, filling only air, so the
 flood stays inside its own section without painting over its neighbour's route.
-The western column gets the same glass, all but the entry tile, so the route
-never runs along the seam, where the station will stand.
+The route may run along column 0 like any other, but nothing in the section
+before is ever cut for it: the ring is also what tells the relief that a tile
+lies outside the section, and rock there counts as closed but never as a side
+to open.
 
 The route is then judged by **what it costs a rail**, not by its total. The time
 the players get is the rails they lay, so a longer way across is not a harder
 one on its own: a zig-zag buys the time to match its cost. What a longer way is
 is more rails out of the same supply and more time at the same pace, so the
-cost a rail is raised by `#gen_rail_pen` percent - 1 - for every rail past the
-32 of a straight crossing. The figure is kept in hundredths of a point a rail
+cost a rail is raised by `#gen_rail_pen` percent - 1 - for every rail past a
+straight crossing, 29 rails up to the station or 32 with it off. The figure is
+kept in hundredths of a point a rail
 so that it stays a whole number.
 
 A section is usable when the exit was reached and that figure lies between the
@@ -566,7 +622,7 @@ not even well defined, since a loop through ground drags any average toward 1.
 
 Once the section has settled on its route, `second` finds a **second way
 across** for the players to get round the train by, on the rule the original
-game checks: from the entry tile to the exit tile, keeping off every cell of
+game checks: between the same two tiles as the first, keeping off every cell of
 the first route where the train is pinched, and free to use the rest of it.
 The first route is copied up to y18 and its pinched cells marked there, and
 two things are drawn round it: a **band**, white on the eight tiles beside each
@@ -733,7 +789,8 @@ half ticks as a burst and nothing at all spread across three or four.
 The finished section is at **y=15**. Above it, **y=16** holds orange glass over
 every tile the route cut through rock, yellow over every tile cut to open a
 pinch, light blue over every stray tile the sweep after the rivers handed to
-another region, and magenta over every tile repainted for the supply, and
+another region, magenta over every tile repainted for the supply, and the
+station's rails, buffer stop and bricks, and
 **y=17** holds the cheapest route across in red glass,
 the second way across in purple, and pink where the two share a tile, inside a
 grey ring. Where no second way was found, **y=19** keeps the band it was

@@ -22,6 +22,9 @@ clone ~ ~9 ~ ~31 ~9 ~15 ~ ~15 ~ strict filtered #derailed:river_cut
 #  comes up and is swapped for plain water
 fill ~ ~15 ~ ~31 ~15 ~15 light_blue_concrete replace magenta_glazed_terracotta strict
 
+# The station is drawn over whatever the attempt painted where it stands
+execute if score #gen_station dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/_station_show with storage derailed:gen r
+
 execute positioned ~ ~15 ~ run function derailed:dev/gen/validate
 
 # The second way across is found on every section the track can cross, so the

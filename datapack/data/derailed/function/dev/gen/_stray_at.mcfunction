@@ -7,9 +7,11 @@
 #  the way
 # Positioned on the tile
 
-# River is no one's, and a tile carried over the seam keeps what it was, since
-#  it has to match the section before across the boundary
+# River is no one's, the station is its own, and a tile carried over the seam
+#  keeps what it was, since it has to match the section before across the
+#  boundary
 execute if block ~ ~9 ~ magenta_glazed_terracotta run return 0
+execute if block ~ ~5 ~ #derailed:prefab run return 0
 execute if block ~ ~5 ~ #derailed:gen_is_kind run return 0
 
 # A tile with an edge to another of its own region is where it belongs

@@ -10,6 +10,10 @@
 # Positioned on the tile, with the band round the first route three above
 
 execute if block ~ ~ ~ gray_concrete if block ~ ~3 ~ #derailed:second_zone run return 0
+
+# The station's building is never stepped onto, nor cut
+execute if block ~ ~-15 ~ obsidian run return 0
+
 execute if block ~ ~ ~ gray_concrete run return run function derailed:dev/gen/_cost_park2
 
 scoreboard players set #cost_c dr_var 1

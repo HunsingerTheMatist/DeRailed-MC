@@ -96,8 +96,10 @@ ships as it is and is counted.
 Cost per rail says how much work the route is. It says nothing about the
 players getting round the train, which is a solid body two long and one wide
 that nobody can pass through. So the route is also scored for **pinching**:
-slide that box along the track and note where rock closes both its sides at
-once. A run of pinched positions costs its length cubed, so one long squeeze
+slide that box along the track, standing on each cell and the one ahead of it,
+and note where rock closes both its sides at once; at a station it stands on
+the last rail and the station's first as well. A run of pinched positions
+costs its length cubed, so one long squeeze
 counts far more than the same length in pieces, and the section's pinch score
 is the sum over its runs. Only rock counts as a wall, since the players can
 clear anything else, and the map's edges count as rock too: nobody gets round
@@ -193,6 +195,58 @@ Underneath the bag sit **floors**: at least 3 wood, 3 iron and 2 water in every
 section, and 3 rock, or 4 on hard. They are met by holding back the last seeds
 drawn for whatever is still owed, never by changing a seed after the fact, and
 with the bag in place they rarely have to act.
+
+## Prefabs
+
+Decided 2026-09-24 and built 2026-09-25. A **prefab** is a stamp of tiles
+placed before anything grows, and nothing else in the generator may change a
+tile of it: seeds keep out of it, regions stop at its edge, the wall never
+takes it, rivers never carve it, cuts never touch it, the stray sweep and the
+repaints leave it alone. Its tiles carry a block of their own on the region
+layers, so its edge is a boundary like any other and every check can tell it
+at a glance.
+
+The first prefab is the **station**, which every section ends in and which
+reaches across the seam into the section after:
+
+```
+              x=28   x=29   x=30   x=31  ‖  x=0    x=1
+  row r-1     [ - ]  [ H ]  [ H ]  [ . ] ‖ [ . ]  [ - ]
+  row r  ══>  [ . ]  [ = ]  [ S ]  [ ¬ ] ‖ [ . ]  [ . ]  ══>
+  row r+1     [ - ]  [ . ]  [ . ]  [ . ] ‖ [ . ]  [ - ]
+  row r+2     [ - ]  [ . ]  [ . ]  [ . ] ‖ [ - ]  [ - ]
+```
+
+Row r is the rail row, the row the track leaves by and the section after
+comes in on, kept between rows 1 and 13 so the piece fits. Above its first two
+rails stands the building, which cannot be walked, and above the buffer stop
+open ground; below it two rows of open ground; west of it one tile of yard;
+and east of it, in the section after, a yard two long on
+the rail row and one tile on each row beside it. Every tile of it but the
+building is open ground the players may walk and build on, so the track may
+come onto the station's first rail from the yard tile west of it or from the
+ground south of it, and leave its buffer stop east into the yard or south
+into the ground below. Both routes end on the last rail the players lay,
+whichever of those two tiles beside the first rail the flood reaches first,
+and begin on column 0 of the entry row: leaving the buffer stop south lays
+the same number of rails to reach the same yard tile as leaving it east, so
+the flood from column 0 prices that way as well. A station's three rails are
+neither rails to lay nor route to measure, and no route ever runs over them.
+Across the seam the station reads as ground and spreads as ground. The yard
+is what keeps water and rock off
+the tiles
+where the track leaves one section and enters the next, and what gives the
+second route open ground to step off the rail on before it meets whatever
+grew beside the yard.
+
+Rivers go round prefabs, never through them. A river's corners can be turned
+into tiles on any of the four sides of the corner, and each choice gives the
+same river shifted a tile, still one wide and still joined; the first choice
+whose tiles touch no prefab is kept. A line with no such choice is given up:
+one that had reached an exit goes back to its last choice as at a dead end,
+and a longest line falling back is not laid at all, since laying it shifted
+is the only thing that could have saved it. No choice may put water across the
+seam into the section before; column 0 itself is as open to water as it was.
 
 ## Placeholders and open questions
 

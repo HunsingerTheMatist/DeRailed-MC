@@ -20,18 +20,18 @@ execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_rate_free dr_var 0
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_free dr_var 1
 
-# And how much the route may pinch the train, a run of n pinched windows
+# And how much the route may pinch the train, a run of n pinched boxes
 #  counting n cubed: over the ceiling is opened up rather than thrown away, and
 #  hard wants some
 # Easy allows none, medium two single rows of rock either side far enough apart
-#  not to touch, and hard from one such row up to a corridor five long, which is
-#  seven windows
+#  not to touch, two boxes each, and hard from one such row up to a corridor
+#  five long, which is six boxes
 execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_pinch_max dr_var 0
 execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_pinch_min dr_var 0
-execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_pinch_max dr_var 54
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_pinch_max dr_var 16
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_pinch_min dr_var 0
-execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_max dr_var 343
-execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_min dr_var 27
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_max dr_var 216
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_min dr_var 8
 
 # And the fewest rock regions, since rock is what makes a section hard to move
 #  about in rather than just expensive to cross
@@ -39,8 +39,14 @@ execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_min_rock dr_var 3
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_rock dr_var 4
 
-function derailed:dev/gen/scatter
+# The row the track leaves by comes first, since the station stands on it and
+#  everything else grows round the station: its tiles are laid before a seed is
+#  placed, and its edge leaves notes for the section after to read as ground
 function derailed:dev/gen/route
+execute if score #gen_station dr_var matches 1 run function derailed:dev/gen/_station_stamp with storage derailed:gen r
+execute if score #gen_station dr_var matches 1 run function derailed:dev/gen/_station_notes with storage derailed:gen r
+
+function derailed:dev/gen/scatter
 function derailed:dev/gen/grow
 
 # Hard gets a band of rock across it for the route to have to cut through,
@@ -72,4 +78,4 @@ execute positioned ~ ~15 ~ run function derailed:dev/gen/supply
 
 # The notes left along the eastern edge only learn their kind once the section is
 #  settled, since a reroll would have changed it under them
-execute as @e[type=marker,tag=dr_edge,distance=0..] at @s positioned ~ ~15 ~ run function derailed:dev/gen/_edge_kind
+execute as @e[type=marker,tag=dr_edge,tag=!dr_prefab,distance=0..] at @s positioned ~ ~15 ~ run function derailed:dev/gen/_edge_kind

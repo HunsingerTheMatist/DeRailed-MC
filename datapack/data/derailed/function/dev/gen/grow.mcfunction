@@ -5,6 +5,9 @@
 # Unclaimed ground, which is also what stops growth at the section edge
 fill ~ ~ ~ ~31 ~ ~15 black_concrete strict
 
+# The station stands where nothing grows, so it goes back over the fill
+execute if score #gen_station dr_var matches 1 run function derailed:dev/gen/_station_stamp with storage derailed:gen r
+
 # How many tiles are due to spread and how many are waiting on a carried region,
 #  kept as counts so the wave loop never has to go looking for them
 scoreboard players set #gen_pending dr_var 0

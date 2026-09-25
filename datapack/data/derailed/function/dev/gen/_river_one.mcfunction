@@ -11,6 +11,7 @@ scoreboard players set #riv_dead dr_var 0
 scoreboard players set #riv_depth dr_var 0
 scoreboard players set #riv_best dr_var 0
 scoreboard players set #riv_join dr_var 0
+scoreboard players set #riv_refusing dr_var 0
 
 # What came of it, for the river after this one to keep clear of and to make
 #  the pair up to length against

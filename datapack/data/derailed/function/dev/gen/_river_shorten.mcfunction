@@ -2,6 +2,8 @@
 # Walks the line the search settled on and keeps only the corners the walk passes
 #  through, then lays it and counts what it laid
 # The line is marked out with 'dr_riv_line' beforehand
+# Fails, laying nothing, where the line can be laid on no side of its corners
+#  without carving a prefab
 
 # Where a line doubles back, the corner it came from and the corner it came back
 #  to end up next to each other with a whole loop of line between them. The walk
@@ -9,10 +11,19 @@
 #  across and the loop is left behind, which is what keeps the water one wide
 #  through a bend the search made a lap of
 
+# The loops a line that is not laid had cut out of it are not counted
+scoreboard players operation #riv_cuts_was dr_var = #riv_cuts dr_var
+
 # The corner the search set out from is the one tile it laid before it had gone
 #  anywhere, so it is where the walk starts and it lays no water of its own
 execute as @n[type=marker,tag=dr_riv_line,scores={dr_step=0},distance=0..] run scoreboard players operation #riv_dir dr_var = @s dr_dir
 execute as @n[type=marker,tag=dr_riv_line,scores={dr_step=0},distance=0..] at @s run function derailed:dev/gen/_river_short
+
+# Which side of its corners the water goes on, the same the whole way, so that
+#  it carves no prefab and puts nothing across the seam
+function derailed:dev/gen/_river_side
+execute if score #riv_side dr_var matches 0 run scoreboard players operation #riv_cuts dr_var = #riv_cuts_was dr_var
+execute if score #riv_side dr_var matches 0 run return fail
 
 function derailed:dev/gen/_river_stamp
 

@@ -44,6 +44,7 @@ scoreboard players set #riv_joins dr_var 0
 scoreboard players set #riv_lakes dr_var 0
 scoreboard players set #riv_cuts dr_var 0
 scoreboard players set #riv_dry dr_var 0
+scoreboard players set #riv_refused dr_var 0
 scoreboard players set #gen_origin_x dr_var 1000
 scoreboard players set #gen_pass dr_var 7
 execute in derailed:game run function derailed:dev/gen/_pass_grow

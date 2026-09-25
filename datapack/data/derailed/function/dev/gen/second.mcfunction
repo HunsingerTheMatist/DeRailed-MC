@@ -1,5 +1,5 @@
 
-# Finds the second way across: a route from the entry tile to the exit tile
+# Finds the second way across: a route between the same two tiles as the first
 #  that keeps off every cell of the first route where the train is pinched, so
 #  that the players can always get round the train, and cuts through rock only
 #  where nothing better is left, well away from the first route

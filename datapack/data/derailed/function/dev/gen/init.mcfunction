@@ -53,3 +53,4 @@ scoreboard players set #riv_joins dr_var 0
 scoreboard players set #riv_lakes dr_var 0
 scoreboard players set #riv_cuts dr_var 0
 scoreboard players set #riv_dry dr_var 0
+scoreboard players set #riv_refused dr_var 0

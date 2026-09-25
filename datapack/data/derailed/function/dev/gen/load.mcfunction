@@ -35,8 +35,10 @@ scoreboard players set $SectionTiles dr_const 512
 #  drawn over that. The second river reads it to find the first, the stray sweep
 #  reads where the river runs off it, and otherwise it is only there to be
 #  looked at
-# y15 is the section as it is meant to be seen: y5 with the river lifted onto it,
-#  with the flood that checks it running two above and, three above, the band
+# y15 is the section as it is meant to be seen: y5 with the river lifted onto it
+#  and the station drawn over it, with the glass that marks what was cut, handed
+#  on or repainted one above along with the station's rails, the flood that
+#  checks it running two above and, three above, the band
 #  round the first route that the second route is priced by while it is found,
 #  and then the routes kept aside and the bridges to the resources while the
 #  supply is checked; four above, that band is left standing where no second
@@ -156,6 +158,15 @@ scoreboard players set #gen_spread_min dr_var 2
 #  without one and leaves the band the way was looked for in a layer up, to be
 #  looked at
 scoreboard players set #gen_second_reroll dr_var 0
+
+# Whether every section ends in a station, standing against the eastern edge on
+#  the row the track leaves by and reaching into the section after
+# Its tiles are laid in bedrock and obsidian on the layers the regions are read
+#  from, bedrock for its ground, open to the players and the track alike, and
+#  obsidian for its building, which nothing crosses, so that nothing grows,
+#  cuts or paints there and every check can tell them at a glance; what it
+#  looks like goes on the visible layer and the one above it
+scoreboard players set #gen_station dr_var 1
 
 # How much of one seed's share of the bag a draw takes off the kind drawn, in
 #  percent, to be handed out to the others

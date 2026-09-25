@@ -52,7 +52,7 @@ execute if score #gen_route dr_var matches 1.. run scoreboard players operation 
 # Then raised a little for every rail past a straight crossing, since a longer
 #  section is more rails out of the same supply and more time at the same pace
 scoreboard players operation #gen_extra dr_var = #gen_route dr_var
-scoreboard players operation #gen_extra dr_var -= $SectionWidth dr_const
+scoreboard players operation #gen_extra dr_var -= #gen_straight dr_var
 execute if score #gen_extra dr_var matches ..-1 run scoreboard players set #gen_extra dr_var 0
 scoreboard players operation #gen_extra dr_var *= #gen_rail_pen dr_var
 scoreboard players add #gen_extra dr_var 100
