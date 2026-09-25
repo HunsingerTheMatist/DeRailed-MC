@@ -508,11 +508,12 @@ the sum over its runs.
 
 The tier sets a ceiling on that score and hard sets a floor as well. Over the
 ceiling the section is not thrown away: the longest run is **opened up**, the
-rock along one side of it cut back from the exit end just far enough that what
-is left of the run would pass, taking whichever side has less rock along those
-cells and never a side that faces out of the section, since the edge cannot be
-cut; then the route is found again, and the score taken afresh, for up to four
-rounds. Under hard's floor is a reroll like a cheap
+rock along one side of it cut back from the exit end just far enough that the
+section as a whole would pass, the other runs counted, and on hard never so
+far that the floor is lost; the side taken is whichever has less rock along
+those cells, never one with none, and never a side that faces out of the
+section, since the edge cannot be cut; then the route is found again, and the
+score taken afresh, for up to four rounds. Under hard's floor is a reroll like a cheap
 route. The bands: easy allows no pinch at all; medium allows 54, two single
 rows of rock either side far enough apart not to touch, at 27 each; hard wants
 at least 27, one such row, and allows up to 343, a corridor five rows long,
@@ -547,7 +548,10 @@ so that it stays a whole number.
 A section is usable when the exit was reached and that figure lies between the
 tier's floor and ceiling, set in `build`: 1.55 to 2.20 on easy, 1.85 to 2.50 on
 medium and 2.65 to 3.30 on hard. The hard pair comes from ten measured sections;
-easy and medium are placeholders until a batch has printed theirs. Wood and iron
+easy and medium are placeholders until a batch has printed theirs. A tier
+whose band is being measured lets its routes through whatever they cost,
+which is `#gen_rate_free` in `build`, on for hard while its band is taken
+afresh over the wall and the cuts. Wood and iron
 need no check here, since the floors in `kinds` guarantee them. If the section
 fails, every seed's kind is rolled again and it is painted again, keeping the
 regions and the seeds. Up to 5 attempts.
@@ -564,22 +568,26 @@ Once the section has settled on its route, `second` finds a **second way
 across** for the players to get round the train by, on the rule the original
 game checks: from the entry tile to the exit tile, keeping off every cell of
 the first route where the train is pinched, and free to use the rest of it.
-The first route is copied up to y18 and its pinched cells marked there, a
-**band** is drawn round it - white on the eight tiles beside each of its cells,
-black out to four tiles - and the flood runs again in a second mode: a tile on
-the first route or beside it costs nothing, any other tile costs 1, and the
-pinched cells count as seen already, so the flood never steps onto them. What
-the flood counts is how far the second route **strays** from the first, and
-the report prints that.
+The first route is copied up to y18 and its pinched cells marked there, and
+two things are drawn round it: a **band**, white on the eight tiles beside each
+of its cells, and a **zone**, black on every tile within four steps along the
+grid of one of its pinched cells, a diamond round each pinch, light gray where
+the two fall on the same tile. The flood then runs again in a second mode: a
+tile on the first route or in the band costs nothing, any other tile costs 1,
+and the pinched cells count as seen already, so the flood never steps onto
+them. What the flood counts is how far the second route **strays** from the
+first, and the report prints that.
 
 Rock is cut for it as for the first route, but at a price: a rock tile is
 parked for `#gen_second_rock` waves - 16 - so a cut is taken only where the way
 round would stray more than fifteen tiles, a little tighter than the twenty at
-which the original would have thrown the section away. Rock in the black band, within four tiles of the
-first route, is never cut for it, so a cut for the second route cannot widen
-the gap the first route cut. A tile costing nothing falls due on the wave that
-reached it, which the wave loop handles by going round the wave again until
-nothing is left on it.
+which the original would have thrown the section away. Rock in the zone is
+never cut for it, so the two routes' pinches stay apart: a pinch's own walls
+lie one step from it, and anything cut four steps out leaves rock between the
+two passages. Rock beside a part of the first route that is not pinched may be
+cut, since there is no pinch there to keep apart. A tile costing nothing
+falls due on the wave that reached it, which the wave loop handles by going
+round the wave again until nothing is left on it.
 
 The second route is then judged for pinching like the first and opened up the
 same way, against the tier's ceiling only, never the floor, and rock beside
@@ -591,9 +599,13 @@ second, all pink, which is what the rule comes to there.
 
 It runs inside the attempt loop, on every attempt the track got across, and a
 section where even cutting finds no second way is a **reroll** like a cheap
-one, counted on the rerolls line. That happens where the first route runs the
-length of a river channel through a wide rock mass: the channel's cells are
-barred, and the four-tile rule bars every cut through the rock beside it.
+one, counted on the rerolls line, while `#gen_second_reroll` is set. Off, the
+section ships without one, and the band the way was looked for in is left on
+y19 to be looked at: the first route in red, its pinched cells in gray, the
+free band in white, the no-cut zone in black and light gray where the two
+meet. That case happens where the first route runs the length of a river
+channel through a wide rock mass: the channel's cells are barred, and the
+zone bars every cut through the rock beside its pinches.
 
 ### 9. Supply
 
@@ -601,7 +613,7 @@ barred, and the four-tile rule bars every cut through the rock beside it.
 the route to lay it. Each route needs one wood and one iron for every rail and
 a bridge for every tile of water under it, a bridge being one wood
 (`#gen_bridge` picks wood or iron, for a biome whose bridges are iron), and
-the section is held to the dearer of the two routes on each count, with a
+the section is held to the costlier of the two routes on each count, with a
 fifth on top (`#gen_supply_over`, 120 percent, rounded up).
 
 What is within reach is found by a third mode of the flood, set out from every
@@ -724,7 +736,9 @@ pinch, light blue over every stray tile the sweep after the rivers handed to
 another region, and magenta over every tile repainted for the supply, and
 **y=17** holds the cheapest route across in red glass,
 the second way across in purple, and pink where the two share a tile, inside a
-grey ring.
+grey ring. Where no second way was found, **y=19** keeps the band it was
+looked for in: the first route red, its pinched cells gray, the free band
+white, the no-cut zone black and light gray where the two meet.
 
 Below it are the working layers, and they are worth reading when a river needs
 explaining: **y=9** has the line the search walked with everything it gave up on

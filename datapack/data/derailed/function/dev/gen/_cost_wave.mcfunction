@@ -1,7 +1,7 @@
 
 # Wakes the rock parked for this wave, spreads from every tile due, then moves
 #  on to the next wave, and to the next level once this one is spent
-# Eight tags carry the waves: the dearest tile falls due four waves on, so a
+# Eight tags carry the waves: the costliest tile falls due four waves on, so a
 #  tile put on a later wave never shares a tag with the wave being taken
 
 scoreboard players operation #cost_mod dr_var = #cost_wave dr_var

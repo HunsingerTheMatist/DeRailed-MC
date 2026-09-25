@@ -39,7 +39,8 @@ scoreboard players set $SectionTiles dr_const 512
 #  with the flood that checks it running two above and, three above, the band
 #  round the first route that the second route is priced by while it is found,
 #  and then the routes kept aside and the bridges to the resources while the
-#  supply is checked
+#  supply is checked; four above, that band is left standing where no second
+#  route was found, to be looked at
 
 # The kind each seed grows its region as
 scoreboard objectives add dr_kind dummy "DeRailed Region Kind"
@@ -123,7 +124,7 @@ scoreboard players set #gen_riv_apart dr_var 6
 #  may cost a rail, and can be changed between one section and the next
 scoreboard players set #gen_difficulty dr_var 1
 
-# How much dearer a rail every rail past a straight crossing makes the route, in
+# How much more expensive a rail every rail past a straight crossing makes the
 #  percent: a longer section is more rails out of the same supply and more time
 #  at the same pace, so its cost a rail is not the whole story
 scoreboard players set #gen_rail_pen dr_var 1
@@ -150,6 +151,11 @@ scoreboard players set #gen_supply_over dr_var 120
 #  runs dry for long
 scoreboard players set #gen_spread_span dr_var 30
 scoreboard players set #gen_spread_min dr_var 2
+
+# Whether a section with no second way across is rerolled; off, it ships
+#  without one and leaves the band the way was looked for in a layer up, to be
+#  looked at
+scoreboard players set #gen_second_reroll dr_var 0
 
 # How much of one seed's share of the bag a draw takes off the kind drawn, in
 #  percent, to be handed out to the others

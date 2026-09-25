@@ -2,15 +2,15 @@
 # Checks that the section holds enough wood and iron within reach of the route
 #  to lay it, and repaints a region as whichever is short until it does
 # Each route needs a wood and an iron for every rail and a bridge for every tile
-#  of water under it, and the section is held to the dearer of the two; what is
-#  within reach is found by a flood from the first route, water costing one for
-#  the bridge to it and rock never crossed, and regions are drawn on cheapest
-#  first, each bridge on the way charged once
+#  of water under it, and the section is held to the costlier of the two; what
+#  is within reach is found by a flood from the first route, water costing one
+#  for the bridge to it and rock never crossed, and regions are drawn on
+#  cheapest first, each bridge on the way charged once
 # Positioned at the section's corner, once both routes are found
 
 execute if score #gen_reached dr_var matches 0 run return 0
 
-# What the routes need, the dearer of the two on each count
+# What the routes need, the costlier of the two on each count
 scoreboard players operation #need_wood_base dr_var = #gen_route dr_var
 scoreboard players operation #need_iron_base dr_var = #gen_route dr_var
 execute if score #gen_bridge dr_var matches 1 run scoreboard players operation #need_wood_base dr_var += #crit_wet dr_var

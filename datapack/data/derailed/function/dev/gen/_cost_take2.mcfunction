@@ -3,9 +3,10 @@
 #  for a tile of the first route or beside it, one for any other, and rock
 #  '#gen_second_rock', parked for the wave that many on, so that a cut is
 #  taken only where the way round would stray further than that
-# Rock within four tiles of the first route is never cut, so that a cut for the
-#  second route cannot widen a gap on the first: it is not put on any wave, and
-#  the arrow laid over it keeps the flood from coming back to it
+# Rock within four steps along the grid of one of the first route's pinched
+#  cells is never cut, so that the two routes' pinches stay apart: it is not
+#  put on any wave, and the arrow laid over it keeps the flood from coming back
+#  to it
 # Positioned on the tile, with the band round the first route three above
 
 execute if block ~ ~ ~ gray_concrete if block ~ ~3 ~ #derailed:second_zone run return 0

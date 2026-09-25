@@ -26,10 +26,10 @@ execute positioned ~ ~15 ~ run function derailed:dev/gen/validate
 
 # The second way across is found on every section the track can cross, so the
 #  one that ships has it whatever the checks said, and a section without one
-#  is a reroll like a cheap one
+#  is a reroll like a cheap one while '#gen_second_reroll' says so
 execute if score #gen_reached dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/second
-execute if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_fail_second dr_var 1
-execute if score #sec_reached dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
+execute if score #gen_second_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_fail_second dr_var 1
+execute if score #gen_second_reroll dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
 execute if score #gen_valid dr_var matches 1 run return 0
 
 scoreboard players add #gen_rerolls dr_var 1

@@ -33,8 +33,8 @@ Nothing is reserved for the track. The section picks the row it will leave by,
 leaning toward the top and bottom edges so that the track wanders up and down
 the map over a run rather than holding a line, and the terrain is drawn without
 regard to it. Where the track can go is settled afterwards: rock is not
-impassable but very dear, a thousand a tile, so the cheapest way across only
-ever goes through rock where no way round it exists, and where it does, that
+impassable but very expensive, a thousand a tile, so the cheapest way across
+only ever goes through rock where no way round it exists, and where it does, that
 rock is **cut out**, leaving a passage one tile wide. Water at both ends of a
 cut, river or lake either, runs through the whole of it as river; a river at
 one end gives way to the land at the other, ground, wood or iron. Any other
@@ -126,9 +126,11 @@ route or beside it is free and any other tile counts one against it. Where the
 original threw a section away for want of such a way, ours cuts one: rock is
 priced at 16 of those tiles, so the cut comes only where the way round would
 stray more than fifteen, a little tighter than the original's twenty, and
-never within four tiles of the route, so that it cannot widen the route's own
-cut. A section where even that finds no second way is rerolled, since nothing
-short of new terrain can give it one. The second way is judged for pinching like
+never within four steps along the grid of one of the route's pinch points, so
+that the two routes' pinches stay apart with rock between them. A section
+where even that finds no second way is rerolled, since nothing
+short of new terrain can give it one, though that reroll is switched off while
+the case is being looked at. The second way is judged for pinching like
 the first and opened up the same way, but never for cost, and on hard it is not
 asked to pinch. It is drawn purple beside the route's red, pink where the two
 share a tile.
@@ -137,7 +139,7 @@ share a tile.
 
 A section has to hold what its routes need. Every rail is a wood and an iron,
 every tile of water under a route is a bridge, one wood, and the section is
-held to the dearer of its two routes, with a fifth to spare. What counts is
+held to the costlier of its two routes, with a fifth to spare. What counts is
 what the players can reach from the route without crossing rock, and a
 resource behind water is charged the bridge it takes to get there, once,
 cheapest resources first. The resources also have to come along steadily,
@@ -194,7 +196,38 @@ with the bag in place they rarely have to act.
 
 ## Placeholders and open questions
 
-- The easy and medium cost bands are guesses until measured
+- The easy and medium cost bands are guesses until measured, and hard's is
+  switched off while it is measured afresh over the wall and the cuts
+- **The second way across must always exist, and must always go round the
+  first route's pinch points.** That is a requirement, not a preference, and
+  it is not met yet: a section still ships without one where the first route
+  is walled in by its own pinches, most often on hard. Repainting cannot mend
+  that, since the trouble is the shape of the rock. To be settled once the
+  prefabs are in, since a station piece round each seam removes the case where
+  the entry's own approach is pinched. The options on the table for what a
+  section does when the second way fails: throw the whole section out and
+  scatter afresh; keep the seeds but lay the wall and the rivers again; try the
+  kinds once or twice more before either of those; or tell an easy failure from
+  a hard one and go straight to the big reroll on a hard one, the tell being
+  something like the wall or the pinches sitting against the entry or the exit
+- What is known about those fallbacks so far, from ten test runs on
+  2026-09-24: seven of the ten hard sections hit a missing second way on some
+  attempt; the kinds reroll cleared it in four, three at the first retry and
+  one at the second, and never in the other three, which spent two to four
+  retries for nothing. So a retry that works, works at once, and after two
+  misses more are wasted. Costs are unknown: nothing has been timed since the
+  least-cost flood, the wall and the second route went in. To settle it: time
+  each kind of reroll under the profiler with the bench harness, a kinds
+  reroll being kinds, paint, validate and the second route, a wall-and-rivers
+  redo adding the wall, the rivers and the strays, and a full reroll adding
+  scatter, grow and the seam; then, with the reroll switched on and the
+  attempt cap raised, count over fifty or so hard sections which retry clears
+  the case and whether it is ever cleared, once for each kind of reroll. Cost
+  per usable section is each policy's cost times the attempts it needs, and a
+  full reroll may well win despite costing most per attempt. Whether the wall
+  is what stopped the second way is cheap to read when the flood gives up: the
+  reached cells still carry their arrows, so a scan finds the rock the front
+  stopped against, and its region on y0 says whether it is a wall seed's
 - Nothing has been profiled since the sections were 35 by 20 with one river and
   a depth-first flood. The least-cost flood and the bag both cost more than what
   they replaced, and how much is not known

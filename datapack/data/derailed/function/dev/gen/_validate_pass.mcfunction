@@ -59,6 +59,7 @@ function derailed:dev/gen/_pinch_close
 execute if score #cut_n dr_var matches 1.. run function derailed:dev/gen/_cut_resolve
 
 # The arrows have done their work once the route is drawn, so they go, and the
-#  western column with them, and what stays on the layer is the route alone
+#  western column with them, and what stays on the layer is the route alone,
+#  inside the ring, which stays as the section's border to be looked at
 fill ~ ~2 ~ ~31 ~2 ~15 air replace #derailed:flood_arrows strict
 fill ~ ~2 ~ ~ ~2 ~15 air replace gray_stained_glass strict

@@ -17,8 +17,8 @@ scoreboard players set #riv_join dr_var 0
 scoreboard players set #riv_got dr_var 0
 scoreboard players set #riv_col_got dr_var -100
 
-# Walks are cheap to start and dear to finish, so misses get their own budget and
-#  the starts share one count of steps
+# Walks are cheap to start and expensive to finish, so misses get their own
+#  budget and the starts share one count of steps
 scoreboard players set #riv_tries dr_var 5
 scoreboard players set #riv_rolls dr_var 200
 scoreboard players set #riv_steps dr_var 1500

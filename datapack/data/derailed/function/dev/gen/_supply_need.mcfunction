@@ -1,6 +1,6 @@
 
 # Works out what the section has to hold of each resource, from what the
-#  dearer route needs, the bridges charged so far, and the margin on top
+#  costlier route needs, the bridges charged so far, and the margin on top
 
 scoreboard players operation #need_wood dr_var = #need_wood_base dr_var
 scoreboard players operation #need_iron dr_var = #need_iron_base dr_var
