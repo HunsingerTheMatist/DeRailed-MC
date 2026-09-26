@@ -76,6 +76,10 @@ execute if score #gen_station dr_var matches 1 run function derailed:dev/gen/_st
 function derailed:dev/gen/scatter
 function derailed:dev/gen/grow
 
+# The regions as they grew are kept on a spare layer, for a section that has to
+#  be built again from them
+clone ~ ~ ~ ~31 ~ ~15 ~ ~12 ~ strict
+
 # Hard gets a band of rock across it for the route to have to cut through,
 #  picked from the regions once they have grown so that it has no gap
 execute if score #gen_difficulty dr_var matches 2 run function derailed:dev/gen/wall
@@ -98,6 +102,7 @@ execute if score #gen_riv_hold dr_var matches 1 run return 0
 function derailed:dev/gen/strays
 
 scoreboard players set #gen_attempts dr_var 5
+scoreboard players set #gen_second_misses dr_var 0
 function derailed:dev/gen/_build_attempt
 
 # Whether there is enough wood and iron within reach to lay either route

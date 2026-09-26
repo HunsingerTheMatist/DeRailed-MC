@@ -150,7 +150,16 @@ cells within two tiles of the end are opened and it is looked for again:
 only when it is needed, and no further, so that as much pinch as can stay
 does. A
 section where even that finds no second way is rerolled, since nothing
-short of new terrain can give it one. The second way is judged for pinching like
+short of new terrain can give it one. Drawing the kinds again was not enough
+for that on hard, where the wall holds most of the rock in the way and stays
+put across attempts: with the twenty-tile limit, eight sections in 99 used up
+every attempt without a second way. So after two misses a section is built
+again from its seeds for each attempt that follows, wall on hard, rivers and
+stray sweep in their usual order, on every tier alike, rather than cutting into the no-cut zone or the rock
+beside the route, which would give up what those rules protect. Laying only the
+wall again would have left it laid after the rivers and the sweep, turning
+round two things the usual order keeps: that no lake falls on the wall, and
+that the sweep never takes a tile off it. The second way is judged for pinching like
 the first and opened up the same way, but never for cost, and on hard it is not
 asked to pinch. It is drawn purple beside the route's red, pink where the two
 share a tile.

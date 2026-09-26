@@ -42,6 +42,13 @@ execute if score #gen_valid dr_var matches 1 run return 0
 scoreboard players add #gen_rerolls dr_var 1
 scoreboard players remove #gen_attempts dr_var 1
 
+# A section that has found no second way twice is built again from its regions
+#  as they grew for every attempt after, wall, rivers and all, since drawing the
+#  kinds again leaves those as they are, and on hard the wall's rock is mostly
+#  what stands in the second way's way
+execute if score #gen_reached dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_second_misses dr_var 1
+execute if score #gen_attempts dr_var matches 1.. if score #gen_second_misses dr_var matches 2.. if score #gen_reached dr_var matches 1 if score #sec_reached dr_var matches 0 run function derailed:dev/gen/_wall_relay
+
 # Painting swaps each region's own block for the kind it rolled, so going again
 #  means laying the regions out afresh to have something left to swap
 # The first attempt paints straight onto what the section was left standing as,

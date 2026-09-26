@@ -695,7 +695,13 @@ took it under its floor or its band, and looks for the second way once more;
 the report counts the sections whose ends were opened. A
 section where even that finds no second way is a **reroll** like a cheap
 one, counted on the rerolls line, while `#gen_second_reroll` is set, which it
-is. Off, the section ships without one, and the band the way was looked for
+is. Drawing the kinds again leaves the wall where it
+is, and the wall's rock is mostly what stands in the second way's way, so a
+section that has found no second way twice is built again for every attempt
+after (`_wall_relay`): the regions are put back as they grew, from a copy
+growing them left on y12, and the wall on hard, the rivers and the stray sweep
+are done again in the same order as the first time, keeping only the seeds. The
+report counts the walls laid again. Off, the section ships without one, and the band the way was looked for
 in is left on y19 to be looked at: the first route in red, its pinched cells
 in gray, the band in white, the no-cut zone in black and light gray where the
 two meet. The report gives the second route's tiles off the first route and

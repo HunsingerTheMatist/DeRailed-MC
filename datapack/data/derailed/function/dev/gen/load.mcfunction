@@ -41,6 +41,8 @@ scoreboard players set $SectionSeeds dr_const 18
 #  drawn over that. The second river reads it to find the first, the stray sweep
 #  reads where the river runs off it, and otherwise it is only there to be
 #  looked at
+# y12 is y0 as the regions grew, kept for a section that has to be built again
+#  from them
 # y15 is the section as it is meant to be seen: y5 with the river lifted onto it
 #  and the station drawn over it, with the glass that marks what was cut, handed
 #  on or repainted one above along with the station's rails, the flood that

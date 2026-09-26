@@ -24,6 +24,7 @@ scoreboard players set #gen_cuts dr_var 0
 scoreboard players set #gen_relieved dr_var 0
 scoreboard players set #gen_wall_gaps dr_var 0
 scoreboard players set #gen_wall_big dr_var 0
+scoreboard players set #gen_wall_relaid dr_var 0
 scoreboard players set #gen_tail_gaps dr_var 0
 scoreboard players set #gen_strays dr_var 0
 scoreboard players set #gen_cuts2 dr_var 0
