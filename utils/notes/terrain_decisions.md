@@ -157,15 +157,25 @@ what the players can reach from the route without crossing rock, and a
 resource behind water is charged the bridge it takes to get there, once,
 cheapest resources first. The resources also have to come along steadily,
 not just add up: any thirty columns of the map, wherever they are taken and
-whichever sections they fall across, hold at least two regions of wood and
-two of iron within reach, so a section that ends in a forest is not followed
-by one whose forest is at its far end. A stretch found wanting has a region
-of the missing kind swapped in from elsewhere in the section, trading kinds
-with a region there, so the section keeps its mix and only the placing
-changes. A section that comes up short is not
-thrown away: a region is repainted as the missing kind, first one of the
-other resource that can be spared, then ground, then water, and never rock, a
-wall, a lake or a region the route runs through. This stands in for the
+whichever sections they fall across, hold at least two regions' worth of wood
+tiles and of iron tiles within reach, so a section that ends in a forest is
+not followed by one whose forest is at its far end. It is counted in tiles
+because counting regions by where their seed lies let a region count in full
+for a window it barely touched and not at all for one it mostly filled; a
+region's worth is the tiles a region averages, taken from the section's size.
+A stretch found wanting, or a
+section short overall, has regions swapped between kinds, which keeps the
+section's mix, or repainted outright, and never rock, a wall, a lake or a
+region the route runs through. Nor is a region taken from a kind already down
+to its floor: the floors are a promise about the finished section, not only
+about the draw, so repainting may move a kind down to its floor but never
+under it. A section can only change its own regions, and the western columns
+of a stretch crossing the seam are mostly regions carried over it, which it
+cannot touch, so a stretch left thin by the section before could rarely be
+mended: nearly every section left wanting was the second or third of a run.
+So each section's last fifteen columns are held to one wood and one iron's
+worth of their own, leaving the section after something on the far side of
+every stretch it is judged by. This stands in for the
 original's supply check, which was a flow through the terrain with a limit on
 what a narrow gap could carry; reachability with bridges is the part that
 decides sections.
@@ -178,7 +188,7 @@ Each tier has a table of weights:
 |---|---|---|---|---|---|
 | easy | 45 | 15 | 15 | 15 | 10 |
 | medium | 20 | 30 | 15 | 15 | 20 |
-| hard | 0 | 40 | 15 | 15 | 30 |
+| hard | 0 | 40 | 17.5 | 17.5 | 25 |
 
 Easy is mostly open ground. Medium has under half of easy's ground, traded for water and rock. Hard has no ground at all,
 so every tile of a route costs at least 2, most of the rest is rock and water,
@@ -202,10 +212,34 @@ Modelled over 200,000 hard sections, seven or more iron went from one section
 in 22 to one in 67, and eight or more from one in 91 to one in 1000, while six
 still came up one section in eleven.
 
-Underneath the bag sit **floors**: at least 3 wood, 3 iron and 2 water in every
-section, and 3 rock, or 4 on hard. They are met by holding back the last seeds
+Underneath the bag sit **floors**: at least 3 wood, 3 iron, 2 water and 3 rock
+in every section, and on hard 4 wood, 4 iron and 4 rock. Hard's extra wood and
+iron are there because its routes cost the most and its rock leaves the least
+to repaint: at a floor of 3, a third of the hard sections drawn with exactly
+three wood came up short of it, and none drawn with five did. They are met by
+holding back the last seeds
 drawn for whatever is still owed, never by changing a seed after the fact, and
-with the bag in place they rarely have to act.
+with the bag in place they rarely have to act. The seeds whose kind is settled
+before the draw, the lakes a river ran out against and then the wall, are
+drawn ahead of every other seed. Drawn in no particular order, a wall seed
+coming up after the floors had been forced put its rock on top of the rock
+floor and took a place another floor was still waiting on: one hard batch
+averaged 8.6 rock regions of 18, and a quarter of its sections held fewer than
+three iron, which is most of what left hard short of iron.
+
+Where wood and iron land is mended by a search rather than by chance.
+Fixing each window by swapping a region in at random turned into fixes
+undoing each other: windows overlap, so a region taken from outside one
+window was usually inside the next, and a few sections repainted dozens of
+regions. The search scores the whole section, every window's shortfall, the
+tail's and the totals', and only makes the change that lowers that score
+most, so it cannot go round in circles and it changes no more than it must;
+a stretch without wood that the windows allow stays. Before it, the draw's
+wood and iron are nudged so that each half of the section holds one of each.
+Spreading them one to a band of columns was tried first and was too strict,
+since it did away with the long stretches without wood that make a section
+interesting; a half each is loose enough to keep those and still stops a
+section piling everything at one end.
 
 ## Prefabs
 

@@ -1,0 +1,72 @@
+
+# Starts the candidate columns '#v_w' and '#v_i' off as the section's own,
+#  '#c_w' and '#c_i', for a change to be tried on, and the tiles the supply
+#  count cannot take, '#v_uw' and '#v_ui', off as the section's, '#rep_uw' and
+#  '#rep_ui'
+
+scoreboard players operation #v_w0 dr_var = #c_w0 dr_var
+scoreboard players operation #v_w1 dr_var = #c_w1 dr_var
+scoreboard players operation #v_w2 dr_var = #c_w2 dr_var
+scoreboard players operation #v_w3 dr_var = #c_w3 dr_var
+scoreboard players operation #v_w4 dr_var = #c_w4 dr_var
+scoreboard players operation #v_w5 dr_var = #c_w5 dr_var
+scoreboard players operation #v_w6 dr_var = #c_w6 dr_var
+scoreboard players operation #v_w7 dr_var = #c_w7 dr_var
+scoreboard players operation #v_w8 dr_var = #c_w8 dr_var
+scoreboard players operation #v_w9 dr_var = #c_w9 dr_var
+scoreboard players operation #v_w10 dr_var = #c_w10 dr_var
+scoreboard players operation #v_w11 dr_var = #c_w11 dr_var
+scoreboard players operation #v_w12 dr_var = #c_w12 dr_var
+scoreboard players operation #v_w13 dr_var = #c_w13 dr_var
+scoreboard players operation #v_w14 dr_var = #c_w14 dr_var
+scoreboard players operation #v_w15 dr_var = #c_w15 dr_var
+scoreboard players operation #v_w16 dr_var = #c_w16 dr_var
+scoreboard players operation #v_w17 dr_var = #c_w17 dr_var
+scoreboard players operation #v_w18 dr_var = #c_w18 dr_var
+scoreboard players operation #v_w19 dr_var = #c_w19 dr_var
+scoreboard players operation #v_w20 dr_var = #c_w20 dr_var
+scoreboard players operation #v_w21 dr_var = #c_w21 dr_var
+scoreboard players operation #v_w22 dr_var = #c_w22 dr_var
+scoreboard players operation #v_w23 dr_var = #c_w23 dr_var
+scoreboard players operation #v_w24 dr_var = #c_w24 dr_var
+scoreboard players operation #v_w25 dr_var = #c_w25 dr_var
+scoreboard players operation #v_w26 dr_var = #c_w26 dr_var
+scoreboard players operation #v_w27 dr_var = #c_w27 dr_var
+scoreboard players operation #v_w28 dr_var = #c_w28 dr_var
+scoreboard players operation #v_w29 dr_var = #c_w29 dr_var
+scoreboard players operation #v_w30 dr_var = #c_w30 dr_var
+scoreboard players operation #v_w31 dr_var = #c_w31 dr_var
+scoreboard players operation #v_i0 dr_var = #c_i0 dr_var
+scoreboard players operation #v_i1 dr_var = #c_i1 dr_var
+scoreboard players operation #v_i2 dr_var = #c_i2 dr_var
+scoreboard players operation #v_i3 dr_var = #c_i3 dr_var
+scoreboard players operation #v_i4 dr_var = #c_i4 dr_var
+scoreboard players operation #v_i5 dr_var = #c_i5 dr_var
+scoreboard players operation #v_i6 dr_var = #c_i6 dr_var
+scoreboard players operation #v_i7 dr_var = #c_i7 dr_var
+scoreboard players operation #v_i8 dr_var = #c_i8 dr_var
+scoreboard players operation #v_i9 dr_var = #c_i9 dr_var
+scoreboard players operation #v_i10 dr_var = #c_i10 dr_var
+scoreboard players operation #v_i11 dr_var = #c_i11 dr_var
+scoreboard players operation #v_i12 dr_var = #c_i12 dr_var
+scoreboard players operation #v_i13 dr_var = #c_i13 dr_var
+scoreboard players operation #v_i14 dr_var = #c_i14 dr_var
+scoreboard players operation #v_i15 dr_var = #c_i15 dr_var
+scoreboard players operation #v_i16 dr_var = #c_i16 dr_var
+scoreboard players operation #v_i17 dr_var = #c_i17 dr_var
+scoreboard players operation #v_i18 dr_var = #c_i18 dr_var
+scoreboard players operation #v_i19 dr_var = #c_i19 dr_var
+scoreboard players operation #v_i20 dr_var = #c_i20 dr_var
+scoreboard players operation #v_i21 dr_var = #c_i21 dr_var
+scoreboard players operation #v_i22 dr_var = #c_i22 dr_var
+scoreboard players operation #v_i23 dr_var = #c_i23 dr_var
+scoreboard players operation #v_i24 dr_var = #c_i24 dr_var
+scoreboard players operation #v_i25 dr_var = #c_i25 dr_var
+scoreboard players operation #v_i26 dr_var = #c_i26 dr_var
+scoreboard players operation #v_i27 dr_var = #c_i27 dr_var
+scoreboard players operation #v_i28 dr_var = #c_i28 dr_var
+scoreboard players operation #v_i29 dr_var = #c_i29 dr_var
+scoreboard players operation #v_i30 dr_var = #c_i30 dr_var
+scoreboard players operation #v_i31 dr_var = #c_i31 dr_var
+scoreboard players operation #v_uw dr_var = #rep_uw dr_var
+scoreboard players operation #v_ui dr_var = #rep_ui dr_var

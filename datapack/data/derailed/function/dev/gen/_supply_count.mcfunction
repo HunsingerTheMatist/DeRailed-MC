@@ -18,3 +18,9 @@ scoreboard players operation #sup_iron dr_var = #sup_iron_free dr_var
 scoreboard players set #sup_bridges dr_var 0
 scoreboard players set #sup_k dr_var 0
 function derailed:dev/gen/_supply_round
+
+# A region passed over because its kind had enough can be wanted after all,
+#  where the bridges to a region taken later raised what that kind needs, so
+#  the regions not yet taken are gone through again, twice more at most
+scoreboard players set #sup_pass dr_var 2
+function derailed:dev/gen/_supply_again

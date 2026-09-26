@@ -10,7 +10,7 @@
 kill @e[type=marker,tag=dr_prev_seed,distance=0..]
 execute as @e[type=marker,tag=dr_seed,distance=0..] run function derailed:dev/gen/_age_seed
 
-scoreboard players set #gen_left dr_var 18
+scoreboard players operation #gen_left dr_var = $SectionSeeds dr_const
 function derailed:dev/gen/_seed
 
 # Each region grows as its own block so that the boundary between two of them can

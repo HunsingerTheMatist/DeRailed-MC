@@ -8,6 +8,9 @@ scoreboard players set $Eight dr_const 8
 # Straight on counts three times against a turn, where a river picks its way
 scoreboard players set $Three dr_const 3
 
+# For rounding a division to the nearest whole number, done in halves
+scoreboard players set $Two dr_const 2
+
 # For flipping a difference to its absolute value
 scoreboard players set $NegOne dr_const -1
 
@@ -19,6 +22,9 @@ scoreboard players set $TenThousand dr_const 10000
 
 # How many tiles a section has
 scoreboard players set $SectionTiles dr_const 512
+
+# How many seeds a section is scattered with
+scoreboard players set $SectionSeeds dr_const 18
 
 # A section is built on four layers, each one laid out from the one below it
 # y0 holds the block each region grew as, and only the stray sweep after the
@@ -82,6 +88,10 @@ scoreboard objectives add dr_dir dummy "DeRailed River Heading"
 #  route and it
 scoreboard objectives add dr_size dummy "DeRailed Region Size"
 scoreboard objectives add dr_bridge dummy "DeRailed Region Bridges"
+
+# How many of a region's tiles within reach each of the section's columns
+#  holds, for the repair
+function derailed:dev/gen/_rep_objectives
 
 # How far apart section corners sit
 scoreboard players set $SectionWidth dr_const 32
@@ -152,6 +162,11 @@ scoreboard players set #pinch_take dr_var -1
 scoreboard players set #pinch_from dr_var 0
 scoreboard players set #pinch_near dr_var 0
 
+# How many times over the repair weighs a tile the totals are short against a
+#  tile a window is short, since a gap is short in every window it falls in
+#  but in the totals only once
+scoreboard players set #rep_total_weight dr_var 8
+
 # Which resource a bridge over water is built from, 1 wood or 2 iron, which is
 #  what the water under a route and on the way to a resource is charged to
 scoreboard players set #gen_bridge dr_var 1
@@ -160,11 +175,27 @@ scoreboard players set #gen_bridge dr_var 1
 #  percent, so that there is some to spare
 scoreboard players set #gen_supply_over dr_var 120
 
-# How wide a window of columns has to hold '#gen_spread_min' seeds of wood and
-#  of iron within reach, wherever along the map it is taken, so that neither
-#  runs dry for long
+# How wide a window of columns has to hold '#gen_spread_min' seeds' worth of
+#  wood tiles and of iron tiles within reach, wherever along the map it is
+#  taken, so that neither runs dry for long
 scoreboard players set #gen_spread_span dr_var 30
 scoreboard players set #gen_spread_min dr_var 2
+
+# A seed's worth is the tiles a region averages, a section's tiles over its
+#  seeds, rounded to the nearest; a window wants '#gen_spread_min' of them, and
+#  a section's last fifteen columns one
+scoreboard players operation #gen_seed_tiles dr_var = $SectionTiles dr_const
+scoreboard players operation #gen_seed_tiles dr_var *= $Two dr_const
+scoreboard players operation #gen_seed_tiles dr_var += $SectionSeeds dr_const
+scoreboard players operation #gen_seed_tiles dr_var /= $SectionSeeds dr_const
+scoreboard players operation #gen_seed_tiles dr_var /= $Two dr_const
+scoreboard players operation #gen_spread_need dr_var = $SectionTiles dr_const
+scoreboard players operation #gen_spread_need dr_var *= #gen_spread_min dr_var
+scoreboard players operation #gen_spread_need dr_var *= $Two dr_const
+scoreboard players operation #gen_spread_need dr_var += $SectionSeeds dr_const
+scoreboard players operation #gen_spread_need dr_var /= $SectionSeeds dr_const
+scoreboard players operation #gen_spread_need dr_var /= $Two dr_const
+scoreboard players operation #gen_tail_need dr_var = #gen_seed_tiles dr_var
 
 # Whether a section with no second way across is rerolled; off, it ships
 #  without one and leaves the band the way was looked for in a layer up, to be
@@ -185,13 +216,6 @@ scoreboard players set #gen_station dr_var 1
 # The whole share holds every kind to its weight within a region or so; half
 #  lets sections differ while still keeping any kind from running away
 scoreboard players set #gen_bag_take dr_var 50
-
-# The fewest regions of each kind a section may have, met by holding back the
-#  last seeds drawn for whatever is still owed
-# Rock's floor is the tier's, set with its bounds in 'dev/gen/build'
-scoreboard players set #gen_min_wood dr_var 3
-scoreboard players set #gen_min_iron dr_var 3
-scoreboard players set #gen_min_water dr_var 2
 
 # Whether a seed gets an armour stand standing over it
 # They are only there to be looked at, and a benchmark builds enough sections for

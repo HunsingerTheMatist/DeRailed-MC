@@ -33,11 +33,27 @@ execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_max dr_var 216
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_min dr_var 8
 
-# And the fewest rock regions, since rock is what makes a section hard to move
-#  about in rather than just expensive to cross
+# And the fewest regions of each kind a section may have, met by holding back
+#  the last seeds drawn for whatever is still owed; rock's, since rock is what
+#  makes a section hard to move about in rather than just expensive to cross
 execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_min_rock dr_var 3
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_min_rock dr_var 3
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_rock dr_var 4
+
+# And the fewest wood and iron regions, since the routes are laid from them:
+#  hard's routes cost the most and its rock leaves the least to repaint, so it
+#  holds one more of each
+execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_min_wood dr_var 3
+execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_min_iron dr_var 3
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_min_wood dr_var 3
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_min_iron dr_var 3
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_wood dr_var 4
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_iron dr_var 4
+
+# And the fewest water regions
+execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_min_water dr_var 2
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_min_water dr_var 2
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_water dr_var 2
 
 # The row the track leaves by comes first, since the station stands on it and
 #  everything else grows round the station: its tiles are laid before a seed is

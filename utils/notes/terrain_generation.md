@@ -167,8 +167,11 @@ gives a hard section its pinch; the floor check stays behind that for the rare
 cut through a thin diagonal of rock with nothing beside it.
 
 A region carried over the seam keeps its kind and has no seed to put on the
-band, so a line through one leaves a hole. The band is laid again from another
-column, up to four times, and a hole left after that is counted in the report.
+band, so a line through one leaves a hole. A band can also take so many
+regions that the seeds left over cannot hold every other floor, what rock is
+still owed included. Either way the band is laid again from another column,
+up to four times, and whatever is still wrong after that is counted in the
+report, a hole and a band too big apart.
 
 ### 3. Grow
 
@@ -448,7 +451,7 @@ has a table of weights:
 |---|---|---|---|---|---|
 | easy | 45 | 15 | 15 | 15 | 10 |
 | medium | 20 | 30 | 15 | 15 | 20 |
-| hard | 0 | 40 | 15 | 15 | 30 |
+| hard | 0 | 40 | 17.5 | 17.5 | 25 |
 
 Hard has no ground at all, so every tile of a route there costs at least 2, and
 it has the wall on top.
@@ -470,8 +473,9 @@ kind's bled tiles, counted as the regions grew, over the average region of 512
 tiles by the seed count, taken off that kind as whole shares. A seed the river marked for a lake takes water
 out of the bag like any other draw.
 
-Every section is also held to a floor of **3 wood, 3 iron and 2 water** regions,
-and **3 rock on easy and medium or 4 on hard**, and the floors are met without
+Every section is also held to a floor of **3 wood, 3 iron, 2 water and 3 rock on
+easy and medium, and 4 wood, 4 iron, 2 water and 4 rock on hard**, set per tier
+in `build`, and the floors are met without
 converting anything. A running count keeps what is still owed to the floors
 against how many seeds are left. While there are more seeds than owed, each
 draws from the bag; the moment the two are equal the remaining seeds take what
@@ -480,7 +484,19 @@ ratios for as long as they can be kept and lands the forced kinds on the last
 few seeds, which are random ones anyway.
 
 A seed on the wall is rock and a seed the river marked for a lake is water,
-whatever the bag says, and each pays its floor like any other draw.
+whatever the bag says, and each pays its floor like any other draw. They are
+drawn first, the lakes and then the wall, and only then every other seed, so
+what they take counts toward the floors before anything else is drawn.
+
+The draw settles **how many** regions each kind gets; `_kind_place` then
+gives the placing a nudge. The kinds on the seeds off the wall and the lakes
+are gathered up and handed out again: each half of the section's columns gets
+one wood region and one iron region, a seed in that half taken at random, or
+the free seed nearest the half's middle where it has none, and every other
+region of wood or iron, and ground, water and rock, goes to the seeds left, at
+random. The counts, and so the floors and the bag, are untouched. Each half
+holding some of each keeps a section from putting all its wood at one end,
+and the rest is left free to bunch or to leave a stretch without.
 
 ### 7. Paint
 
@@ -699,37 +715,73 @@ the seam or cut into a resource, as a free tile. Nothing under a river counts.
 Regions are then taken **cheapest first**: the free tiles, then each reached
 region of wood or iron by its water count, each taken only while its kind is
 still short, its tiles added and the water on the way to it charged as
-bridges and marked, so that a crossing two regions share is paid once.
+bridges and marked, so that a crossing two regions share is paid once. The
+bridges to a region taken later can raise what the other kind needs after a
+region of it was passed over for having enough, so while a kind is still
+short the regions not yet taken are gone through again, up to three passes
+in all.
 
 Before the adding up, the resources have to come along at a steady rate as
-well: every **thirty-column window** ending in this section, taken one column
-at a time and never starting before the map does, must hold at least two
-seeds of wood and two of iron within reach of a route (`#gen_spread_span`,
-`#gen_spread_min`). The section before counts for its part, since its seeds
-stay behind carrying a mark for every resource its own route could reach. A
-window that is wanting has the missing kind **swapped in** from elsewhere in
-the section rather than added: a reached region inside the window's part of
-this section takes the missing kind, and a region of that kind outside the
-window takes the kind the first one had, so the section keeps its mix and only
-the placing changes. The region inside is of the other resource where the
-window has more of that than it needs, else ground, else water, picked at
-random and never a wall, a lake, or one the first route runs through; the
-region outside is picked at random too, and never one the first route runs
-through. Where there is no region of the missing kind outside the window to
-swap with, the one inside is repainted outright. The window is then looked at
-again, up to eight swaps a section. A window nothing in this section can help,
-because the gap was left by the section before, is counted in the report.
+well, and that is counted in **tiles**, column by column. `_col_scan` counts,
+for each of the section's 32 columns, the wood tiles and the iron tiles the
+supply flood left its mark over, which is every one the players can get to.
+The targets are worked out in `load` from the section's size: a **seed's
+worth** is the tiles a region averages, 512 tiles over 18 seeds, rounded to
+28, and a window wants `#gen_spread_min` of them, 57.
 
-A section that comes up short **repaints** a region as the missing kind, a
-round at a time up to six: first a region of the other resource whose tiles
-that resource can spare, taken at random; then ground, then water; never rock,
-a wall, a lake, or a region the first route runs through, since that would
-change what the route was judged to cost. A region the second route runs
-through may be repainted, and if it was water the second route's bridges
-change with it. The repaint goes onto y15 and y5 both,
-leaving the river where it crosses the region, with magenta glass over it on
-y16. A section still short after that ships as it is and is counted in the
-report.
+Three things are asked of the section. Its **tail**, its last fifteen
+columns, must hold a seed's worth of wood and of iron, so that every window the
+section after is judged by starts with some of each on this side of the seam.
+Every **thirty-column window** ending in this section, taken one column at a
+time and never starting before the map does, must hold two seeds' worth of
+each (`#gen_spread_span`, `#gen_spread_min`); the section before counts for its
+part through the 29 columns it stored when it finished. And the **totals**
+within reach must cover what the routes need.
+
+They are put right by one **search**, `_repair`. The section is given a score,
+the tiles every window falls short of each resource, plus the tail's, plus the
+totals' weighed `#rep_total_weight` times, 8, since a gap is short in every
+window it falls in but in the totals only once. The totals are counted the
+way the supply count counts them: a region whose seed the flood never reached,
+or with more than eight tiles of water on the way to it, is one the count
+never takes, so its tiles count toward the windows but not the totals, and
+the flag goes with the region through every change tried. The score is taken
+from the columns: the section's own are counted once a step, along with how
+many tiles
+within reach every region holds in each column, and a change is scored by
+adding or taking that region's columns rather than repainting anything. Each
+step tries every change that turns a region into wood or into iron: any region
+within reach of another kind, never rock, a wall, a lake, or a region the first
+route runs through, since that would change what the route was judged to cost,
+either turned outright, where its own kind holds more regions than its floor,
+or swapped with a region of the kind it becomes, reached and off the first
+route, which takes its old kind in return and so keeps the section's mix.
+Only a kind that falls short somewhere has regions turned into it, since a
+trade of the two resources that helps one is tried from that one's side, and
+a change that leaves the other resource alone has only its own kind scored
+again. The change that lowers the score most is made, the columns and what the routes need
+counted afresh, and another step taken, up to eight; the search stops as soon as
+the score is nothing or no change lowers it. Since every change lowers the
+score it cannot go round in circles, and it changes no more than it has to, so
+a stretch without wood that the windows allow is left as it is. A region the
+second route runs through may be changed, and if it was water the second
+route's bridges change with it. A repaint goes onto y15 and y5 both, leaving
+the river where it crosses the region, with magenta glass over it on y16.
+
+The columns are counted by `_rep_scan` into fake players, one a column a kind,
+and a region's by column into the scores `dr_c0` to `dr_c31`, so that scoring
+a change is a run of additions with no lists or macros in it; those functions
+are written out in full by `utils/make_repair.py`, which has to be run again if
+the section width, the window or the tail changes.
+
+After the search the tail and the windows are judged as the section ships:
+`_spread_pass` feeds the section before's 29 columns and this section's 32
+through a **first-in first-out list** in storage, adding each column taken in to
+a running total of wood and one of iron and dropping the oldest from both once
+the list holds 30, and counts the windows left wanting. The report prints
+those, whether the tail is wanting, whether the totals are short, and the
+search's own swaps, repaints and the score it left. Once the section is done it
+counts its columns once more and stores them for the section after.
 
 ## What it costs
 

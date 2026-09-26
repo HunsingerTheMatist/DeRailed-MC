@@ -23,6 +23,8 @@ scoreboard players set #gen_fail_path dr_var 0
 scoreboard players set #gen_cuts dr_var 0
 scoreboard players set #gen_relieved dr_var 0
 scoreboard players set #gen_wall_gaps dr_var 0
+scoreboard players set #gen_wall_big dr_var 0
+scoreboard players set #gen_tail_gaps dr_var 0
 scoreboard players set #gen_strays dr_var 0
 scoreboard players set #gen_cuts2 dr_var 0
 scoreboard players set #gen_relieved2 dr_var 0
@@ -30,6 +32,8 @@ scoreboard players set #gen_no_second dr_var 0
 scoreboard players set #gen_ends_opened dr_var 0
 scoreboard players set #gen_supply_short dr_var 0
 scoreboard players set #gen_repaints dr_var 0
+scoreboard players set #gen_repair_swaps_total dr_var 0
+scoreboard players set #gen_repair_paints_total dr_var 0
 scoreboard players set #gen_spread_total dr_var 0
 scoreboard players set #gen_fail_flat dr_var 0
 scoreboard players set #gen_fail_second dr_var 0
