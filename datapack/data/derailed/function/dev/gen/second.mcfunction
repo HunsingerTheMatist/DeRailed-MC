@@ -28,15 +28,16 @@ scoreboard players operation #crit_opened dr_var = #gen_opened dr_var
 # The first route is copied up a layer, every pinched cell of it marked, and
 #  two things drawn round it: a band, white on the tiles beside it, where the
 #  second route walks for nothing, and a zone, black out to four steps along
-#  the grid from each pinched cell, where rock is never cut for it, light gray
-#  where the two fall on the same tile
+#  the grid from each pinched cell but the cell at either end of a run three
+#  or more long, where rock is never cut for it, light gray where the two fall
+#  on the same tile
 fill ~ ~3 ~ ~31 ~3 ~15 air strict
 clone ~ ~2 ~ ~31 ~2 ~15 ~ ~3 ~ strict filtered red_stained_glass
 execute as @e[type=marker,tag=dr_pinch,distance=0..] at @s run setblock ~ ~3 ~ gray_stained_glass strict
 data modify storage derailed:gen e.f set value "_second_band_at"
 function derailed:dev/gen/_each
-data modify storage derailed:gen e.f set value "_second_zone_at"
-function derailed:dev/gen/_each
+execute as @e[type=marker,tag=dr_pinch,distance=0..] run function derailed:dev/gen/_pinch_end
+execute as @e[type=marker,tag=dr_pinch,tag=!dr_pinch_end,distance=0..] at @s run function derailed:dev/gen/_second_zone_at
 
 # Both spill past the section's edges, onto air only, and what spilt goes by
 #  its colour so that nothing standing out there is touched

@@ -31,6 +31,10 @@ execute positioned ~ ~15 ~ run function derailed:dev/gen/validate
 #  one that ships has it whatever the checks said, and a section without one
 #  is a reroll like a cheap one while '#gen_second_reroll' says so
 execute if score #gen_reached dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/second
+
+# A section with no second way whose first route is pinched against either end
+#  has those pinches opened and the second way looked for again
+execute if score #gen_reached dr_var matches 1 if score #sec_reached dr_var matches 0 positioned ~ ~15 ~ run function derailed:dev/gen/_second_retry
 execute if score #gen_second_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_fail_second dr_var 1
 execute if score #gen_second_reroll dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
 execute if score #gen_valid dr_var matches 1 run return 0

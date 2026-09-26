@@ -27,6 +27,7 @@ scoreboard players set #gen_strays dr_var 0
 scoreboard players set #gen_cuts2 dr_var 0
 scoreboard players set #gen_relieved2 dr_var 0
 scoreboard players set #gen_no_second dr_var 0
+scoreboard players set #gen_ends_opened dr_var 0
 scoreboard players set #gen_supply_short dr_var 0
 scoreboard players set #gen_repaints dr_var 0
 scoreboard players set #gen_spread_total dr_var 0

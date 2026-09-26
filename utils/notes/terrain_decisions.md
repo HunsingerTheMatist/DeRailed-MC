@@ -129,8 +129,19 @@ original threw a section away for want of such a way, ours cuts one: rock is
 priced at 16 of those tiles, so the cut comes only where the way round would
 stray more than fifteen, a little tighter than the original's twenty, and
 never within four steps along the grid of one of the route's pinch points, so
-that the two routes' pinches stay apart with rock between them. A section
-where even that finds no second way is rerolled, since nothing
+that the two routes' pinches stay apart with rock between them. The end cells
+of a pinched run three or more long are left out of that distance, since
+the second route only has to keep off them, and a zone round the ends of a
+long run can wall in every way round it, most of all where the run ends at
+the station. Nearly every section left with no second way had its first
+route pinched right against an end, where the second route has to start or
+finish on the very tile the pinch hems in. So the pinches against either end
+are the first opened when a section is over its ceiling, from that end and
+only as far as the ceiling needs, and when the second way is not found their
+cells within two tiles of the end are opened and it is looked for again:
+only when it is needed, and no further, so that as much pinch as can stay
+does. A
+section where even that finds no second way is rerolled, since nothing
 short of new terrain can give it one, though that reroll is switched off while
 the case is being looked at. The second way is judged for pinching like
 the first and opened up the same way, but never for cost, and on hard it is not
@@ -166,10 +177,10 @@ Each tier has a table of weights:
 | tier | ground | rock | wood | iron | water |
 |---|---|---|---|---|---|
 | easy | 45 | 15 | 15 | 15 | 10 |
-| medium | 35 | 21 | 18 | 18 | 9 |
-| hard | 0 | 43 | 14 | 14 | 29 |
+| medium | 20 | 30 | 15 | 15 | 20 |
+| hard | 0 | 40 | 15 | 15 | 30 |
 
-Easy is mostly open ground. Medium is the base mix. Hard has no ground at all,
+Easy is mostly open ground. Medium has under half of easy's ground, traded for water and rock. Hard has no ground at all,
 so every tile of a route costs at least 2, most of the rest is rock and water,
 and the wall runs through it.
 
@@ -222,7 +233,9 @@ comes in on, kept between rows 1 and 13 so the piece fits. Above its first two
 rails stands the building, which cannot be walked, and above the buffer stop
 open ground; below it two rows of open ground; west of it one tile of yard;
 and east of it, in the section after, a yard two long on
-the rail row and one tile on each row beside it. Every tile of it but the
+the rail row and one tile on each row beside it. The first section has the
+same yard at its entry, with no station before it, so its first tiles are
+never hemmed in either. Every tile of it but the
 building is open ground the players may walk and build on, so the track may
 come onto the station's first rail from the yard tile west of it or from the
 ground south of it, and leave its buffer stop east into the yard or south
@@ -250,8 +263,20 @@ seam into the section before; column 0 itself is as open to water as it was.
 
 ## Placeholders and open questions
 
-- The easy and medium cost bands are guesses until measured, and hard's is
-  switched off while it is measured afresh over the wall and the cuts
+- The easy cost band is a guess until measured; hard's is switched off while
+  it is measured afresh over the wall and the cuts
+- **Medium's bag is set to cost more than easy.** On a bag of ground 35,
+  rock 21, wood and iron 18 and water 9, 99 measured sections came out at a
+  median of 1.77 a rail, the middle eighty percent 1.50 to 2.17, which is
+  where easy lands too: most of a section's regions are fixed by the floors,
+  which are the same on both tiers, the route keeps to the ground that is
+  left, and extra rock is gone round rather than paid for. Water is what the
+  route has to pay for, so medium's bag now holds a fifth water and a fifth
+  ground. Measured again over 198 sections, it came out at a median of 2.09 a
+  rail, the middle eighty percent 1.66 to 2.60, and its band is 1.65 to 2.60
+- The test run builds all three of its sections on the tier
+  `#gen_test_tier` names while a band is measured; -1 puts back one section
+  on each tier
 - **The second way across must always exist, and must always go round the
   first route's pinch points.** That is a requirement, not a preference, and
   it is not met yet: a section still ships without one where the first route

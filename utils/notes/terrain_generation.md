@@ -71,7 +71,8 @@ rows 1 to 13 so the piece fits, and `_station_stamp` lays the piece on y0 in
 blocks of its own before a seed is placed: **bedrock** for its ground, the
 rail row from column 28 to the edge, the tile above its buffer stop, the two
 rows below it from column 29 and the yard in the section after (columns 0 and
-1 on the entry row, column 0 on the rows either side), all of it open to the
+1 on the entry row, column 0 on the rows either side, which the first section
+has at its own entry too), all of it open to the
 players and the track alike, and **obsidian** for the building, the two tiles
 above its first two rails, which nothing crosses. Those two
 blocks are what every later step reads: seeds are never placed on them,
@@ -446,8 +447,8 @@ has a table of weights:
 | tier | ground | rock | wood | iron | water |
 |---|---|---|---|---|---|
 | easy | 45 | 15 | 15 | 15 | 10 |
-| medium | 35 | 21 | 18 | 18 | 9 |
-| hard | 0 | 43 | 14 | 14 | 29 |
+| medium | 20 | 30 | 15 | 15 | 20 |
+| hard | 0 | 40 | 15 | 15 | 30 |
 
 Hard has no ground at all, so every tile of a route there costs at least 2, and
 it has the wall on top.
@@ -558,8 +559,13 @@ up, and two short runs a cell apart score the same as one long one, which is
 what a box two long makes true. The section's score is the sum over its runs.
 
 The tier sets a ceiling on that score and hard sets a floor as well. Over the
-ceiling the section is not thrown away: the longest run is **opened up**, the
-rock along one side of it cut back from the exit end just far enough that the
+ceiling the section is not thrown away. First, a run with a cell within two
+tiles of either end of the route, the entry tile or a goal tile, is opened
+from that end, since a pinch there can leave the second route no way off the
+tile both routes share, one such run a round; only where no run lies there,
+or its rock cannot be cut, is the longest run **opened up** from its exit end.
+Either way the
+rock along one side of it is cut back from the end just far enough that the
 section as a whole would pass, beside each opened cell and the cell ahead of
 it, the other runs counted, and on hard never so far that the floor is lost;
 the side taken is whichever has less rock along those boxes, never one with
@@ -602,12 +608,13 @@ kept in hundredths of a point a rail
 so that it stays a whole number.
 
 A section is usable when the exit was reached and that figure lies between the
-tier's floor and ceiling, set in `build`: 1.55 to 2.20 on easy, 1.85 to 2.50 on
-medium and 2.65 to 3.30 on hard. The hard pair comes from ten measured sections;
-easy and medium are placeholders until a batch has printed theirs. A tier
-whose band is being measured lets its routes through whatever they cost,
-which is `#gen_rate_free` in `build`, on for hard while its band is taken
-afresh over the wall and the cuts. Wood and iron
+tier's floor and ceiling, set in `build`: 1.55 to 2.20 on easy, 1.65 to 2.60 on
+medium and 2.65 to 3.30 on hard. Medium's pair is the tenth and ninetieth
+percentile of 198 measured sections, so about one attempt in five is turned
+away; hard's was measured on ten sections before the wall and the cuts, so it
+is being taken afresh; easy's is a placeholder until a batch has printed it.
+A tier whose band is being measured lets its routes through whatever they
+cost, which is `#gen_rate_free` in `build`, on for hard. Wood and iron
 need no check here, since the floors in `kinds` guarantee them. If the section
 fails, every seed's kind is rolled again and it is painted again, keeping the
 regions and the seeds. Up to 5 attempts.
@@ -628,7 +635,9 @@ The first route is copied up to y18 and its pinched cells marked there, and
 two things are drawn round it: a **band**, white on the eight tiles beside each
 of its cells, and a **zone**, black on every tile within four steps along the
 grid of one of its pinched cells, a diamond round each pinch, light gray where
-the two fall on the same tile. The flood then runs again in a second mode: a
+the two fall on the same tile. The cell at either end of a pinched run three
+or more long draws no diamond, though it is still a pinched cell the second
+route keeps off. The flood then runs again in a second mode: a
 tile on the first route or in the band costs nothing, any other tile costs 1,
 and the pinched cells count as seen already, so the flood never steps onto
 them. What the flood counts is how far the second route **strays** from the
@@ -653,8 +662,15 @@ first. It is never judged for cost. On y17 it is drawn in **purple**, with
 A section with no pinch on its first route gets the first route back as its
 second, all pink, which is what the rule comes to there.
 
-It runs inside the attempt loop, on every attempt the track got across, and a
-section where even cutting finds no second way is a **reroll** like a cheap
+It runs inside the attempt loop, on every attempt the track got across. Where
+it finds no second way, `_second_retry` finds the first route again, opens
+the pinched cells of it within two tiles of either end, from that end and no
+further, whatever the score, since what the second route needs is a way off
+the shared tile rather than a lower score, judges
+the first route afresh, which can make the attempt a reroll if the opening
+took it under its floor or its band, and looks for the second way once more;
+the report counts the sections whose ends were opened. A
+section where even that finds no second way is a **reroll** like a cheap
 one, counted on the rerolls line, while `#gen_second_reroll` is set. Off, the
 section ships without one, and the band the way was looked for in is left on
 y19 to be looked at: the first route in red, its pinched cells in gray, the

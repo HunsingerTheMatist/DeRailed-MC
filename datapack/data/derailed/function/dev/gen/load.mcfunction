@@ -126,6 +126,10 @@ scoreboard players set #gen_riv_apart dr_var 6
 #  may cost a rail, and can be changed between one section and the next
 scoreboard players set #gen_difficulty dr_var 1
 
+# Which tier every section of a test run is built to, or -1 for one on each
+#  tier, easy, medium, then hard
+scoreboard players set #gen_test_tier dr_var 2
+
 # How much more expensive a rail every rail past a straight crossing makes the
 #  percent: a longer section is more rails out of the same supply and more time
 #  at the same pace, so its cost a rail is not the whole story
@@ -139,6 +143,14 @@ scoreboard players set #gen_second_rock dr_var 16
 # Which route the flood is finding: 0 the first, 1 the second, 2 the way from
 #  the first route out to the resources
 scoreboard players set #cost_mode dr_var 0
+
+# How a pinched run is opened: how many of its cells, or -1 for as many as
+#  bring the section under its ceiling; from which end, 0 its exit end and 1
+#  its entry end; and whether a run against an end of the route is opened only
+#  at its cells by that end
+scoreboard players set #pinch_take dr_var -1
+scoreboard players set #pinch_from dr_var 0
+scoreboard players set #pinch_near dr_var 0
 
 # Which resource a bridge over water is built from, 1 wood or 2 iron, which is
 #  what the water under a route and on the way to a resource is charged to

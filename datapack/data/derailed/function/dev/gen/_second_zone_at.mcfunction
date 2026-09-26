@@ -2,8 +2,8 @@
 # Draws the zone round this pinched cell of the first route: black out to four
 #  steps along the grid, a diamond, where rock is never cut for the second
 #  route, and light gray where that falls on the band, which is then both
-# Positioned on the tile, with the first route three above and its pinched
-#  cells gray there
+# Run as the cell's marker, positioned on it, with the first route three above
+#  and its pinched cells gray there
 
 execute unless block ~ ~3 ~ gray_stained_glass run return 0
 fill ~-4 ~3 ~ ~4 ~3 ~ black_stained_glass replace air strict
