@@ -299,6 +299,11 @@ seam into the section before; column 0 itself is as open to water as it was.
 
 - The easy cost band is a guess until measured; hard's is switched off while
   it is measured afresh over the wall and the cuts
+- **Hard's floors of four wood and four iron were set while the supply count
+  missed every tile without a seed of its own**, the wood and iron carried
+  over the seam and cut into rock, which made hard look shorter than it was.
+  With those counted, a hard batch came out short in two sections of 99, so
+  three of each may be enough; it wants measuring before it is changed
 - **Medium's bag is set to cost more than easy.** On a bag of ground 35,
   rock 21, wood and iron 18 and water 9, 99 measured sections came out at a
   median of 1.77 a rail, the middle eighty percent 1.50 to 2.17, which is

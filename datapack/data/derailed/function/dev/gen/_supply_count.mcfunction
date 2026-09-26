@@ -21,6 +21,5 @@ function derailed:dev/gen/_supply_round
 
 # A region passed over because its kind had enough can be wanted after all,
 #  where the bridges to a region taken later raised what that kind needs, so
-#  the regions not yet taken are gone through again, twice more at most
-scoreboard players set #sup_pass dr_var 2
+#  the regions not yet taken are gone through again until none is wanted
 function derailed:dev/gen/_supply_again

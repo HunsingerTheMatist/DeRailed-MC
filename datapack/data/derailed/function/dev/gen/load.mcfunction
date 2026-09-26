@@ -140,6 +140,9 @@ scoreboard players set #gen_difficulty dr_var 1
 #  tier, easy, medium, then hard
 scoreboard players set #gen_test_tier dr_var 2
 
+# How many test runs 'dev/gen/test_batch' makes, one a tick
+scoreboard players set #gen_batch_size dr_var 33
+
 # How much more expensive a rail every rail past a straight crossing makes the
 #  percent: a longer section is more rails out of the same supply and more time
 #  at the same pace, so its cost a rail is not the whole story

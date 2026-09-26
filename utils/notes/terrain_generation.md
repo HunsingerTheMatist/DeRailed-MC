@@ -718,8 +718,8 @@ still short, its tiles added and the water on the way to it charged as
 bridges and marked, so that a crossing two regions share is paid once. The
 bridges to a region taken later can raise what the other kind needs after a
 region of it was passed over for having enough, so while a kind is still
-short the regions not yet taken are gone through again, up to three passes
-in all.
+short the regions not yet taken are gone through again, for as long as a
+pass takes something.
 
 Before the adding up, the resources have to come along at a steady rate as
 well, and that is counted in **tiles**, column by column. `_col_scan` counts,

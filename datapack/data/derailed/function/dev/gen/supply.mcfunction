@@ -12,6 +12,8 @@ scoreboard players set #gen_tail_gap dr_var 0
 scoreboard players set #gen_repair_swaps dr_var 0
 scoreboard players set #gen_repair_paints dr_var 0
 scoreboard players set #gen_repair_left dr_var 0
+scoreboard players set #rep_tw dr_var 0
+scoreboard players set #rep_ti dr_var 0
 scoreboard players set #sup_rock_n dr_var 0
 scoreboard players set #sup_wall_n dr_var 0
 scoreboard players set #sup_wood_n dr_var 0

@@ -22,3 +22,4 @@ function derailed:dev/gen/_rep_step
 # What is left short once the search is done
 function derailed:dev/gen/_rep_measure
 scoreboard players operation #gen_repair_left dr_var = #rep_score dr_var
+function derailed:dev/gen/_rep_totals

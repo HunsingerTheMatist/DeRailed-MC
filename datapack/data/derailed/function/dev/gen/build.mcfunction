@@ -55,6 +55,17 @@ execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_min_water dr_var 2
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_min_water dr_var 2
 
+# What the report reads about the second route and the supply starts from
+#  nothing, since a section the track never gets across skips both
+scoreboard players set #sec_reached dr_var 0
+scoreboard players set #sup_wood dr_var 0
+scoreboard players set #sup_iron dr_var 0
+scoreboard players set #need_wood dr_var 0
+scoreboard players set #need_iron dr_var 0
+scoreboard players set #sup_bridges dr_var 0
+scoreboard players set #sup_short dr_var 0
+scoreboard players set #gen_spread_gaps dr_var 0
+
 # The row the track leaves by comes first, since the station stands on it and
 #  everything else grows round the station: its tiles are laid before a seed is
 #  placed, and its edge leaves notes for the section after to read as ground

@@ -118,6 +118,18 @@ write("_rep_eval", header(
     "scoreboard players operation #rep_score dr_var = #rep_sw dr_var",
     "scoreboard players operation #rep_score dr_var += #rep_si dr_var"])
 
+# What the repair takes the totals to be, for the report
+write("_rep_totals", header(
+    "Adds up what the repair takes the section's totals to be, the wood and iron",
+    "tiles within reach but those of regions the supply count cannot take, into",
+    "'#rep_tw' and '#rep_ti'") + [
+    "scoreboard players operation #rep_tw dr_var = #rep_uw dr_var",
+    "scoreboard players operation #rep_tw dr_var *= $NegOne dr_const",
+    "scoreboard players operation #rep_ti dr_var = #rep_ui dr_var",
+    "scoreboard players operation #rep_ti dr_var *= $NegOne dr_const"] + [
+    f"scoreboard players operation #rep_t{k} dr_var += #c_{k}{c} dr_var"
+    for k in "wi" for c in range(WIDTH)])
+
 # The section before's columns
 write("_rep_prev", header(
     "Takes the section before's last columns, the ones a window of this",
