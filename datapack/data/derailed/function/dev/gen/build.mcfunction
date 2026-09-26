@@ -11,14 +11,14 @@ execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_rate_max dr_var 220
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_rate_min dr_var 165
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_rate_max dr_var 260
-execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_min dr_var 265
-execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_max dr_var 330
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_min dr_var 220
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_max dr_var 315
 
 # Whether a route outside that band is let through rather than rerolled, which
-#  is how a tier's band is measured: hard's is being taken afresh
+#  is how a tier's band is measured
 execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_rate_free dr_var 0
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_rate_free dr_var 0
-execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_free dr_var 1
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_free dr_var 0
 
 # And how much the route may pinch the train, a run of n pinched boxes
 #  counting n cubed: over the ceiling is opened up rather than thrown away, and

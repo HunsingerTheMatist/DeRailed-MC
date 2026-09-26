@@ -85,9 +85,10 @@ and buys the time to match. On top of that, every rail past the 32 of a straight
 crossing adds one percent, since a longer section is more rails out of the same
 supply.
 
-A section is accepted when that figure lies inside the tier's band. Hard's band
-of 2.65 to 3.30 comes from measured sections. **Easy's and medium's are
-placeholders** until a batch run on each has shown where they land. A section
+A section is accepted when that figure lies inside the tier's band. Medium's
+band of 1.65 to 2.60 and hard's of 2.20 to 3.15 are each the middle eighty
+percent of a measured batch; **easy's is a placeholder** until a batch run on
+it has shown where it lands. A section
 outside its band redraws its kinds and tries again, up to five times, and then
 ships as it is and is counted.
 
@@ -230,9 +231,11 @@ still came up one section in eleven.
 
 Underneath the bag sit **floors**: at least 3 wood, 3 iron, 2 water and 3 rock
 in every section, and on hard 4 wood, 4 iron and 4 rock. Hard's extra wood and
-iron are there because its routes cost the most and its rock leaves the least
-to repaint: at a floor of 3, a third of the hard sections drawn with exactly
-three wood came up short of it, and none drawn with five did. They are met by
+iron are there because the floors fix most of a section's regions and hard's
+bag leaves the rest to rock and water: at three each, with the supply counted
+properly, a hard batch came out short in thirteen sections of 99 against two
+at four, and left three times as many stretches of thirty columns thin, since
+fewer resource regions meant more rock in their place. They are met by
 holding back the last seeds
 drawn for whatever is still owed, never by changing a seed after the fact, and
 with the bag in place they rarely have to act. The seeds whose kind is settled
@@ -313,13 +316,7 @@ seam into the section before; column 0 itself is as open to water as it was.
 
 ## Placeholders and open questions
 
-- The easy cost band is a guess until measured; hard's is switched off while
-  it is measured afresh over the wall and the cuts
-- **Hard's floors of four wood and four iron were set while the supply count
-  missed every tile without a seed of its own**, the wood and iron carried
-  over the seam and cut into rock, which made hard look shorter than it was.
-  With those counted, a hard batch came out short in two sections of 99, so
-  three of each may be enough; it wants measuring before it is changed
+- The easy cost band is a guess until measured
 - **Medium's bag is set to cost more than easy.** On a bag of ground 35,
   rock 21, wood and iron 18 and water 9, 99 measured sections came out at a
   median of 1.77 a rail, the middle eighty percent 1.50 to 2.17, which is

@@ -625,12 +625,12 @@ so that it stays a whole number.
 
 A section is usable when the exit was reached and that figure lies between the
 tier's floor and ceiling, set in `build`: 1.55 to 2.20 on easy, 1.65 to 2.60 on
-medium and 2.65 to 3.30 on hard. Medium's pair is the tenth and ninetieth
-percentile of 198 measured sections, so about one attempt in five is turned
-away; hard's was measured on ten sections before the wall and the cuts, so it
-is being taken afresh; easy's is a placeholder until a batch has printed it.
-A tier whose band is being measured lets its routes through whatever they
-cost, which is `#gen_rate_free` in `build`, on for hard. Wood and iron
+medium and 2.20 to 3.15 on hard. Medium's pair is the tenth and ninetieth
+percentile of 198 measured sections, and hard's of 98, so about one attempt in
+five is turned away on either; easy's is a placeholder until a batch has
+printed it. A tier whose band is being measured lets its routes through
+whatever they cost, which is `#gen_rate_free` in `build`, off on every tier
+while none is being measured. Wood and iron
 need no check here, since the floors in `kinds` guarantee them. If the section
 fails, every seed's kind is rolled again and it is painted again, keeping the
 regions and the seeds. Up to 5 attempts.
