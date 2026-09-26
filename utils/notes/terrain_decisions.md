@@ -185,8 +185,10 @@ region's worth is the tiles a region averages, taken from the section's size.
 A stretch found wanting, or a
 section short overall, has regions swapped between kinds, which keeps the
 section's mix, or repainted outright, and never rock, a wall, a lake or a
-region the route runs through. Nor is a region taken from a kind already down
-to its floor: the floors are a promise about the finished section, not only
+region the route runs through, except from wood to iron or iron to wood, which
+the route pays the same for and so leaves its cost as it was judged. Nor is a
+region taken from a kind already down to its floor: the floors are a promise
+about the finished section, not only
 about the draw, so repainting may move a kind down to its floor but never
 under it. A section can only change its own regions, and the western columns
 of a stretch crossing the seam are mostly regions carried over it, which it
@@ -194,7 +196,14 @@ cannot touch, so a stretch left thin by the section before could rarely be
 mended: nearly every section left wanting was the second or third of a run.
 So each section's last fifteen columns are held to one wood and one iron's
 worth of their own, leaving the section after something on the far side of
-every stretch it is judged by. This stands in for the
+every stretch it is judged by. Holding the last twenty columns to three
+quarters of a stretch's worth instead was tried and did no better: it was met
+by wood and iron short of the seam, and the last few columns stayed as empty as
+before. What is still left wanting after the repair, a few sections in a
+hundred, is rerolled rather than chased further: where it was looked at, the
+section before ended in water and the section's own first columns were half
+rock and river, which no repaint of its own regions reaches. This stands in
+for the
 original's supply check, which was a flow through the terrain with a limit on
 what a narrow gap could carry; reachability with bridges is the part that
 decides sections.

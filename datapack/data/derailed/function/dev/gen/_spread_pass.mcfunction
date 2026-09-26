@@ -18,6 +18,13 @@ execute unless score #gen_section dr_var matches 0 run function derailed:dev/gen
 data modify storage derailed:gen tmp set from storage derailed:gen cols
 function derailed:dev/gen/_spread_copy
 
+# The columns fed through and every window left wanting are kept for the report,
+#  each window by the column of this section it ends on
+data modify storage derailed:gen spread_cols set from storage derailed:gen seq
+data modify storage derailed:gen spread_gaps set value []
+scoreboard players set #sp_col dr_var -1
+execute unless score #gen_section dr_var matches 0 run scoreboard players operation #sp_col dr_var -= #sp_dx dr_var
+
 data modify storage derailed:gen fifo set value []
 scoreboard players set #sp_wood dr_var 0
 scoreboard players set #sp_iron dr_var 0

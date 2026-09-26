@@ -38,6 +38,7 @@ scoreboard players set #gen_repair_paints_total dr_var 0
 scoreboard players set #gen_spread_total dr_var 0
 scoreboard players set #gen_fail_flat dr_var 0
 scoreboard players set #gen_fail_second dr_var 0
+scoreboard players set #gen_fail_windows dr_var 0
 scoreboard players set #gen_fail_cheap dr_var 0
 scoreboard players set #gen_fail_costly dr_var 0
 scoreboard players set #gen_rate_n dr_var 0

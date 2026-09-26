@@ -1,8 +1,8 @@
 
 # Tries turning this region into '#rep_w': outright, where its own kind holds
 #  more regions than its floor, and as a swap with every region of '#rep_w'
-#  within reach that the first route does not run through, which takes this
-#  region's kind in return
+#  within reach, which takes this region's kind in return, and which the first
+#  route runs through only where that kind is the other resource
 # Run as the region's seed, positioned at the section's corner
 
 tag @s add rep_cur
@@ -15,5 +15,6 @@ execute if score #rep_k dr_var matches 3 if score #cnt_water dr_var <= #gen_min_
 execute if score #rep_ok dr_var matches 1 run function derailed:dev/gen/_rep_eval_paint
 
 execute as @e[type=marker,tag=dr_seed,tag=dr_supply,tag=!dr_on_first,distance=0..] if score @s dr_kind = #rep_w dr_var run function derailed:dev/gen/_rep_eval_swap
+execute if score #rep_k dr_var = #rep_o dr_var as @e[type=marker,tag=dr_seed,tag=dr_supply,tag=dr_on_first,distance=0..] if score @s dr_kind = #rep_w dr_var run function derailed:dev/gen/_rep_eval_swap
 
 tag @s remove rep_cur

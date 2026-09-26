@@ -106,6 +106,9 @@ scoreboard objectives add dr_via dummy "DeRailed Second Route Via"
 scoreboard objectives add dr_rock dummy "DeRailed Second Route Rock"
 scoreboard objectives add dr_str dummy "DeRailed Second Route Stretch"
 
+# What the report counts of the tiles either side of each seam
+scoreboard objectives add dr_rim dummy "DeRailed Seam Tiles"
+
 # How many of a region's tiles within reach each of the section's columns
 #  holds, for the repair
 function derailed:dev/gen/_rep_objectives
@@ -221,6 +224,10 @@ scoreboard players operation #gen_tail_need dr_var = #gen_seed_tiles dr_var
 #  without one and leaves the band the way was looked for in a layer up, to be
 #  looked at
 scoreboard players set #gen_second_reroll dr_var 1
+
+# Whether a section that leaves a window of columns wanting wood or iron after
+#  the repair is rerolled; off, it ships as it is
+scoreboard players set #gen_window_reroll dr_var 1
 
 # Whether every section ends in a station, standing against the eastern edge on
 #  the row the track leaves by and reaching into the section after

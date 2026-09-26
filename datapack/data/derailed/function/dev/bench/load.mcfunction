@@ -10,4 +10,4 @@ execute in derailed:game run forceload add 999 -1 1096 16
 
 # The limit a chain runs under is fixed when the chain starts, so raising it
 #  inside 'dev/bench/run' does nothing for that run
-gamerule max_command_sequence_length 2000000
+gamerule max_command_sequence_length 10000000

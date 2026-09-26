@@ -12,6 +12,7 @@ scoreboard players operation #sp_iron dr_var += #sp_c dr_var
 data modify storage derailed:gen fifo append from storage derailed:gen seq[0]
 data remove storage derailed:gen seq[0]
 scoreboard players add #sp_filled dr_var 1
+scoreboard players add #sp_col dr_var 1
 
 execute if score #sp_filled dr_var > #gen_spread_span dr_var run function derailed:dev/gen/_spread_pop
 execute if score #sp_filled dr_var >= #gen_spread_span dr_var run return run function derailed:dev/gen/_spread_judge

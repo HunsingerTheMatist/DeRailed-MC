@@ -722,7 +722,9 @@ its longest detour.
 ### 9. Supply
 
 `supply` checks that the section holds enough wood and iron within reach of
-the route to lay it. Each route needs one wood and one iron for every rail and
+the route to lay it. It runs inside the attempt loop, on every attempt that is
+usable so far, and once more after the loop for a section that ships from an
+attempt that never got that far. Each route needs one wood and one iron for every rail and
 a bridge for every tile of water under it, a bridge being one wood
 (`#gen_bridge` picks wood or iron, for a biome whose bridges are iron), and
 the section is held to the costlier of the two routes on each count, with a
@@ -778,8 +780,10 @@ step tries every change that turns a region into wood or into iron: any region
 within reach of another kind, never rock, a wall, a lake, or a region the first
 route runs through, since that would change what the route was judged to cost,
 either turned outright, where its own kind holds more regions than its floor,
-or swapped with a region of the kind it becomes, reached and off the first
-route, which takes its old kind in return and so keeps the section's mix.
+or swapped with a region of the kind it becomes, reached, which takes its old
+kind in return and so keeps the section's mix. A region the first route runs
+through may still go from wood to iron or from iron to wood, outright or in a
+swap either side, since the route pays the same for a tile of either.
 Only a kind that falls short somewhere has regions turned into it, since a
 trade of the two resources that helps one is tried from that one's side, and
 a change that leaves the other resource alone has only its own kind scored
@@ -798,14 +802,27 @@ a change is a run of additions with no lists or macros in it; those functions
 are written out in full by `utils/make_repair.py`, which has to be run again if
 the section width, the window or the tail changes.
 
-After the search the tail and the windows are judged as the section ships:
+After the search the tail and the windows are judged:
 `_spread_pass` feeds the section before's 29 columns and this section's 32
 through a **first-in first-out list** in storage, adding each column taken in to
 a running total of wood and one of iron and dropping the oldest from both once
-the list holds 30, and counts the windows left wanting. The report prints
+the list holds 30, and counts the windows left wanting. A section that leaves
+any window wanting is a **reroll** like a cheap one, counted on the rerolls
+line, while `#gen_window_reroll` is set, which it is; the repaints go with the
+attempt, glass and all. Only the attempt that ships adds to the run's totals.
+The report prints
 those, whether the tail is wanting, whether the totals are short, and the
-search's own swaps, repaints and the score it left. Once the section is done it
-counts its columns once more and stores them for the section after.
+search's own swaps, repaints and the score it left. Where windows are left
+wanting it lists them too, each by the column of the section it ends on with
+the wood and iron it holds, and after them every column fed through, the
+section before's 29 first, and what the tiles either side of the seam are,
+the section before's last ten columns and its own first ten: rock, river, out
+of reach, and otherwise ground, wood, iron or water by whether the region is
+one the first route runs through, another of the section's own or none of its
+own. `_rim_look` counts them for every attempt while the report is on, and
+`_rim_keep` keeps the section before's once at the start of the section. Each
+attempt counts its columns once more when it is done, and the attempt that
+ships stores them for the section after.
 
 ## What it costs
 

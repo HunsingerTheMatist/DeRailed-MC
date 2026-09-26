@@ -1,12 +1,15 @@
 
 # Rolls the kinds, paints the regions and keeps the section if the track can get
-#  across and the players have a second way round, otherwise tries again
+#  across, the players have a second way round and wood and iron come along
+#  steadily, otherwise tries again
 # Each attempt rolls every seed's kind afresh, keeping the seeds, the chain, the
 #  region shapes and the river
 # Positioned at the section's corner
 
 # The regions the last attempt's cuts gave tiles go with the cuts
 fill ~ ~13 ~ ~31 ~13 ~15 air strict
+scoreboard players set #sup_done dr_var 0
+scoreboard players set #gen_spread_gaps dr_var 0
 
 function derailed:dev/gen/kinds
 execute positioned ~ ~5 ~ run function derailed:dev/gen/paint
@@ -40,6 +43,12 @@ execute if score #gen_reached dr_var matches 1 positioned ~ ~15 ~ run function d
 execute if score #gen_reached dr_var matches 1 if score #sec_reached dr_var matches 0 positioned ~ ~15 ~ run function derailed:dev/gen/_second_retry
 execute if score #gen_second_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_fail_second dr_var 1
 execute if score #gen_second_reroll dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
+
+# A section usable so far has its wood and iron checked, and one that leaves a
+#  window wanting is a reroll while '#gen_window_reroll' says so
+execute if score #gen_valid dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/supply
+execute if score #gen_window_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #gen_spread_gaps dr_var matches 1.. run scoreboard players add #gen_fail_windows dr_var 1
+execute if score #gen_window_reroll dr_var matches 1 if score #gen_spread_gaps dr_var matches 1.. run scoreboard players set #gen_valid dr_var 0
 execute if score #gen_valid dr_var matches 1 run return 0
 
 scoreboard players add #gen_rerolls dr_var 1
