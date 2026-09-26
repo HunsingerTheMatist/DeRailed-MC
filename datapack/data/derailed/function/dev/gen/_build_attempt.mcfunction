@@ -5,6 +5,9 @@
 #  region shapes and the river
 # Positioned at the section's corner
 
+# The regions the last attempt's cuts gave tiles go with the cuts
+fill ~ ~13 ~ ~31 ~13 ~15 air strict
+
 function derailed:dev/gen/kinds
 execute positioned ~ ~5 ~ run function derailed:dev/gen/paint
 

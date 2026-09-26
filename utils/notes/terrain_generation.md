@@ -556,6 +556,18 @@ the players will have, and that is the route judged.
 Rock cut to open a pinch up is filled the second way only, tile by tile from
 the nearest terrain, never river.
 
+A cut tile also takes the **region** of the terrain it was filled from: a tile
+copying the tile beside it takes that tile's region, and a run filled with one
+terrain throughout takes it, tile by tile along the run, from the end it opens
+onto. The region is kept on y13 over the tile, and whatever asks which region
+a tile belongs to once the cuts are made, the repaints, the supply count and
+the repair, reads y13 first and the regions as they grew only where y13 is
+empty. So a cut through rock beside a water region is part of that region, and
+a repaint of the region repaints the cut with it rather than leaving a strip of
+water behind. A tile of river or of ground with nothing to copy belongs to no
+region. The cuts are the attempt's, so y13 is cleared at the start of every
+attempt.
+
 The same walk measures how much the route **pinches the train**. The train is
 a box two long and one wide, standing on a route cell and the one ahead of it
 and pointing the way the track runs, and the players cannot pass through it,

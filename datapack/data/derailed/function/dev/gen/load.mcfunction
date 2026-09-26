@@ -43,6 +43,10 @@ scoreboard players set $SectionSeeds dr_const 18
 #  looked at
 # y12 is y0 as the regions grew, kept for a section that has to be built again
 #  from them
+# y13 holds, over every tile a cut filled from terrain next to it, the region
+#  that terrain belongs to, so that the tile counts and is repainted as part of
+#  it; it is cleared at the start of every attempt, since the cuts are the
+#  attempt's
 # y15 is the section as it is meant to be seen: y5 with the river lifted onto it
 #  and the station drawn over it, with the glass that marks what was cut, handed
 #  on or repainted one above along with the station's rails, the flood that
