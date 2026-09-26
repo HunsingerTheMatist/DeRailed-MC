@@ -26,5 +26,5 @@ scoreboard players operation #pinch_top_id dr_var = #pinch_top_id_was dr_var
 execute if score #pinch_edges dr_var matches 0 run function derailed:dev/gen/_pinch_open
 
 execute if score #cost_mode dr_var matches 0 run function derailed:dev/gen/_validate_pass
-execute if score #cost_mode dr_var matches 1 run function derailed:dev/gen/_second_pass
+execute if score #cost_mode dr_var matches 1 run function derailed:dev/gen/_second_find
 function derailed:dev/gen/_pinch_relieve

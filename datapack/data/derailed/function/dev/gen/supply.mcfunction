@@ -110,6 +110,7 @@ data modify storage derailed:gen prev_cols set from storage derailed:gen cols
 fill ~ ~2 ~ ~31 ~2 ~15 air strict
 clone ~ ~3 ~ ~31 ~3 ~15 ~ ~2 ~ strict filtered #derailed:routes
 fill ~ ~3 ~ ~31 ~3 ~15 air strict
+fill ~ ~5 ~ ~31 ~5 ~15 air replace cyan_stained_glass strict
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_reach
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_used
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_cand

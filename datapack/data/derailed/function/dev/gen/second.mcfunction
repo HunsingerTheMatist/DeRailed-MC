@@ -1,8 +1,10 @@
 
 # Finds the second way across: a route between the same two tiles as the first
 #  that keeps off every cell of the first route where the train is pinched, so
-#  that the players can always get round the train, and cuts through rock only
-#  where nothing better is left, well away from the first route
+#  that the players can always get round the train, walking the first route
+#  everywhere else and leaving it only by detours of no more than
+#  '#gen_detour_max' tiles, which cut rock only where no detour that short
+#  can do without, and as little of it as will do
 # It is judged for pinching like the first route and opened up the same way,
 #  never for cost, and it is drawn on the route layer in purple, pink where it
 #  shares a tile with the first route
@@ -26,11 +28,11 @@ scoreboard players operation #crit_pinch dr_var = #gen_pinch dr_var
 scoreboard players operation #crit_opened dr_var = #gen_opened dr_var
 
 # The first route is copied up a layer, every pinched cell of it marked, and
-#  two things drawn round it: a band, white on the tiles beside it, where the
-#  second route walks for nothing, and a zone, black out to four steps along
-#  the grid from each pinched cell but the cell at either end of a run three
-#  or more long, where rock is never cut for it, light gray where the two fall
-#  on the same tile
+#  two things drawn round it: a band, white on the tiles beside it, where rock
+#  is never cut for the second route, since it is what pinches the first, and
+#  a zone, black out to four steps along the grid from each pinched cell but
+#  the cell at either end of a run three or more long, where rock is never cut
+#  for it either, light gray where the two fall on the same tile
 fill ~ ~3 ~ ~31 ~3 ~15 air strict
 clone ~ ~2 ~ ~31 ~2 ~15 ~ ~3 ~ strict filtered red_stained_glass
 execute as @e[type=marker,tag=dr_pinch,distance=0..] at @s run setblock ~ ~3 ~ gray_stained_glass strict
@@ -54,37 +56,26 @@ fill ~32 ~3 ~ ~35 ~3 ~15 air replace white_stained_glass strict
 fill ~32 ~3 ~ ~35 ~3 ~15 air replace black_stained_glass strict
 fill ~32 ~3 ~ ~35 ~3 ~15 air replace light_gray_stained_glass strict
 
-scoreboard players set #cost_mode dr_var 1
+# A first route that pinches nowhere has nothing to be got round, and the
+#  second route is the first
+scoreboard players set #sec_detour_max dr_var 0
+scoreboard players set #gen_astray dr_var 0
 scoreboard players set #gen_carved dr_var 0
-function derailed:dev/gen/_second_pass
-
-# A route that had to cut through rock is found again over what it cut, as
-#  the first route is
-execute if score #gen_carved dr_var matches 1.. run scoreboard players add #gen_cuts2 dr_var 1
-execute if score #gen_carved dr_var matches 1.. run function derailed:dev/gen/_second_pass
-
 scoreboard players set #gen_opened dr_var 0
-scoreboard players set #pinch_rounds dr_var 4
-execute if score #gen_reached dr_var matches 1 if score #gen_pinch dr_var > #gen_pinch_max dr_var run scoreboard players add #gen_relieved2 dr_var 1
-execute if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_pinch_relieve
-execute if score #gen_reached dr_var matches 0 run scoreboard players add #gen_no_second dr_var 1
-
-# Where no second way was found, the band it was looked for in is left a
-#  layer up, to be looked at: the first route in red, its pinched cells in
-#  gray, the free band in white, the no-cut zone in black and light gray
-#  where the two meet
-execute if score #gen_reached dr_var matches 0 run clone ~ ~3 ~ ~31 ~3 ~15 ~ ~4 ~ strict
+execute if entity @e[type=marker,tag=dr_pinch,distance=0..] run function derailed:dev/gen/_second_search
 
 # Purple where the second route runs alone, pink where the two share a tile,
 #  and the first route back in red everywhere else it runs
 data modify storage derailed:gen e.f set value "_second_mark_at"
 function derailed:dev/gen/_each
 fill ~ ~3 ~ ~31 ~3 ~15 air strict
+kill @e[type=marker,tag=dr_rp,distance=0..]
 scoreboard players set #cost_mode dr_var 0
 
 scoreboard players operation #sec_route dr_var = #gen_route dr_var
 scoreboard players operation #sec_wet dr_var = #gen_wet dr_var
 scoreboard players operation #sec_astray dr_var = #gen_astray dr_var
+scoreboard players operation #sec_detour dr_var = #sec_detour_max dr_var
 scoreboard players operation #sec_carved dr_var = #gen_carved dr_var
 scoreboard players operation #sec_pinch dr_var = #gen_pinch dr_var
 scoreboard players operation #sec_opened dr_var = #gen_opened dr_var

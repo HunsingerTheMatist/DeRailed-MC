@@ -36,6 +36,7 @@ scoreboard players set #cut_last dr_var -1
 # How pinched the train is along the route is measured on the same walk, run
 #  by run, and starts from nothing each time the route is found
 kill @e[type=marker,tag=dr_pinch,distance=0..]
+kill @e[type=marker,tag=dr_rp,distance=0..]
 scoreboard players set #gen_pinch dr_var 0
 scoreboard players set #pinch_run dr_var 0
 scoreboard players set #pinch_runs dr_var 0

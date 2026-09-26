@@ -31,7 +31,7 @@ every question about a section answerable for as long as the section takes:
 
 | y | what | written by | read by |
 |---|---|---|---|
-| 18 | the first route and the band round it, while the second is found | `second` | `_cost_take2`, `_second_pass`, `_pinch_cut` |
+| 18 | the first route and the band and zone round it, while the second is found | `second` | `_sec_visit`, `_pinch_cut` |
 | 17 | the flood's working layer, then both routes | `validate`, `second` | `_cost_spread`, `_trace` |
 | 15 | the section as it is meant to be seen | the attempt loop | `_edge_kind`, `validate` |
 | 9 | y5 with the rivers cut into it | the river stamp | the second river, to find the first; `strays`, for where the river runs |
@@ -644,31 +644,38 @@ not even well defined, since a loop through ground drags any average toward 1.
 ### The second route
 
 Once the section has settled on its route, `second` finds a **second way
-across** for the players to get round the train by, on the rule the original
-game checks: between the same two tiles as the first, keeping off every cell of
-the first route where the train is pinched, and free to use the rest of it.
+across** for the players to get round the train by: between the same two tiles
+as the first, keeping off every cell of the first route where the train is
+pinched, and walking the first route everywhere else. A first route that
+pinches nowhere has nothing to be got round, and the second route is the first.
+
 The first route is copied up to y18 and its pinched cells marked there, and
 two things are drawn round it: a **band**, white on the eight tiles beside each
 of its cells, and a **zone**, black on every tile within four steps along the
 grid of one of its pinched cells, a diamond round each pinch, light gray where
 the two fall on the same tile. The cell at either end of a pinched run three
 or more long draws no diamond, though it is still a pinched cell the second
-route keeps off. The flood then runs again in a second mode: a
-tile on the first route or in the band costs nothing, any other tile costs 1,
-and the pinched cells count as seen already, so the flood never steps onto
-them. What the flood counts is how far the second route **strays** from the
-first, and the report prints that.
+route keeps off. Rock is never cut for the second route in either: the band's
+rock is what pinches the first route, and the zone keeps the two routes'
+pinches apart with rock between them.
 
-Rock is cut for it as for the first route, but at a price: a rock tile is
-parked for `#gen_second_rock` waves - 16 - so a cut is taken only where the way
-round would stray more than fifteen tiles, a little tighter than the twenty at
-which the original would have thrown the section away. Rock in the zone is
-never cut for it, so the two routes' pinches stay apart: a pinch's own walls
-lie one step from it, and anything cut four steps out leaves rock between the
-two passages. Rock beside a part of the first route that is not pinched may be
-cut, since there is no pinch there to keep apart. A tile costing nothing
-falls due on the wave that reached it, which the wave loop handles by going
-round the wave again until nothing is left on it.
+The way is found along the first route (`_second_find`). The trace of the first
+route numbers its tiles from the last to the entry, and the search goes along
+them in that order, each tile keeping the least a way to it has cost. From a
+tile the second route may stand on it goes on to the next, for nothing where
+the next may be stood on too, and, wherever a pinched tile lies within
+`#gen_detour_max` tiles ahead, it searches off the route (`_sec_bfs`) for
+**detours** of no more than `#gen_detour_max` tiles, 20, that come back onto a
+later tile of the route. A detour costs a thousand for every rock tile it cuts
+and one for every tile it runs, so the way chosen cuts no rock if any way
+round keeps every detour within the limit, and takes the fewest tiles off the
+route among those; failing that it cuts the least rock that will do, and runs
+the fewest tiles for it. The limit is there so that players caught on the wrong
+side of the train can get round to the other in good time. The way is then laid
+down on y17 as a flood would have left it and walked back by the same trace as
+the first route, which measures it, marks the rock it runs through to be cut
+and draws it. Where no way keeps within the limit even cutting rock, there is
+no second way.
 
 The second route is then judged for pinching like the first and opened up the
 same way, against the tier's ceiling only, never the floor, and rock beside
@@ -687,13 +694,12 @@ the first route afresh, which can make the attempt a reroll if the opening
 took it under its floor or its band, and looks for the second way once more;
 the report counts the sections whose ends were opened. A
 section where even that finds no second way is a **reroll** like a cheap
-one, counted on the rerolls line, while `#gen_second_reroll` is set. Off, the
-section ships without one, and the band the way was looked for in is left on
-y19 to be looked at: the first route in red, its pinched cells in gray, the
-free band in white, the no-cut zone in black and light gray where the two
-meet. That case happens where the first route runs the length of a river
-channel through a wide rock mass: the channel's cells are barred, and the
-zone bars every cut through the rock beside its pinches.
+one, counted on the rerolls line, while `#gen_second_reroll` is set, which it
+is. Off, the section ships without one, and the band the way was looked for
+in is left on y19 to be looked at: the first route in red, its pinched cells
+in gray, the band in white, the no-cut zone in black and light gray where the
+two meet. The report gives the second route's tiles off the first route and
+its longest detour.
 
 ### 9. Supply
 

@@ -121,15 +121,23 @@ ever is.
 ### A second way round
 
 The players have to be able to get past the train, so every section also has
-a **second way across**, found the way the original game checks for one: from
-the entry to the exit, keeping off every cell of the route where the train is
-pinched, free to use the rest of it, and staying close, since a tile on the
-route or beside it is free and any other tile counts one against it. Where the
-original threw a section away for want of such a way, ours cuts one: rock is
-priced at 16 of those tiles, so the cut comes only where the way round would
-stray more than fifteen, a little tighter than the original's twenty, and
-never within four steps along the grid of one of the route's pinch points, so
-that the two routes' pinches stay apart with rock between them. The end cells
+a **second way across**: from the entry to the exit, keeping off every cell of
+the route where the train is pinched, and otherwise walking the route itself.
+It leaves the route only to get round a pinch, and no detour may run more than
+twenty tiles off it, since the point of the second way is that players caught
+on the wrong side of the train can get round to the other side in good time.
+Where a way round within that limit needs no rock cut, the one with the fewest
+tiles off the route is taken; where none does, the one cutting the least rock
+that still keeps within it; and where not even that can be had, the attempt is
+rerolled, since the second way must always exist. An earlier version priced
+each rock tile at sixteen tiles of straying and let the way stray as far as
+that made cheapest, which let one second way run twenty-six tiles out and
+back, and it wandered off the route even where there was nothing to go round,
+since a tile beside the route cost the same as one on it. A section whose
+first route pinches nowhere simply has the first route as its second. Rock is
+never cut beside the route, since that is what pinches it, nor within four
+steps along the grid of one of the route's pinch points, so that the two
+routes' pinches stay apart with rock between them. The end cells
 of a pinched run three or more long are left out of that distance, since
 the second route only has to keep off them, and a zone round the ends of a
 long run can wall in every way round it, most of all where the run ends at
@@ -142,8 +150,7 @@ cells within two tiles of the end are opened and it is looked for again:
 only when it is needed, and no further, so that as much pinch as can stay
 does. A
 section where even that finds no second way is rerolled, since nothing
-short of new terrain can give it one, though that reroll is switched off while
-the case is being looked at. The second way is judged for pinching like
+short of new terrain can give it one. The second way is judged for pinching like
 the first and opened up the same way, but never for cost, and on hard it is not
 asked to pinch. It is drawn purple beside the route's red, pink where the two
 share a tile.
@@ -317,35 +324,10 @@ seam into the section before; column 0 itself is as open to water as it was.
   `#gen_test_tier` names while a band is measured; -1 puts back one section
   on each tier
 - **The second way across must always exist, and must always go round the
-  first route's pinch points.** That is a requirement, not a preference, and
-  it is not met yet: a section still ships without one where the first route
-  is walled in by its own pinches, most often on hard. Repainting cannot mend
-  that, since the trouble is the shape of the rock. To be settled once the
-  prefabs are in, since a station piece round each seam removes the case where
-  the entry's own approach is pinched. The options on the table for what a
-  section does when the second way fails: throw the whole section out and
-  scatter afresh; keep the seeds but lay the wall and the rivers again; try the
-  kinds once or twice more before either of those; or tell an easy failure from
-  a hard one and go straight to the big reroll on a hard one, the tell being
-  something like the wall or the pinches sitting against the entry or the exit
-- What is known about those fallbacks so far, from ten test runs on
-  2026-09-24: seven of the ten hard sections hit a missing second way on some
-  attempt; the kinds reroll cleared it in four, three at the first retry and
-  one at the second, and never in the other three, which spent two to four
-  retries for nothing. So a retry that works, works at once, and after two
-  misses more are wasted. Costs are unknown: nothing has been timed since the
-  least-cost flood, the wall and the second route went in. To settle it: time
-  each kind of reroll under the profiler with the bench harness, a kinds
-  reroll being kinds, paint, validate and the second route, a wall-and-rivers
-  redo adding the wall, the rivers and the strays, and a full reroll adding
-  scatter, grow and the seam; then, with the reroll switched on and the
-  attempt cap raised, count over fifty or so hard sections which retry clears
-  the case and whether it is ever cleared, once for each kind of reroll. Cost
-  per usable section is each policy's cost times the attempts it needs, and a
-  full reroll may well win despite costing most per attempt. Whether the wall
-  is what stopped the second way is cheap to read when the flood gives up: the
-  reached cells still carry their arrows, so a scan finds the rock the front
-  stopped against, and its region on y0 says whether it is a wall seed's
+  first route's pinch points.** A section that cannot give one within the
+  detour limit, even with the ends opened and rock cut, is rerolled; how often
+  that happens, and whether a reroll of the kinds is enough or a section needs
+  its wall and rivers laid again, is still to be counted over a batch
 - Nothing has been profiled since the sections were 35 by 20 with one river and
   a depth-first flood. The least-cost flood and the bag both cost more than what
   they replaced, and how much is not known

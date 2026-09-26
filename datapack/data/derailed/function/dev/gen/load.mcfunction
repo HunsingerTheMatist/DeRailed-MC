@@ -46,9 +46,10 @@ scoreboard players set $SectionSeeds dr_const 18
 #  on or repainted one above along with the station's rails, the flood that
 #  checks it running two above and, three above, the band
 #  round the first route that the second route is priced by while it is found,
-#  and then the routes kept aside and the bridges to the resources while the
-#  supply is checked; four above, that band is left standing where no second
-#  route was found, to be looked at
+#  and then the routes kept aside while the supply is checked; four above, that
+#  band is left standing where no second route was found, to be looked at; and
+#  five above, the bridges to the resources while the supply is checked, apart
+#  from the routes so that clearing them takes none of the routes with them
 
 # The kind each seed grows its region as
 scoreboard objectives add dr_kind dummy "DeRailed Region Kind"
@@ -88,6 +89,16 @@ scoreboard objectives add dr_dir dummy "DeRailed River Heading"
 #  route and it
 scoreboard objectives add dr_size dummy "DeRailed Region Size"
 scoreboard objectives add dr_bridge dummy "DeRailed Region Bridges"
+
+# What the search for the second way across hangs on the first route's tiles
+#  and on the tiles it steps onto: the least a way to a route tile has cost,
+#  the stretch it came from and the way the tile a detour stepped off lies,
+#  the rock cut to reach a tile, and the stretch of the route a tile is in
+scoreboard objectives add dr_best dummy "DeRailed Second Route Cost"
+scoreboard objectives add dr_from dummy "DeRailed Second Route From"
+scoreboard objectives add dr_via dummy "DeRailed Second Route Via"
+scoreboard objectives add dr_rock dummy "DeRailed Second Route Rock"
+scoreboard objectives add dr_str dummy "DeRailed Second Route Stretch"
 
 # How many of a region's tiles within reach each of the section's columns
 #  holds, for the repair
@@ -148,10 +159,10 @@ scoreboard players set #gen_batch_size dr_var 33
 #  at the same pace, so its cost a rail is not the whole story
 scoreboard players set #gen_rail_pen dr_var 1
 
-# What a tile of rock costs the second way across, in tiles strayed from the
-#  first route: it is cut only where the way round would stray further, and
-#  fifteen is as far as the way round is meant to stray
-scoreboard players set #gen_second_rock dr_var 16
+# How many tiles the second way across may run off the first route in one
+#  detour round a pinch, so that players stuck on one side of the train can get
+#  to the other in good time
+scoreboard players set #gen_detour_max dr_var 20
 
 # Which route the flood is finding: 0 the first, 1 the second, 2 the way from
 #  the first route out to the resources
@@ -203,7 +214,7 @@ scoreboard players operation #gen_tail_need dr_var = #gen_seed_tiles dr_var
 # Whether a section with no second way across is rerolled; off, it ships
 #  without one and leaves the band the way was looked for in a layer up, to be
 #  looked at
-scoreboard players set #gen_second_reroll dr_var 0
+scoreboard players set #gen_second_reroll dr_var 1
 
 # Whether every section ends in a station, standing against the eastern edge on
 #  the row the track leaves by and reaching into the section after
