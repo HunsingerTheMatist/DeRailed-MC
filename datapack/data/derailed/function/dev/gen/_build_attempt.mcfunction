@@ -44,6 +44,18 @@ execute if score #gen_reached dr_var matches 1 if score #sec_reached dr_var matc
 execute if score #gen_second_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_fail_second dr_var 1
 execute if score #gen_second_reroll dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
 
+# Where the second route cut rock the cheapest way across can come out cheaper
+#  than the first route, so it is found again over both routes' cuts, and a
+#  section whose cheapest way falls outside the band is a reroll
+scoreboard players operation #true_cost dr_var = #gen_cost dr_var
+scoreboard players operation #true_route dr_var = #gen_route dr_var
+scoreboard players operation #true_rate dr_var = #gen_rate dr_var
+scoreboard players set #true_ok dr_var 1
+execute if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 1 if score #sec_carved dr_var matches 1.. positioned ~ ~15 ~ run function derailed:dev/gen/_cheapest
+execute if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 1 if score #sec_carved dr_var matches 0 if score #sec_opened dr_var matches 1.. positioned ~ ~15 ~ run function derailed:dev/gen/_cheapest
+execute if score #gen_valid dr_var matches 1 if score #true_ok dr_var matches 0 run scoreboard players add #gen_fail_shortcut dr_var 1
+execute if score #true_ok dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
+
 # A section usable so far has its wood and iron checked, and one that leaves a
 #  window wanting is a reroll while '#gen_window_reroll' says so
 execute if score #gen_valid dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/supply

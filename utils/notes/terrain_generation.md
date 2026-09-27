@@ -717,7 +717,19 @@ report counts the walls laid again. Off, the section ships without one, and the 
 in is left on y19 to be looked at: the first route in red, its pinched cells
 in gray, the band in white, the no-cut zone in black and light gray where the
 two meet. The report gives the second route's tiles off the first route and
-its longest detour.
+its longest detour, and what each route costs to lay, priced tile by tile the
+way the flood prices the first (`_price_routes`).
+
+Rock the second route cuts becomes terrain the track can be laid over, and a
+passage cut through the wall can make a way across cheaper than the first
+route was. So on an attempt whose second route cut or opened anything,
+`_cheapest` sets the routes aside a layer up, floods the section again from
+the entry the way `validate` does, counts the rails of what it finds and works
+out its cost a rail with the same sums (`_rate_calc`). A section whose
+cheapest way across then falls outside the tier's band is a **reroll**,
+counted on the rerolls line as cheaper once cut. The first route stays the
+one drawn and the one the supply is counted for; the report prints the
+cheapest way beside both routes' costs.
 
 ### 9. Supply
 

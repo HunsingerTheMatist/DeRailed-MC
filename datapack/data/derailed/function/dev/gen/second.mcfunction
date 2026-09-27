@@ -68,6 +68,12 @@ execute if entity @e[type=marker,tag=dr_pinch,distance=0..] run function deraile
 #  and the first route back in red everywhere else it runs
 data modify storage derailed:gen e.f set value "_second_mark_at"
 function derailed:dev/gen/_each
+
+# What each route costs to lay across the section as it now stands, priced
+#  the way the flood prices the first, for the report to set side by side
+scoreboard players set #price_first dr_var 0
+scoreboard players set #price_second dr_var 0
+execute if score #gen_report dr_var matches 1 if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_price_routes
 fill ~ ~3 ~ ~31 ~3 ~15 air strict
 kill @e[type=marker,tag=dr_rp,distance=0..]
 scoreboard players set #cost_mode dr_var 0

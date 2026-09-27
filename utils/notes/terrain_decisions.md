@@ -167,6 +167,17 @@ the first and opened up the same way, but never for cost, and on hard it is not
 asked to pinch. It is drawn purple beside the route's red, pink where the two
 share a tile.
 
+The rock the second way cuts is rock no longer, and the track can be laid over
+it as well as walked. Measured over 97 hard sections, the second way came out
+cheaper to lay than the first route in 31, every one of them where it had cut
+rock, and by as much as half: a section judged at 143 could be crossed for 76,
+under the band's floor. The players lay track wherever they like, so what a
+section costs is the cheapest way across once everything is cut, and that is
+what the band is held to. The section is flooded again over both routes' cuts
+and rerolled if that way falls outside the band, rather than the second way
+being kept costlier than the first, which would narrow the ways round a pinch it
+has to choose from.
+
 ### Enough to build with
 
 A section has to hold what its routes need. Every rail is a wood and an iron,
