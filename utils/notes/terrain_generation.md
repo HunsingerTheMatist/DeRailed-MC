@@ -34,6 +34,7 @@ every question about a section answerable for as long as the section takes:
 | 18 | the first route and the band and zone round it, while the second is found | `second` | `_sec_visit`, `_pinch_cut` |
 | 17 | the flood's working layer, then both routes | `validate`, `second` | `_cost_spread`, `_trace` |
 | 15 | the section as it is meant to be seen | the attempt loop | `_edge_kind`, `validate` |
+| 14 | how far water is, while the water check runs | `_water_area` | `_water_check` |
 | 9 | y5 with the rivers cut into it | the river stamp | the second river, to find the first; `strays`, for where the river runs |
 | 5 | **what the river reads, then the kinds** | `build`, `strays`, then `paint` | `_river_look_*`, `strays`, lifted to y15 |
 | 0 | **the regions as they grew** | growth, then `strays` | `_river_lake`, `_read_id` |
@@ -730,6 +731,20 @@ cheapest way across then falls outside the tier's band is a **reroll**,
 counted on the rerolls line as cheaper once cut. The first route stays the
 one drawn and the one the supply is counted for; the report prints the
 cheapest way beside both routes' costs.
+
+Last of all, on the section as it ships, after the supply's repaints, every
+tile of the cheapest way across has to have **water** within
+`#gen_water_reach` steps, 25. `_water_check` marks the cheapest way's tiles,
+from the walk back in `_cheapest` where that ran and from the first route
+where it did not, and `_water_area` walks out from every tile of water, river
+or lake or region, a wave a step, north, south, east and west over ground,
+wood and iron, rock and the station's building standing in the way, marking
+what it reaches on y14. It covers this section and the last 25 columns of the
+section before, whose water the players can walk to over the seam, inside a
+ring of glass so that it goes no further. A section with any tile of the way
+left unmarked is a **reroll**, counted on the rerolls line as water too far,
+while `#gen_water_reroll` is set, which it is; the report prints how many
+tiles were too far.
 
 ### 9. Supply
 

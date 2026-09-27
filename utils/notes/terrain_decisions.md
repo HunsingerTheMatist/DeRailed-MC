@@ -178,6 +178,15 @@ and rerolled if that way falls outside the band, rather than the second way
 being kept costlier than the first, which would narrow the ways round a pinch it
 has to choose from.
 
+Water has to be within reach of wherever the track runs, so every tile of the
+cheapest way across, which is where the track is likeliest to go, is held to
+water within 25 steps. Only rock
+keeps the players from water, so the steps are walked round rock and nothing
+else, and water just over the seam counts, since the section before is
+finished and the players can walk to it; the section after is not built yet
+and cannot. It is judged on the section as it ships, after the repair, since a
+swap can turn a lake into a forest.
+
 ### Enough to build with
 
 A section has to hold what its routes need. Every rail is a wood and an iron,

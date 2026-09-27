@@ -1,7 +1,7 @@
 
 # Rolls the kinds, paints the regions and keeps the section if the track can get
-#  across, the players have a second way round and wood and iron come along
-#  steadily, otherwise tries again
+#  across, the players have a second way round, wood and iron come along
+#  steadily and water is near the track, otherwise tries again
 # Each attempt rolls every seed's kind afresh, keeping the seeds, the chain, the
 #  region shapes and the river
 # Positioned at the section's corner
@@ -10,6 +10,8 @@
 fill ~ ~13 ~ ~31 ~13 ~15 air strict
 scoreboard players set #sup_done dr_var 0
 scoreboard players set #gen_spread_gaps dr_var 0
+scoreboard players set #water_far dr_var -1
+kill @e[type=marker,tag=dr_cp,distance=0..]
 
 function derailed:dev/gen/kinds
 execute positioned ~ ~5 ~ run function derailed:dev/gen/paint
@@ -61,6 +63,13 @@ execute if score #true_ok dr_var matches 0 run scoreboard players set #gen_valid
 execute if score #gen_valid dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/supply
 execute if score #gen_window_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #gen_spread_gaps dr_var matches 1.. run scoreboard players add #gen_fail_windows dr_var 1
 execute if score #gen_window_reroll dr_var matches 1 if score #gen_spread_gaps dr_var matches 1.. run scoreboard players set #gen_valid dr_var 0
+
+# Then every tile of the cheapest way across has to have water within
+#  '#gen_water_reach' steps, on the section as it ships, and one that does not
+#  is a reroll while '#gen_water_reroll' says so
+execute if score #gen_valid dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/_water_check
+execute if score #gen_water_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #water_far dr_var matches 1.. run scoreboard players add #gen_fail_water dr_var 1
+execute if score #gen_water_reroll dr_var matches 1 if score #water_far dr_var matches 1.. run scoreboard players set #gen_valid dr_var 0
 execute if score #gen_valid dr_var matches 1 run return 0
 
 scoreboard players add #gen_rerolls dr_var 1
