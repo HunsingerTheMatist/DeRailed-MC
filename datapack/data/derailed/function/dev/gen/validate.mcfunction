@@ -1,7 +1,7 @@
 
 # Finds the cheapest way across from the entry row to the exit row, cutting
-#  through rock where nothing else will do, and checks that it costs neither too
-#  little nor too much a rail
+#  through rock where nothing else will do, and checks that it costs no less a
+#  rail than the tier's floor
 # Leaves '#gen_valid' at 1 when the section is usable
 # Positioned at the section's corner
 
@@ -53,5 +53,4 @@ execute store result score #gen_iron dr_var if entity @e[type=marker,tag=dr_seed
 
 execute if score #gen_reached dr_var matches 0 run scoreboard players add #gen_fail_path dr_var 1
 execute if score #gen_reached dr_var matches 1 if score #gen_rate_free dr_var matches 0 if score #gen_rate dr_var < #gen_rate_min dr_var run scoreboard players add #gen_fail_cheap dr_var 1
-execute if score #gen_reached dr_var matches 1 if score #gen_rate_free dr_var matches 0 if score #gen_rate dr_var > #gen_rate_max dr_var run scoreboard players add #gen_fail_costly dr_var 1
 execute if score #gen_reached dr_var matches 1 if score #gen_pinch dr_var < #gen_pinch_min dr_var run scoreboard players add #gen_fail_flat dr_var 1

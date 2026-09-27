@@ -12,7 +12,7 @@ execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_rate_min dr_var 165
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_rate_max dr_var 260
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_min dr_var 220
-execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_max dr_var 315
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_max dr_var 300
 
 # Whether a route outside that band is let through rather than rerolled, which
 #  is how a tier's band is measured
@@ -32,6 +32,13 @@ execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_pinch_min dr_var 0
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_max dr_var 216
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_min dr_var 8
+
+# The chance, in percent, that a section gets each piece; a piece the players
+#  cannot get to is dropped, which on hard's rock is about one in six, so hard
+#  places them more often to ship about as many
+execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_piece_odds dr_var 50
+execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_piece_odds dr_var 50
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_piece_odds dr_var 60
 
 # And the fewest regions of each kind a section may have, met by holding back
 #  the last seeds drawn for whatever is still owed; rock's, since rock is what
@@ -74,6 +81,9 @@ data modify storage derailed:gen spread_cols set value []
 function derailed:dev/gen/route
 execute if score #gen_station dr_var matches 1 run function derailed:dev/gen/_station_stamp with storage derailed:gen r
 execute if score #gen_station dr_var matches 1 run function derailed:dev/gen/_station_notes with storage derailed:gen r
+
+# The pieces are laid next, for the same reason
+function derailed:dev/gen/_pieces
 
 function derailed:dev/gen/scatter
 function derailed:dev/gen/grow
@@ -124,6 +134,12 @@ scoreboard players operation #gen_repaints dr_var += #gen_repainted dr_var
 scoreboard players operation #gen_repair_swaps_total dr_var += #gen_repair_swaps dr_var
 scoreboard players operation #gen_repair_paints_total dr_var += #gen_repair_paints dr_var
 data modify storage derailed:gen prev_cols set from storage derailed:gen sec_cols
+scoreboard players operation #gen_pieces_placed dr_var += #piece_cows dr_var
+scoreboard players operation #gen_pieces_placed dr_var += #piece_bandits dr_var
+scoreboard players operation #gen_pieces_dropped dr_var += #piece_lost dr_var
+
+# A piece the section ships without has black glass on its northwestern tile
+execute as @e[type=marker,tag=dr_piece,tag=dr_dropped,distance=0..] at @s run setblock ~ ~16 ~ black_stained_glass strict
 
 # The notes left along the eastern edge only learn their kind once the section is
 #  settled, since a reroll would have changed it under them

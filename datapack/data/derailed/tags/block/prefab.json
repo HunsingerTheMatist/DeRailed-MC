@@ -1,6 +1,8 @@
 {
 	"values": [
 		"minecraft:bedrock",
-		"minecraft:obsidian"
+		"minecraft:obsidian",
+		"minecraft:hay_block",
+		"minecraft:red_nether_bricks"
 	]
 }

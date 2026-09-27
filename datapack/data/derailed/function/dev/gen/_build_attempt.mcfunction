@@ -11,6 +11,7 @@ fill ~ ~13 ~ ~31 ~13 ~15 air strict
 scoreboard players set #sup_done dr_var 0
 scoreboard players set #gen_spread_gaps dr_var 0
 scoreboard players set #water_far dr_var -1
+scoreboard players set #piece_lost dr_var 0
 kill @e[type=marker,tag=dr_cp,distance=0..]
 
 function derailed:dev/gen/kinds
@@ -30,8 +31,11 @@ clone ~ ~9 ~ ~31 ~9 ~15 ~ ~15 ~ strict filtered #derailed:river_cut
 #  comes up and is swapped for plain water
 fill ~ ~15 ~ ~31 ~15 ~15 light_blue_concrete replace magenta_glazed_terracotta strict
 
-# The station is drawn over whatever the attempt painted where it stands
+# The station is drawn over whatever the attempt painted where it stands, and
+#  the pieces as the ground they are
 execute if score #gen_station dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/_station_show with storage derailed:gen r
+fill ~ ~15 ~ ~31 ~15 ~15 lime_concrete replace hay_block strict
+fill ~ ~15 ~ ~31 ~15 ~15 lime_concrete replace red_nether_bricks strict
 
 execute positioned ~ ~15 ~ run function derailed:dev/gen/validate
 
@@ -46,16 +50,21 @@ execute if score #gen_reached dr_var matches 1 if score #sec_reached dr_var matc
 execute if score #gen_second_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_fail_second dr_var 1
 execute if score #gen_second_reroll dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
 
-# Where the second route cut rock the cheapest way across can come out cheaper
-#  than the first route, so it is found again over both routes' cuts, and a
-#  section whose cheapest way falls outside the band is a reroll
+# The cheapest way across is what the band holds a section to, and it is the
+#  first route unless the second cut rock, when it is found again over both
+#  routes' cuts; a section whose cheapest way falls outside the band is a
+#  reroll, cheaper once cut where it fell under the floor, which the first
+#  route alone never does, and too expensive where it is over the ceiling
 scoreboard players operation #true_cost dr_var = #gen_cost dr_var
 scoreboard players operation #true_route dr_var = #gen_route dr_var
 scoreboard players operation #true_rate dr_var = #gen_rate dr_var
-scoreboard players set #true_ok dr_var 1
 execute if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 1 if score #sec_carved dr_var matches 1.. positioned ~ ~15 ~ run function derailed:dev/gen/_cheapest
 execute if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 1 if score #sec_carved dr_var matches 0 if score #sec_opened dr_var matches 1.. positioned ~ ~15 ~ run function derailed:dev/gen/_cheapest
-execute if score #gen_valid dr_var matches 1 if score #true_ok dr_var matches 0 run scoreboard players add #gen_fail_shortcut dr_var 1
+scoreboard players set #true_ok dr_var 0
+execute if score #true_rate dr_var >= #gen_rate_min dr_var if score #true_rate dr_var <= #gen_rate_max dr_var run scoreboard players set #true_ok dr_var 1
+execute if score #gen_rate_free dr_var matches 1 run scoreboard players set #true_ok dr_var 1
+execute if score #gen_valid dr_var matches 1 if score #true_ok dr_var matches 0 if score #true_rate dr_var < #gen_rate_min dr_var run scoreboard players add #gen_fail_shortcut dr_var 1
+execute if score #gen_valid dr_var matches 1 if score #true_ok dr_var matches 0 if score #true_rate dr_var > #gen_rate_max dr_var run scoreboard players add #gen_fail_costly dr_var 1
 execute if score #true_ok dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
 
 # A section usable so far has its wood and iron checked, and one that leaves a

@@ -103,6 +103,38 @@ can. The station's four tiles on the eastern edge leave notes reading ground,
 so the section after carries ground in from them and grows it from there on
 whatever rows its yard does not already cover.
 
+### The pieces, straight after
+
+`_pieces` then lays the section's **pieces** on y0 the same way, each on a
+coin of its own and on every tier: a herd of cows, two columns wide and one to
+three rows tall with a cow on every tile, in **hay**, and a pair of bandits,
+two wide and one tall with a bandit on each tile, in **red nether bricks**. Each goes at a spot taken at
+random from column 2 to column 27, so clear of the yard and the station, where
+none of its tiles is a prefab's already, tried up to `#gen_piece_tries` times,
+30, before the section goes without it. Both blocks are in `#derailed:prefab`,
+so a piece is kept out of everything the station is kept out of: no seed, no
+growth, no region, no river, no stray, no cut, no repaint and no swap, and a
+wall through it has a hole. Its rectangle is kept in the storage list
+`pieces`, which `grow` lays again over its black fill; its northwestern tile
+has a `dr_piece` marker tagged `dr_cows` or `dr_bandits`, with how many
+creatures it holds in `dr_size`; and white glass for cows or red for bandits
+goes over it on y16. Every attempt draws it on y15 as plain ground, so the
+routes, the pinch measure, the supply and the water check all take it for
+ground, and the track may run across it.
+
+A piece the players cannot get to is no use, so the supply check's flood,
+which sets out from the first route and walks everything but rock, is asked
+whether it reached each one. `_piece_reach` walks the flood back from each
+piece it reached before any region is taken, charging the bridges on the way
+to it like the bridges to a region and building them for whatever comes after,
+and **drops** each piece it did not reach, tagging its marker `dr_dropped` for
+that attempt; a section that ships with one dropped has black glass on the
+dropped piece's northwestern tile, and the piece stays plain ground with no
+creatures. The chance of each piece is `#gen_piece_odds` percent, set by tier
+in `build`: 50 on easy and medium and 60 on hard, where about one piece in six
+was out of reach. The report prints which pieces a section got and how many
+were dropped, and totals both for the run.
+
 ### 1. Scatter
 
 `scatter` places 18 seeds as markers, each rolled into a random tile and rejected
@@ -259,10 +291,9 @@ A carried region is a **line, not a point**, and that shows. It is planted along
 the whole of its stretch of column 0, so its distance to a tile in column c is
 the same 5c whatever the row - and the contours of a line are parallel straight
 lines, so its boundary against anything else tends to land at a constant column
-rather than curving the way a boundary between two seeds does. The original has
-no such trouble: it pins each carried region to a **point one tile west of the
-section**, and distance from a point varies by row. Ours would want the same to
-draw the seam properly.
+rather than curving the way a boundary between two seeds does. Pinning each
+carried region to a **point one tile west of the section** instead would draw
+the seam properly, since distance from a point varies by row.
 
 Every carried region **sets off at once**, however far back its seed really was.
 How far back is known - the note records the wave its tile was taken on - and
@@ -636,11 +667,15 @@ straight crossing, 29 rails up to the station or 32 with it off. The figure is
 kept in hundredths of a point a rail
 so that it stays a whole number.
 
-A section is usable when the exit was reached and that figure lies between the
-tier's floor and ceiling, set in `build`: 1.55 to 2.20 on easy, 1.65 to 2.60 on
-medium and 2.20 to 3.15 on hard. Medium's pair is the tenth and ninetieth
-percentile of 198 measured sections, and hard's of 98, so about one attempt in
-five is turned away on either; easy's is a placeholder until a batch has
+A section is usable when the exit was reached and that figure is at least the
+tier's floor; the ceiling is held to the cheapest way across once the second
+route is found (below), since a first route over the ceiling can still have a
+cheaper way beside it, while one under the floor never has. The bands are set
+in `build`: 1.55 to 2.20 on easy, 1.65 to 2.60 on medium and 2.20 to 3.00 on
+hard. Medium's pair is the tenth and ninetieth percentile of 198 measured
+sections. Hard's was measured on the cheapest way across, pieces and all,
+over 98 sections, whose tenth and ninetieth percentiles came to 2.07 and 2.87,
+and set at 2.20 to 3.00 from that; easy's is a placeholder until a batch has
 printed it. A tier whose band is being measured lets its routes through
 whatever they cost, which is `#gen_rate_free` in `build`, off on every tier
 while none is being measured. Wood and iron
@@ -726,9 +761,11 @@ passage cut through the wall can make a way across cheaper than the first
 route was. So on an attempt whose second route cut or opened anything,
 `_cheapest` sets the routes aside a layer up, floods the section again from
 the entry the way `validate` does, counts the rails of what it finds and works
-out its cost a rail with the same sums (`_rate_calc`). A section whose
-cheapest way across then falls outside the tier's band is a **reroll**,
-counted on the rerolls line as cheaper once cut. The first route stays the
+out its cost a rail with the same sums (`_rate_calc`); on any other attempt
+the cheapest way is the first route. A section whose cheapest way falls
+outside the tier's band is a **reroll**, counted on the rerolls line as
+cheaper once cut where it is under the floor and too expensive where it is
+over the ceiling, which is the only place the ceiling is judged. The first route stays the
 one drawn and the one the supply is counted for; the report prints the
 cheapest way beside both routes' costs.
 

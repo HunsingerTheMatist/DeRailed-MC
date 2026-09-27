@@ -87,10 +87,14 @@ and buys the time to match. On top of that, every rail past the 32 of a straight
 crossing adds one percent, since a longer section is more rails out of the same
 supply.
 
-A section is accepted when that figure lies inside the tier's band. Medium's
-band of 1.65 to 2.60 and hard's of 2.20 to 3.15 are each the middle eighty
-percent of a measured batch; **easy's is a placeholder** until a batch run on
-it has shown where it lands. A section
+A section is accepted when that figure lies inside the tier's band, taken on
+the cheapest way across once the second route has cut what it cuts, since that
+is what the players can lay; the first route is only held to the floor, since
+a first route over the ceiling can still have a cheaper way beside it. Medium's
+band of 1.65 to 2.60 is the middle eighty percent of a measured batch. Hard's
+of 2.20 to 3.00 was chosen from a batch measured on the cheapest way, with the
+pieces in, whose middle eighty percent ran from 2.07 to 2.87. **Easy's is a
+placeholder** until a batch run on it has shown where it lands. A section
 outside its band redraws its kinds and tries again, up to five times, and then
 ships as it is and is counted.
 
@@ -222,11 +226,7 @@ by wood and iron short of the seam, and the last few columns stayed as empty as
 before. What is still left wanting after the repair, a few sections in a
 hundred, is rerolled rather than chased further: where it was looked at, the
 section before ended in water and the section's own first columns were half
-rock and river, which no repaint of its own regions reaches. This stands in
-for the
-original's supply check, which was a flow through the terrain with a limit on
-what a narrow gap could carry; reachability with bridges is the part that
-decides sections.
+rock and river, which no repaint of its own regions reaches.
 
 ### What regions are drawn as
 
@@ -344,6 +344,23 @@ one that had reached an exit goes back to its last choice as at a dead end,
 and a longest line falling back is not laid at all, since laying it shifted
 is the only thing that could have saved it. No choice may put water across the
 seam into the section before; column 0 itself is as open to water as it was.
+
+The next prefabs are grass's **pieces**, decided 2026-09-26: a herd of cows,
+one on every tile of a patch two wide and one to three tall, and two bandits
+on a patch two wide and one tall, each on its own coin in every section and on every
+tier. They are ground, marked apart from the section's own ground, and like the
+station they cannot be repainted or swapped, nor anything else a prefab is kept
+from. They are ground to the track as well: it may run across a herd, so the
+pieces add nothing to what a section costs and pinch nothing. What is asked of
+them is that the players can get to them, walking anywhere but rock and
+bridging water where they must, with the bridges on the way to each paid for
+out of the section's supply like the bridges to a region. A piece nobody can
+get to is dropped rather than the section rerolled: rerolling for it cost 18
+rerolls in 33 hard runs and left 5 sections shipping invalid anyway, since the
+rock that walls a piece in stays where it is across attempts. On hard about one
+piece in six was walled in, so hard places each piece six times in ten rather
+than half the time, to ship about as many; easy and medium stay at half until
+their own drop rates are measured.
 
 ## Placeholders and open questions
 

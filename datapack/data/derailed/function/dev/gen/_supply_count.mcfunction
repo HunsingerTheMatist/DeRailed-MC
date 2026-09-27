@@ -16,6 +16,13 @@ tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_used
 scoreboard players operation #sup_wood dr_var = #sup_wood_free dr_var
 scoreboard players operation #sup_iron dr_var = #sup_iron_free dr_var
 scoreboard players set #sup_bridges dr_var 0
+
+# Every piece the players can get to has the bridges on the way to it charged
+#  before any region is taken, and one the flood never reached is dropped
+scoreboard players set #piece_lost dr_var 0
+tag @e[type=marker,tag=dr_piece,distance=0..] remove dr_dropped
+execute as @e[type=marker,tag=dr_piece,distance=0..] at @s positioned ~ ~15 ~ run function derailed:dev/gen/_piece_reach
+
 scoreboard players set #sup_k dr_var 0
 function derailed:dev/gen/_supply_round
 

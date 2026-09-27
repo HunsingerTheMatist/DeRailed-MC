@@ -235,6 +235,9 @@ scoreboard players set #gen_window_reroll dr_var 1
 scoreboard players set #gen_water_reach dr_var 25
 scoreboard players set #gen_water_reroll dr_var 1
 
+# How many spots a piece is tried at before the section goes without it
+scoreboard players set #gen_piece_tries dr_var 30
+
 # Whether every section ends in a station, standing against the eastern edge on
 #  the row the track leaves by and reaching into the section after
 # Its tiles are laid in bedrock and obsidian on the layers the regions are read

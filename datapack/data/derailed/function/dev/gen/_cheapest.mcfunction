@@ -1,9 +1,8 @@
 
 # Finds the cheapest way across the section as it stands once both routes have
 #  cut what they cut, which can be cheaper than the first route where the
-#  second cut its way through rock, into '#true_cost' over '#true_route' rails,
-#  '#true_rate' a rail with the length counted and '#true_ok' at 1 where that
-#  is inside the tier's band
+#  second cut its way through rock, into '#true_cost' over '#true_route' rails
+#  and '#true_rate' a rail with the length counted
 # Positioned at the section's corner, with the routes drawn two above and the
 #  layer above them clear
 
@@ -34,9 +33,6 @@ function derailed:dev/gen/_rate_calc
 scoreboard players operation #true_cost dr_var = #gen_cost dr_var
 scoreboard players operation #true_route dr_var = #gen_route dr_var
 scoreboard players operation #true_rate dr_var = #gen_rate dr_var
-scoreboard players set #true_ok dr_var 0
-execute if score #true_rate dr_var >= #gen_rate_min dr_var if score #true_rate dr_var <= #gen_rate_max dr_var run scoreboard players set #true_ok dr_var 1
-execute if score #gen_rate_free dr_var matches 1 run scoreboard players set #true_ok dr_var 1
 
 scoreboard players operation #gen_cost dr_var = #keep_cost dr_var
 scoreboard players operation #gen_route dr_var = #keep_route dr_var
