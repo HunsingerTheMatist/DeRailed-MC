@@ -671,12 +671,12 @@ A section is usable when the exit was reached and that figure is at least the
 tier's floor; the ceiling is held to the cheapest way across once the second
 route is found (below), since a first route over the ceiling can still have a
 cheaper way beside it, while one under the floor never has. The bands are set
-in `build`: 1.55 to 2.20 on easy, 1.65 to 2.60 on medium and 2.20 to 3.00 on
-hard. Medium's pair is the tenth and ninetieth percentile of 198 measured
-sections. Hard's was measured on the cheapest way across, pieces and all,
-over 98 sections, whose tenth and ninetieth percentiles came to 2.07 and 2.87,
-and set at 2.20 to 3.00 from that; easy's is a placeholder until a batch has
-printed it. A tier whose band is being measured lets its routes through
+in `build`: 1.55 to 2.20 on easy, 1.60 to 2.50 on medium and 2.20 to 3.00 on
+hard. Both medium's and hard's were measured on the cheapest way across,
+pieces and all, over 99 and 98 sections: medium's tenth and ninetieth
+percentiles came to 1.60 and 2.49 and its band is set on them, hard's to 2.07
+and 2.87 and its band set at 2.20 to 3.00 from that; easy's is a placeholder
+until a batch has printed it. A tier whose band is being measured lets its routes through
 whatever they cost, which is `#gen_rate_free` in `build`, off on every tier
 while none is being measured. Wood and iron
 need no check here, since the floors in `kinds` guarantee them. If the section
@@ -870,9 +870,13 @@ After the search the tail and the windows are judged:
 `_spread_pass` feeds the section before's 29 columns and this section's 32
 through a **first-in first-out list** in storage, adding each column taken in to
 a running total of wood and one of iron and dropping the oldest from both once
-the list holds 30, and counts the windows left wanting. A section that leaves
-any window wanting is a **reroll** like a cheap one, counted on the rerolls
-line, while `#gen_window_reroll` is set, which it is; the repaints go with the
+the list holds 30, and counts the windows left wanting. A section is let off a
+few: it is a **reroll** like a cheap one, counted on the rerolls line, when
+more than a fifth of the windows it judged are wanting, which is 6 of 32 or
+none of the first section's 3 (`#gen_window_pass`, 80, rounded down), or when
+any window holds less than four fifths of what a window wants of either kind,
+46 tiles (`#gen_window_deep`, 80, as `#gen_spread_deep`), while
+`#gen_window_reroll` is set, which it is; the repaints go with the
 attempt, glass and all. Only the attempt that ships adds to the run's totals.
 The report prints
 those, whether the tail is wanting, whether the totals are short, and the

@@ -158,7 +158,7 @@ scoreboard players set #gen_difficulty dr_var 1
 
 # Which tier every section of a test run is built to, or -1 for one on each
 #  tier, easy, medium, then hard
-scoreboard players set #gen_test_tier dr_var 2
+scoreboard players set #gen_test_tier dr_var 1
 
 # How many test runs 'dev/gen/test_batch' makes, one a tick
 scoreboard players set #gen_batch_size dr_var 33
@@ -218,6 +218,18 @@ scoreboard players operation #gen_spread_need dr_var *= $Two dr_const
 scoreboard players operation #gen_spread_need dr_var += $SectionSeeds dr_const
 scoreboard players operation #gen_spread_need dr_var /= $SectionSeeds dr_const
 scoreboard players operation #gen_spread_need dr_var /= $Two dr_const
+
+# A section is let off a few wanting windows: '#gen_window_pass' percent of
+#  them have to hold what a window wants, and every one of them has to hold
+#  '#gen_window_deep' percent of it, rounded to the nearest
+scoreboard players set #gen_window_pass dr_var 80
+scoreboard players set #gen_window_deep dr_var 80
+scoreboard players operation #gen_spread_deep dr_var = #gen_spread_need dr_var
+scoreboard players operation #gen_spread_deep dr_var *= #gen_window_deep dr_var
+scoreboard players operation #gen_spread_deep dr_var *= $Two dr_const
+scoreboard players operation #gen_spread_deep dr_var += $Hundred dr_const
+scoreboard players operation #gen_spread_deep dr_var /= $Hundred dr_const
+scoreboard players operation #gen_spread_deep dr_var /= $Two dr_const
 scoreboard players operation #gen_tail_need dr_var = #gen_seed_tiles dr_var
 
 # Whether a section with no second way across is rerolled; off, it ships

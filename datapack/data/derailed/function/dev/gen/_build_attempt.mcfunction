@@ -10,6 +10,7 @@
 fill ~ ~13 ~ ~31 ~13 ~15 air strict
 scoreboard players set #sup_done dr_var 0
 scoreboard players set #gen_spread_gaps dr_var 0
+scoreboard players set #gen_spread_fail dr_var 0
 scoreboard players set #water_far dr_var -1
 scoreboard players set #piece_lost dr_var 0
 kill @e[type=marker,tag=dr_cp,distance=0..]
@@ -67,11 +68,12 @@ execute if score #gen_valid dr_var matches 1 if score #true_ok dr_var matches 0 
 execute if score #gen_valid dr_var matches 1 if score #true_ok dr_var matches 0 if score #true_rate dr_var > #gen_rate_max dr_var run scoreboard players add #gen_fail_costly dr_var 1
 execute if score #true_ok dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
 
-# A section usable so far has its wood and iron checked, and one that leaves a
-#  window wanting is a reroll while '#gen_window_reroll' says so
+# A section usable so far has its wood and iron checked, and one that leaves
+#  more windows wanting than it is let off, or any far short, is a reroll while
+#  '#gen_window_reroll' says so
 execute if score #gen_valid dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/supply
-execute if score #gen_window_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #gen_spread_gaps dr_var matches 1.. run scoreboard players add #gen_fail_windows dr_var 1
-execute if score #gen_window_reroll dr_var matches 1 if score #gen_spread_gaps dr_var matches 1.. run scoreboard players set #gen_valid dr_var 0
+execute if score #gen_window_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #gen_spread_fail dr_var matches 1 run scoreboard players add #gen_fail_windows dr_var 1
+execute if score #gen_window_reroll dr_var matches 1 if score #gen_spread_fail dr_var matches 1 run scoreboard players set #gen_valid dr_var 0
 
 # Then every tile of the cheapest way across has to have water within
 #  '#gen_water_reach' steps, on the section as it ships, and one that does not

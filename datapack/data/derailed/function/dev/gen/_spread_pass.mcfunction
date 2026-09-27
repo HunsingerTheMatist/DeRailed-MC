@@ -8,6 +8,8 @@
 # Positioned at the section's corner
 
 scoreboard players set #gen_spread_gaps dr_var 0
+scoreboard players set #sp_judged dr_var 0
+scoreboard players set #sp_deep dr_var 0
 function derailed:dev/gen/_col_scan
 
 data modify storage derailed:gen seq set value []

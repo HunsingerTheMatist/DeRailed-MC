@@ -91,9 +91,12 @@ A section is accepted when that figure lies inside the tier's band, taken on
 the cheapest way across once the second route has cut what it cuts, since that
 is what the players can lay; the first route is only held to the floor, since
 a first route over the ceiling can still have a cheaper way beside it. Medium's
-band of 1.65 to 2.60 is the middle eighty percent of a measured batch. Hard's
-of 2.20 to 3.00 was chosen from a batch measured on the cheapest way, with the
-pieces in, whose middle eighty percent ran from 2.07 to 2.87. **Easy's is a
+band of 1.60 to 2.50 is the middle eighty percent of a batch measured on the
+cheapest way, with the pieces in. Hard's of 2.20 to 3.00 was chosen from a
+batch measured the same way, whose middle eighty percent ran from 2.07 to
+2.87. The two overlap from 2.20 to 2.50: holding medium under hard's floor
+would have turned away more than a quarter of medium's sections as too
+expensive. **Easy's is a
 placeholder** until a batch run on it has shown where it lands. A section
 outside its band redraws its kinds and tries again, up to five times, and then
 ships as it is and is counted.
@@ -226,7 +229,14 @@ by wood and iron short of the seam, and the last few columns stayed as empty as
 before. What is still left wanting after the repair, a few sections in a
 hundred, is rerolled rather than chased further: where it was looked at, the
 section before ended in water and the section's own first columns were half
-rock and river, which no repaint of its own regions reaches.
+rock and river, which no repaint of its own regions reaches. Rerolling for
+every wanting window turned out too strict on medium: 30 of its 33 rerolls in
+a batch were for windows, and all five sections that used up their attempts
+did so on windows at the seam, most of them only a few tiles short. So a
+section is let off up to a fifth of its windows wanting, since the few that
+slip through tend to be one short stretch just past the seam, but none may
+hold less than four fifths of what a window wants, so a deep gap is still
+rerolled however short it is.
 
 ### What regions are drawn as
 
@@ -373,7 +383,10 @@ their own drop rates are measured.
   left, and extra rock is gone round rather than paid for. Water is what the
   route has to pay for, so medium's bag now holds a fifth water and a fifth
   ground. Measured again over 198 sections, it came out at a median of 2.09 a
-  rail, the middle eighty percent 1.66 to 2.60, and its band is 1.65 to 2.60
+  rail, the middle eighty percent 1.66 to 2.60. Measured on the cheapest way
+  across once the second route cuts and the pieces went in, over 99 sections,
+  the median is 1.97 and the middle eighty percent 1.60 to 2.49, and its band
+  is 1.60 to 2.50
 - The test run builds all three of its sections on the tier
   `#gen_test_tier` names while a band is measured; -1 puts back one section
   on each tier

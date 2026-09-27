@@ -12,6 +12,7 @@ scoreboard players set #sup_done dr_var 1
 scoreboard players set #sup_short dr_var 0
 scoreboard players set #gen_repainted dr_var 0
 scoreboard players set #gen_spread_gaps dr_var 0
+scoreboard players set #gen_spread_fail dr_var 0
 scoreboard players set #gen_tail_gap dr_var 0
 scoreboard players set #gen_repair_swaps dr_var 0
 scoreboard players set #gen_repair_paints dr_var 0
