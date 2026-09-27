@@ -12,6 +12,7 @@ scoreboard players set #bench dr_var 1
 scoreboard players set #gen_marks dr_var 0
 execute in derailed:game run kill @e[type=armor_stand,tag=dr_seed_mark]
 execute in derailed:game run kill @e[type=marker,tag=dr_edge]
+execute in derailed:game run kill @e[type=marker,tag=dr_edge_kept]
 execute in derailed:game run kill @e[type=marker,tag=dr_prev_seed]
 execute in derailed:game run function derailed:dev/gen/_kill_waves
 
@@ -38,6 +39,7 @@ scoreboard players set #gen_repair_paints_total dr_var 0
 scoreboard players set #gen_spread_total dr_var 0
 scoreboard players set #gen_fail_flat dr_var 0
 scoreboard players set #gen_fail_second dr_var 0
+scoreboard players set #gen_fresh_total dr_var 0
 scoreboard players set #gen_fail_windows dr_var 0
 scoreboard players set #gen_fail_shortcut dr_var 0
 scoreboard players set #gen_fail_water dr_var 0

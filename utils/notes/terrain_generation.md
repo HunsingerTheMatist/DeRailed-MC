@@ -681,7 +681,23 @@ whatever they cost, which is `#gen_rate_free` in `build`, off on every tier
 while none is being measured. Wood and iron
 need no check here, since the floors in `kinds` guarantee them. If the section
 fails, every seed's kind is rolled again and it is painted again, keeping the
-regions and the seeds. Up to 5 attempts.
+regions and the seeds, for up to `#gen_attempt_count` attempts, 3.
+
+When those run out the section is **laid afresh** (`_fresh`), up to
+`#gen_fresh_max` times, 2, so at most 9 attempts in all before it ships as it
+is: its seeds, what stood over them, what waited on their growth and the notes
+they left at the eastern edge are thrown away, the layer the regions grow on
+and the marker layer are cleared, the station is laid again where it was, and
+`_lay_regions`, the same steps `build` takes, lays new pieces, new seeds, the
+regions they grow, hard's wall, the rivers and the stray sweep, before a new
+round of attempts. The entry row, the exit row and the station's notes for the
+section after stay as they were. The section before's notes are read again by
+the seam, since the seam only puts a note aside as `dr_edge_kept` when it reads
+it, and `build` throws away those kept from the section before last; and the
+scatter leaves the section before's seeds as they are, already retired, while
+`#gen_fresh` is set. The wall laid again after two missing second routes
+(`_wall_relay`) stays the cheaper step within a round. The report counts the
+sections started afresh on the rerolls line.
 
 The figure is taken on the cheapest route by total cost, which is the natural
 line across. A longer detour can average less a rail, so this overstates a

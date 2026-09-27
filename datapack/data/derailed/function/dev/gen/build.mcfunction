@@ -1,6 +1,7 @@
 
-# Builds one whole section, retrying the kinds up to 5 times until the cheapest
-#  way across costs what the tier asks
+# Builds one whole section, drawing the kinds again up to '#gen_attempt_count'
+#  times until it passes every check, and laying it again from new seeds up to
+#  '#gen_fresh_max' times when those run out
 # Positioned at the section's corner
 
 # The tier sets what the cheapest way across may cost a rail, in hundredths of a
@@ -82,42 +83,22 @@ function derailed:dev/gen/route
 execute if score #gen_station dr_var matches 1 run function derailed:dev/gen/_station_stamp with storage derailed:gen r
 execute if score #gen_station dr_var matches 1 run function derailed:dev/gen/_station_notes with storage derailed:gen r
 
-# The pieces are laid next, for the same reason
-function derailed:dev/gen/_pieces
+# The notes the seam kept from the section before last are done with
+kill @e[type=marker,tag=dr_edge_kept,distance=0..]
 
-function derailed:dev/gen/scatter
-function derailed:dev/gen/grow
-
-# The regions as they grew are kept on a spare layer, for a section that has to
-#  be built again from them
-clone ~ ~ ~ ~31 ~ ~15 ~ ~12 ~ strict
-
-# Hard gets a band of rock across it for the route to have to cut through,
-#  picked from the regions once they have grown so that it has no gap
-execute if score #gen_difficulty dr_var matches 2 run function derailed:dev/gen/wall
-
-# The kinds layer starts out as the regions exactly as they grew, which is both
-#  what the river reads and what painting swaps out from under itself
-# The sections before have theirs drawn in kinds by now, so a river running along
-#  the seam compares like with like across it
-clone ~ ~ ~ ~31 ~ ~15 ~ ~5 ~ strict
-
-# A section whose rivers found nowhere to start goes on without them, counted
-#  by the search, since nothing a reroll does can put a river into it
-execute if score #gen_rivers dr_var matches 1 run function derailed:dev/gen/rivers
+function derailed:dev/gen/_lay_regions
 
 # Held for a look at the river, the section stops here with nothing drawn over it
 execute if score #gen_riv_hold dr_var matches 1 run return 0
-
-# A tile left with no edge to another of its own region, which is what a river
-#  can leave behind, is handed to a region beside it before the kinds are drawn
-function derailed:dev/gen/strays
 
 # What the report counted of the section before's last columns is kept before
 #  any attempt counts this section's
 execute if score #gen_report dr_var matches 1 run function derailed:dev/gen/_rim_keep
 
-scoreboard players set #gen_attempts dr_var 5
+# A few attempts on these regions, then the section is started afresh while
+#  fresh starts are left
+scoreboard players operation #gen_attempts dr_var = #gen_attempt_count dr_var
+scoreboard players operation #gen_fresh_left dr_var = #gen_fresh_max dr_var
 scoreboard players set #gen_second_misses dr_var 0
 function derailed:dev/gen/_build_attempt
 

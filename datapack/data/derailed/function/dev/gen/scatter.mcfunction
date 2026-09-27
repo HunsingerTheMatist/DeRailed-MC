@@ -7,7 +7,8 @@
 #  while one of theirs sits a tile the other side, which is closer than two seeds
 #  are allowed anywhere else on the map, and the region it grows takes the whole
 #  edge off whatever was being carried over
-kill @e[type=marker,tag=dr_prev_seed,distance=0..]
+# A section laid afresh has the section before's seeds retired already
+execute unless score #gen_fresh dr_var matches 1 run kill @e[type=marker,tag=dr_prev_seed,distance=0..]
 execute as @e[type=marker,tag=dr_seed,distance=0..] run function derailed:dev/gen/_age_seed
 
 scoreboard players operation #gen_left dr_var = $SectionSeeds dr_const

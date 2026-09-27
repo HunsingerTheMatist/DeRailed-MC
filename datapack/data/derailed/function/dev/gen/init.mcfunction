@@ -9,6 +9,7 @@ function derailed:dev/gen/clear
 # A run left over from last time would have the first section carrying regions in
 #  from a map that is no longer there
 kill @e[type=marker,tag=dr_edge,distance=0..]
+kill @e[type=marker,tag=dr_edge_kept,distance=0..]
 kill @e[type=marker,tag=dr_prev_seed,distance=0..]
 kill @e[type=marker,tag=dr_seam_wait,distance=0..]
 function derailed:dev/gen/_kill_waves
@@ -47,6 +48,7 @@ scoreboard players set #gen_repair_paints_total dr_var 0
 scoreboard players set #gen_spread_total dr_var 0
 scoreboard players set #gen_fail_flat dr_var 0
 scoreboard players set #gen_fail_second dr_var 0
+scoreboard players set #gen_fresh_total dr_var 0
 scoreboard players set #gen_fail_windows dr_var 0
 scoreboard players set #gen_fail_shortcut dr_var 0
 scoreboard players set #gen_fail_water dr_var 0

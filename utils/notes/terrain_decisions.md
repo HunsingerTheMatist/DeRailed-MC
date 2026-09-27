@@ -99,8 +99,13 @@ would have turned away more than a quarter of medium's sections as too
 expensive. Easy's of 1.40 to 2.00 was chosen from a batch measured the same
 way, whose middle eighty percent ran from 1.32 to 2.06, and it overlaps
 medium's from 1.60 to 2.00 in the same way. A section
-outside its band redraws its kinds and tries again, up to five times, and then
-ships as it is and is counted.
+outside its band redraws its kinds and tries again, up to three times on the
+same regions; then it is thrown out and laid again from new seeds, up to twice,
+keeping only what it cannot change: the entry row the section before left, and
+its own exit row and station. Only after all nine does it ship as it is, and it
+is counted. A new draw of kinds cannot move the rock the regions are shaped
+into, and some failures, a second way with nowhere to go most of all, come of
+that shape, which only new regions change.
 
 ### How pinched the train is
 
@@ -249,7 +254,12 @@ Each tier has a table of weights:
 | medium | 20 | 30 | 15 | 15 | 20 |
 | hard | 0 | 40 | 17.5 | 17.5 | 25 |
 
-Easy is mostly open ground. Medium has under half of easy's ground, traded for water and rock. Hard has no ground at all,
+Easy is mostly open ground. Medium has under half of easy's ground, traded for
+water and rock. An earlier medium bag of ground 35, rock 21, wood and iron 18
+and water 9 cost the same a rail as easy: most regions are fixed by the
+floors, which the two tiers share, the route keeps to the ground left, and
+extra rock is gone round rather than paid for. Water is what a route has to
+pay for, so medium holds a fifth water. Hard has no ground at all,
 so every tile of a route costs at least 2, most of the rest is rock and water,
 and the wall runs through it.
 
@@ -375,35 +385,25 @@ about one in fifteen and one in thirty, stay at half.
 
 ## Placeholders and open questions
 
-- **Medium's bag is set to cost more than easy.** On a bag of ground 35,
-  rock 21, wood and iron 18 and water 9, 99 measured sections came out at a
-  median of 1.77 a rail, the middle eighty percent 1.50 to 2.17, which is
-  where easy lands too: most of a section's regions are fixed by the floors,
-  which are the same on both tiers, the route keeps to the ground that is
-  left, and extra rock is gone round rather than paid for. Water is what the
-  route has to pay for, so medium's bag now holds a fifth water and a fifth
-  ground. Measured again over 198 sections, it came out at a median of 2.09 a
-  rail, the middle eighty percent 1.66 to 2.60. Measured on the cheapest way
-  across once the second route cuts and the pieces went in, over 99 sections,
-  the median is 1.97 and the middle eighty percent 1.60 to 2.49, and its band
-  is 1.60 to 2.50
 - The test run builds all three of its sections on the tier
   `#gen_test_tier` names while a band is measured; -1 puts back one section
   on each tier
 - **The second way across must always exist, and must always go round the
-  first route's pinch points.** A section that cannot give one within the
-  detour limit, even with the ends opened and rock cut, is rerolled; how often
-  that happens, and whether a reroll of the kinds is enough or a section needs
-  its wall and rivers laid again, is still to be counted over a batch
+  first route's pinch points.** A section without one is rerolled, and after
+  two misses rebuilds its wall and rivers from its seeds for every attempt
+  after. With five attempts on one set of regions, about one hard section in a
+  hundred used them all up without one; a section is now laid afresh from new
+  seeds after three, up to twice, and whether that leaves any without one is
+  still to be counted
 - Nothing has been profiled since the sections were 35 by 20 with one river and
-  a depth-first flood. The least-cost flood and the bag both cost more than what
-  they replaced, and how much is not known
-- The bag and the floors have been modelled, not yet watched over many sections
-  in the game
+  a depth-first flood. The least-cost flood, the bag, the second route, the
+  cheapest way's flood, the water check, the pieces and the supply on every
+  attempt all cost more than what came before, and how much is not known; a
+  hard section now takes long enough that a batch falls behind the tick
 - There is no hard cap on how many regions of a kind a section can hold, only
   the bag's thin tail. A cap would be a few lines if the tail ever shows
 - The wall cannot take in a region carried over the seam, which keeps its kind,
   so a wall laid through one has a hole; it is laid again from another column,
   up to four times, and the report counts any hole left
-- Sections are placeholder blocks in a test area, built in one go. Real blocks,
-  a queue spread over ticks, and stations are all still to come
+- Sections are placeholder blocks in a test area, built in one go. Real blocks
+  and a queue spread over ticks are still to come

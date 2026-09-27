@@ -15,6 +15,7 @@ scoreboard players set #gen_marks dr_var 1
 execute in derailed:game run kill @e[type=marker,tag=dr_bench]
 execute in derailed:game run function derailed:dev/gen/_kill_waves
 execute in derailed:game run kill @e[type=marker,tag=dr_edge]
+execute in derailed:game run kill @e[type=marker,tag=dr_edge_kept]
 execute in derailed:game run kill @e[type=marker,tag=dr_prev_seed]
 execute in derailed:game run kill @e[type=marker,tag=dr_seam_wait]
 execute in derailed:game run kill @e[type=marker,tag=dr_riv_path]

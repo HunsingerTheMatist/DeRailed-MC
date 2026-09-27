@@ -158,7 +158,7 @@ scoreboard players set #gen_difficulty dr_var 1
 
 # Which tier every section of a test run is built to, or -1 for one on each
 #  tier, easy, medium, then hard
-scoreboard players set #gen_test_tier dr_var 0
+scoreboard players set #gen_test_tier dr_var 2
 
 # How many test runs 'dev/gen/test_batch' makes, one a tick
 scoreboard players set #gen_batch_size dr_var 33
@@ -249,6 +249,12 @@ scoreboard players set #gen_water_reroll dr_var 1
 
 # How many spots a piece is tried at before the section goes without it
 scoreboard players set #gen_piece_tries dr_var 30
+
+# How many attempts a section gets on one set of regions, and how many times it
+#  may be thrown out and laid again from new seeds before it ships as it is
+scoreboard players set #gen_attempt_count dr_var 3
+scoreboard players set #gen_fresh_max dr_var 2
+scoreboard players set #gen_fresh dr_var 0
 
 # Whether every section ends in a station, standing against the eastern edge on
 #  the row the track leaves by and reaching into the section after

@@ -99,4 +99,8 @@ execute if score #gen_attempts dr_var matches 1.. if score #gen_second_misses dr
 #  which is why this is here rather than at the head of an attempt
 execute if score #gen_attempts dr_var matches 1.. run clone ~ ~ ~ ~31 ~ ~15 ~ ~5 ~ strict
 execute if score #gen_attempts dr_var matches 1.. run return run function derailed:dev/gen/_build_attempt
+
+# Out of attempts on these regions, the section is thrown out and laid again
+#  from new seeds while fresh starts are left, and ships as it is after that
+execute if score #gen_fresh_left dr_var matches 1.. run return run function derailed:dev/gen/_fresh
 scoreboard players add #gen_failed dr_var 1
