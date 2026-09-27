@@ -405,5 +405,20 @@ about one in fifteen and one in thirty, stay at half.
 - The wall cannot take in a region carried over the seam, which keeps its kind,
   so a wall laid through one has a hole; it is laid again from another column,
   up to four times, and the report counts any hole left
-- Sections are placeholder blocks in a test area, built in one go. Real blocks
-  and a queue spread over ticks are still to come
+- Sections are placeholder blocks in a test area. Real blocks are still to come
+- **A section has to be built across many ticks, not in one.** Today `build`
+  runs start to finish inside a single function call: the station, the pieces,
+  the scatter, growth, the wall, the rivers, the strays and then up to nine
+  attempts, each with its paint, validate, second route, cheapest way, supply
+  and water check. A hard section takes long enough that a test batch falls
+  behind the tick, which in play would be the game freezing every time a
+  section is made. It also runs far past the command limit a world starts
+  with, which is why the test world raises `max_command_sequence_length` in
+  `dev/bench/load`; a real world will not have that. So building needs a
+  **queue**: the build broken into steps that each fit in a tick's share of
+  time, a state kept between ticks saying which step comes next, and the tick
+  function running steps until its share is spent, with sections built far
+  enough ahead of the train that one is always ready before the players reach
+  it. Profiling comes first, to see which steps are heavy enough to need
+  splitting themselves (growth, the floods and the attempts' checks are the
+  likely ones) and how many ticks a section takes

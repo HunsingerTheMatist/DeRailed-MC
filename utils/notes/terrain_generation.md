@@ -1052,7 +1052,10 @@ at all**, and its seam fails silently. Play builds into fresh ground and
 - **Grass's pieces only.** The station, the cows and the bandits are the only
   prefabs so far
 - **Placeholder blocks**, not DeRailed's own
-- **No queue.** Sections are built in one go rather than spread over ticks
+- **No queue.** A whole section, every attempt included, is built within one
+  tick, which would freeze the game in play and runs past a world's default
+  command limit. It has to be spread over ticks before the generator is used
+  in a real game; the plan is under open questions in `terrain_decisions.md`
 - **Seeds sit at tile corners**, since the scatter rolls whole tiles. Sub-tile
   seed positions would take blob accuracy from about 92% to about 98% against
   true Voronoi
