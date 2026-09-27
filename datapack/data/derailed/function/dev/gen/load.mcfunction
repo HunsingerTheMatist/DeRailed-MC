@@ -158,7 +158,7 @@ scoreboard players set #gen_difficulty dr_var 1
 
 # Which tier every section of a test run is built to, or -1 for one on each
 #  tier, easy, medium, then hard
-scoreboard players set #gen_test_tier dr_var 1
+scoreboard players set #gen_test_tier dr_var 0
 
 # How many test runs 'dev/gen/test_batch' makes, one a tick
 scoreboard players set #gen_batch_size dr_var 33

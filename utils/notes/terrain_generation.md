@@ -131,8 +131,8 @@ and **drops** each piece it did not reach, tagging its marker `dr_dropped` for
 that attempt; a section that ships with one dropped has black glass on the
 dropped piece's northwestern tile, and the piece stays plain ground with no
 creatures. The chance of each piece is `#gen_piece_odds` percent, set by tier
-in `build`: 50 on easy and medium and 60 on hard, where about one piece in six
-was out of reach. The report prints which pieces a section got and how many
+in `build`: 50 on easy and medium, where about one piece in fifteen and one in
+thirty was out of reach, and 60 on hard, where about one in six was. The report prints which pieces a section got and how many
 were dropped, and totals both for the run.
 
 ### 1. Scatter
@@ -671,12 +671,12 @@ A section is usable when the exit was reached and that figure is at least the
 tier's floor; the ceiling is held to the cheapest way across once the second
 route is found (below), since a first route over the ceiling can still have a
 cheaper way beside it, while one under the floor never has. The bands are set
-in `build`: 1.55 to 2.20 on easy, 1.60 to 2.50 on medium and 2.20 to 3.00 on
-hard. Both medium's and hard's were measured on the cheapest way across,
-pieces and all, over 99 and 98 sections: medium's tenth and ninetieth
-percentiles came to 1.60 and 2.49 and its band is set on them, hard's to 2.07
-and 2.87 and its band set at 2.20 to 3.00 from that; easy's is a placeholder
-until a batch has printed it. A tier whose band is being measured lets its routes through
+in `build`: 1.40 to 2.00 on easy, 1.60 to 2.50 on medium and 2.20 to 3.00 on
+hard. All three were measured on the cheapest way across, pieces and all,
+over 99, 99 and 98 sections: easy's tenth and ninetieth percentiles came to
+1.32 and 2.06 and its band is set at 1.40 to 2.00 from that, medium's to 1.60
+and 2.49 and its band is set on them, and hard's to 2.07 and 2.87 and its band
+set at 2.20 to 3.00 from that. A tier whose band is being measured lets its routes through
 whatever they cost, which is `#gen_rate_free` in `build`, off on every tier
 while none is being measured. Wood and iron
 need no check here, since the floors in `kinds` guarantee them. If the section
@@ -1033,12 +1033,10 @@ at all**, and its seam fails silently. Play builds into fresh ground and
 
 ## Known gaps
 
-- **No station or other set pieces**
+- **Grass's pieces only.** The station, the cows and the bandits are the only
+  prefabs so far
 - **Placeholder blocks**, not DeRailed's own
 - **No queue.** Sections are built in one go rather than spread over ticks
-- **The easy and medium bounds are placeholders.** Only hard's cost a rail has
-  been measured; the other two want a batch run before their floors mean
-  anything
 - **Seeds sit at tile corners**, since the scatter rolls whole tiles. Sub-tile
   seed positions would take blob accuracy from about 92% to about 98% against
   true Voronoi

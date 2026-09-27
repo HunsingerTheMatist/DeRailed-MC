@@ -96,8 +96,9 @@ cheapest way, with the pieces in. Hard's of 2.20 to 3.00 was chosen from a
 batch measured the same way, whose middle eighty percent ran from 2.07 to
 2.87. The two overlap from 2.20 to 2.50: holding medium under hard's floor
 would have turned away more than a quarter of medium's sections as too
-expensive. **Easy's is a
-placeholder** until a batch run on it has shown where it lands. A section
+expensive. Easy's of 1.40 to 2.00 was chosen from a batch measured the same
+way, whose middle eighty percent ran from 1.32 to 2.06, and it overlaps
+medium's from 1.60 to 2.00 in the same way. A section
 outside its band redraws its kinds and tries again, up to five times, and then
 ships as it is and is counted.
 
@@ -369,12 +370,11 @@ get to is dropped rather than the section rerolled: rerolling for it cost 18
 rerolls in 33 hard runs and left 5 sections shipping invalid anyway, since the
 rock that walls a piece in stays where it is across attempts. On hard about one
 piece in six was walled in, so hard places each piece six times in ten rather
-than half the time, to ship about as many; easy and medium stay at half until
-their own drop rates are measured.
+than half the time, to ship about as many; easy and medium, which dropped
+about one in fifteen and one in thirty, stay at half.
 
 ## Placeholders and open questions
 
-- The easy cost band is a guess until measured
 - **Medium's bag is set to cost more than easy.** On a bag of ground 35,
   rock 21, wood and iron 18 and water 9, 99 measured sections came out at a
   median of 1.77 a rail, the middle eighty percent 1.50 to 2.17, which is
