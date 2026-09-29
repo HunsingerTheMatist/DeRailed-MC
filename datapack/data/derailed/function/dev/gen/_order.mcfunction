@@ -4,8 +4,9 @@
 #  on the way to it, and the land at a level is only reached once the wood at
 #  every level below it, with '#gen_order_allow' in hand, covers the bridges
 #  to it and the first route's track below it, '#gen_order_pct' percent over;
-#  the section passes where every tile of the first route is reached and the
-#  wood and iron reached cover what the routes need
+#  the section passes where every tile of the first route is reached, by the
+#  flood at all and at a level paid for, and the wood and iron reached cover
+#  what the routes need
 # Positioned at the section's corner, with the routes drawn two above and the
 #  layer above them clear
 
@@ -23,6 +24,7 @@ scoreboard players set @e[type=marker,tag=dr_seed,distance=0..] dr_olev 999
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_ofirst
 scoreboard players set #omax dr_var 0
 scoreboard players set #ormax dr_var 0
+scoreboard players set #orn dr_var 0
 function derailed:dev/gen/_order_source with storage derailed:gen r
 scoreboard players set #order_on dr_var 1
 scoreboard players set #cost_mode dr_var 2
@@ -45,9 +47,13 @@ execute if score #oL dr_var matches -1 run scoreboard players operation #oL dr_v
 
 scoreboard players set #order_ok dr_var 1
 execute if score #ormax dr_var > #oL dr_var run scoreboard players set #order_ok dr_var 0
+execute if score #orn dr_var < #gen_route dr_var run scoreboard players set #order_ok dr_var 0
 execute if score #oW dr_var < #need_wood dr_var run scoreboard players set #order_ok dr_var 0
 execute if score #oI dr_var < #need_iron dr_var run scoreboard players set #order_ok dr_var 0
 
 fill ~ ~2 ~ ~31 ~2 ~15 air strict
 clone ~ ~3 ~ ~31 ~3 ~15 ~ ~2 ~ strict
 fill ~ ~3 ~ ~31 ~3 ~15 air strict
+
+# The flood took the track across, as the supply's does
+scoreboard players set #gen_reached dr_var 1

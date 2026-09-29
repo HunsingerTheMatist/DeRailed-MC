@@ -13,7 +13,7 @@ tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_wall
 scoreboard players set #wall_gap dr_var 0
 scoreboard players set #wall_went dr_var 0
 
-execute store result storage derailed:gen w.x int 1 run random value 2..29
+execute store result storage derailed:gen w.x int 1 run random value 2..29 derailed:gen
 scoreboard players set #gen_steps dr_var 8
 function derailed:dev/gen/_wall_start with storage derailed:gen w
 

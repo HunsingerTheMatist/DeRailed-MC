@@ -13,7 +13,7 @@ kill @e[type=marker,tag=dr_riv_seed,distance=0..]
 clone ~ ~5 ~ ~31 ~5 ~15 ~ ~9 ~ strict
 
 # The border is rolled once, so the second river comes in beside the first
-execute store result score #riv_from dr_var run random value 0..1
+execute store result score #riv_from dr_var run random value 0..1 derailed:gen
 
 # The first river has nothing to keep clear of
 scoreboard players set #riv_col1 dr_var -100

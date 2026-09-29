@@ -8,3 +8,4 @@
 execute in derailed:game run function derailed:dev/gen/test
 scoreboard players remove #batch_left dr_var 1
 execute if score #batch_left dr_var matches 1.. run schedule function derailed:dev/gen/_test_batch_next 1t
+execute if score #batch_left dr_var matches ..0 run scoreboard players operation #gen_marks dr_var = #batch_marks dr_var

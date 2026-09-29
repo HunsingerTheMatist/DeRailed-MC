@@ -2,6 +2,11 @@
 # Grows every seed at once until the section is full
 # Positioned at the section's corner
 
+# Nothing a growth before this one left due to spread or waiting on a wave
+#  carries into it
+function derailed:dev/gen/_kill_waves
+kill @e[type=marker,tag=dr_seam_wait,distance=0..]
+
 # Unclaimed ground, which is also what stops growth at the section edge
 fill ~ ~ ~ ~31 ~ ~15 black_concrete strict
 

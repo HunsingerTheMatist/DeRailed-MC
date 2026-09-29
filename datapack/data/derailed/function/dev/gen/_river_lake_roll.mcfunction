@@ -8,5 +8,5 @@
 
 execute if score #lake_n dr_var matches 1 run return run scoreboard players operation #lake_id dr_var = #gen_id dr_var
 
-$execute store result score #lake_r dr_var run random value 1..$(n)
+$execute store result score #lake_r dr_var run random value 1..$(n) derailed:gen
 execute if score #lake_r dr_var matches 1 run scoreboard players operation #lake_id dr_var = #gen_id dr_var

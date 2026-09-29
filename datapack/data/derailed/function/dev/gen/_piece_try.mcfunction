@@ -5,8 +5,8 @@
 # Positioned at the section's corner
 
 scoreboard players remove #pc_tries dr_var 1
-execute store result score #pc_x dr_var run random value 2..26
-execute store result score #pc_z dr_var run random value 0..15
+execute store result score #pc_x dr_var run random value 2..26 derailed:gen
+execute store result score #pc_z dr_var run random value 0..15 derailed:gen
 scoreboard players operation #pc_zl dr_var = #pc_z dr_var
 scoreboard players operation #pc_zl dr_var += #pc_h dr_var
 scoreboard players remove #pc_zl dr_var 1

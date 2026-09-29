@@ -14,23 +14,24 @@
 
 scoreboard players remove #ofix_left dr_var 1
 
-tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_ocand
-execute as @e[type=marker,tag=dr_seed,tag=!dr_wall,tag=!dr_lake,tag=!dr_ofirst,scores={dr_kind=0},distance=0..] if score @s dr_olev <= #oL dr_var run tag @s add dr_ocand
-execute unless entity @e[type=marker,tag=dr_ocand,distance=0..] as @e[type=marker,tag=dr_seed,tag=!dr_wall,tag=!dr_lake,scores={dr_kind=2},distance=0..] if score @s dr_olev <= #oL dr_var run tag @s add dr_ocand
-execute unless entity @e[type=marker,tag=dr_ocand,distance=0..] as @e[type=marker,tag=dr_seed,tag=!dr_wall,tag=!dr_lake,tag=!dr_ofirst,scores={dr_kind=3},distance=0..] if score @s dr_olev <= #oL dr_var run tag @s add dr_ocand
+function derailed:dev/gen/_order_cands
 execute unless entity @e[type=marker,tag=dr_ocand,distance=0..] run return 0
 
 scoreboard players set #olow dr_var 999
 execute as @e[type=marker,tag=dr_ocand,distance=0..] run scoreboard players operation #olow dr_var < @s dr_olev
 execute as @e[type=marker,tag=dr_ocand,distance=0..] unless score @s dr_olev = #olow dr_var run tag @s remove dr_ocand
-execute as @n[type=marker,tag=dr_ocand,sort=random,distance=0..] run tag @s add dr_oa
+tag @e[type=marker,tag=dr_ocand,distance=0..] add dr_pickc
+function derailed:dev/gen/_pick
+tag @e[type=marker,tag=dr_picked,distance=0..] add dr_oa
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_ocand
 execute as @n[type=marker,tag=dr_oa,distance=0..] run scoreboard players operation #okind dr_var = @s dr_kind
 
 # The wood region to swap with, for iron or water
 execute unless score #okind dr_var matches 0 as @e[type=marker,tag=dr_seed,tag=!dr_wall,tag=!dr_lake,scores={dr_kind=1},distance=0..] if score @s dr_olev > #oL dr_var run tag @s add dr_ocand
 execute if score #okind dr_var matches 3 run tag @e[type=marker,tag=dr_ocand,tag=dr_ofirst,distance=0..] remove dr_ocand
-execute as @n[type=marker,tag=dr_ocand,sort=random,distance=0..] run tag @s add dr_ob
+tag @e[type=marker,tag=dr_ocand,distance=0..] add dr_pickc
+function derailed:dev/gen/_pick
+tag @e[type=marker,tag=dr_picked,distance=0..] add dr_ob
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_ocand
 
 # Iron or water with nothing to swap with is repainted outright only above its
@@ -45,10 +46,14 @@ execute if score #ogo dr_var matches 1 run scoreboard players set #sup_want dr_v
 execute if score #ogo dr_var matches 1 as @n[type=marker,tag=dr_oa,distance=0..] run function derailed:dev/gen/_supply_repaint
 execute if score #ogo dr_var matches 1 run scoreboard players operation #sup_want dr_var = #okind dr_var
 execute if score #ogo dr_var matches 1 as @n[type=marker,tag=dr_ob,distance=0..] run function derailed:dev/gen/_supply_repaint
+
+# The wood made here is kept out of the supply's repair from now on, so that it
+#  cannot trade it back away
+execute if score #ogo dr_var matches 1 run tag @n[type=marker,tag=dr_oa,distance=0..] add dr_ofixed
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_oa
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_ob
 execute if score #ogo dr_var matches 0 run return 0
-scoreboard players add #gen_order_fixed dr_var 1
+scoreboard players add #ofixed dr_var 1
 
 function derailed:dev/gen/supply
 function derailed:dev/gen/_order

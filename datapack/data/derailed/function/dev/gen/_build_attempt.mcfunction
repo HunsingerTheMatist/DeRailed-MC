@@ -2,18 +2,28 @@
 # Rolls the kinds, paints the regions and keeps the section if the track can get
 #  across, the players have a second way round, wood and iron come along
 #  steadily and water is near the track, otherwise tries again
-# Each attempt rolls every seed's kind afresh, keeping the seeds, the chain, the
-#  region shapes and the river
+# Each attempt rolls every seed's kind afresh, keeping the seeds and the region
+#  shapes, and the wall and the rivers unless they are laid again
 # Positioned at the section's corner
 
 # The regions the last attempt's cuts gave tiles go with the cuts
 fill ~ ~13 ~ ~31 ~13 ~15 air strict
+
+# A ring of tinted glass round the section, a layer above the routes, that no
+#  search steps onto and no cut opens, whatever the section before left on
+#  the route layer along the seam
+fill ~-1 ~18 ~-1 ~-1 ~18 ~16 tinted_glass replace air strict
+fill ~32 ~18 ~-1 ~32 ~18 ~16 tinted_glass replace air strict
+fill ~-1 ~18 ~-1 ~32 ~18 ~-1 tinted_glass replace air strict
+fill ~-1 ~18 ~16 ~32 ~18 ~16 tinted_glass replace air strict
+tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_ofixed
 scoreboard players set #sup_done dr_var 0
 scoreboard players set #gen_spread_gaps dr_var 0
 scoreboard players set #gen_spread_fail dr_var 0
 scoreboard players set #water_far dr_var -1
 scoreboard players set #piece_lost dr_var 0
 scoreboard players set #order_ran dr_var 0
+scoreboard players set #ofixed dr_var 0
 kill @e[type=marker,tag=dr_cp,distance=0..]
 
 function derailed:dev/gen/kinds
@@ -41,14 +51,31 @@ fill ~ ~15 ~ ~31 ~15 ~15 lime_concrete replace red_nether_bricks strict
 
 execute positioned ~ ~15 ~ run function derailed:dev/gen/validate
 
-# The second way across is found on every section the track can cross, so the
-#  one that ships has it whatever the checks said, and a section without one
-#  is a reroll like a cheap one while '#gen_second_reroll' says so
-execute if score #gen_reached dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/second
+# A first route the players run out of wood on partway, with no region the
+#  order's fix could make wood, is a reroll straight away while
+#  '#gen_order_reroll' says so, before the second way and the supply are
+#  looked for
+scoreboard players set #opre dr_var 0
+execute if score #gen_order_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/_order_pre
+execute if score #opre dr_var matches 1 run scoreboard players add #gen_fail_order dr_var 1
+execute if score #opre dr_var matches 1 run scoreboard players set #gen_valid dr_var 0
+
+# The second way across is found on every attempt the track can cross that the
+#  first route's checks passed, and on the section's last attempt whatever they
+#  said, since that one ships as it is; a section without one is a reroll like
+#  a cheap one while '#gen_second_reroll' says so
+# An attempt the first route's checks turned away is rerolled whatever the
+#  second way would do, so it is not looked for
+scoreboard players set #sec_reached dr_var 0
+scoreboard players set #sec_ran dr_var 0
+execute if score #gen_valid dr_var matches 1 run scoreboard players set #sec_ran dr_var 1
+execute if score #gen_attempts dr_var matches ..1 if score #gen_fresh_left dr_var matches ..0 run scoreboard players set #sec_ran dr_var 1
+execute if score #gen_reached dr_var matches 0 run scoreboard players set #sec_ran dr_var 0
+execute if score #sec_ran dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/second
 
 # A section with no second way whose first route is pinched against either end
 #  has those pinches opened and the second way looked for again
-execute if score #gen_reached dr_var matches 1 if score #sec_reached dr_var matches 0 positioned ~ ~15 ~ run function derailed:dev/gen/_second_retry
+execute if score #sec_ran dr_var matches 1 if score #sec_reached dr_var matches 0 positioned ~ ~15 ~ run function derailed:dev/gen/_second_retry
 execute if score #gen_second_reroll dr_var matches 1 if score #gen_valid dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_fail_second dr_var 1
 execute if score #gen_second_reroll dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players set #gen_valid dr_var 0
 
@@ -97,15 +124,18 @@ execute if score #gen_water_reroll dr_var matches 1 if score #gen_valid dr_var m
 execute if score #gen_water_reroll dr_var matches 1 if score #water_far dr_var matches 1.. run scoreboard players set #gen_valid dr_var 0
 execute if score #gen_valid dr_var matches 1 run return 0
 
-scoreboard players add #gen_rerolls dr_var 1
+# Counted as a reroll only where another attempt follows, on these regions or
+#  laid afresh; the section's last attempt ships as it is
 scoreboard players remove #gen_attempts dr_var 1
+execute if score #gen_attempts dr_var matches 1.. run scoreboard players add #gen_rerolls dr_var 1
+execute if score #gen_attempts dr_var matches ..0 if score #gen_fresh_left dr_var matches 1.. run scoreboard players add #gen_rerolls dr_var 1
 
 # A section that has found no second way twice is built again from its regions
 #  as they grew for every attempt after, wall, rivers and all, since drawing the
 #  kinds again leaves those as they are, and on hard the wall's rock is mostly
 #  what stands in the second way's way
-execute if score #gen_reached dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_second_misses dr_var 1
-execute if score #gen_attempts dr_var matches 1.. if score #gen_second_misses dr_var matches 2.. if score #gen_reached dr_var matches 1 if score #sec_reached dr_var matches 0 run function derailed:dev/gen/_wall_relay
+execute if score #sec_ran dr_var matches 1 if score #sec_reached dr_var matches 0 run scoreboard players add #gen_second_misses dr_var 1
+execute if score #gen_attempts dr_var matches 1.. if score #gen_second_misses dr_var matches 2.. run function derailed:dev/gen/_wall_relay
 
 # Painting swaps each region's own block for the kind it rolled, so going again
 #  means laying the regions out afresh to have something left to swap

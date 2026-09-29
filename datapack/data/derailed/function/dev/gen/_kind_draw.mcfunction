@@ -15,7 +15,7 @@ execute if score #bag_rock dr_var matches 1.. run scoreboard players operation #
 
 # The range wanted changes with the bag, and a roll only takes a fixed one, so
 #  the widest there is is rolled and folded down onto it
-execute store result score #bag_roll dr_var run random value 0..2147483646
+execute store result score #bag_roll dr_var run random value 0..2147483646 derailed:gen
 scoreboard players operation #bag_roll dr_var %= #bag_pos dr_var
 scoreboard players operation #bag_take dr_var = #bag_share dr_var
 

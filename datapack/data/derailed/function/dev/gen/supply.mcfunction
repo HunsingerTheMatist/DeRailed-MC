@@ -32,17 +32,7 @@ scoreboard players set #sup_iron_r dr_var 0
 execute if score #gen_reached dr_var matches 0 run data modify storage derailed:gen sec_cols set value [{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0},{w:0,i:0}]
 execute if score #gen_reached dr_var matches 0 run return 0
 
-# What the routes need, the costlier of the two on each count
-scoreboard players operation #need_wood_base dr_var = #gen_route dr_var
-scoreboard players operation #need_iron_base dr_var = #gen_route dr_var
-execute if score #gen_bridge dr_var matches 1 run scoreboard players operation #need_wood_base dr_var += #crit_wet dr_var
-execute if score #gen_bridge dr_var matches 2 run scoreboard players operation #need_iron_base dr_var += #crit_wet dr_var
-scoreboard players operation #sup_w2 dr_var = #sec_route dr_var
-scoreboard players operation #sup_i2 dr_var = #sec_route dr_var
-execute if score #gen_bridge dr_var matches 1 run scoreboard players operation #sup_w2 dr_var += #sec_wet dr_var
-execute if score #gen_bridge dr_var matches 2 run scoreboard players operation #sup_i2 dr_var += #sec_wet dr_var
-execute if score #sec_reached dr_var matches 1 run scoreboard players operation #need_wood_base dr_var > #sup_w2 dr_var
-execute if score #sec_reached dr_var matches 1 run scoreboard players operation #need_iron_base dr_var > #sup_i2 dr_var
+function derailed:dev/gen/_supply_base
 
 # The routes are kept aside a layer up while the flood has the route layer,
 #  and the first route's tiles are where it sets out from
@@ -94,7 +84,6 @@ function derailed:dev/gen/_repair
 #  left wanting to be rerolled
 function derailed:dev/gen/_spread_tail
 function derailed:dev/gen/_spread
-execute if score #gen_report dr_var matches 1 run function derailed:dev/gen/_rim_look
 
 # Short after all that is counted
 function derailed:dev/gen/_supply_count

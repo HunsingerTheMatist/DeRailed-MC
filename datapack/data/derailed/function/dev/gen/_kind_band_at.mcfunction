@@ -5,5 +5,7 @@
 #  $(mz)
 
 scoreboard players set #pl_done dr_var 0
-$execute as @e[type=marker,tag=dr_place,x=$(x),dx=$(dx),y=-64,dy=384,z=$(z),dz=15,sort=random,limit=1] run function derailed:dev/gen/_kind_give
+$tag @e[type=marker,tag=dr_place,x=$(x),dx=$(dx),y=-64,dy=384,z=$(z),dz=15] add dr_pickc
+function derailed:dev/gen/_pick
+execute as @e[type=marker,tag=dr_picked,distance=0..] run function derailed:dev/gen/_kind_give
 $execute if score #pl_done dr_var matches 0 positioned $(mx) ~ $(mz) as @n[type=marker,tag=dr_place,distance=0..] run function derailed:dev/gen/_kind_give

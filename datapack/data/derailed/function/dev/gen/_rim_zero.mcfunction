@@ -4,7 +4,6 @@
 
 $scoreboard players set #$(z)_rock dr_rim 0
 $scoreboard players set #$(z)_river dr_rim 0
-$scoreboard players set #$(z)_far dr_rim 0
 $scoreboard players set #$(z)_fg dr_rim 0
 $scoreboard players set #$(z)_fw dr_rim 0
 $scoreboard players set #$(z)_fi dr_rim 0

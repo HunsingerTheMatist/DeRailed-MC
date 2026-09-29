@@ -6,13 +6,14 @@
 
 scoreboard players remove #gen_fresh_left dr_var 1
 scoreboard players add #gen_fresh_total dr_var 1
+function derailed:dev/gen/_lay_restore
 
 # The seeds go, and whatever stood over them, waited on their growth or noted
 #  where they reached the eastern edge; the station's notes stay
 kill @e[type=marker,tag=dr_seed,distance=0..]
 kill @e[type=armor_stand,tag=dr_seed_mark,dx=31,dy=24,dz=15]
 kill @e[type=marker,tag=dr_seam_wait,distance=0..]
-kill @e[type=marker,tag=dr_edge,tag=!dr_prefab,distance=0..]
+kill @e[type=marker,tag=dr_edge,tag=!dr_prefab,dx=31,dy=0,dz=15]
 
 # The section before's notes are read again by the seam
 tag @e[type=marker,tag=dr_edge_kept,distance=0..] add dr_edge

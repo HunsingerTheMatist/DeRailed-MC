@@ -6,7 +6,7 @@
 #  '#gen_detour_max' tiles, which cut rock only where no detour that short
 #  can do without, and as little of it as will do
 # It is judged for pinching like the first route and opened up the same way,
-#  never for cost, and it is drawn on the route layer in purple, pink where it
+#  never for cost, and it is drawn on the route layer in magenta, pink where it
 #  shares a tile with the first route
 # Positioned at the section's corner, once the section has settled on its
 #  first route
@@ -64,16 +64,10 @@ scoreboard players set #gen_carved dr_var 0
 scoreboard players set #gen_opened dr_var 0
 execute if entity @e[type=marker,tag=dr_pinch,distance=0..] run function derailed:dev/gen/_second_search
 
-# Purple where the second route runs alone, pink where the two share a tile,
+# Magenta where the second route runs alone, pink where the two share a tile,
 #  and the first route back in red everywhere else it runs
 data modify storage derailed:gen e.f set value "_second_mark_at"
 function derailed:dev/gen/_each
-
-# What each route costs to lay across the section as it now stands, priced
-#  the way the flood prices the first, for the report to set side by side
-scoreboard players set #price_first dr_var 0
-scoreboard players set #price_second dr_var 0
-execute if score #gen_report dr_var matches 1 if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_price_routes
 fill ~ ~3 ~ ~31 ~3 ~15 air strict
 kill @e[type=marker,tag=dr_rp,distance=0..]
 scoreboard players set #cost_mode dr_var 0

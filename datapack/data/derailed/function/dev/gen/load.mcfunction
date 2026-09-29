@@ -1,6 +1,18 @@
 
 # Sets up what the generator needs at load
 
+# A whole section is built in one go, far past the command limit a world starts
+#  with, and 'dev/gen/profile' builds a map of three for every seed it is given
+#  in one go
+gamerule max_command_sequence_length 100000000
+
+# The seeds 'dev/gen/profile' builds, each moved on by '#prof_base', and the
+#  first seed 'dev/gen/survey' builds and how many after it
+data modify storage derailed:gen prof.seeds set value [13, 23, 7, 2, 20, 10]
+scoreboard players set #prof_base dr_var 0
+scoreboard players set #survey_from dr_var 1
+scoreboard players set #survey_count dr_var 30
+
 # The wave delays are 5 and 7, so eight tags cycle without a delay ever landing
 #  back on the wave being woken
 scoreboard players set $Eight dr_const 8

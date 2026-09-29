@@ -28,6 +28,11 @@ function derailed:dev/gen/_cost_from with storage derailed:gen r
 scoreboard players set #gen_route dr_var 0
 scoreboard players set #true_steps dr_var 400
 execute if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_cheapest_from with storage derailed:gen r
+
+# A flood that never got across leaves the first route as the cheapest way,
+#  rather than a way of nothing costing nothing
+execute if score #gen_reached dr_var matches 0 run scoreboard players operation #gen_cost dr_var = #keep_cost dr_var
+execute if score #gen_reached dr_var matches 0 run scoreboard players operation #gen_route dr_var = #keep_route dr_var
 function derailed:dev/gen/_rate_calc
 
 scoreboard players operation #true_cost dr_var = #gen_cost dr_var

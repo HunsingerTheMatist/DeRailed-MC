@@ -1,7 +1,7 @@
 
 # Rolls another exit row and keeps it if it sits further from the entry row
 
-execute store result score #gen_roll dr_var run random value 0..15
+execute store result score #gen_roll dr_var run random value 0..15 derailed:gen
 
 scoreboard players operation #gen_far dr_var = #gen_roll dr_var
 scoreboard players operation #gen_far dr_var -= #gen_entry dr_var

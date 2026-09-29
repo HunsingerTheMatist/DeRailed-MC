@@ -2,7 +2,12 @@
 #  medium, then hard - or all three on the tier '#gen_test_tier' names
 # Positions itself, so it is safe to call from anywhere
 
+# Nothing is built unless 'init' ran to the end: a run left as the last one
+#  left it builds each section past the one before and floods out over
+#  whatever stands beside the test area
+scoreboard players set #gen_init_ok dr_var 0
 function derailed:dev/gen/init
+execute unless score #gen_init_ok dr_var matches 1 run return run tellraw @a {text:"[gen] 'dev/gen/init' did not run to the end, so nothing was built; the log names the function that failed to load",color:"red"}
 
 # The tier is put back afterwards, so a run of this changes nothing for whatever
 #  is built next

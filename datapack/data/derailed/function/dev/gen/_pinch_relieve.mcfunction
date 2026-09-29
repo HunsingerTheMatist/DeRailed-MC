@@ -25,6 +25,10 @@ scoreboard players operation #pinch_top dr_var = #pinch_top_was dr_var
 scoreboard players operation #pinch_top_id dr_var = #pinch_top_id_was dr_var
 execute if score #pinch_edges dr_var matches 0 run function derailed:dev/gen/_pinch_open
 
+# A round that opened nothing would find the same route and the same pinching
+#  again, so the section is left as it is
+execute if score #gen_opened dr_var = #pinch_was dr_var run return fail
+
 execute if score #cost_mode dr_var matches 0 run function derailed:dev/gen/_validate_pass
 execute if score #cost_mode dr_var matches 1 run function derailed:dev/gen/_second_find
 function derailed:dev/gen/_pinch_relieve

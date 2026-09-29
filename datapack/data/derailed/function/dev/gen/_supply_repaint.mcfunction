@@ -5,6 +5,7 @@
 #  above
 # Run as the seed, positioned at the section's corner
 
+scoreboard players operation #rep_prev dr_var = @s dr_kind
 scoreboard players operation @s dr_kind = #sup_want dr_var
 tag @s remove dr_supply
 execute if score #sup_want dr_var matches 1..2 run tag @s add dr_supply
@@ -17,5 +18,8 @@ scoreboard players add #gen_repainted dr_var 1
 
 # A region that was water needs no bridge to itself now, and one that has
 #  become water is a bridge to cross, so the water on the way to it is counted
-#  again
-execute at @s positioned ~ ~15 ~ run function derailed:dev/gen/_supply_seed
+#  again; and where water came or went, so is the water on the way to every
+#  region, since the cheapest way to any of them can cross this one
+execute unless score #rep_prev dr_var matches 3 unless score #sup_want dr_var matches 3 at @s positioned ~ ~15 ~ run function derailed:dev/gen/_supply_seed
+execute if score #rep_prev dr_var matches 3 as @e[type=marker,tag=dr_seed,distance=0..] at @s positioned ~ ~15 ~ run function derailed:dev/gen/_supply_seed
+execute unless score #rep_prev dr_var matches 3 if score #sup_want dr_var matches 3 as @e[type=marker,tag=dr_seed,distance=0..] at @s positioned ~ ~15 ~ run function derailed:dev/gen/_supply_seed

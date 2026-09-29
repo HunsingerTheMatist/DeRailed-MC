@@ -6,6 +6,7 @@
 #  after the seeds is fresh; and counts it
 # Positioned at the section's corner
 
+function derailed:dev/gen/_lay_restore
 clone ~ ~12 ~ ~31 ~12 ~15 ~ ~ ~ strict
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_lake
 
@@ -15,4 +16,4 @@ execute if score #gen_rivers dr_var matches 1 run function derailed:dev/gen/rive
 fill ~ ~16 ~ ~31 ~16 ~15 air replace light_blue_stained_glass strict
 function derailed:dev/gen/strays
 
-scoreboard players add #gen_wall_relaid dr_var 1
+execute if score #gen_difficulty dr_var matches 2 run scoreboard players add #gen_wall_relaid dr_var 1

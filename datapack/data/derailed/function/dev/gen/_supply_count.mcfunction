@@ -3,8 +3,12 @@
 #  it up cheapest first: the free tiles, then every reached region of wood or
 #  iron by how much water lies on the way to it, each taken only while its
 #  kind is still short and its bridges charged as it is taken
-# Positioned at the section's corner
+# What the routes need is worked out again first from the water now under them,
+#  since a repaint may have turned a region they cross into water or out of it
+# Positioned at the section's corner, with the routes kept three above
 
+function derailed:dev/gen/_supply_wet
+function derailed:dev/gen/_supply_base
 execute as @e[type=marker,tag=dr_seed,distance=0..] run scoreboard players set @s dr_size 0
 scoreboard players set #sup_wood_free dr_var 0
 scoreboard players set #sup_iron_free dr_var 0

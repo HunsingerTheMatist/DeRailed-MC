@@ -2,7 +2,7 @@
 # Adds what this tile costs to step onto to each route that runs over it,
 #  '#price_first' for the first route and '#price_second' for the second
 # Positioned on the tile, with the routes drawn two above: red for the first
-#  alone, purple for the second alone and pink for both
+#  alone, magenta for the second alone and pink for both
 
 execute unless block ~ ~2 ~ #derailed:routes run return 0
 function derailed:dev/gen/_price_tile

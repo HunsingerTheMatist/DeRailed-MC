@@ -6,11 +6,16 @@
 # Rock is cut only away from the first route: never beside it, where it is
 #  what pinches it, never in the zone round its pinches, and never the station
 # Positioned on the tile, with the flood's layer two above, the first route's
-#  band and zone three above and the regions as they grew fifteen below
+#  band and zone three above, ringed round the section in tinted glass, the
+#  tiles the search has reached four above in a flood's glass, and the regions
+#  as they grew fifteen below
 
+# A tile already reached is the most common, and is never outside the section
+#  or on the first route
+execute if block ~ ~4 ~ #derailed:flood_arrows run return 0
 execute if block ~ ~2 ~ gray_stained_glass run return 0
-execute if entity @n[type=marker,tag=dr_rp,distance=..0.4] run return run execute as @n[type=marker,tag=dr_rp,distance=..0.4] run function derailed:dev/gen/_sec_rejoin
-execute if entity @n[type=marker,tag=dr_bq,distance=..0.4] run return 0
+execute if block ~ ~3 ~ tinted_glass run return 0
+execute if block ~ ~3 ~ #derailed:second_route as @n[type=marker,tag=dr_rp,distance=..0.4] run return run function derailed:dev/gen/_sec_rejoin
 execute if block ~ ~-15 ~ obsidian run return 0
 execute if block ~ ~1 ~ powered_rail run return 0
 execute if block ~ ~1 ~ oak_fence run return 0

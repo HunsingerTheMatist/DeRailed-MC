@@ -177,7 +177,7 @@ wall again would have left it laid after the rivers and the sweep, turning
 round two things the usual order keeps: that no lake falls on the wall, and
 that the sweep never takes a tile off it. The second way is judged for pinching like
 the first and opened up the same way, but never for cost, and on hard it is not
-asked to pinch. It is drawn purple beside the route's red, pink where the two
+asked to pinch. It is drawn magenta beside the route's red, pink where the two
 share a tile.
 
 The rock the second way cuts is rock no longer, and the track can be laid over

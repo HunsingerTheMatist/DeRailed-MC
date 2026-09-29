@@ -3,7 +3,6 @@
 
 scoreboard players operation #p_rock dr_rim = #b_rock dr_rim
 scoreboard players operation #p_river dr_rim = #b_river dr_rim
-scoreboard players operation #p_far dr_rim = #b_far dr_rim
 scoreboard players operation #p_fg dr_rim = #b_fg dr_rim
 scoreboard players operation #p_fw dr_rim = #b_fw dr_rim
 scoreboard players operation #p_fi dr_rim = #b_fi dr_rim

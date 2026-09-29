@@ -15,6 +15,7 @@ clone ~ ~ ~ ~31 ~ ~15 ~ ~12 ~ strict
 
 # Hard gets a band of rock across it for the route to have to cut through,
 #  picked from the regions once they have grown so that it has no gap
+function derailed:dev/gen/_lay_snap
 execute if score #gen_difficulty dr_var matches 2 run function derailed:dev/gen/wall
 
 # The kinds layer starts out as the regions exactly as they grew, which is both

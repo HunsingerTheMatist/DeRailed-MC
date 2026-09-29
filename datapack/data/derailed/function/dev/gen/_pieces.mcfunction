@@ -9,22 +9,22 @@
 #  in '#gen_piece_tries' tries is left out
 # Positioned at the section's corner
 
-kill @e[type=marker,tag=dr_piece,distance=0..]
+kill @e[type=marker,tag=dr_piece,dx=31,dy=0,dz=15]
 data modify storage derailed:gen pieces set value []
 scoreboard players set #piece_cows dr_var 0
 scoreboard players set #piece_bandits dr_var 0
 
-execute store result score #pc_roll dr_var run random value 1..100
+execute store result score #pc_roll dr_var run random value 1..100 derailed:gen
 scoreboard players set #pc_coin dr_var 0
 execute if score #pc_roll dr_var <= #gen_piece_odds dr_var run scoreboard players set #pc_coin dr_var 1
-execute if score #pc_coin dr_var matches 1 store result score #pc_h dr_var run random value 1..3
+execute if score #pc_coin dr_var matches 1 store result score #pc_h dr_var run random value 1..3 derailed:gen
 execute if score #pc_coin dr_var matches 1 run scoreboard players operation #pc_n dr_var = #pc_h dr_var
 execute if score #pc_coin dr_var matches 1 run scoreboard players operation #pc_n dr_var *= $Two dr_const
 execute if score #pc_coin dr_var matches 1 run data modify storage derailed:gen pc set value {block:"hay_block",glass:"white_stained_glass",tag:"dr_cows"}
 execute if score #pc_coin dr_var matches 1 run function derailed:dev/gen/_piece_place
 execute if score #pc_coin dr_var matches 1 run scoreboard players operation #piece_cows dr_var = #pc_ok dr_var
 
-execute store result score #pc_roll dr_var run random value 1..100
+execute store result score #pc_roll dr_var run random value 1..100 derailed:gen
 scoreboard players set #pc_coin dr_var 0
 execute if score #pc_roll dr_var <= #gen_piece_odds dr_var run scoreboard players set #pc_coin dr_var 1
 execute if score #pc_coin dr_var matches 1 run scoreboard players set #pc_h dr_var 1

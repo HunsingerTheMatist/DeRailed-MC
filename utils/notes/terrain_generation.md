@@ -25,16 +25,22 @@ coloured concrete:
 
 ## The layers
 
-A section is built on four layers, one above the other, all reckoned from the
-corner it stands at. Nothing is drawn where it is read from, which is what keeps
-every question about a section answerable for as long as the section takes:
+A section is built on layers one above the other, all reckoned from the corner
+it stands at. Nothing is drawn where it is read from, which is what keeps every
+question about a section answerable for as long as the section takes:
 
 | y | what | written by | read by |
 |---|---|---|---|
-| 18 | the first route and the band and zone round it, while the second is found | `second` | `_sec_visit`, `_pinch_cut` |
+| 21 and up | the ways each stretch's detour search reached its tiles, one layer a stretch, while the second way is laid | `_sec_keep` | `_sec_load` |
+| 20 | the bridges the supply check has charged | `_supply_step` | `_supply_step` |
+| 19 | the tiles the second route's detour search has reached, in a flood's glass for the way each was reached from, while it runs; where no second way was found, the band it was looked for in | `_sec_new`, `_second_search` | `_sec_visit`, `_sec_det_walk`, looked at |
+| 18 | the first route and the band and zone round it, while the second is found; the routes kept aside while a later flood has y17; and a ring of tinted glass round the section every attempt | `second`, `supply`, `_cheapest`, `_order`, `_build_attempt` | `_sec_visit`, `_pinch_cut`, the floods' route checks |
 | 17 | the flood's working layer, then both routes | `validate`, `second` | `_cost_spread`, `_trace` |
+| 16 | glass over what was cut, opened, repainted or handed on, the station's rails and the pieces | many | looked at |
 | 15 | the section as it is meant to be seen | the attempt loop | `_edge_kind`, `validate` |
-| 14 | how far water is, while the water check runs | `_water_area` | `_water_check` |
+| 14 | how far water is, while the water check runs; the water under each route while it is counted | `_water_area`, `_supply_wet` | `_water_check`, `_supply_wet` |
+| 13 | the region a cut tile took, cleared every attempt | `_carve_from`, `_cut_own` | `_read_owner` |
+| 12 | a copy of the regions as they grew, for laying the section again | `_lay_regions` | `_wall_relay` |
 | 9 | y5 with the rivers cut into it | the river stamp | the second river, to find the first; `strays`, for where the river runs |
 | 5 | **what the river reads, then the kinds** | `build`, `strays`, then `paint` | `_river_look_*`, `strays`, lifted to y15 |
 | 0 | **the regions as they grew** | growth, then `strays` | `_river_lake`, `_read_id` |
@@ -165,6 +171,8 @@ exactly what happened.
 
 Every seed also gets an armour stand over it, which is only there to be looked
 at. `dev/gen/init` clears them along with everything else a run leaves behind.
+`dev/gen/test_batch` turns them off while it runs, since only the last run's
+would be there to see, and back on once it is done.
 
 Each seed is then numbered from 0 and **grows as its own block** rather than as
 its kind. The palette has room for 26: the sixteen terracottas and ten of the
@@ -247,6 +255,12 @@ claims its own tile and grows outward in waves.
 - **Writing the block is a four way ladder**, not one of 31: two range tests pick
   a ladder of seven or eight. A region is as likely to be any number as any
   other, so one ladder would average sixteen tests where this averages six
+- **Reading the block back is five bit tests.** `_read_id`, which everything
+  after growth reads a region with, tests the block against the tags
+  `region_id/bit_1` to `region_id/bit_16`, each holding the blocks whose id has
+  that bit, and adds the bit where it matches: seven commands a read every time,
+  one of them to leave a block that is no region's alone. The tags follow the
+  palette's order in `load`
 - **The wave loop counts rather than looks.** How many tiles are due and how
   many are waiting on the seam are kept as scores, so the loop test is two
   score reads rather than two scans of every entity - each of which cost as
@@ -295,14 +309,17 @@ rather than curving the way a boundary between two seeds does. Pinning each
 carried region to a **point one tile west of the section** instead would draw
 the seam properly, since distance from a point varies by row.
 
-Every carried region **sets off at once**, however far back its seed really was.
-How far back is known - the note records the wave its tile was taken on - and
-using it is the obvious thing to do, but it is wrong. This section's own seeds
-all start from nothing, so a region measured from a seed a section away loses
-every contested tile to them, the edge goes to whatever this section rolled, and
-the boundary comes out drawn straight down the seam. Setting them all off
-together is what makes them competitive, and amounts to treating each one as
-though its seed sat a single tile past the western border.
+A carried tile **sets off on the wave its note records, less a lead**: the wave
+the tile was taken on in the section before, less `#gen_seam_lead`, 3
+(`_seam_plant`). One due on wave 0 or before starts at once (`_seam_now`), and
+the rest wait as `dr_seam_wait` markers until growth reaches their wave
+(`_seam_later`, woken in `_wave`). Keeping each row's wave keeps the shape the
+region had along the column, which is what curves the boundary; a column set
+off all at once leaves as a flat wall. The lead is what stops a region turning
+up too late to hold anything, since this section's own seeds start from
+nothing and a region measured from a seed a section away would otherwise lose
+every contested tile to them. The report counts the tiles that waited and the
+waiting ones that lost their tile before their wave came.
 
 ### 5. Rivers
 
@@ -567,7 +584,9 @@ reached on. When the level has run out without reaching the exit, the next
 level starts the wave count over and wakes each parked tile on the wave it was
 parked with, so a tile taken on level k at wave w costs k thousand plus w, which
 is exactly the number the thousand stands for. Rock is therefore only ever
-crossed where no way round it exists, and there at its thinnest.
+crossed where no way round it exists, and there at its thinnest. Levels go on
+as far as 24, a section's height and a half, so no crossing is given up for
+the rock being too deep.
 
 A route that went through rock is then **cut**. The trace gathers the rock on
 it into runs, each numbered from its exit end and each knowing what stands on
@@ -631,7 +650,8 @@ it, the other runs counted, and on hard never so far that the floor is lost;
 the side taken is whichever has less rock along those boxes, never one with
 none, and never a side that faces out of the section, since the edge cannot
 be cut; then the route is found again, and the score taken afresh, for up to
-four rounds. Under hard's floor is a reroll like a cheap route. The bands:
+four rounds. A round that opens nothing ends the relief there, since finding
+the route again would only find the same one. Under hard's floor is a reroll like a cheap route. The bands:
 easy allows no pinch at all; medium allows 16, two single rows of rock either
 side far enough apart not to touch, at 8 each, since the train is pinched on
 the cell before such a row and on the row itself; hard wants at least 8, one
@@ -641,7 +661,8 @@ is as much about spacing as about length.
 
 Before any of that, the **exit tile is kept off rock**: if the row picked lands
 on rock and any other row of the east edge is clear, the exit moves there,
-keeping the lean away from the entry row. The first section's entry is kept off
+keeping the lean away from the entry row and to the rows a station fits on,
+1 to 13. The first section's entry is kept off
 rock the same way. Without this a section whose exit region grew as rock would
 have to dig into it at the very edge, and the section after would have to dig
 its way out, where any other row would have done.
@@ -697,7 +718,12 @@ it, and `build` throws away those kept from the section before last; and the
 scatter leaves the section before's seeds as they are, already retired, while
 `#gen_fresh` is set. The wall laid again after two missing second routes
 (`_wall_relay`) stays the cheaper step within a round. The report counts the
-sections started afresh on the rerolls line.
+sections started afresh on the rerolls line, which counts an attempt only where
+another follows it, so a section that ships from its last attempt adds nothing
+for that one. What the report counts of the laying, the wall's gaps, the
+strays and the rivers' falls, joins, lakes, cuts and refusals, is kept aside
+before the wall (`_lay_snap`) and put back before every laying again
+(`_lay_restore`), so that only the laying that ships is counted.
 
 The figure is taken on the cheapest route by total cost, which is the natural
 line across. A longer detour can average less a rail, so this overstates a
@@ -724,32 +750,44 @@ rock is what pinches the first route, and the zone keeps the two routes'
 pinches apart with rock between them.
 
 The way is found along the first route (`_second_find`). The trace of the first
-route numbers its tiles from the last to the entry, and the search goes along
-them in that order, each tile keeping the least a way to it has cost. From a
-tile the second route may stand on it goes on to the next, for nothing where
-the next may be stood on too, and, wherever a pinched tile lies within
-`#gen_detour_max` tiles ahead, it searches off the route (`_sec_bfs`) for
-**detours** of no more than `#gen_detour_max` tiles, 20, that come back onto a
-later tile of the route. A detour costs a thousand for every rock tile it cuts
+route numbers its tiles from the last to the entry, and its pinched tiles split
+it into **stretches** the second route may walk along for nothing. The search
+goes from stretch to stretch in that order (`_sec_dp`), each tile keeping the
+least a way to it has cost: every stretch is joined at its cheapest tile, the
+nearest the route's last tile where two cost the same, and from every tile of
+it at or past that one a search off the route (`_sec_bfs`) finds **detours** of
+no more than `#gen_detour_max` tiles, 20, that come back onto a later stretch.
+Joining each stretch at its cheapest tile can leave the next detour nowhere to
+leave from, so where that finds no way the whole is worked out again with
+every stretch joined at the tile nearest the route's last that was reached at
+all (`_sec_dp_fallback`, `#sec_fb`). The search never steps outside the
+section, whose edge is the gray ring on y17 and the ring of tinted glass on
+y18, and the way counts as found only where walking it back reaches the entry. A detour costs a thousand for every rock tile it cuts
 and one for every tile it runs, so the way chosen cuts no rock if any way
 round keeps every detour within the limit, and takes the fewest tiles off the
 route among those; failing that it cuts the least rock that will do, and runs
 the fewest tiles for it. The limit is there so that players caught on the wrong
-side of the train can get round to the other in good time. The way is then laid
+side of the train can get round to the other in good time. Each search marks
+the way it reached every tile from on y19, in a flood's glass, and that layer
+is kept aside on a layer of its own, y21 plus the stretch's number, so that a
+detour is laid by walking those marks back rather than by searching again; the
+kept layers are cleared once the way is laid. The way is then laid
 down on y17 as a flood would have left it and walked back by the same trace as
 the first route, which measures it, marks the rock it runs through to be cut
 and draws it. Where no way keeps within the limit even cutting rock, there is
 no second way.
 
 The second route is then judged for pinching like the first and opened up the
-same way, against the tier's ceiling only, never the floor, and rock beside
-the first route is never opened for it, since that rock is what pinches the
-first. It is never judged for cost. On y17 it is drawn in **purple**, with
+same way, against the tier's ceiling only, never the floor, and neither rock
+beside the first route nor rock in the zone is ever opened for it, since the
+one is what pinches the first and the other keeps the two apart. It is never judged for cost. On y17 it is drawn in **magenta**, with
 **pink** wherever the two routes share a tile, and the first route stays red.
 A section with no pinch on its first route gets the first route back as its
 second, all pink, which is what the rule comes to there.
 
-It runs inside the attempt loop, on every attempt the track got across. Where
+It runs inside the attempt loop, on every attempt the track got across that
+`validate` passed, and on the very last attempt a section has, which ships
+whatever it holds; an attempt already thrown away has no use for one. Where
 it finds no second way, `_second_retry` finds the first route again, opens
 the pinched cells of it within two tiles of either end, from that end and no
 further, whatever the score, since what the second route needs is a way off
@@ -761,8 +799,8 @@ section where even that finds no second way is a **reroll** like a cheap
 one, counted on the rerolls line, while `#gen_second_reroll` is set, which it
 is. Drawing the kinds again leaves the wall where it
 is, and the wall's rock is mostly what stands in the second way's way, so a
-section that has found no second way twice is built again for every attempt
-after (`_wall_relay`): the regions are put back as they grew, from a copy
+section where the search has come up empty twice is built again for every
+attempt after (`_wall_relay`): the regions are put back as they grew, from a copy
 growing them left on y12, and the wall on hard, the rivers and the stray sweep
 are done again in the same order as the first time, keeping only the seeds. The
 report counts the walls laid again. Off, the section ships without one, and the band the way was looked for
@@ -770,15 +808,16 @@ in is left on y19 to be looked at: the first route in red, its pinched cells
 in gray, the band in white, the no-cut zone in black and light gray where the
 two meet. The report gives the second route's tiles off the first route and
 its longest detour, and what each route costs to lay, priced tile by tile the
-way the flood prices the first (`_price_routes`).
+way the flood prices the first (`_price_routes`), once, for the attempt that
+ships.
 
 Rock the second route cuts becomes terrain the track can be laid over, and a
 passage cut through the wall can make a way across cheaper than the first
 route was. So on an attempt whose second route cut or opened anything,
 `_cheapest` sets the routes aside a layer up, floods the section again from
 the entry the way `validate` does, counts the rails of what it finds and works
-out its cost a rail with the same sums (`_rate_calc`); on any other attempt
-the cheapest way is the first route. A section whose cheapest way falls
+out its cost a rail with the same sums (`_rate_calc`); on any other attempt,
+or where that flood finds no way across, the cheapest way is the first route. A section whose cheapest way falls
 outside the tier's band is a **reroll**, counted on the rerolls line as
 cheaper once cut where it is under the floor and too expensive where it is
 over the ceiling, which is the only place the ceiling is judged. The first route stays the
@@ -807,16 +846,27 @@ same for. Ground is repainted outright. Iron and water swap kinds with a wood
 region the players do not reach in time, never a wall or a lake, and one the
 first route runs through only when it takes iron, so every kind keeps its
 count and no floor is broken; with no such region they are repainted outright
-only where their kind holds more regions than its floor. The
+only where their kind holds more regions than its floor. A region made wood
+this way is kept as wood for the rest of the attempt, the supply's search
+never turning it or swapping it away again (`dr_ofixed`). The
 flood marks each seed with the lowest level its region is reached at
 (`dr_olev`) and the regions the first route runs through (`dr_ofirst`) for
 this. The supply is then checked again from the start and the order after it,
 up to `#gen_order_fixes` times, 3; a section still failing is a **reroll**,
 counted on the rerolls line as wood out of order, while `#gen_order_reroll` is
 set, which it is. The windows are judged after all of that, on the section as
-it stands. The report prints
-the levels reached, the level the route needs, and the wood and iron reached
-against the need.
+it stands.
+
+The order is also checked much earlier, straight after `validate`, on the first
+route alone (`_order_pre`): where a level the route reaches cannot be paid for
+and the fix would have no region to make wood, the attempt is a reroll there
+and then, counted the same way, without the second route, the cheapest way or
+the supply ever being looked for. Measured over 30 maps, the check turned away
+71 attempts, of which 48 failed the order after the supply anyway and 17 failed
+something else first; only 6 would have passed, the supply's repaints having
+given them the wood, and those sections simply take another attempt. The report prints
+the levels reached, the level the route needs, the wood and iron reached
+against the need, and the regions made wood for the attempt that ships.
 
 Last of all, on the section as it ships, after the supply's repaints, every
 tile of the cheapest way across has to have **water** within
@@ -841,7 +891,10 @@ attempt that never got that far. Each route needs one wood and one iron for ever
 a bridge for every tile of water under it, a bridge being one wood
 (`#gen_bridge` picks wood or iron, for a biome whose bridges are iron), and
 the section is held to the costlier of the two routes on each count, with a
-fifth on top (`#gen_supply_over`, 120 percent, rounded up).
+fifth on top (`#gen_supply_over`, 120 percent, rounded up). The water under
+each route is counted in one go (`_supply_wet`): the water is copied down to
+y14, everything not under that route is cleared away by copying the route's
+layer over it, and what is left is counted by clearing it.
 
 What is within reach is found by a third mode of the flood, set out from every
 tile of the first route at once: water costs one, the bridge to it, rock is
@@ -906,7 +959,9 @@ the score is nothing or no change lowers it. Since every change lowers the
 score it cannot go round in circles, and it changes no more than it has to, so
 a stretch without wood that the windows allow is left as it is. A region the
 second route runs through may be changed, and if it was water the second
-route's bridges change with it. A repaint goes onto y15 and y5 both, leaving
+route's bridges change with it. A region that was water or becomes water
+changes the way to every other region, so every seed's water count is walked
+again after it; any other repaint walks only that region's again. A repaint goes onto y15 and y5 both, leaving
 the river where it crosses the region, with magenta glass over it on y16.
 
 The columns are counted by `_rep_scan` into fake players, one a column a kind,
@@ -933,11 +988,12 @@ search's own swaps, repaints and the score it left. Where windows are left
 wanting it lists them too, each by the column of the section it ends on with
 the wood and iron it holds, and after them every column fed through, the
 section before's 29 first, and what the tiles either side of the seam are,
-the section before's last ten columns and its own first ten: rock, river, out
-of reach, and otherwise ground, wood, iron or water by whether the region is
-one the first route runs through, another of the section's own or none of its
-own. `_rim_look` counts them for every attempt while the report is on, and
-`_rim_keep` keeps the section before's once at the start of the section. Each
+the section before's last ten columns and its own first ten: rock, river, and
+otherwise ground, wood, iron or water by whether the region is one the first
+route runs through, another of the section's own or none of its own.
+`_rim_look` counts them once, for the attempt that ships, while the report is
+on, and `_rim_keep` keeps the section before's once at the start of the
+section. Each
 attempt counts its columns once more when it is done, and the attempt that
 ships stores them for the section after.
 
@@ -1005,6 +1061,17 @@ half ticks as a burst and nothing at all spread across three or four.
   it puts the tier back to what it was
 - `#gen_difficulty` is the tier every section from then on is built to: 0 easy,
   1 medium, 2 hard. `run_grow` builds all of its sections on it
+- `dev/gen/profile` builds what `test` builds once for every seed in the
+  storage list `prof.seeds`, set in `load`, each moved on by `#prof_base`,
+  with the stands and the report off. Every random draw the generator makes
+  comes from its own sequence, `derailed:gen`, which the profile starts over
+  for each map, so every tick builds the same maps and a profile taken from a
+  command block running it times the same work however it was started. The
+  profiler only takes whole ticks
+- `dev/gen/survey` builds a map from each of `#survey_count` seeds from
+  `#survey_from` on, 30 from 1, one a tick, and says for each its attempts,
+  fresh starts, detour searches and the sections it gave up on, which is how
+  the seeds costliest to build are found for `prof.seeds`
 - `dev/gen/run_grow` is the benchmark: four repetitions of 21 sections, profiled
   with F3+L, cleaning up on the tick after
 - `dev/gen/clear` empties the whole stack. `init` and each benchmark pass call it,
@@ -1018,7 +1085,7 @@ pinch, light blue over every stray tile the sweep after the rivers handed to
 another region, magenta over every tile repainted for the supply, and the
 station's rails, buffer stop and bricks, and
 **y=17** holds the cheapest route across in red glass,
-the second way across in purple, and pink where the two share a tile, inside a
+the second way across in magenta, and pink where the two share a tile, inside a
 grey ring. Where no second way was found, **y=19** keeps the band it was
 looked for in: the first route red, its pinched cells gray, the free band
 white, the no-cut zone black and light gray where the two meet.

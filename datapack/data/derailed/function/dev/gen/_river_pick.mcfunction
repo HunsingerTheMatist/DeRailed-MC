@@ -13,7 +13,7 @@ scoreboard players operation #riv_tot dr_var += #riv_v2 dr_var
 
 # 60 divides by every total the three weights can add up to, so the roll comes
 #  out even however many of them are open
-execute store result score #riv_r dr_var run random value 0..59
+execute store result score #riv_r dr_var run random value 0..59 derailed:gen
 scoreboard players operation #riv_r dr_var %= #riv_tot dr_var
 
 scoreboard players operation #riv_dir dr_var = #riv_d2 dr_var

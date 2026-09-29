@@ -7,8 +7,8 @@
 # Keeping more of them clear reserves that whole strip for the carried regions,
 #  since nothing else can reach it, and the edge of the reservation comes out as
 #  a straight line down the section
-execute store result storage derailed:gen s.x int 1 run random value 1..31
-execute store result storage derailed:gen s.z int 1 run random value 0..15
+execute store result storage derailed:gen s.x int 1 run random value 1..31 derailed:gen
+execute store result storage derailed:gen s.z int 1 run random value 0..15 derailed:gen
 function derailed:dev/gen/_try with storage derailed:gen s
 
 scoreboard players remove #gen_tries dr_var 1

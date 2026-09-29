@@ -3,15 +3,20 @@
 #  it toward the entry, then steps back to the tile the search reached it from,
 #  until the tile of the first route the detour left, which is pointed the
 #  same way and whose number goes into '#sec_end'
-# Positioned on the tile
+# Positioned on the tile, with the first route three above and the ways the
+#  search reached its tiles from four above
 
 function derailed:dev/gen/_sec_arrow
-execute if entity @n[type=marker,tag=dr_rp,distance=..0.4] run return run execute as @n[type=marker,tag=dr_rp,distance=..0.4] run scoreboard players operation #sec_end dr_var = @s dr_step
+execute if block ~ ~3 ~ #derailed:second_route as @n[type=marker,tag=dr_rp,distance=..0.4] run return run scoreboard players operation #sec_end dr_var = @s dr_step
 scoreboard players add #sec_len dr_var 1
 scoreboard players remove #gen_steps dr_var 1
 execute if score #gen_steps dr_var matches ..0 run return fail
 
-execute as @n[type=marker,tag=dr_bq,distance=..0.4] run scoreboard players operation #sec_d2 dr_var = @s dr_dir
+scoreboard players set #sec_d2 dr_var 0
+execute if block ~ ~4 ~ light_blue_stained_glass run scoreboard players set #sec_d2 dr_var 1
+execute if block ~ ~4 ~ cyan_stained_glass run scoreboard players set #sec_d2 dr_var 2
+execute if block ~ ~4 ~ blue_stained_glass run scoreboard players set #sec_d2 dr_var 3
+execute if block ~ ~4 ~ purple_stained_glass run scoreboard players set #sec_d2 dr_var 4
 scoreboard players set #sec_a dr_var 2
 execute if score #sec_d2 dr_var matches 2 run scoreboard players set #sec_a dr_var 1
 execute if score #sec_d2 dr_var matches 3 run scoreboard players set #sec_a dr_var 4

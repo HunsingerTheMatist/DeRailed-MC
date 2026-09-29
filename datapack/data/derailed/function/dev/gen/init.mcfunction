@@ -23,6 +23,17 @@ kill @e[type=marker,tag=dr_cut,distance=0..]
 kill @e[type=marker,tag=dr_cut_run,distance=0..]
 kill @e[type=marker,tag=dr_pinch,distance=0..]
 kill @e[type=armor_stand,tag=dr_seed_mark,distance=0..]
+kill @e[type=marker,tag=dr_seed,distance=0..]
+kill @e[type=marker,tag=dr_piece,distance=0..]
+kill @e[type=marker,tag=dr_cp,distance=0..]
+kill @e[type=marker,tag=dr_wq,distance=0..]
+kill @e[type=marker,tag=dr_bq,distance=0..]
+kill @e[type=marker,tag=dr_rp,distance=0..]
+kill @e[type=marker,tag=dr_riv_keep,distance=0..]
+
+# A build that stopped part way through a fresh start would leave the scatter
+#  sparing the seeds it should retire
+scoreboard players set #gen_fresh dr_var 0
 
 # The first section has to come in somewhere, so it comes in at the middle
 scoreboard players set #gen_entry dr_var 8
@@ -53,6 +64,7 @@ scoreboard players set #gen_fail_windows dr_var 0
 scoreboard players set #gen_fail_shortcut dr_var 0
 scoreboard players set #gen_fail_water dr_var 0
 scoreboard players set #gen_fail_order dr_var 0
+scoreboard players set #gen_searches dr_var 0
 scoreboard players set #gen_order_fixed dr_var 0
 scoreboard players set #gen_pieces_placed dr_var 0
 scoreboard players set #gen_pieces_dropped dr_var 0
@@ -69,3 +81,6 @@ scoreboard players set #riv_lakes dr_var 0
 scoreboard players set #riv_cuts dr_var 0
 scoreboard players set #riv_dry dr_var 0
 scoreboard players set #riv_refused dr_var 0
+
+# Marks the run as set up, last of all
+scoreboard players set #gen_init_ok dr_var 1
