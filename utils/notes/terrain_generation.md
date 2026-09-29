@@ -785,6 +785,39 @@ over the ceiling, which is the only place the ceiling is judged. The first route
 one drawn and the one the supply is counted for; the report prints the
 cheapest way beside both routes' costs.
 
+After the supply's repaints the players have to be able to get their wood **in
+order**, since a bridge is built of wood and wood behind water cannot pay for
+the bridge to reach it. `_order` sets the routes aside a layer up and runs the
+supply flood again from the tile the track comes in on alone, where the
+players start, with `_order_at` counting every tile it takes onto its level,
+the water on the way to it: the wood, the iron, and the first route's track,
+a route tile on water counting twice, for its bridge and its rail. Then level
+by level from the first, the land at level k counts as reached only while the
+wood at every level below it, with `#gen_order_allow` in hand, 0, covers the k
+bridges to it and all the first route's track below it, `#gen_order_pct`
+percent over, 120, rounded up; the first level that falls short, and every one
+after it, is not reached. The allowance is the same for every section and
+nothing carries over from the section before. A section passes where every
+tile of the first route is reached and the wood and iron reached cover what the
+routes need. Where it does not, `_order_fix` makes one region the players
+reach before their wood runs out wood, from the lowest level that has one:
+ground first, then iron, then water, never rock, a wall or a lake, and a
+region the first route runs through only from iron, which the route pays the
+same for. Ground is repainted outright. Iron and water swap kinds with a wood
+region the players do not reach in time, never a wall or a lake, and one the
+first route runs through only when it takes iron, so every kind keeps its
+count and no floor is broken; with no such region they are repainted outright
+only where their kind holds more regions than its floor. The
+flood marks each seed with the lowest level its region is reached at
+(`dr_olev`) and the regions the first route runs through (`dr_ofirst`) for
+this. The supply is then checked again from the start and the order after it,
+up to `#gen_order_fixes` times, 3; a section still failing is a **reroll**,
+counted on the rerolls line as wood out of order, while `#gen_order_reroll` is
+set, which it is. The windows are judged after all of that, on the section as
+it stands. The report prints
+the levels reached, the level the route needs, and the wood and iron reached
+against the need.
+
 Last of all, on the section as it ships, after the supply's repaints, every
 tile of the cheapest way across has to have **water** within
 `#gen_water_reach` steps, 25. `_water_check` marks the cheapest way's tiles,

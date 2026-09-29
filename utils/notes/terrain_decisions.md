@@ -191,6 +191,20 @@ and rerolled if that way falls outside the band, rather than the second way
 being kept costlier than the first, which would narrow the ways round a pinch it
 has to choose from.
 
+Wood behind water cannot pay for the bridge to reach it. A section came out
+whose players started on a patch of ground walled in by rock, a lake and a
+river, with every forest across the water: the supply check passed it, since
+it counts wood behind water and charges the bridges, but the players had no
+wood to build the first bridge. So the wood has to be reachable in order: land
+behind more water counts only once the wood already reachable covers the
+bridges to it and the track the players can lay before it, a fifth over, so
+that a team laying rails as it goes is not stranded by spending the wood its
+next bridge needed. Iron is not held back the same way, since reaching new land
+takes bridges, not rails. What the players carry in from the section before is
+not counted: the generator knows what that section offered, not what was
+gathered, so every section is judged as if the players arrive with the same
+fixed allowance, none for now.
+
 Water has to be within reach of wherever the track runs, so every tile of the
 cheapest way across, which is where the track is likeliest to go, is held to
 water within 25 steps. Only rock

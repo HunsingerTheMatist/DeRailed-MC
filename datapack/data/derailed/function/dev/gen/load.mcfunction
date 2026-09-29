@@ -109,6 +109,10 @@ scoreboard objectives add dr_str dummy "DeRailed Second Route Stretch"
 # What the report counts of the tiles either side of each seam
 scoreboard objectives add dr_rim dummy "DeRailed Seam Tiles"
 
+# The wood, iron and track the ordered supply check counts at each level
+scoreboard objectives add dr_ord dummy "DeRailed Supply Order"
+scoreboard objectives add dr_olev dummy "DeRailed Region Level"
+
 # How many of a region's tiles within reach each of the section's columns
 #  holds, for the repair
 function derailed:dev/gen/_rep_objectives
@@ -246,6 +250,19 @@ scoreboard players set #gen_window_reroll dr_var 1
 #  ships as it is
 scoreboard players set #gen_water_reach dr_var 25
 scoreboard players set #gen_water_reroll dr_var 1
+
+# How much wood the players are taken to arrive with, what share over the
+#  bridges and track below it the wood they can reach has to cover before land
+#  behind more water counts, in percent, and whether a section they cannot get
+#  their wood through in that order is rerolled; off, it ships as it is
+scoreboard players set #gen_order_allow dr_var 0
+scoreboard players set #gen_order_pct dr_var 120
+scoreboard players set #gen_order_reroll dr_var 1
+
+# How many regions may be repainted as wood, one at a time, to get the players
+#  their wood in order before the section is rerolled
+scoreboard players set #gen_order_fixes dr_var 3
+scoreboard players set #order_on dr_var 0
 
 # How many spots a piece is tried at before the section goes without it
 scoreboard players set #gen_piece_tries dr_var 30
