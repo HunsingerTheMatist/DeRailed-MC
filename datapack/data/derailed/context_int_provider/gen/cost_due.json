@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:add",
+	"inputs": [
+		{
+			"type": "minecraft:score",
+			"target": {"type": "minecraft:fixed", "name": "#cost_wave"},
+			"score": "dr_var"
+		},
+		{
+			"type": "minecraft:number_dispatcher",
+			"cases": [
+				{"condition": {"type": "minecraft:match_block", "blocks": "#derailed:cost_water"}, "value": 4},
+				{"condition": {"type": "minecraft:match_block", "blocks": "#derailed:cost_resource"}, "value": 2}
+			],
+			"default": 1
+		}
+	]
+}

@@ -22,6 +22,10 @@ scoreboard players add #cost_wave dr_var 1
 
 # Reaching the exit ends it, since nothing taken later could get there for less
 execute if score #gen_reached dr_var matches 1 run return 0
+
+# The order check's flood ends at the first level the wood reached before it
+#  cannot pay for, since nothing taken later changes what the check finds
+execute if score #order_on dr_var matches 1 if function derailed:dev/gen/_order_wave run return 0
 execute if score #cost_wave dr_var matches ..400 if score #cost_pending dr_var matches 1.. run return run function derailed:dev/gen/_cost_wave
 execute if score #cost_wave dr_var matches ..400 if score #cost_waiting dr_var matches 1.. run return run function derailed:dev/gen/_cost_wave
 

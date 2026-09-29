@@ -1,0 +1,35 @@
+{
+	"type": "minecraft:add",
+	"inputs": [
+		{
+			"type": "minecraft:conditional",
+			"condition": {"type": "minecraft:match_block", "blocks": "#derailed:region_id/bit_1"},
+			"on_true": 1,
+			"on_false": 0
+		},
+		{
+			"type": "minecraft:conditional",
+			"condition": {"type": "minecraft:match_block", "blocks": "#derailed:region_id/bit_2"},
+			"on_true": 2,
+			"on_false": 0
+		},
+		{
+			"type": "minecraft:conditional",
+			"condition": {"type": "minecraft:match_block", "blocks": "#derailed:region_id/bit_4"},
+			"on_true": 4,
+			"on_false": 0
+		},
+		{
+			"type": "minecraft:conditional",
+			"condition": {"type": "minecraft:match_block", "blocks": "#derailed:region_id/bit_8"},
+			"on_true": 8,
+			"on_false": 0
+		},
+		{
+			"type": "minecraft:conditional",
+			"condition": {"type": "minecraft:match_block", "blocks": "#derailed:region_id/bit_16"},
+			"on_true": 16,
+			"on_false": 0
+		}
+	]
+}

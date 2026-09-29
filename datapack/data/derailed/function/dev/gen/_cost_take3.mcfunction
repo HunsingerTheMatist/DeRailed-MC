@@ -6,12 +6,8 @@
 
 execute if block ~ ~ ~ gray_concrete run return 0
 
-scoreboard players set #cost_c dr_var 0
-execute if block ~ ~ ~ #derailed:cost_water run scoreboard players set #cost_c dr_var 1
-
-scoreboard players operation #cost_w dr_var = #cost_wave dr_var
-scoreboard players operation #cost_w dr_var += #cost_c dr_var
-scoreboard players operation #cost_w dr_var %= $Eight dr_const
-execute store result storage derailed:gen c.w int 1 run scoreboard players get #cost_w dr_var
+# 'derailed:gen/cost_tag_supply' is the wave it falls due on, eight waves to a
+#  tag
+execute store result storage derailed:gen c.w int 1 run compute block ~ ~ ~ integer derailed:gen/cost_tag_supply
 function derailed:dev/gen/_cost_summon with storage derailed:gen c
 scoreboard players add #cost_pending dr_var 1

@@ -25,12 +25,23 @@ tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_ofirst
 scoreboard players set #omax dr_var 0
 scoreboard players set #ormax dr_var 0
 scoreboard players set #orn dr_var 0
+scoreboard players operation #oW dr_var = #gen_order_allow dr_var
+scoreboard players set #oI dr_var 0
+scoreboard players set #oR dr_var 0
+scoreboard players set #order_cut dr_var 0
 function derailed:dev/gen/_order_source with storage derailed:gen r
 scoreboard players set #order_on dr_var 1
 scoreboard players set #cost_mode dr_var 2
 function derailed:dev/gen/_supply_flood
 scoreboard players set #cost_mode dr_var 0
 scoreboard players set #order_on dr_var 0
+
+# A flood cut short at a level it cannot pay for leaves regions the first route
+#  runs through beyond it untagged, and the fix needs every one of them; the
+#  route is all walkable from the entry, so the flood run out would have
+#  reached every tile of it
+execute if score #order_cut dr_var matches 1 run data modify storage derailed:gen e.f set value "_order_first_at"
+execute if score #order_cut dr_var matches 1 run function derailed:dev/gen/_each
 
 # Level by level from the first, the wood and iron below it and the track below
 #  it, until a level cannot be paid for, which leaves '#oL' at the last one

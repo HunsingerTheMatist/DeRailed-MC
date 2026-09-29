@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:floor_mod",
+	"left": {
+		"type": "minecraft:add",
+		"inputs": [
+			{
+				"type": "minecraft:score",
+				"target": {"type": "minecraft:fixed", "name": "#cost_wave"},
+				"score": "dr_var"
+			},
+			{
+				"type": "minecraft:conditional",
+				"condition": {"type": "minecraft:match_block", "blocks": "#derailed:cost_water"},
+				"on_true": 1,
+				"on_false": 0
+			}
+		]
+	},
+	"right": 8
+}

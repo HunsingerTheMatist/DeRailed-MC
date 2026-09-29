@@ -255,12 +255,14 @@ claims its own tile and grows outward in waves.
 - **Writing the block is a four way ladder**, not one of 31: two range tests pick
   a ladder of seven or eight. A region is as likely to be any number as any
   other, so one ladder would average sixteen tests where this averages six
-- **Reading the block back is five bit tests.** `_read_id`, which everything
-  after growth reads a region with, tests the block against the tags
-  `region_id/bit_1` to `region_id/bit_16`, each holding the blocks whose id has
-  that bit, and adds the bit where it matches: seven commands a read every time,
-  one of them to leave a block that is no region's alone. The tags follow the
-  palette's order in `load`
+- **Reading the block back is five bit tests in one command.** `_read_id`,
+  which everything after growth reads a region with, runs `/compute` on the
+  number provider `derailed:gen/region_id`, which tests the block against the
+  tags `region_id/bit_1` to `region_id/bit_16`, each holding the blocks whose id
+  has that bit, and adds the bits that match; a block that is no region's is
+  left alone. The tags follow the palette's order in `load`. Measured against
+  the same five tests as commands, the one `/compute` call costs about a third
+  as much, and in general one costs about what two or three plain commands do
 - **The wave loop counts rather than looks.** How many tiles are due and how
   many are waiting on the seam are kept as scores, so the loop test is two
   score reads rather than two scans of every entity - each of which cost as
@@ -576,7 +578,10 @@ wave the exit is taken on is **the cost of the cheapest route across**. The
 waves are the trick growth uses with a tile's cost as its delay: eight rotating
 tags, one marker per tile taken, and no queue to keep sorted. The cost sits on
 the tile being stepped onto rather than on the step, which is what makes taking
-a tile on first arrival exact.
+a tile on first arrival exact. The wave a tile falls due on is worked out in a
+single `/compute` call, on the number provider `derailed:gen/cost_due`, and on
+`derailed:gen/cost_tag_supply` for the supply check's flood, which also takes
+it round the eight tags.
 
 Rock's thousand is done in **levels** rather than waves. A rock tile the flood
 comes up against is claimed with its arrow and parked with the wave it was
@@ -864,7 +869,15 @@ and then, counted the same way, without the second route, the cheapest way or
 the supply ever being looked for. Measured over 30 maps, the check turned away
 71 attempts, of which 48 failed the order after the supply anyway and 17 failed
 something else first; only 6 would have passed, the supply's repaints having
-given them the wood, and those sections simply take another attempt. The report prints
+given them the wood, and those sections simply take another attempt.
+
+The order flood takes a level a wave, since only water costs it anything, so it
+judges each level as the wave before it finishes (`_order_wave`) and stops at
+the first one it cannot pay for: nothing it takes after that changes the
+levels paid for, the wood and iron counted, or whether the check passes. The
+first route can all be walked from the entry, so the regions it runs through
+beyond the stop are tagged by a pass over the route instead. The report's
+levels reached and the level the route needs then stop at that level too. The report prints
 the levels reached, the level the route needs, the wood and iron reached
 against the need, and the regions made wood for the attempt that ships.
 
