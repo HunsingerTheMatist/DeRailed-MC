@@ -6,6 +6,13 @@
 
 scoreboard players remove #gen_fresh_left dr_var 1
 scoreboard players add #gen_fresh_total dr_var 1
+
+# A section started afresh '#gen_lenient_after' times is loosened for the rest
+#  of it, in the checks that lean on the section before, which no fresh start
+#  can change
+scoreboard players operation #fresh_used dr_var = #gen_fresh_max dr_var
+scoreboard players operation #fresh_used dr_var -= #gen_fresh_left dr_var
+execute if score #gen_lenient dr_var matches 0 if score #fresh_used dr_var >= #gen_lenient_after dr_var run function derailed:dev/gen/_lenient_on
 function derailed:dev/gen/_lay_restore
 
 # The seeds go, and whatever stood over them, waited on their growth or noted

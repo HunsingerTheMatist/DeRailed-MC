@@ -14,6 +14,9 @@ execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_min dr_var 220
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_max dr_var 300
 
+# A section starts strict, and is loosened only after many fresh starts
+scoreboard players set #gen_lenient dr_var 0
+
 # Whether a route outside that band is let through rather than rerolled, which
 #  is how a tier's band is measured
 execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_rate_free dr_var 0

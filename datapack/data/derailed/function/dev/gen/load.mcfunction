@@ -16,6 +16,11 @@ scoreboard players set #survey_count dr_var 30
 # The seed 'dev/gen/queue_test' builds from
 scoreboard players set #q_seed dr_var 13
 
+# The fresh starts on one section after which the checks that lean on the
+#  section before are loosened, which only the queue's endless fresh starts
+#  ever reach
+scoreboard players set #gen_lenient_after dr_var 10
+
 # The wave delays are 5 and 7, so eight tags cycle without a delay ever landing
 #  back on the wave being woken
 scoreboard players set $Eight dr_const 8

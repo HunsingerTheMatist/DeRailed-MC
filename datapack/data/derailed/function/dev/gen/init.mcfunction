@@ -86,6 +86,8 @@ scoreboard players set #riv_refused dr_var 0
 scoreboard players set #q_on dr_var 0
 scoreboard players set #q_step dr_var 0
 scoreboard players set #q_relay dr_var 0
+scoreboard players set #gen_lenient dr_var 0
+scoreboard players set #gen_lenient_sections dr_var 0
 
 # Marks the run as set up, last of all
 scoreboard players set #gen_init_ok dr_var 1

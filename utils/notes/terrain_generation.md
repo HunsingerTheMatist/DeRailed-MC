@@ -123,6 +123,19 @@ of the `#q_left` asked for, at the next corner along, and stops once none are
 left. `queue_test` asks it for what `test` builds, and sets `#gen_fresh_max`
 out of reach while it runs, so that no section is ever given up on.
 
+Only the section before can make a section impossible, since a fresh start
+rerolls everything else, and it can do so in two places: the windows that are
+more its columns than this section's, and the order, where the regions
+carried over the seam round the entry can leave no wood before the first
+water, carried regions having no seed here to repaint. So a section started
+afresh `#gen_lenient_after` times, 10, is **loosened** for the rest of it, as
+a last resort (`_lenient_on`): the windows ending on its fourteenth column or
+sooner are left out, and the wood within reach in the section before's last
+`#gen_water_reach` columns, from its stored `prev_cols`, is in hand from the
+start of the order (`_carry_in`). Every other check stays as it is, and the
+report counts the sections loosened. Only the queue's endless fresh starts
+reach it; `build` run all at once stops at `#gen_fresh_max`.
+
 ### The station, before anything
 
 `route` picks the exit row first, since the station stands on it, clamped to
@@ -1222,12 +1235,12 @@ at all**, and its seam fails silently. Play builds into fresh ground and
 - **Grass's pieces only.** The station, the cows and the bandits are the only
   prefabs so far
 - **Placeholder blocks**, not DeRailed's own
-- **The queue runs one step a tick** and has not been timed yet: a step that
-  takes more than about 25ms will want splitting, and a budget that packs
+- **The queue runs one step a tick.** Timed with `#q_gap` at 1 under
+  `/tick sprint`, every step comes in under about 25ms but the first river's
+  search, which reached about 31ms once in 163 ticks; a budget that packs
   several cheap steps into a tick is still to come. It builds in place in the
   test area, where the working layers show; in play a section would be built
-  out of sight and brought in when done. Nothing yet stops a section whose
-  checks the section before has made impossible from being tried for ever
+  out of sight and brought in when done
 - **Seeds sit at tile corners**, since the scatter rolls whole tiles. Sub-tile
   seed positions would take blob accuracy from about 92% to about 98% against
   true Voronoi

@@ -26,6 +26,7 @@ scoreboard players set #omax dr_var 0
 scoreboard players set #ormax dr_var 0
 scoreboard players set #orn dr_var 0
 scoreboard players operation #oW dr_var = #gen_order_allow dr_var
+execute if score #gen_lenient dr_var matches 1 run scoreboard players operation #oW dr_var += #gen_carry_in dr_var
 scoreboard players set #oI dr_var 0
 scoreboard players set #oR dr_var 0
 scoreboard players set #order_cut dr_var 0
@@ -46,7 +47,10 @@ execute if score #order_cut dr_var matches 1 run function derailed:dev/gen/_each
 # Level by level from the first, the wood and iron below it and the track below
 #  it, until a level cannot be paid for, which leaves '#oL' at the last one
 #  reached, or every level is
+# A section loosened after many fresh starts has the wood within reach in the
+#  section before's last columns in hand as well, what the players bring over
 scoreboard players operation #oW dr_var = #gen_order_allow dr_var
+execute if score #gen_lenient dr_var matches 1 run scoreboard players operation #oW dr_var += #gen_carry_in dr_var
 scoreboard players set #oI dr_var 0
 scoreboard players set #oR dr_var 0
 scoreboard players set #oL dr_var -1
