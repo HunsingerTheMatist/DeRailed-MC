@@ -13,6 +13,7 @@
 # Positioned at the section's corner
 
 scoreboard players add #gen_searches dr_var 1
+scoreboard players add #sec_slice dr_var 1
 kill @e[type=marker,tag=dr_bq,distance=0..]
 fill ~ ~4 ~ ~31 ~4 ~15 air strict
 scoreboard players set #sec_d dr_var 0

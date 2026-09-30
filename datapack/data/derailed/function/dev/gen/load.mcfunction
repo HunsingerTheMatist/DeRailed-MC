@@ -21,6 +21,13 @@ scoreboard players set #q_seed dr_var 13
 #  ever reach
 scoreboard players set #gen_lenient_after dr_var 10
 
+# The steps a river's walk takes in one of the queue's ticks before it pauses
+scoreboard players set #riv_slice_max dr_var 150
+
+# The detour searches working out the second way takes in one of the queue's
+#  ticks before it pauses
+scoreboard players set #sec_slice_max dr_var 1
+
 # The wave delays are 5 and 7, so eight tags cycle without a delay ever landing
 #  back on the wave being woken
 scoreboard players set $Eight dr_const 8

@@ -11,3 +11,4 @@
 execute unless function derailed:dev/gen/_supply_a run return 0
 function derailed:dev/gen/_rep_all
 function derailed:dev/gen/_supply_c
+function derailed:dev/gen/_supply_d

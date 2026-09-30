@@ -11,4 +11,4 @@ execute if score #riv_steps dr_var matches ..0 run return fail
 execute if score #riv_from dr_var matches 0 run function derailed:dev/gen/_river_from_s
 execute if score #riv_from dr_var matches 1 run function derailed:dev/gen/_river_from_n
 
-execute if score #riv_done dr_var matches 0 run function derailed:dev/gen/_river_try
+execute if score #riv_done dr_var matches 0 if score #riv_paused dr_var matches 0 run function derailed:dev/gen/_river_try

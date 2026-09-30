@@ -1,13 +1,11 @@
 
-# Finds the second way again where it cut through rock, then opens it up a round
-#  a tick where it was found
+# Finds the second way again over the ticks after where it cut through rock,
+#  then sets the rounds that open it up going
 # Positioned at the section's corner
 
-execute store result score #q_w dr_var run scoreboard players get #gen_carved dr_var
-execute positioned ~ ~15 ~ run function derailed:dev/gen/_second_refind
-scoreboard players set #q_step dr_var 45
-execute if score #gen_reached dr_var matches 1 run scoreboard players set #q_relief_mode dr_var 1
-execute if score #gen_reached dr_var matches 1 run scoreboard players set #q_relief_ret dr_var 45
-execute if score #gen_reached dr_var matches 1 run scoreboard players set #q_step dr_var 40
-execute if score #q_w dr_var matches 1.. run return 1
+scoreboard players set #q_step dr_var 63
+execute if score #gen_carved dr_var matches 0 run return 0
+scoreboard players add #gen_cuts2 dr_var 1
+scoreboard players set #q_find_ret dr_var 63
+scoreboard players set #q_step dr_var 60
 return 0

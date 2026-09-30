@@ -82,8 +82,11 @@ did real work and 0 where it found nothing to do (`_q_do` runs the step
 | 1 | `_step_start` | the tier's bounds, the route and the station |
 | 2 | `_step_grow` | the pieces, the seeds and the regions they grow |
 | 3 | `_step_wall` | hard's wall, and the kinds layer started from the regions |
-| 4 | `_step_rivers` | the first river (`_rivers_a`), then the second (52) where one is still to be looked at |
-| 52 | `_step_rivers_b` | the second river (`_rivers_b`) |
+| 4 | `_step_rivers` | the first river set up (`_rivers_a_pre`) and walked for a share of steps (`_river_one`), then walked on (54) where it paused, and ended (55) |
+| 54 | `_step_river_walk` | a paused river walked `#riv_slice_max` steps further (`_river_walk_on`), again on the tick after while it pauses, then back to `#q_river_ret` |
+| 55 | `_step_rivers_a_end` | what the first river came to (`_rivers_a_post`), then the second (52) where one is still to be looked at |
+| 52 | `_step_rivers_b` | the second river set up (`_rivers_b_pre`) and walked, then walked on (54) where it paused, and ended (56) |
+| 56 | `_step_rivers_b_end` | what the second river came to (`_rivers_b_post`) |
 | 5 | `_step_strays` | the stray sweep, then on to the attempts (`_step_laid`), or back to them where the section was laid again for the wall (`_step_relaid`) |
 | 10 | `_step_paint` | an attempt's kinds and paint |
 | 41 | `_step_validate` | the first route found and its pinching measured (`_validate_a`) |
@@ -92,22 +95,27 @@ did real work and 0 where it found nothing to do (`_q_do` runs the step
 | 11 | `_step_order_pre` | the order checked early, on the first route alone |
 | 12 | `_step_second` | whether the second route is looked for, then 43 to 46 and 47 |
 | 43 | `_step_sec_a` | the band and zone drawn for its search (`_second_a`) |
-| 44 | `_step_sec_search` | the search (`_second_search_a`) |
-| 51 | `_step_sec_refind` | the search again over what it cut, where it cut rock (`_second_refind`), then opened up (40) |
+| 44 | `_step_sec_search` | the second way's search readied (`_sec_prepare`), then worked out and laid down (60) |
+| 60 | `_step_find` | the second way worked out a stretch at a time (`_second_find_dp`), then worked on (61) where it paused, laid down (62) where there is one, and back to `#q_find_ret` |
+| 61 | `_step_find_resume` | a paused search given `#sec_slice_max` more detour searches (`_second_find_resume`), again on the tick after while it pauses |
+| 62 | `_step_find_lay` | the second way laid down and walked back (`_second_find_lay`), then back to `#q_find_ret` |
+| 51 | `_step_sec_refind` | the search again over what it cut (60), where it cut rock |
+| 63 | `_step_sec_refind_end` | the rounds that open it up set going (`_second_refind_end`), then opened up (40) |
 | 45 | `_step_sec_search_b` | a second way not found counted (`_second_search_b`) |
 | 46 | `_step_sec_b` | the second route drawn (`_second_b`), then back to `#q_sec_ret` |
 | 47 | `_step_sec_after` | the retry (48) where no second way was found |
 | 48 | `_step_retry` | the first route's ends opened and it found again (`_second_retry_a`), then opened up (40) |
 | 50 | `_step_retry_b` | the first route judged again (`_second_retry_b`), then the second route once more |
 | 49 | `_step_sec_end` | a section with no second way counted as a reroll |
-| 40 | `_step_relief` | one round of opening a route up (`_pinch_round`), on the first route or the second as `#q_relief_mode` says, then back to `#q_relief_ret` |
+| 40 | `_step_relief` | one round of opening a route up (`_pinch_open_round`), on the first route or the second as `#q_relief_mode` says, and the route found again, the first on the same tick (`_validate_pass`) and the second by 60; then back to `#q_relief_ret` |
 | 13 | `_step_cheapest` | the cheapest way across and the band |
 | 14 | `_step_supply` | the supply, run as steps 30 to 32 and back |
 | 15 | `_step_order` | the order, then its fix (33 to 34) while it fails, and the reroll it counts (35) |
 | 30 | `_step_sup_a` | the supply's flood and counts, and the repair's search set going (`_supply_a`) |
 | 31 | `_step_sup_rep` | a step of the repair's search begun, the changes toward wood tried (`_rep_step_wood`) |
 | 36 | `_step_sup_rep_iron` | the step ended, the changes toward iron tried and the best made (`_rep_step_iron`), then another step while the search goes on |
-| 32 | `_step_sup_c` | the windows, the totals and the columns kept, then back to the step `#q_sup_ret` names (`_supply_c`) |
+| 32 | `_step_sup_c` | the repair ended and the tail and the windows judged (`_supply_c`) |
+| 37 | `_step_sup_d` | the totals and the columns kept, then back to the step `#q_sup_ret` names (`_supply_d`) |
 | 33 | `_step_order_fix` | one region made wood for the order (`_order_fix`), then the supply again |
 | 34 | `_step_order_again` | the order checked again after a fix |
 | 35 | `_step_order_end` | an order still failing counted as a reroll |
@@ -459,6 +467,14 @@ while the search begins somewhere else.
 Three budgets bound each river: rolls for starts that turn out to sit on no
 boundary, which are cheap, **five** starts that a search is actually run from,
 and one count of steps shared by all of them.
+
+Everything the walk knows stands in the world as markers and scores, and each
+step's last act is to take the next, so the walk can stop between any two
+steps and be picked up again from its head without anything changing. The
+queue stops it after `#riv_slice_max` steps, 150, about 15ms at a tenth of a
+millisecond a step, and picks it up on the tick
+after (`_river_walk_on`), so that one long search never fills a tick; the
+river it finds is the one it would have found in one go.
 
 #### The shortcut
 
@@ -854,6 +870,12 @@ the first route, which measures it, marks the rock it runs through to be cut
 and draws it. Where no way keeps within the limit even cutting rock, there is
 no second way.
 
+The stretch-by-stretch search keeps all it knows in markers and scores between
+stretches, so it can stop before any stretch and be picked up again there.
+It pauses once it has run `#sec_slice_max` detour searches, 1, and is picked up
+again (`_second_find_resume`) on the tick after in the queue and at once in
+`build`, so the way it finds is the one it would have found in one go.
+
 The second route is then judged for pinching like the first and opened up the
 same way, against the tier's ceiling only, never the floor, and neither rock
 beside the first route nor rock in the zone is ever opened for it, since the
@@ -1157,6 +1179,12 @@ half ticks as a burst and nothing at all spread across three or four.
   `#survey_from` on, 30 from 1, one a tick, and says for each its attempts,
   fresh starts, detour searches and the sections it gave up on, which is how
   the seeds costliest to build are found for `prof.seeds`
+- `dev/gen/queue_survey` builds the survey's maps through the section queue,
+  one after another, and says for each seed its attempts, fresh starts,
+  sections loosened and floods stopped; with `#q_gap` and `#q_log` at 1 and
+  `/tick sprint` going, a profile gives every step's time over the maps it
+  holds, about six; `dev/gen/queue_survey_1` to `_5` run seeds 1 to 30 six at a
+  time, one profile each
 - `dev/gen/time_sections` builds the survey's maps one section a tick, from a
   command block with the profiler going, so that the profile's
   `server/metrics/ticking.csv` gives each section's own time, and says each

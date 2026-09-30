@@ -1,6 +1,6 @@
 
-# Searches out the second way across round the first route's pinches and cuts
-#  what it runs through
+# Finds the second way across round the first route's pinches and lays it down
+#  where there is one
 # Positioned at the section's corner, with the first route and its band and
 #  zone three above
 

@@ -1,5 +1,8 @@
 
 # Starts a fresh map at the test area
+# Moves itself into the game's dimension, so it is safe to call from anywhere
+
+execute unless dimension derailed:game run return run execute in derailed:game run function derailed:dev/gen/init
 
 scoreboard players set #gen_origin_x dr_var 1000
 scoreboard players set #gen_section dr_var 0

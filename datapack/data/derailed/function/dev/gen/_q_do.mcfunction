@@ -27,8 +27,16 @@ execute if score #q_step dr_var matches 31 run return run function derailed:dev/
 execute if score #q_step dr_var matches 36 run return run function derailed:dev/gen/_step_sup_rep_iron
 execute if score #q_step dr_var matches 53 run return run function derailed:dev/gen/_step_validate_carve
 execute if score #q_step dr_var matches 52 run return run function derailed:dev/gen/_step_rivers_b
+execute if score #q_step dr_var matches 54 run return run function derailed:dev/gen/_step_river_walk
+execute if score #q_step dr_var matches 55 run return run function derailed:dev/gen/_step_rivers_a_end
+execute if score #q_step dr_var matches 56 run return run function derailed:dev/gen/_step_rivers_b_end
 execute if score #q_step dr_var matches 30 run return run function derailed:dev/gen/_step_sup_a
 execute if score #q_step dr_var matches 32 run return run function derailed:dev/gen/_step_sup_c
+execute if score #q_step dr_var matches 37 run return run function derailed:dev/gen/_step_sup_d
+execute if score #q_step dr_var matches 60 run return run function derailed:dev/gen/_step_find
+execute if score #q_step dr_var matches 61 run return run function derailed:dev/gen/_step_find_resume
+execute if score #q_step dr_var matches 62 run return run function derailed:dev/gen/_step_find_lay
+execute if score #q_step dr_var matches 63 run return run function derailed:dev/gen/_step_sec_refind_end
 execute if score #q_step dr_var matches 33 run return run function derailed:dev/gen/_step_order_fix
 execute if score #q_step dr_var matches 34 run return run function derailed:dev/gen/_step_order_again
 execute if score #q_step dr_var matches 35 run return run function derailed:dev/gen/_step_order_end

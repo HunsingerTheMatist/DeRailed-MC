@@ -2,6 +2,12 @@
 # Takes the river's head one corner further, or sends it back where it came from
 # Run as the head, positioned on it
 
+# A walk that has taken '#riv_slice_max' steps since '#riv_slice' was last set
+#  to 0 stops where it stands, before this step is taken, to be picked up again
+#  from the head by '_river_walk_on'
+scoreboard players add #riv_slice dr_var 1
+execute if score #riv_slice dr_var > #riv_slice_max dr_var run return run scoreboard players set #riv_paused dr_var 1
+
 scoreboard players remove #riv_steps dr_var 1
 execute if score #riv_steps dr_var matches ..0 run return run function derailed:dev/gen/_river_spent
 

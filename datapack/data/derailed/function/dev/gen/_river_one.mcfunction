@@ -23,10 +23,10 @@ scoreboard players set #riv_col_got dr_var -100
 scoreboard players set #riv_tries dr_var 5
 scoreboard players set #riv_rolls dr_var 200
 scoreboard players set #riv_steps dr_var 1500
+scoreboard players set #riv_paused dr_var 0
 
 function derailed:dev/gen/_river_try
 
-# Nothing reached an exit from any start, so the longest line found on the way
-#  is laid instead, or the section goes without
-execute if score #riv_done dr_var matches 0 if score #riv_best dr_var matches 1.. run return run function derailed:dev/gen/_river_settle
-execute if score #riv_done dr_var matches 0 run scoreboard players add #gen_no_river dr_var 1
+# A walk paused for the tick is picked up again by '_river_walk_on', which
+#  ends the search itself
+execute if score #riv_paused dr_var matches 0 run function derailed:dev/gen/_river_one_end
