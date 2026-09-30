@@ -4,6 +4,10 @@
 # Eight tags carry the waves: the costliest tile falls due four waves on, so a
 #  tile put on a later wave never shares a tag with the wave being taken
 
+# More tiles waiting than a section holds means the flood has got out of its
+#  ring, and it goes no further
+execute if score #cost_pending dr_var matches 1024.. run return run function derailed:dev/gen/_cost_leak
+
 scoreboard players operation #cost_mod dr_var = #cost_wave dr_var
 scoreboard players operation #cost_mod dr_var %= $Eight dr_const
 

@@ -747,7 +747,14 @@ flood stays inside its own section without painting over its neighbour's route.
 The route may run along column 0 like any other, but nothing in the section
 before is ever cut for it: the ring is also what tells the relief that a tile
 lies outside the section, and rock there counts as closed but never as a side
-to open.
+to open. The ring is laid only over air, so as not to cover a neighbour's
+routes, which means every colour a neighbour can leave on that layer, the
+routes' red, magenta and pink among them, has to be in
+`#derailed:flood_visited` to close the ring where it stands. A flood that
+ever has more than 1024 tiles waiting, more than a section holds, has got out
+anyway, and is stopped there (`_cost_leak`), said in chat and counted in the
+report, rather than left to spread over the world: the supply's and the
+order's floods cost nothing on land, so no count of waves would stop them.
 
 The route is then judged by **what it costs a rail**, not by its total. The time
 the players get is the rails they lay, so a longer way across is not a harder

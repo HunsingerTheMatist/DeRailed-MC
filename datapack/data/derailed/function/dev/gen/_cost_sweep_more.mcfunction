@@ -4,6 +4,7 @@
 #  wave that reached it
 
 execute if score #gen_reached dr_var matches 1 run return 0
+execute if score #cost_pending dr_var matches 1024.. run return run function derailed:dev/gen/_cost_leak
 
 execute if score #cost_mod dr_var matches 0 unless entity @e[type=marker,tag=dr_f0,distance=0..] run return 0
 execute if score #cost_mod dr_var matches 1 unless entity @e[type=marker,tag=dr_f1,distance=0..] run return 0
