@@ -8,6 +8,10 @@
 #  a section that ships without its last attempt having got as far as asking
 execute if score #sup_done dr_var matches 0 positioned ~ ~15 ~ run function derailed:dev/gen/supply
 
+# The river running along a lake's shore joins the lake, before anything reads
+#  the section as it ships
+execute positioned ~ ~15 ~ run function derailed:dev/gen/lakeside
+
 # Only the attempt that ships counts toward the run's totals, and only its
 #  columns are handed on to the section after
 scoreboard players operation #gen_tail_gaps dr_var += #gen_tail_gap dr_var

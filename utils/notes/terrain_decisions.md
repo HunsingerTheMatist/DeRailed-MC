@@ -67,6 +67,16 @@ never less than 10, and allowed to end by running into the first. A river that
 can find no way out from five different starts lays the longest line it found
 and ends in a lake, so a river never just stops on dry ground.
 
+Where a river runs along a lake's shore, that stretch becomes part of the lake
+once the section is done, so the river reads as an inlet and an outlet rather
+than a channel hugging the water. A river tile joins the lake when the water is
+along one of its edges and so is the next tile's along the river, so a river
+that meets a lake head on, or touches one for a single tile, keeps its line and
+its last tile is its mouth. Along a diagonal shore the river steps, touching the
+water only every other tile, and the tiles between join with the tiles either
+side of them. Every check treats river and lake as the same water, so this
+changes nothing the section was judged on.
+
 Two crossings a section, or one long one, is the amount of bridging the section
 is meant to ask for.
 

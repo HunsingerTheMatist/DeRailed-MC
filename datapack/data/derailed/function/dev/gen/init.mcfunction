@@ -33,6 +33,7 @@ kill @e[type=marker,tag=dr_wq,distance=0..]
 kill @e[type=marker,tag=dr_bq,distance=0..]
 kill @e[type=marker,tag=dr_rp,distance=0..]
 kill @e[type=marker,tag=dr_riv_keep,distance=0..]
+kill @e[type=marker,tag=dr_lakeside,distance=0..]
 
 # A build that stopped part way through a fresh start would leave the scatter
 #  sparing the seeds it should retire
@@ -51,6 +52,7 @@ scoreboard players set #gen_wall_big dr_var 0
 scoreboard players set #gen_wall_relaid dr_var 0
 scoreboard players set #gen_tail_gaps dr_var 0
 scoreboard players set #gen_strays dr_var 0
+scoreboard players set #gen_lakeside dr_var 0
 scoreboard players set #gen_cuts2 dr_var 0
 scoreboard players set #gen_relieved2 dr_var 0
 scoreboard players set #gen_no_second dr_var 0

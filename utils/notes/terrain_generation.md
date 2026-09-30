@@ -36,10 +36,10 @@ question about a section answerable for as long as the section takes:
 | 19 | the tiles the second route's detour search has reached, in a flood's glass for the way each was reached from, while it runs; where no second way was found, the band it was looked for in | `_sec_new`, `_second_search_b` | `_sec_visit`, `_sec_det_walk`, looked at |
 | 18 | the first route and the band and zone round it, while the second is found; the routes kept aside while a later flood has y17; and a ring of tinted glass round the section every attempt | `second`, `supply`, `_cheapest`, `_order`, `_step_paint` | `_sec_visit`, `_pinch_cut`, the floods' route checks |
 | 17 | the flood's working layer, then both routes | `validate`, `second` | `_cost_spread`, `_trace` |
-| 16 | glass over what was cut, opened, repainted or handed on, the station's rails and the pieces | many | looked at |
-| 15 | the section as it is meant to be seen | the attempt loop | `_edge_kind`, `validate` |
+| 16 | glass over what was cut, opened, repainted, handed on or taken into a lake, the station's rails and the pieces | many | looked at |
+| 15 | the section as it is meant to be seen | the attempt loop, then `lakeside` | `_edge_kind`, `validate` |
 | 14 | how far water is, while the water check runs; the water under each route while it is counted | `_water_area`, `_supply_wet` | `_water_check`, `_supply_wet` |
-| 13 | the region a cut tile took, cleared every attempt | `_carve_from`, `_cut_own` | `_read_owner` |
+| 13 | the region a cut tile took, cleared every attempt, and the lake a river tile was taken into | `_carve_from`, `_cut_own`, `_lakeside_join` | `_read_owner` |
 | 12 | a copy of the regions as they grew, for laying the section again | `_step_grow` | `_wall_relay` |
 | 9 | y5 with the rivers cut into it | the river stamp | the second river, to find the first; `strays`, for where the river runs |
 | 5 | **what the river reads, then the kinds** | `build`, `strays`, then `paint` | `_river_look_*`, `strays`, lifted to y15 |
@@ -120,7 +120,7 @@ did real work and 0 where it found nothing to do (`_q_do` runs the step
 | 34 | `_step_order_again` | the order checked again after a fix |
 | 35 | `_step_order_end` | an order still failing counted as a reroll |
 | 16 | `_step_judge` | the windows and the water, then on to finish, another attempt, the wall laid again (17, `_wall_relay`, then the rivers and strays steps again) or a fresh start (18, `_fresh`) |
-| 20 | `_step_finish` | the totals, the report's looks, and the section closed (`_step_close`) |
+| 20 | `_step_finish` | the river along a lake's shore taken into it (`lakeside`), the totals, the report's looks, and the section closed (`_step_close`) |
 
 `build` runs them all in one go, which is what `test`, `profile`, `survey` and
 `time_sections` time. The **section queue** runs them a tick apart:
@@ -1104,6 +1104,46 @@ section. Each
 attempt counts its columns once more when it is done, and the attempt that
 ships stores them for the section after.
 
+### 10. Lakeside
+
+Once the section has shipped, the river running along a lake's shore is taken
+into the lake (`lakeside`, from `_step_finish`), so that what is left of the
+river runs into the lake as an inlet and out of it as an outlet. A lake is any
+water region, blue on y15, whether the river marked it for one or not.
+
+A river tile **touches** the lake where the lake's water lies along one of its
+edges (`dr_shore`), and a tile touching it joins the lake where the next tile
+along the river touches it too. A river that runs straight into a lake touches
+it with its last tile alone, which stays river as the mouth, and a river that
+grazes a lake for a single tile keeps its line rather than being split into an
+inlet and an outlet one tile apart.
+
+Where the shore runs diagonally the river steps along it, and only every other
+tile touches the lake; the tiles between have the lake only at a corner
+(`dr_shore_near`). Such a tile joins where the tiles either side of it touch
+the lake, and takes them with it (`_lakeside_near`), so a river stepping along
+a diagonal shore goes into the lake whole instead of leaving every other tile
+standing in it.
+
+The whole section is looked at before any tile changes (`_lakeside_at`), each
+tile touching the lake or at a corner of it marked with a marker, and only then
+are the marked tiles that join turned (`_lakeside_join`). Were the tiles turned
+as they were found, each would put water beside the next and draw the whole
+river in after it. A tile that joins becomes water on y15 and y5, takes the
+region of the lake beside it on y13, where a cut tile keeps the region it took,
+and has blue glass over it on y16 where nothing else is marked there. The tiles
+at a corner of the lake join after the rest, since the lake beside them is the
+tiles that joined next to them. The lake is
+looked for on y15 of the section before as well, so a river along the seam
+joins a lake across it.
+
+Nothing any check judged changes: the floods, the supply and the order all
+read river and lake alike as water (`#derailed:cost_water`), and the water
+check only gains water beside water it already had. The eastern edge's notes
+and the report's looks read the section afterwards, so the section after
+carries in the lake as it ships. The report counts the tiles taken into a lake
+on the rivers line.
+
 ## What it costs
 
 Measured 2026-09-21 with `dev/gen/profile` run from a command block every tick
@@ -1200,8 +1240,9 @@ half ticks as a burst and nothing at all spread across three or four.
 The finished section is at **y=15**. Above it, **y=16** holds orange glass over
 every tile the route cut through rock, yellow over every tile cut to open a
 pinch, light blue over every stray tile the sweep after the rivers handed to
-another region, magenta over every tile repainted for the supply, and the
-station's rails, buffer stop and bricks, and
+another region, magenta over every tile repainted for the supply, blue over
+every river tile taken into a lake, and the station's rails, buffer stop and
+bricks, and
 **y=17** holds the cheapest route across in red glass,
 the second way across in magenta, and pink where the two share a tile, inside a
 grey ring. Where no second way was found, **y=19** keeps the band it was
