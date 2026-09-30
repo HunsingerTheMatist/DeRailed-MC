@@ -13,6 +13,9 @@ scoreboard players set #prof_base dr_var 0
 scoreboard players set #survey_from dr_var 1
 scoreboard players set #survey_count dr_var 30
 
+# The seed 'dev/gen/queue_test' builds from
+scoreboard players set #q_seed dr_var 13
+
 # The wave delays are 5 and 7, so eight tags cycle without a delay ever landing
 #  back on the wave being woken
 scoreboard players set $Eight dr_const 8

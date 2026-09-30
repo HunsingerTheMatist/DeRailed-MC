@@ -33,14 +33,14 @@ question about a section answerable for as long as the section takes:
 |---|---|---|---|
 | 21 and up | the ways each stretch's detour search reached its tiles, one layer a stretch, while the second way is laid | `_sec_keep` | `_sec_load` |
 | 20 | the bridges the supply check has charged | `_supply_step` | `_supply_step` |
-| 19 | the tiles the second route's detour search has reached, in a flood's glass for the way each was reached from, while it runs; where no second way was found, the band it was looked for in | `_sec_new`, `_second_search` | `_sec_visit`, `_sec_det_walk`, looked at |
-| 18 | the first route and the band and zone round it, while the second is found; the routes kept aside while a later flood has y17; and a ring of tinted glass round the section every attempt | `second`, `supply`, `_cheapest`, `_order`, `_build_attempt` | `_sec_visit`, `_pinch_cut`, the floods' route checks |
+| 19 | the tiles the second route's detour search has reached, in a flood's glass for the way each was reached from, while it runs; where no second way was found, the band it was looked for in | `_sec_new`, `_second_search_b` | `_sec_visit`, `_sec_det_walk`, looked at |
+| 18 | the first route and the band and zone round it, while the second is found; the routes kept aside while a later flood has y17; and a ring of tinted glass round the section every attempt | `second`, `supply`, `_cheapest`, `_order`, `_step_paint` | `_sec_visit`, `_pinch_cut`, the floods' route checks |
 | 17 | the flood's working layer, then both routes | `validate`, `second` | `_cost_spread`, `_trace` |
 | 16 | glass over what was cut, opened, repainted or handed on, the station's rails and the pieces | many | looked at |
 | 15 | the section as it is meant to be seen | the attempt loop | `_edge_kind`, `validate` |
 | 14 | how far water is, while the water check runs; the water under each route while it is counted | `_water_area`, `_supply_wet` | `_water_check`, `_supply_wet` |
 | 13 | the region a cut tile took, cleared every attempt | `_carve_from`, `_cut_own` | `_read_owner` |
-| 12 | a copy of the regions as they grew, for laying the section again | `_lay_regions` | `_wall_relay` |
+| 12 | a copy of the regions as they grew, for laying the section again | `_step_grow` | `_wall_relay` |
 | 9 | y5 with the rivers cut into it | the river stamp | the second river, to find the first; `strays`, for where the river runs |
 | 5 | **what the river reads, then the kinds** | `build`, `strays`, then `paint` | `_river_look_*`, `strays`, lifted to y15 |
 | 0 | **the regions as they grew** | growth, then `strays` | `_river_lake`, `_read_id` |
@@ -69,7 +69,59 @@ y9 where they can be looked at without standing in the finished section.
 ## The pipeline
 
 `build` runs these in order, positioned at the section's corner. `next_section`
-works out where that corner is and hands the previous section's exit row on.
+works out where that corner is, and the section's last step hands its exit row
+on to the next.
+
+The work is split into **steps**, each a function that leaves in `#q_step`
+the step to run after it, 0 once the section is done, and returns 1 where it
+did real work and 0 where it found nothing to do (`_q_do` runs the step
+`#q_step` names):
+
+| step | function | what it does |
+|---|---|---|
+| 1 | `_step_start` | the tier's bounds, the route and the station |
+| 2 | `_step_grow` | the pieces, the seeds and the regions they grow |
+| 3 | `_step_wall` | hard's wall, and the kinds layer started from the regions |
+| 4 | `_step_rivers` | the first river (`_rivers_a`), then the second (52) where one is still to be looked at |
+| 52 | `_step_rivers_b` | the second river (`_rivers_b`) |
+| 5 | `_step_strays` | the stray sweep, then on to the attempts (`_step_laid`), or back to them where the section was laid again for the wall (`_step_relaid`) |
+| 10 | `_step_paint` | an attempt's kinds and paint |
+| 41 | `_step_validate` | the first route found and its pinching measured (`_validate_a`) |
+| 53 | `_step_validate_carve` | the first route measured again over what it cut (`_validate_carve`), then opened up (40) |
+| 42 | `_step_validate_b` | the first route judged (`_validate_b`) |
+| 11 | `_step_order_pre` | the order checked early, on the first route alone |
+| 12 | `_step_second` | whether the second route is looked for, then 43 to 46 and 47 |
+| 43 | `_step_sec_a` | the band and zone drawn for its search (`_second_a`) |
+| 44 | `_step_sec_search` | the search (`_second_search_a`) |
+| 51 | `_step_sec_refind` | the search again over what it cut, where it cut rock (`_second_refind`), then opened up (40) |
+| 45 | `_step_sec_search_b` | a second way not found counted (`_second_search_b`) |
+| 46 | `_step_sec_b` | the second route drawn (`_second_b`), then back to `#q_sec_ret` |
+| 47 | `_step_sec_after` | the retry (48) where no second way was found |
+| 48 | `_step_retry` | the first route's ends opened and it found again (`_second_retry_a`), then opened up (40) |
+| 50 | `_step_retry_b` | the first route judged again (`_second_retry_b`), then the second route once more |
+| 49 | `_step_sec_end` | a section with no second way counted as a reroll |
+| 40 | `_step_relief` | one round of opening a route up (`_pinch_round`), on the first route or the second as `#q_relief_mode` says, then back to `#q_relief_ret` |
+| 13 | `_step_cheapest` | the cheapest way across and the band |
+| 14 | `_step_supply` | the supply, run as steps 30 to 32 and back |
+| 15 | `_step_order` | the order, then its fix (33 to 34) while it fails, and the reroll it counts (35) |
+| 30 | `_step_sup_a` | the supply's flood and counts, and the repair's search set going (`_supply_a`) |
+| 31 | `_step_sup_rep` | a step of the repair's search begun, the changes toward wood tried (`_rep_step_wood`) |
+| 36 | `_step_sup_rep_iron` | the step ended, the changes toward iron tried and the best made (`_rep_step_iron`), then another step while the search goes on |
+| 32 | `_step_sup_c` | the windows, the totals and the columns kept, then back to the step `#q_sup_ret` names (`_supply_c`) |
+| 33 | `_step_order_fix` | one region made wood for the order (`_order_fix`), then the supply again |
+| 34 | `_step_order_again` | the order checked again after a fix |
+| 35 | `_step_order_end` | an order still failing counted as a reroll |
+| 16 | `_step_judge` | the windows and the water, then on to finish, another attempt, the wall laid again (17, `_wall_relay`, then the rivers and strays steps again) or a fresh start (18, `_fresh`) |
+| 20 | `_step_finish` | the totals, the report's looks, and the section closed (`_step_close`) |
+
+`build` runs them all in one go, which is what `test`, `profile`, `survey` and
+`time_sections` time. The **section queue** runs them a tick apart:
+`queue_tick`, in the datapack's tick tag, runs one step a tick while `#q_on` is
+1, and runs on straight away past any step that found nothing to do, so no tick
+does more than one step's real work. When a section is done it starts the next
+of the `#q_left` asked for, at the next corner along, and stops once none are
+left. `queue_test` asks it for what `test` builds, and sets `#gen_fresh_max`
+out of reach while it runs, so that no section is ever given up on.
 
 ### The station, before anything
 
@@ -714,7 +766,7 @@ When those run out the section is **laid afresh** (`_fresh`), up to
 is: its seeds, what stood over them, what waited on their growth and the notes
 they left at the eastern edge are thrown away, the layer the regions grow on
 and the marker layer are cleared, the station is laid again where it was, and
-`_lay_regions`, the same steps `build` takes, lays new pieces, new seeds, the
+the laying steps `build` starts with lay new pieces, new seeds, the
 regions they grow, hard's wall, the rivers and the stray sweep, before a new
 round of attempts. The entry row, the exit row and the station's notes for the
 section after stay as they were. The section before's notes are read again by
@@ -793,7 +845,7 @@ second, all pink, which is what the rule comes to there.
 It runs inside the attempt loop, on every attempt the track got across that
 `validate` passed, and on the very last attempt a section has, which ships
 whatever it holds; an attempt already thrown away has no use for one. Where
-it finds no second way, `_second_retry` finds the first route again, opens
+it finds no second way, the retry (`_second_retry_a`) finds the first route again, opens
 the pinched cells of it within two tiles of either end, from that end and no
 further, whatever the score, since what the second route needs is a way off
 the shared tile rather than a lower score, judges
@@ -943,7 +995,7 @@ each (`#gen_spread_span`, `#gen_spread_min`); the section before counts for its
 part through the 29 columns it stored when it finished. And the **totals**
 within reach must cover what the routes need.
 
-They are put right by one **search**, `_repair`. The section is given a score,
+They are put right by one **search**, a step at a time (`_rep_step`). The section is given a score,
 the tiles every window falls short of each resource, plus the tail's, plus the
 totals' weighed `#rep_total_weight` times, 8, since a gap is short in every
 window it falls in but in the totals only once. The totals are counted the
@@ -1085,6 +1137,11 @@ half ticks as a burst and nothing at all spread across three or four.
   `#survey_from` on, 30 from 1, one a tick, and says for each its attempts,
   fresh starts, detour searches and the sections it gave up on, which is how
   the seeds costliest to build are found for `prof.seeds`
+- `dev/gen/time_sections` builds the survey's maps one section a tick, from a
+  command block with the profiler going, so that the profile's
+  `server/metrics/ticking.csv` gives each section's own time, and says each
+  section's seed, tier, attempts and fresh starts in chat;
+  `dev/gen/time_sections_reset` starts it over from the first seed
 - `dev/gen/run_grow` is the benchmark: four repetitions of 21 sections, profiled
   with F3+L, cleaning up on the tick after
 - `dev/gen/clear` empties the whole stack. `init` and each benchmark pass call it,
@@ -1165,10 +1222,12 @@ at all**, and its seam fails silently. Play builds into fresh ground and
 - **Grass's pieces only.** The station, the cows and the bandits are the only
   prefabs so far
 - **Placeholder blocks**, not DeRailed's own
-- **No queue.** A whole section, every attempt included, is built within one
-  tick, which would freeze the game in play and runs past a world's default
-  command limit. It has to be spread over ticks before the generator is used
-  in a real game; the plan is under open questions in `terrain_decisions.md`
+- **The queue runs one step a tick** and has not been timed yet: a step that
+  takes more than about 25ms will want splitting, and a budget that packs
+  several cheap steps into a tick is still to come. It builds in place in the
+  test area, where the working layers show; in play a section would be built
+  out of sight and brought in when done. Nothing yet stops a section whose
+  checks the section before has made impossible from being tried for ever
 - **Seeds sit at tile corners**, since the scatter rolls whole tiles. Sub-tile
   seed positions would take blob accuracy from about 92% to about 98% against
   true Voronoi

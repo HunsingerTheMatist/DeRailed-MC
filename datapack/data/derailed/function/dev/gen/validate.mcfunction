@@ -5,55 +5,7 @@
 # Leaves '#gen_valid' at 1 when the section is usable
 # Positioned at the section's corner
 
-# The tile the track leaves on is kept off rock wherever any row of the east
-#  edge is clear of it: a route made to cut into rock at the very edge, and the
-#  section after made to cut its way out, is a crossing nobody chose
-scoreboard players set #edge_col dr_var 31
-scoreboard players operation #edge_ref dr_var = #gen_entry dr_var
-scoreboard players operation #edge_row dr_var = #gen_exit dr_var
-function derailed:dev/gen/_edge_clear
-scoreboard players operation #gen_exit dr_var = #edge_row dr_var
-execute store result storage derailed:gen r.exit int 1 run scoreboard players get #gen_exit dr_var
-
-# The first section's way in is its own to choose, and is kept off rock the
-#  same way
-execute if score #gen_section dr_var matches 0 run function derailed:dev/gen/_entry_clear
-
-# The glass that marks where the last attempt cut and repainted goes, so that
-#  only this attempt's are shown; the glass over what the stray sweep handed on
-#  stays, since that was done once for the section
-fill ~ ~1 ~ ~31 ~1 ~15 air replace orange_stained_glass strict
-fill ~ ~1 ~ ~31 ~1 ~15 air replace yellow_stained_glass strict
-fill ~ ~1 ~ ~31 ~1 ~15 air replace magenta_stained_glass strict
-
-scoreboard players set #gen_carved dr_var 0
-function derailed:dev/gen/_validate_pass
-
-# A route that had to cut through rock is measured again over what it cut,
-#  since that is the route the players will have; the cut is rock free, so the
-#  second pass cuts nothing
-execute if score #gen_carved dr_var matches 1.. run scoreboard players add #gen_cuts dr_var 1
-execute if score #gen_carved dr_var matches 1.. run function derailed:dev/gen/_validate_pass
-
-# A route that pinches the train more than the tier allows is opened up rather
-#  than thrown away, the rock beside its worst run cut back until it passes
-scoreboard players set #gen_opened dr_var 0
-scoreboard players set #pinch_rounds dr_var 4
-execute if score #gen_pinch dr_var > #gen_pinch_max dr_var run scoreboard players add #gen_relieved dr_var 1
+function derailed:dev/gen/_validate_a
+function derailed:dev/gen/_validate_carve
 function derailed:dev/gen/_pinch_relieve
-
-function derailed:dev/gen/_validate_judge
-
-execute if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_rate_tally
-
-# Counted for the report, as seeds rather than tiles, since a seed is a whole
-#  patch
-execute store result score #gen_wood dr_var if entity @e[type=marker,tag=dr_seed,scores={dr_kind=1},distance=0..]
-execute store result score #gen_iron dr_var if entity @e[type=marker,tag=dr_seed,scores={dr_kind=2},distance=0..]
-
-execute if score #gen_reached dr_var matches 0 run scoreboard players add #gen_fail_path dr_var 1
-# An attempt both too cheap and too open counts once, as too cheap
-scoreboard players set #v_cheap dr_var 0
-execute if score #gen_reached dr_var matches 1 if score #gen_rate_free dr_var matches 0 if score #gen_rate dr_var < #gen_rate_min dr_var run scoreboard players set #v_cheap dr_var 1
-execute if score #v_cheap dr_var matches 1 run scoreboard players add #gen_fail_cheap dr_var 1
-execute if score #v_cheap dr_var matches 0 if score #gen_reached dr_var matches 1 if score #gen_pinch dr_var < #gen_pinch_min dr_var run scoreboard players add #gen_fail_flat dr_var 1
+function derailed:dev/gen/_validate_b

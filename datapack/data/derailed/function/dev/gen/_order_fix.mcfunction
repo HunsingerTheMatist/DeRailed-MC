@@ -1,7 +1,6 @@
 
-# Makes one region the players reach before their wood ran out wood, then checks
-#  the supply and the order again, and goes round while the order still fails
-#  and '#ofix_left' tries are left
+# Makes one region the players reach before their wood ran out wood, and returns
+#  1 where it made one, for the supply and the order to be checked again
 # The region is ground, iron or water, never rock, a wall or a lake, and only
 #  iron where the first route runs through it, which the route pays the same
 #  for; of those, one reached at the lowest level, taken at random, ground
@@ -54,7 +53,4 @@ tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_oa
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_ob
 execute if score #ogo dr_var matches 0 run return 0
 scoreboard players add #ofixed dr_var 1
-
-function derailed:dev/gen/supply
-function derailed:dev/gen/_order
-execute if score #order_ok dr_var matches 0 if score #ofix_left dr_var matches 1.. run function derailed:dev/gen/_order_fix
+return 1

@@ -8,27 +8,4 @@
 #  measured afresh
 # Positioned at the section's corner
 
-execute if score #gen_pinch dr_var <= #gen_pinch_max dr_var run return 0
-execute if score #pinch_rounds dr_var matches ..0 run return fail
-scoreboard players remove #pinch_rounds dr_var 1
-
-# An end run whose rock cannot be cut, where it stands against the station or
-#  the section before, is passed over for the longest run
-scoreboard players set #pinch_edges dr_var 0
-scoreboard players operation #pinch_was dr_var = #gen_opened dr_var
-scoreboard players operation #pinch_top_was dr_var = #pinch_top dr_var
-scoreboard players operation #pinch_top_id_was dr_var = #pinch_top_id dr_var
-execute if score #cost_mode dr_var matches 0 run function derailed:dev/gen/_pinch_ends with storage derailed:gen r
-execute if score #pinch_edges dr_var matches 1.. run function derailed:dev/gen/_pinch_open_edge
-execute if score #pinch_edges dr_var matches 1.. if score #gen_opened dr_var = #pinch_was dr_var run scoreboard players set #pinch_edges dr_var 0
-scoreboard players operation #pinch_top dr_var = #pinch_top_was dr_var
-scoreboard players operation #pinch_top_id dr_var = #pinch_top_id_was dr_var
-execute if score #pinch_edges dr_var matches 0 run function derailed:dev/gen/_pinch_open
-
-# A round that opened nothing would find the same route and the same pinching
-#  again, so the section is left as it is
-execute if score #gen_opened dr_var = #pinch_was dr_var run return fail
-
-execute if score #cost_mode dr_var matches 0 run function derailed:dev/gen/_validate_pass
-execute if score #cost_mode dr_var matches 1 run function derailed:dev/gen/_second_find
-function derailed:dev/gen/_pinch_relieve
+execute if function derailed:dev/gen/_pinch_round run function derailed:dev/gen/_pinch_relieve

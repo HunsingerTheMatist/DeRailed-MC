@@ -26,9 +26,5 @@ fill ~ ~16 ~ ~31 ~16 ~15 air strict
 execute if score #gen_station dr_var matches 1 run function derailed:dev/gen/_station_stamp with storage derailed:gen r
 
 scoreboard players set #gen_fresh dr_var 1
-function derailed:dev/gen/_lay_regions
-scoreboard players set #gen_fresh dr_var 0
-
-scoreboard players operation #gen_attempts dr_var = #gen_attempt_count dr_var
-scoreboard players set #gen_second_misses dr_var 0
-function derailed:dev/gen/_build_attempt
+scoreboard players set #q_step dr_var 2
+return 1

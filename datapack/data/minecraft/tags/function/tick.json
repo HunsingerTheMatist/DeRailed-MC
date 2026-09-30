@@ -1,6 +1,7 @@
 {
 	"replace": false,
 	"values": [
-		"derailed:tick"
+		"derailed:tick",
+		"derailed:dev/gen/queue_tick"
 	]
 }
