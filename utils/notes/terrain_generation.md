@@ -1207,14 +1207,19 @@ three by three blocks to a tile, from 1100 15 0 southeast, with its ground at
 y15. It reads the section's finished layer, clears y11 to y40 a block wider
 all round than its 96 by 48 blocks, and builds it in this order:
 
-1. every tile but iron and rock gets a marker where its large version's
-   northwestern block stands (`_new`), tagged with what goes there
+1. every tile but rock gets a marker where its large version's northwestern
+   block stands (`_new`), tagged with what goes there, and every tree and iron
+   tile a **mining marker** there as well (`_mine_new`), which stays once the
+   build is done: tagged `dr_mine` and `dr_mine_wood` or `dr_mine_iron`, and
+   `dr_station_near` on the ten tiles round the station's two-tile building,
+   along a side or at a corner
 2. the ground, one of five taken at random, the lakes and the rivers
 3. the station, from a block north and west of its building's northwestern
    tile, since it hangs a block over the tiles round it; its structure voids
    leave what is under the overhang as it is
 4. the trees, one of five oak and five spruce taken at random, over the
-   station's overhang
+   station's overhang, which is then put back wherever a tree tagged
+   `dr_station_near` left air (`station/merge`)
 5. the iron mounds and then the rock mounds (`mound/build`), over the overhang
    too
 6. the rock and iron at y17 along the station's northern and western edges
@@ -1243,6 +1248,20 @@ written into it, every random range is one draw from `derailed:terrain` taken
 down to the range, a column is laid a block at a time, and each tile stands on
 two blocks below the ground, polished andesite under iron and deepslate under
 rock. It clears nothing, so the ground it builds on has to be clear.
+
+The station's overhang only ever fills air: a block of the tile under it is
+always kept. `station/merge` does that for one tile, on a copy of the ground 64
+blocks south: it clears the tile's columns there, places the station there
+where it stands, from the nearest marker tagged `dr_station`, which the build
+leaves where the station was placed from, clones the tile's blocks over it,
+all but its air, and clones the tile's columns back. Nothing about which side
+of the station the tile is on comes into it, and it runs from where a mining
+marker stands. The build runs it on every tree tagged `dr_station_near`; a
+mound only ever lays blocks, so the overhang stays wherever a mound is lower
+than it and needs no merge. Mining a tile tagged `dr_station_near` wants the
+same after each stage. `dev/bench/load` keeps the copy loaded. Each build
+removes the mining markers and the `dr_station` marker left in its area by
+the build before.
 
 The pieces are built as plain ground for now.
 
