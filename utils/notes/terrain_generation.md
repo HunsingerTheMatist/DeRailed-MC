@@ -1200,6 +1200,52 @@ A section is 512 tile claims, about 30 waves, and a flood visiting a couple of
 hundred tiles. Three sections at the old size came to about 75ms, one and a
 half ticks as a burst and nothing at all spread across three or four.
 
+## The large version
+
+`dev/big/build` builds section `#big_section` of the test map at full size,
+three by three blocks to a tile, from 1100 15 0 southeast, with its ground at
+y15. It reads the section's finished layer, clears y11 to y40 a block wider
+all round than its 96 by 48 blocks, and builds it in this order:
+
+1. every tile but iron and rock gets a marker where its large version's
+   northwestern block stands (`_new`), tagged with what goes there
+2. the ground, one of five taken at random, the lakes and the rivers
+3. the station, from a block north and west of its building's northwestern
+   tile, since it hangs a block over the tiles round it; its structure voids
+   leave what is under the overhang as it is
+4. the trees, one of five oak and five spruce taken at random, over the
+   station's overhang
+5. the iron mounds and then the rock mounds (`mound/build`), over the overhang
+   too
+6. the rock and iron at y17 along the station's northern and western edges
+   stood upright (`_station_edge`)
+
+Every structure is saved two blocks below the ground it stands on and placed
+with `strict`, the lake and the rivers two lower again, since they reach two
+further down. The random picks, and the mounds' heights, come from their own
+sequence, `derailed:terrain`, started over from `#big_seed` plus the section's
+number, so a section always comes out the same.
+
+A river tile flows the way its glaze on y9 points, which is the way the walk
+laid it, and a junction flows the way the river it lies on does. A cut through
+rock that runs as river has no glaze, so each run of them is given a way
+(`_cuts`): from a river at one end into a lake at the other, and otherwise from
+its western end, the northern where both ends are as far west, which covers a
+lake or a river at both ends; nothing records which river was laid first. Each
+tile flows toward the next along the run, and the last into the water it opens
+onto.
+
+The mounds read a copy of the finished layer on y1, a tile wider all round so
+a mound carries on past the section's edge, with the station's building made
+ground on it, since the building is drawn as rock but the station stands
+there. `mound/build` is `dev/mound/build` without macros: iron and rock are
+written into it, every random range is one draw from `derailed:terrain` taken
+down to the range, a column is laid a block at a time, and each tile stands on
+two blocks below the ground, polished andesite under iron and deepslate under
+rock. It clears nothing, so the ground it builds on has to be clear.
+
+The pieces are built as plain ground for now.
+
 ## Looking at it
 
 - `dev/gen/test` builds three joined sections at x 1000, one on each tier -

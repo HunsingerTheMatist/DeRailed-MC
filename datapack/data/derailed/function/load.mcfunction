@@ -27,6 +27,13 @@ scoreboard objectives add dr_item dummy "DeRailed Item Type"
 scoreboard objectives add dr_dash_cd dummy "DeRailed Dash Cooldown"
 scoreboard objectives add dr_dash_burst dummy "DeRailed Dash Burst"
 
+# Mounds, held by the markers 'mound/build' lays on each tile and corner
+scoreboard objectives add dr_mi dummy "DeRailed Mound Of Kind"
+scoreboard objectives add dr_md dummy "DeRailed Mound Depth"
+scoreboard objectives add dr_mh dummy "DeRailed Mound Height"
+scoreboard objectives add dr_mx dummy "DeRailed Mound Column"
+scoreboard objectives add dr_mz dummy "DeRailed Mound Row"
+
 # Config defaults
 execute unless score $HandCap dr_config matches 1.. run scoreboard players set $HandCap dr_config 3
 execute unless score $BucketFillTicks dr_config matches 1.. run scoreboard players set $BucketFillTicks dr_config 20

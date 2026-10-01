@@ -28,6 +28,11 @@ scoreboard players set #riv_slice_max dr_var 150
 #  ticks before it pauses
 scoreboard players set #sec_slice_max dr_var 1
 
+# The section of the test map 'dev/big/build' builds the large version of, and
+#  the seed it builds it from, moved on by the section's number
+execute unless score #big_section dr_var matches 0.. run scoreboard players set #big_section dr_var 0
+execute unless score #big_seed dr_var matches -2147483648.. run scoreboard players set #big_seed dr_var 0
+
 # The wave delays are 5 and 7, so eight tags cycle without a delay ever landing
 #  back on the wave being woken
 scoreboard players set $Eight dr_const 8

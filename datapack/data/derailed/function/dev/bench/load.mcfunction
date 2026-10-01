@@ -8,6 +8,9 @@ function derailed:dev/idmap/load
 
 execute in derailed:game run forceload add 999 -1 1096 16
 
+# Where 'dev/big/build' builds a section's large version
+execute in derailed:game run forceload add 1099 -1 1196 48
+
 # The limit a chain runs under is fixed when the chain starts, so raising it
 #  inside 'dev/bench/run' does nothing for that run
 gamerule max_command_sequence_length 10000000
