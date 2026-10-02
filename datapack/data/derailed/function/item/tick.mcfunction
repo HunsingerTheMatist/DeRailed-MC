@@ -1,6 +1,6 @@
 # Item system - runs every tick, in derailed:game
 
-# A mined stage block drops a marker seed. This runs before the drop handler
+# A broken block of a tile drops a seed. This runs before the drop handler
 #  below, which would otherwise see a seed with no thrower and leave it lying
 #  in the world
 execute as @e[type=item,tag=!dr_processed] at @s \

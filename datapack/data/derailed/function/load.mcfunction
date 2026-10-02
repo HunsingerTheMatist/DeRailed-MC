@@ -27,6 +27,11 @@ scoreboard objectives add dr_item dummy "DeRailed Item Type"
 scoreboard objectives add dr_dash_cd dummy "DeRailed Dash Cooldown"
 scoreboard objectives add dr_dash_burst dummy "DeRailed Dash Burst"
 
+# Mining, held by the marker on each tree and iron tile: the stage the tile is
+#  in and which variant of its structures it is drawn with
+scoreboard objectives add dr_mine_stage dummy "DeRailed Mining Stage"
+scoreboard objectives add dr_mine_variant dummy "DeRailed Mining Variant"
+
 # Mounds, held by the markers 'mound/build' lays on each tile and corner
 scoreboard objectives add dr_mi dummy "DeRailed Mound Of Kind"
 scoreboard objectives add dr_md dummy "DeRailed Mound Depth"

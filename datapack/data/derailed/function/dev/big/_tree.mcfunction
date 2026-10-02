@@ -1,8 +1,10 @@
 
-# Places one of the ten trees, five oak and five spruce, taken at random
+# Places one of the ten trees, five oak and five spruce, taken at random, and
+#  gives the tile's mining marker the variant it took
 # Positioned at the tile's northwestern block, two below the ground
 
 execute store result score #big_r dr_temp run random value 1..10 derailed:terrain
+scoreboard players operation @n[type=marker,tag=dr_mine,distance=..0.5] dr_mine_variant = #big_r dr_temp
 execute if score #big_r dr_temp matches 1 run return run place template derailed:tree/oak_1 ~ ~ ~ none none 1 0 strict
 execute if score #big_r dr_temp matches 2 run return run place template derailed:tree/oak_2 ~ ~ ~ none none 1 0 strict
 execute if score #big_r dr_temp matches 3 run return run place template derailed:tree/oak_3 ~ ~ ~ none none 1 0 strict

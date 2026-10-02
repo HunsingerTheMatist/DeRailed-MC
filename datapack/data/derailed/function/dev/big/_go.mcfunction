@@ -19,8 +19,8 @@ fill 1099 35 -1 1196 40 48 air strict
 #  mound stands where the station does
 clone ~-1 ~ ~-1 ~32 ~ ~16 ~-1 ~-14 ~-1 strict
 
-# A marker on every tile but rock, where its large version's northwestern block
-#  stands, two below the ground
+# A marker on every tile, where its large version's northwestern block stands,
+#  two below the ground
 scoreboard players set #big_3 dr_temp 3
 scoreboard players set #big_z dr_temp 0
 function derailed:dev/big/_row
@@ -60,5 +60,10 @@ scoreboard players set #mound_kind dr_arg 1
 execute positioned ~ ~-14 ~ run function derailed:mound/build
 fill ~-1 ~-14 ~-1 ~32 ~-14 ~16 air strict
 execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s positioned ~-1 ~ ~-1 run function derailed:dev/big/_station_edge
+
+# Barriers at y17 and y18 over every iron and rock tile, wherever they are air,
+#  so nothing walks over a mound
+execute as @e[type=marker,tag=dr_big_iron,distance=0..] at @s run fill ~ ~4 ~ ~2 ~5 ~2 barrier replace air strict
+execute as @e[type=marker,tag=dr_big_rock,distance=0..] at @s run fill ~ ~4 ~ ~2 ~5 ~2 barrier replace air strict
 
 kill @e[type=marker,tag=dr_big,distance=0..]

@@ -1263,6 +1263,25 @@ same after each stage. `dev/bench/load` keeps the copy loaded. Each build
 removes the mining markers and the `dr_station` marker left in its area by
 the build before.
 
+Every iron and rock tile has barriers at y17 and y18 wherever those are air,
+laid last, so nothing walks over a mound.
+
+A tile is **mined** a stage a break. Its mining marker holds the stage it is in
+in `dr_mine_stage`, 1 as built, and the variant its later stages are drawn with
+in `dr_mine_variant`: a tree's is the one of its ten it was placed as, 1 to 5
+oak and 6 to 10 spruce, and an iron tile's is taken at random from 1 to 5,
+since its first stage is a mound and not a structure. Every block a tool can
+break drops a seed (`utils/generate_resource_blocks.py` writes the loot tables
+and the tools' block tags from `utils/resource_blocks.json`, and solves the
+tools' speeds so that every break takes 13 ticks), and the seed finds the
+marker under the three by three columns above it (`item/event/block_mined`).
+Breaking stage 1 or 2 places the variant's next stage on the ground over it
+(`mine/advance`); every stage structure is as tall as the stage before it
+reached, so it overwrites it whole, and an iron stage takes the barriers with
+it. Breaking stage 3 clears y15 to y20, yields the tile's wood or iron on the
+middle of it and retires the marker (`mine/_done`). A tile tagged
+`dr_station_near` has the station's overhang put back after each.
+
 The pieces are built as plain ground for now.
 
 ## Looking at it
@@ -1385,3 +1404,5 @@ at all**, and its seam fails silently. Play builds into fresh ground and
 - **Seeds sit at tile corners**, since the scatter rolls whole tiles. Sub-tile
   seed positions would take blob accuracy from about 92% to about 98% against
   true Voronoi
+- **Two breaks in one tick both count.** Two blocks of one tile broken in the
+  same tick drop two seeds, and each moves the tile on a stage
