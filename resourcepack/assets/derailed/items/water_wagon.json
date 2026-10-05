@@ -1,3 +1,9 @@
 {
-  "model": {"type": "minecraft:model", "model": "derailed:item/water_wagon"}
+  "model": {
+    "type": "minecraft:model",
+    "model": "derailed:item/water_wagon",
+    "tints": [
+      {"type": "minecraft:custom_model_data", "index": 0, "default": 2925805}
+    ]
+  }
 }

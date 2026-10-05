@@ -39,6 +39,7 @@ import sys
 import zipfile
 from pathlib import Path
 
+import _png
 import format_models
 import worldread
 
@@ -98,6 +99,15 @@ class Assets:
     def model(self, ref):
         namespace, _, path = ref.rpartition(":")
         return self.read("assets/%s/models/%s.json" % (namespace or "minecraft", path))
+
+    def average_colour(self, ref):
+        """A texture's colour averaged over its pixels, as red, green and blue"""
+        namespace, _, path = full_ref(ref).rpartition(":")
+        inside = "assets/%s/textures/%s.png" % (namespace, path)
+        local = RESOURCEPACK / inside
+        data = local.read_bytes() if local.is_file() else self.jar.read(inside)
+        _, _, pixels = _png.read(data)
+        return [sum(p[i] for p in pixels) / len(pixels) for i in range(3)]
 
 
 def full_ref(ref):
@@ -307,7 +317,7 @@ def load_structure(path):
     return reader.payload(tag)
 
 
-def bake(structure, assets, scale, warn, nudge=(0, 0, 0), middle=False, insets=None):
+def bake(structure, assets, scale, warn, nudge=(0, 0, 0), middle=False, insets=None, tints=None):
     palette = structure["palette"]
     size = structure["size"]
 
@@ -391,10 +401,15 @@ def bake(structure, assets, scale, warn, nudge=(0, 0, 0), middle=False, insets=N
                 if face["cullface"] and hides(pos, face["cullface"], state):
                     culled += 1
                     continue
-                name = texture_names.setdefault(face["texture"], "t%d" % len(texture_names))
+                # A tinted texture is drawn as its plain stand-in, taking the
+                #  item's first tint
+                texture = (tints or {}).get(face["texture"], face["texture"])
+                name = texture_names.setdefault(texture, "t%d" % len(texture_names))
                 out = {"uv": [round(c, 4) for c in face["uv"]], "texture": "#" + name}
                 if face["rotation"]:
                     out["rotation"] = face["rotation"]
+                if face["texture"] in (tints or {}):
+                    out["tintindex"] = 0
                 faces[direction] = out
             if not faces:
                 continue
@@ -483,13 +498,28 @@ def main():
                              "for a part that spins about its middle")
     parser.add_argument("--inset", action="append", default=[],
                         help="block=pixels: move that block toward the structure's middle across x")
+    parser.add_argument("--tint", default=None,
+                        help="texture=plain: draw that texture as the plain one, coloured by the item's "
+                             "custom_model_data colours[0], which defaults to the colour that makes it "
+                             "look as the texture does")
     parser.add_argument("--jar", type=Path, default=DEFAULT_JAR)
     args = parser.parse_args()
 
     warnings = []
+    assets = Assets(args.jar)
     structure = load_structure(args.structure)
     nudge = [float(n) for n in args.nudge.split(",")]
     insets = {full_ref(i.split("=")[0]): float(i.split("=")[1]) for i in args.inset}
+
+    # A tint multiplies the plain texture, so the colour that makes it look as
+    #  the texture it stands in for does is the one's colour over the other's
+    tints, tint_default = None, None
+    if args.tint:
+        texture, plain = (full_ref(t if "/" in t else "block/" + t) for t in args.tint.split("="))
+        tints = {texture: plain}
+        want, have = assets.average_colour(texture), assets.average_colour(plain)
+        rgb = [min(255, round(w / h * 255)) for w, h in zip(want, have)]
+        tint_default = rgb[0] * 65536 + rgb[1] * 256 + rgb[2]
 
     # Where each part cut out lies, from the middle of the display: ahead of it
     #  toward the model's front, which is the structure's +z, and up from its
@@ -504,18 +534,24 @@ def main():
             up = centre[1] * args.scale + nudge[1]
             axles.append((path.stem, ahead, up))
 
-    model, culled, display = bake(structure, Assets(args.jar), args.scale, warnings.append, nudge,
-                                  args.middle, insets)
+    model, culled, display = bake(structure, assets, args.scale, warnings.append, nudge,
+                                  args.middle, insets, tints)
 
     model_path = RESOURCEPACK / "assets" / "derailed" / "models" / "item" / (args.name + ".json")
     item_path = RESOURCEPACK / "assets" / "derailed" / "items" / (args.name + ".json")
     write_json(model_path, model)
-    write_json(item_path, {"model": {"type": "minecraft:model", "model": "derailed:item/" + args.name}})
+    item = {"type": "minecraft:model", "model": "derailed:item/" + args.name}
+    if tints:
+        item["tints"] = [{"type": "minecraft:custom_model_data", "index": 0, "default": tint_default}]
+    write_json(item_path, {"model": item})
 
     print("%d elements, %d textures, %d faces culled" % (
         len(model["elements"]), len(model["textures"]) - 1, culled))
     print("wrote %s" % model_path.relative_to(ROOT).as_posix())
     print("wrote %s" % item_path.relative_to(ROOT).as_posix())
+    if tints:
+        print("tinted, defaulting to %d, %d, %d (%d)" % (
+            tint_default >> 16, tint_default >> 8 & 255, tint_default & 255, tint_default))
     print()
     print("baked for a display scaled by %s:" % display)
     print('  summon item_display ~ ~ ~ {item:{id:"stick",components:{"minecraft:item_model":"derailed:%s"}},'

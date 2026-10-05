@@ -33,6 +33,10 @@ function derailed:dev/train/_tile {x:3,z:3,din:2,dout:3}
 function derailed:dev/train/_tile {x:0,z:3,din:3,dout:2}
 data modify storage derailed:train loop set from storage derailed:train path
 
+# The train sets off with its water full, '$WaterTicks' until it catches fire
+scoreboard players operation $WaterCap dr_var = $WaterTicks dr_config
+scoreboard players set $WaterUsed dr_var 0
+
 # Each piece's middle along the path, the engine in front, 4.5 between it and
 #  the wagon behind and 3 between wagons
 scoreboard players set #train_s dr_temp 9500

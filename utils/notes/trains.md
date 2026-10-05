@@ -65,6 +65,25 @@ ones turn at too. `utils/bake_structure_model.py` cuts the wheels out of the
 bodies with `--cut`, which prints where each axle lies, and bakes them centred
 with `--middle`.
 
+## The water wagon's tank
+
+The train's water is game state: `$WaterUsed`, the ticks of water it has used,
+and `$WaterCap`, how many it holds, both in `dr_var`; it sets off with
+none used and `$WaterCap` at `$WaterTicks`, 2400 by default, and uses one a
+tick while a train is out, catching fire once it has used all of it. Raising
+`$WaterCap` leaves the water already used as it is. Refilling is not built
+yet: it is to set `$WaterUsed` back to 0, and only once the train has used
+`$RefillWait`, 500 by default.
+
+Its tank is baked as white concrete taking the item's first tint
+(`--tint light_blue_concrete=white_concrete`), read from its
+`custom_model_data` `colors[0]`, so its colour is set by one data change. The
+tints are baked into `load` as a list of 101, one for each hundredth of water
+used, from the one that makes it look like light blue concrete, full, to the
+one that makes it look like red concrete, dry, mixed in linear light. The
+hundredths of its water used pick one, drawn whenever they change
+(`_water_shade`), so the tank starts to redden as soon as it is refilled.
+
 ## Keeping players out
 
 A player a shulker moves into is moved back out, just past the side of its box

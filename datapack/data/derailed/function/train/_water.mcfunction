@@ -1,7 +1,8 @@
 
 # Sets the water wagon on the line between its axles, midway, facing its back
 #  axle, since an item display turns its model about; its shulker and its
-#  interaction ride it; then turns its model that way
+#  interaction ride it; then turns its model that way, and shades its tank by
+#  the water left
 # Facing a square way, it goes by plain offsets, the same distance turned to
 #  that way
 # Run as the water wagon's item display
@@ -18,3 +19,5 @@ execute at @s rotated as @s positioned ^ ^0.45 ^-0.6 as @e[type=item_display,tag
 execute at @s rotated as @s positioned ^ ^0.45 ^0.6 as @e[type=item_display,tag=dr_wheel_2,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
 
 function derailed:train/_turn
+
+function derailed:train/_water_shade
