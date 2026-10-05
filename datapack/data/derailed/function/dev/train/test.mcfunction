@@ -1,8 +1,8 @@
 
-# Lays a test track and puts an engine, a supply wagon and a water wagon on it,
-#  going round it for as long as they are left: a loop of tiles six across and
-#  three down, an S bend at its western end, the train setting off east along
-#  the bottom row
+# Lays a test track and puts an engine, a water wagon, a supply wagon and a
+#  crafting wagon on it, going round it for as long as they are left: a loop of
+#  tiles six across and three down, an S bend at its western end, the train
+#  setting off east along the bottom row
 #   # V < < < <
 #   V < # # # ^
 #   > > > > > ^
@@ -39,15 +39,18 @@ scoreboard players set $WaterUsed dr_var 0
 
 # Each piece's middle along the path, the engine in front, 4.5 between it and
 #  the wagon behind and 3 between wagons
-scoreboard players set #train_s dr_temp 9500
+scoreboard players set #train_s dr_temp 12500
 function derailed:train/spawn_engine
+scoreboard players set #train_s dr_temp 8000
+function derailed:train/spawn_water
 scoreboard players set #train_s dr_temp 5000
 function derailed:train/spawn_supply
 scoreboard players set #train_s dr_temp 2000
-function derailed:train/spawn_water
+function derailed:train/spawn_crafting
 
 # The train's ends half a block inside the outer edges of its shulkers: 1.05
-#  ahead of the engine's front axle and 0.15 behind the water wagon's back axle
-scoreboard players set #train_front_s dr_temp 11750
+#  ahead of the engine's front axle and 0.15 behind the crafting wagon's back
+#  axle
+scoreboard players set #train_front_s dr_temp 14750
 scoreboard players set #train_back_s dr_temp 1250
 function derailed:train/spawn_reach

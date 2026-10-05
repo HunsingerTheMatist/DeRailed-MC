@@ -50,6 +50,7 @@ own facing is set back to 0 every tick (`_turn`).
 | engine | 2, each riding a display at ±1.5 | one on each of those, 2.51, and one riding the model | three big, one small pair |
 | supply wagon | 1, riding the model | four at the corners, 1.255 by 2.51 | two big |
 | water wagon | 1, riding the model | one riding the model, 2.51 | two big |
+| crafting wagon | 1, riding the model | one riding the model, 2.51 | two big |
 
 A shulker moves only by riding something, since one standing alone is moved to
 the middle of a block every time it moves. Every part of a piece shares its id,
