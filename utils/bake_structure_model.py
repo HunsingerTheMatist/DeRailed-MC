@@ -18,8 +18,16 @@ model is centred on x and z, with the structure's floor at y 8, the middle of
 the item, so the display stands it on the display's own position whatever it
 is scaled by.
 
+Parts that move on their own, such as wheels, are baked as models of their own
+with --middle, which centres them on the display so they turn about their
+middle, and cut out of the model they belong to with --cut, which also prints
+where each one lies so its display can be put there.
+
 Usage:
   py -3 bake_structure_model.py datapack/data/derailed/structure/train.nbt --scale 0.3 --name train
+      --nudge 0,0,-0.3 --cut datapack/data/derailed/structure/train_big_wheels.nbt
+  py -3 bake_structure_model.py datapack/data/derailed/structure/train_big_wheels.nbt --scale 0.3
+      --name train_big_wheels --middle --inset mangrove_button=5
 
 writes resourcepack/assets/derailed/models/item/<name>.json and the item
 definition resourcepack/assets/derailed/items/<name>.json
@@ -299,7 +307,7 @@ def load_structure(path):
     return reader.payload(tag)
 
 
-def bake(structure, assets, scale, warn):
+def bake(structure, assets, scale, warn, nudge=(0, 0, 0), middle=False, insets=None):
     palette = structure["palette"]
     size = structure["size"]
 
@@ -350,22 +358,33 @@ def bake(structure, assets, scale, warn):
             return False
         return other["full"] or (own["glass"] and other["id"] == own["id"])
 
-    # Centred on x and z and standing on y 8, the structure has 24 units each
-    #  way from the middle and 24 up to fit in
+    # Centred on x and z, and standing on y 8 or centred on it, the structure has
+    #  24 units each way from the middle to fit in, and 24 up from it standing
     def fits(display):
         k = scale * 16 / display
-        return size[0] * k / 2 <= 24 and size[2] * k / 2 <= 24 and size[1] * k <= 24
+        tall = size[1] * k / 2 if middle else size[1] * k
+        return size[0] * k / 2 <= 24 and size[2] * k / 2 <= 24 and tall <= 24
     display = next((d for d in DISPLAY_SCALES if fits(d)), DISPLAY_SCALES[-1])
     k = scale / display
-    offset = (8 - size[0] * 16 * k / 2, 8, 8 - size[2] * 16 * k / 2)
 
-    def place(pos, p):
-        return [round((pos[i] * 16 + p[i]) * k + offset[i], 4) for i in range(3)]
+    # The nudge is in blocks as the display shows it facing 0, which draws the
+    #  model turned half round, so it goes into the model with x and z reversed
+    nudge = [n * 16 / display for n in (-nudge[0], nudge[1], -nudge[2])]
+    floor = 8 - size[1] * 16 * k / 2 if middle else 8
+    offset = (8 - size[0] * 16 * k / 2 + nudge[0], floor + nudge[1], 8 - size[2] * 16 * k / 2 + nudge[2])
+
+    def place(pos, p, inset=0):
+        return [round((pos[i] * 16 + p[i] + (inset if i == 0 else 0)) * k + offset[i], 4) for i in range(3)]
 
     texture_names = {}
     elements = []
     culled = 0
     for pos, state in sorted(grid.items()):
+        # A block set in is moved toward the structure's middle across x, by
+        #  the pixels asked for
+        inset = (insets or {}).get(state["id"], 0)
+        if pos[0] + 0.5 > size[0] / 2:
+            inset = -inset
         for part in state["parts"]:
             faces = {}
             for direction, face in part["faces"].items():
@@ -379,10 +398,10 @@ def bake(structure, assets, scale, warn):
                 faces[direction] = out
             if not faces:
                 continue
-            element = {"from": place(pos, part["from"]), "to": place(pos, part["to"])}
+            element = {"from": place(pos, part["from"], inset), "to": place(pos, part["to"], inset)}
             if "rotation" in part:
                 spin = part["rotation"]
-                element["rotation"] = {"origin": place(pos, spin["origin"]), "axis": spin["axis"],
+                element["rotation"] = {"origin": place(pos, spin["origin"], inset), "axis": spin["axis"],
                                        "angle": spin["angle"]}
                 if spin["rescale"]:
                     element["rotation"]["rescale"] = True
@@ -416,6 +435,36 @@ def write_json(path, data):
     path.write_bytes(text.replace("\r\n", "\n").replace("\n", "\r\n").encode("utf-8"))
 
 
+def block_ids(structure):
+    """Each block of a structure that is not air, by its position, as its id"""
+    ids = {}
+    for block in structure["blocks"]:
+        entry = structure["palette"][block["state"]]
+        block_id = full_ref(entry.get("Name") or entry["id"])
+        if block_id not in ("minecraft:air", "minecraft:structure_void", "minecraft:cave_air"):
+            ids[tuple(block["pos"])] = block_id
+    return ids
+
+
+def cut(structure, part):
+    """Takes every copy of a part out of a structure, matched by block id alone,
+    since stairs and walls beside other blocks take other shapes, and returns
+    where each copy's corner was"""
+    body = block_ids(structure)
+    shape = block_ids(part)
+    size, part_size = structure["size"], part["size"]
+    found = []
+    for ox in range(size[0] - part_size[0] + 1):
+        for oy in range(size[1] - part_size[1] + 1):
+            for oz in range(size[2] - part_size[2] + 1):
+                if all(body.get((x + ox, y + oy, z + oz)) == block_id
+                       for (x, y, z), block_id in shape.items()):
+                    found.append((ox, oy, oz))
+    gone = {(x + ox, y + oy, z + oz) for ox, oy, oz in found for (x, y, z) in shape}
+    structure["blocks"] = [b for b in structure["blocks"] if tuple(b["pos"]) not in gone]
+    return found
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -423,12 +472,40 @@ def main():
     parser.add_argument("--scale", type=float, required=True,
                         help="how big one of the structure's blocks is in the world")
     parser.add_argument("--name", required=True, help="the model's name under derailed:item/")
+    parser.add_argument("--nudge", default="0,0,0",
+                        help="x,y,z blocks to shift the model by, as the display shows it facing 0, "
+                             "the way a display's translation would before it turns")
+    parser.add_argument("--cut", type=Path, action="append", default=[],
+                        help="a structure every copy of which is left out of the model, such as "
+                             "wheels shown by a display of their own; where each axle lies is printed")
+    parser.add_argument("--middle", action="store_true",
+                        help="centre the model on the display rather than standing it on it, "
+                             "for a part that spins about its middle")
+    parser.add_argument("--inset", action="append", default=[],
+                        help="block=pixels: move that block toward the structure's middle across x")
     parser.add_argument("--jar", type=Path, default=DEFAULT_JAR)
     args = parser.parse_args()
 
     warnings = []
     structure = load_structure(args.structure)
-    model, culled, display = bake(structure, Assets(args.jar), args.scale, warnings.append)
+    nudge = [float(n) for n in args.nudge.split(",")]
+    insets = {full_ref(i.split("=")[0]): float(i.split("=")[1]) for i in args.inset}
+
+    # Where each part cut out lies, from the middle of the display: ahead of it
+    #  toward the model's front, which is the structure's +z, and up from its
+    #  floor, in blocks in the world
+    axles = []
+    size = structure["size"]
+    for path in args.cut:
+        part = load_structure(path)
+        for ox, oy, oz in cut(structure, part):
+            centre = [o + s / 2 for o, s in zip((ox, oy, oz), part["size"])]
+            ahead = (centre[2] - size[2] / 2) * args.scale - nudge[2]
+            up = centre[1] * args.scale + nudge[1]
+            axles.append((path.stem, ahead, up))
+
+    model, culled, display = bake(structure, Assets(args.jar), args.scale, warnings.append, nudge,
+                                  args.middle, insets)
 
     model_path = RESOURCEPACK / "assets" / "derailed" / "models" / "item" / (args.name + ".json")
     item_path = RESOURCEPACK / "assets" / "derailed" / "items" / (args.name + ".json")
@@ -444,6 +521,11 @@ def main():
     print('  summon item_display ~ ~ ~ {item:{id:"stick",components:{"minecraft:item_model":"derailed:%s"}},'
           'transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],'
           'scale:[%sf,%sf,%sf]}}' % (args.name, display, display, display))
+    if axles:
+        print()
+        print("cut out, from the display's middle:")
+        for name, ahead, up in sorted(axles, key=lambda a: -a[1]):
+            print("  %-20s %+.4f ahead, %.4f up" % (name, ahead, up))
     for warning in sorted(set(warnings)):
         print("warning: %s" % warning)
     return 0

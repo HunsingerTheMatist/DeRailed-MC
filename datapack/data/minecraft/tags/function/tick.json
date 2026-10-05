@@ -2,6 +2,7 @@
 	"replace": false,
 	"values": [
 		"derailed:tick",
-		"derailed:dev/gen/queue_tick"
+		"derailed:dev/gen/queue_tick",
+		"derailed:train/tick"
 	]
 }
