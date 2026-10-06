@@ -47,7 +47,7 @@ own facing is set back to 0 every tick (`_turn`).
 
 | piece | shulkers (2.5) | interactions | wheels |
 | --- | --- | --- | --- |
-| engine | 2, each riding a display at ±1.5 | one on each of those, 2.51, and one riding the model | three big, one small pair |
+| engine | 2, each riding a display at ±1.5 | one on each of those, 2.51, and one riding the model, 0.75 by 2.51 | three big, one small pair |
 | supply wagon | 1, riding the model | four at the corners, 1.255 by 2.51 | two big |
 | water wagon | 1, riding the model | one riding the model, 2.51 | two big |
 | crafting wagon | 1, riding the model | one riding the model, 2.51 | two big |
