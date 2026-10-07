@@ -1213,7 +1213,8 @@ all round than its 96 by 48 blocks, and builds it in this order:
    build is done: tagged `dr_mine` and `dr_mine_wood` or `dr_mine_iron`, and
    `dr_station_near` on the ten tiles round the station's two-tile building,
    along a side or at a corner
-2. the ground, one of five taken at random, the lakes and the rivers
+2. the ground, one of five taken at random, the lakes and the rivers, then
+   each bend eased into the straight river beside it (`_ease`)
 3. the station, from a block north and west of its building's northwestern
    tile, since it hangs a block over the tiles round it; its structure voids
    leave what is under the overhang as it is
@@ -1239,6 +1240,17 @@ its western end, the northern where both ends are as far west, which covers a
 lake or a river at both ends; nothing records which river was laid first. Each
 tile flows toward the next along the run, and the last into the water it opens
 onto.
+
+A river tile is fed by the river beside it flowing into it, and where that one
+flows another way the tile is a **bend** (`_feed`), `river/river_<fed><flows>`:
+`river_sw` is fed by a river flowing south and turns west. A junction fed by a
+river flowing its own way is straight, and so is a tile nothing flows into,
+such as one leaving a lake. A bend beside a straight river is eased into it by
+`river_<fed><flows>_<that river's way>`, laid on the water once every river is
+down, across the edge between them: one row or column of it on the straight
+river's tile, the next on the bend's, so it is placed a block into the straight
+river's tile from the bend's. A bend beside a bend, a lake or anything else is
+left as it is.
 
 The mounds read a copy of the finished layer on y1, a tile wider all round so
 a mound carries on past the section's edge, with the station's building made

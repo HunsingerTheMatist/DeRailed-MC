@@ -1,0 +1,12 @@
+{
+  "textures": {"flow": "derailed:block/fake_water_flow_semi_diagonal2", "particle": "derailed:block/fake_water"},
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 14.222, 16],
+      "faces": {
+        "up": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#flow"}
+      }
+    }
+  ]
+}

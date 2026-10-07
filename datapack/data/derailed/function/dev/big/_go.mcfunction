@@ -26,6 +26,13 @@ scoreboard players set #big_z dr_temp 0
 function derailed:dev/big/_row
 function derailed:dev/big/_cuts
 
+# Every river tile fed from a way other than the one it flows is a bend
+execute as @e[type=marker,tag=dr_big_river,distance=0..] at @s run function derailed:dev/big/_feed
+tag @e[type=marker,tag=dr_big_feed_n,distance=0..] add dr_big_bend
+tag @e[type=marker,tag=dr_big_feed_e,distance=0..] add dr_big_bend
+tag @e[type=marker,tag=dr_big_feed_s,distance=0..] add dr_big_bend
+tag @e[type=marker,tag=dr_big_feed_w,distance=0..] add dr_big_bend
+
 # A mining marker on every tree and iron tile, which stays when the build is
 #  done; with no station no tile is near it
 scoreboard players set #big_ax dr_temp -99
@@ -36,6 +43,10 @@ execute as @e[type=marker,tag=dr_big_tree,distance=0..] at @s run function derai
 execute as @e[type=marker,tag=dr_big_iron,distance=0..] at @s run function derailed:dev/big/_mine_new
 
 execute as @e[type=marker,tag=dr_big,tag=!dr_big_tree,distance=0..] at @s run function derailed:dev/big/_place
+
+# Each bend is eased into the straight river beside it once every river is
+#  down, since the piece doing it reaches into that river's tile
+execute as @e[type=marker,tag=dr_big_bend,distance=0..] at @s run function derailed:dev/big/_ease
 
 # The station hangs a block over the tiles to its north and west, and its
 #  structure voids leave what is under that as it is; a marker tagged
