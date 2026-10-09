@@ -11,3 +11,7 @@ execute as @e[type=item,tag=!dr_processed] at @s \
 # 'at @s' matters: the handler looks for the thrower by distance, and without
 #  it that distance is measured from wherever the tick runs, not the item
 execute as @e[type=item,tag=!dr_processed] at @s run function derailed:item/event/item_dropped with entity @s
+
+# Placing an item uses its spawn egg too, so what is left of 'dr_tool_used' is
+#  cleared for the next tick's broken blocks
+scoreboard players set @a[scores={dr_tool_used=1..}] dr_tool_used 0

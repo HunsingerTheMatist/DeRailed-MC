@@ -8,4 +8,11 @@
 #  destroyed
 
 execute align xyz positioned ~-2.5 ~-9.5 ~-2.5 as @n[type=marker,tag=dr_mine,dx=2,dy=9,dz=2] at @s run function derailed:mine/advance
+
+# The next stage's block stands where the broken one was, and a client takes
+#  the same place with the same item in hand as the block it was already
+#  breaking, so it never tells the server it started on it and the server plays
+#  none of its mining sounds; a change to the item in the hand of the player who
+#  broke it makes it a new block to them
+execute as @a[distance=..8,scores={dr_tool_used=1..}] run function derailed:item/event/_nudge_held
 kill @s

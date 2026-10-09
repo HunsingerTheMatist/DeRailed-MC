@@ -15,6 +15,10 @@ scoreboard objectives add dr_temp dummy "DeRailed Function-Local Scratch"
 # Item system
 scoreboard objectives add dr_count dummy "DeRailed Item Counts"
 
+# Every item is a panda spawn egg, and breaking a block with one that is a tool
+#  counts as using it, so this goes up for the player who broke a tile's block
+scoreboard objectives add dr_tool_used minecraft.used:minecraft.panda_spawn_egg "DeRailed Tool Used"
+
 # Owner id. Held by BOTH players and the markers/placements they create, so ownership
 #  is a direct score comparison with no macro and no proximity guess
 scoreboard objectives add dr_player_id dummy "DeRailed Owner Id"
