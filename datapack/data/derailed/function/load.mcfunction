@@ -116,6 +116,7 @@ gamerule random_tick_speed 0
 
 function derailed:dev/bench/load
 function derailed:dev/gen/load
+function derailed:dev/hud/load
 
 # Set the current version
 data modify storage derailed:data Version set value "0.1"
