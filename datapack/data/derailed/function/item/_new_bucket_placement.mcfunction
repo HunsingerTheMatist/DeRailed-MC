@@ -1,3 +1,3 @@
 
-summon interaction ~ ~ ~ {width:0.501, height:0.501, Tags:["dr_placement"]}
-setblock ~ ~ ~ zombie_head strict
+summon interaction ~ ~ ~ {width:1.002, height:1.002, Tags:["dr_placement"]}
+setblock ~ ~ ~ barrier strict

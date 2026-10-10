@@ -18,5 +18,8 @@ execute if score #item_display_here dr_temp matches 0 run function derailed:plac
 
 function derailed:placement/_update_placement_section
 
+# Each section of a pile is three layers up from the last: 27 pixels of wood,
+#  and 36 of iron or rails
 scoreboard players operation #items_to_place dr_arg -= $BatchHeight dr_const
-execute positioned ~ ~1.125 ~ run function derailed:placement/update_placement_step
+execute if score #curr_item dr_arg = $Wood dr_const positioned ~ ~1.6875 ~ run return run function derailed:placement/update_placement_step
+execute positioned ~ ~2.25 ~ run function derailed:placement/update_placement_step

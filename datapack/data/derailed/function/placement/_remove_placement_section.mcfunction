@@ -1,5 +1,5 @@
 
 kill @n[type=item_display,distance=..0.1,tag=dr_placement]
 setblock ~ ~ ~ air strict
-execute positioned ~ ~-0.25 ~ as @n[type=item_display,distance=..0.57,tag=dr_placement_shulker] run function derailed:placement/_remove_shulker
-execute positioned ~ ~1.125 ~ run function derailed:placement/update_placement_step
+execute if score #curr_item dr_arg = $Wood dr_const positioned ~ ~1.6875 ~ run return run function derailed:placement/update_placement_step
+execute positioned ~ ~2.25 ~ run function derailed:placement/update_placement_step

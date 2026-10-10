@@ -7,22 +7,22 @@
 execute if score #curr_item dr_arg = $Wood dr_const run \
     summon minecraft:item_display ~ ~ ~ {item: {id:"oak_log",    components: {item_model:"derailed:wood"}}, Tags:["dr_placement"]}
 execute if score #curr_item dr_arg = $Iron dr_const run \
-    summon minecraft:item_display ~ ~ ~ {item: {id:"iron_block", components: {item_model:"derailed:iron"}}, Tags:["dr_placement"]}
+    summon minecraft:item_display ~ ~ ~ {item: {id:"iron_block", components: {item_model:"derailed:iron"}}, transformation: {left_rotation:[0,0,0,1], right_rotation:[0,0,0,1], scale:[2,2,2], translation:[0,0.5,0]}, Tags:["dr_placement"]}
 execute if score #curr_item dr_arg = $Rail dr_const run \
-    summon minecraft:item_display ~ ~ ~ {item: {id:"rail",       components: {item_model:"derailed:rail"}}, Tags:["dr_placement"]}
+    summon minecraft:item_display ~ ~ ~ {item: {id:"rail",       components: {item_model:"derailed:rail"}}, transformation: {left_rotation:[0,0,0,1], right_rotation:[0,0,0,1], scale:[2,2,2], translation:[0,0.5,0]}, Tags:["dr_placement"]}
 #execute if score #curr_item dr_arg = $Bucket dr_const if score #bucket_is_filled dr_var matches 0 run \
-    summon minecraft:item_display ~ ~ ~ {item: {id:"bucket",     components: {item_model:"derailed:bucket"}}, transformation: {left_rotation:[0,0,0,1], right_rotation:[0,0,0,1], scale:[0.8,0.8,0.8], translation:[0,-0.1,0]}, Tags:["dr_placement"]}
+    summon minecraft:item_display ~ ~ ~ {item: {id:"bucket",     components: {item_model:"derailed:bucket"}}, transformation: {left_rotation:[0,0,0,1], right_rotation:[0,0,0,1], scale:[1.6,1.6,1.6], translation:[0,0.3,0]}, Tags:["dr_placement"]}
 #execute if score #curr_item dr_arg = $Bucket dr_const if score #bucket_is_filled dr_var matches 1 run \
-    summon minecraft:item_display ~ ~ ~ {item: {id:"bucket",     components: {item_model:"derailed:bucket", custom_model_data:{strings:["filled"]}}}, transformation: {left_rotation:[0,0,0,1], right_rotation:[0,0,0,1], scale:[0.8,0.8,0.8], translation:[0,-0.1,0]}, Tags:["dr_placement"]}
+    summon minecraft:item_display ~ ~ ~ {item: {id:"bucket",     components: {item_model:"derailed:bucket", custom_model_data:{strings:["filled"]}}}, transformation: {left_rotation:[0,0,0,1], right_rotation:[0,0,0,1], scale:[1.6,1.6,1.6], translation:[0,0.3,0]}, Tags:["dr_placement"]}
 
 execute if score #curr_item dr_arg = $Bucket dr_const run \
-    summon minecraft:item_display ~ ~ ~ {item: {id:"bucket",     components: {item_model:"derailed:bucket"}}, transformation: {left_rotation:[0,0,0,1], right_rotation:[0,0,0,1], scale:[0.8,0.8,0.8], translation:[0,-0.1,0]}, Glowing:true, Tags:["dr_placement"]}
+    summon minecraft:item_display ~ ~ ~ {item: {id:"bucket",     components: {item_model:"derailed:bucket"}}, transformation: {left_rotation:[0,0,0,1], right_rotation:[0,0,0,1], scale:[1.6,1.6,1.6], translation:[0,0.3,0]}, Glowing:true, Tags:["dr_placement"]}
 execute if score #curr_item dr_arg = $Bucket dr_const if score #bucket_is_filled dr_var matches 1 run item modify entity @n[type=item_display,distance=..0.1,tag=dr_placement] container.0 [{type:"set_components",components:{custom_model_data:{strings:["filled"]}}}]
 
 execute if score #curr_item dr_arg = $Axe dr_const run \
-    summon minecraft:item_display ~ ~ ~ {item: {id:"stone_axe"},     transformation: {left_rotation:[1,0,0,1], right_rotation:[0,0,0,1], scale:[0.8,0.8,0.8], translation:[0,-0.475,0]}, Glowing:true, Tags:["dr_placement"]}
+    summon minecraft:item_display ~ ~ ~ {item: {id:"stone_axe"},     transformation: {left_rotation:[1,0,0,1], right_rotation:[0,0,0,1], scale:[1,1,1], translation:[0,-0.46875,0]}, Glowing:true, Tags:["dr_placement"]}
 execute if score #curr_item dr_arg = $Pickaxe dr_const run \
-    summon minecraft:item_display ~ ~ ~ {item: {id:"stone_pickaxe"}, transformation: {left_rotation:[1,0,0,1], right_rotation:[0,0,0,1], scale:[0.8,0.8,0.8], translation:[0,-0.475,0]}, Glowing:true, Tags:["dr_placement"]}
+    summon minecraft:item_display ~ ~ ~ {item: {id:"stone_pickaxe"}, transformation: {left_rotation:[1,0,0,1], right_rotation:[0,0,0,1], scale:[1,1,1], translation:[0,-0.46875,0]}, Glowing:true, Tags:["dr_placement"]}
     
 execute store result score #rotation dr_temp run data get entity @s Rotation[0]
 execute store result entity @n[type=item_display,distance=..0.1,tag=dr_placement] Rotation[0] float 1 run scoreboard players get #rotation dr_temp
