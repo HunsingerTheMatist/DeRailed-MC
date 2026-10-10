@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "axis=y": [
+      {
+        "model": "derailed:block/stone/iron_ore_ow1_0"
+      },
+      {
+        "model": "minecraft:block/stone"
+      }
+    ],
+    "axis=x": [
+      {
+        "model": "derailed:block/stone/iron_ore_ow1_3_old"
+      },
+      {
+        "model": "derailed:block/stone/iron_ore_ow1_3_2"
+      }
+    ]
+  }
+}

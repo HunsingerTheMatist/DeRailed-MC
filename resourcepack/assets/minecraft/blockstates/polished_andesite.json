@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "minecraft:block/stone",
+        "weight": 2
+      },
+      {
+        "model": "minecraft:block/andesite"
+      }
+    ]
+  }
+}

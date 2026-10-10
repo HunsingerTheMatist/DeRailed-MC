@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "axis=y": [
+      {
+        "model": "derailed:block/stone/iron_ore_ow1_4"
+      }
+    ],
+    "axis=x": [
+      {
+        "model": "derailed:block/stone/iron_ore_ow1_5"
+      }
+    ],
+    "axis=z": [
+      {
+        "model": "derailed:block/stone/iron_ore_ow1_6"
+      }
+    ]
+  }
+}
