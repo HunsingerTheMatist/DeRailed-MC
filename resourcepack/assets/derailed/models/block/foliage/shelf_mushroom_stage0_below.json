@@ -1,0 +1,34 @@
+{
+  "textures": {
+    "particle": "minecraft:block/shelf_mushroom_particle",
+    "small": "minecraft:block/shelf_mushroom_stage0"
+  },
+  "elements": [
+    {
+      "name": "mushroom_top",
+      "from": [3, -7, 9],
+      "to": [13, -5, 16],
+      "faces": {
+        "north": {"uv": [5, 2  , 10  , 3], "rotation": 0, "texture": "#small"},
+        "east":  {"uv": [5, 0  ,  8.5, 1], "rotation": 0, "texture": "#small"},
+        "south": {"uv": [5, 3  , 10  , 4], "rotation": 0, "texture": "#small", "cullface": "south"},
+        "west":  {"uv": [5, 1  ,  8.5, 2], "rotation": 0, "texture": "#small"},
+        "up":    {"uv": [5, 3.5,  0  , 0], "rotation": 0, "texture": "#small"},
+        "down":  {"uv": [5, 3.5,  0  , 7], "rotation": 0, "texture": "#small"}
+      }
+    },
+    {
+      "name": "mushroom_bottom",
+      "from": [5, -8, 12],
+      "to": [11, -7, 16],
+      "faces": {
+        "north": {"uv": [5, 5  , 8,  5.5], "rotation": 0, "texture": "#small"},
+        "east":  {"uv": [5, 4  , 7,  4.5], "rotation": 0, "texture": "#small"},
+        "south": {"uv": [5, 5.5, 8,  6  ], "rotation": 0, "texture": "#small", "cullface": "south"},
+        "west":  {"uv": [5, 4.5, 7,  5  ], "rotation": 0, "texture": "#small"},
+        "up":    {"uv": [3, 9  , 0,  7  ], "rotation": 0, "texture": "#small"},
+        "down":  {"uv": [3, 9  , 0, 11  ], "rotation": 0, "texture": "#small"}
+      }
+    }
+  ]
+}

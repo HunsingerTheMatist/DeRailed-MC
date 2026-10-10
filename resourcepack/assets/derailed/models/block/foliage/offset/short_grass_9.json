@@ -1,0 +1,26 @@
+{
+  "ambientocclusion": false,
+  "textures": {"cross": "derailed:block/foliage/short_grass", "particle": "#cross"},
+  "elements": [
+    {
+      "from": [2.1333, 0.0, 6.6667],
+      "to": [16.5333, 16.0, 6.6667],
+      "rotation": {"origin": [9.3333, 8.0, 6.6667], "axis": "y", "angle": 45, "rescale": true},
+      "shade_direction_override": "up",
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#cross"},
+        "south": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#cross"}
+      }
+    },
+    {
+      "from": [9.3333, 0.0, -0.5333],
+      "to": [9.3333, 16.0, 13.8667],
+      "rotation": {"origin": [9.3333, 8.0, 6.6667], "axis": "y", "angle": 45, "rescale": true},
+      "shade_direction_override": "up",
+      "faces": {
+        "west": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#cross"},
+        "east": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#cross"}
+      }
+    }
+  ]
+}

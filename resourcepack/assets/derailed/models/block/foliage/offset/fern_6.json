@@ -1,0 +1,26 @@
+{
+  "ambientocclusion": false,
+  "textures": {"cross": "derailed:block/foliage/fern", "particle": "#cross"},
+  "elements": [
+    {
+      "from": [-0.5333, -2.7733, 9.3333],
+      "to": [13.8667, 13.2267, 9.3333],
+      "rotation": {"origin": [6.6667, 5.2267, 9.3333], "axis": "y", "angle": 45, "rescale": true},
+      "shade_direction_override": "up",
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#cross"},
+        "south": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#cross"}
+      }
+    },
+    {
+      "from": [6.6667, -2.7733, 2.1333],
+      "to": [6.6667, 13.2267, 16.5333],
+      "rotation": {"origin": [6.6667, 5.2267, 9.3333], "axis": "y", "angle": 45, "rescale": true},
+      "shade_direction_override": "up",
+      "faces": {
+        "west": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#cross"},
+        "east": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#cross"}
+      }
+    }
+  ]
+}
