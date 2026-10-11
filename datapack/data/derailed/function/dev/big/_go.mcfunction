@@ -72,9 +72,8 @@ execute positioned ~ ~-14 ~ run function derailed:mound/build
 fill ~-1 ~-14 ~-1 ~32 ~-14 ~16 air strict
 execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s positioned ~-1 ~ ~-1 run function derailed:dev/big/_station_edge
 
-# Barriers at y17 and y18 over every iron and rock tile, wherever they are air,
-#  so nothing walks over a mound
-execute as @e[type=marker,tag=dr_big_iron,distance=0..] at @s run fill ~ ~4 ~ ~2 ~5 ~2 barrier replace air strict
-execute as @e[type=marker,tag=dr_big_rock,distance=0..] at @s run fill ~ ~4 ~ ~2 ~5 ~2 barrier replace air strict
+# Barriers 5 above the surface, at y19, over the whole map wherever they are
+#  air, the height the tree and iron structures carry theirs at
+fill 1100 19 0 1195 19 47 barrier replace air strict
 
 kill @e[type=marker,tag=dr_big,distance=0..]

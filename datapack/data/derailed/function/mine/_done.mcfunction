@@ -1,10 +1,10 @@
 
-# Clears this tile down to the ground, puts the station's overhang back over it
-#  where it reaches, yields the tile's resource on the middle of it and
-#  retires the marker
+# Clears this tile down to the ground, up to the barriers over the map at y19,
+#  puts the station's overhang back over it where it reaches, yields the tile's
+#  resource on the middle of it and retires the marker
 # Run as the tile's mining marker, at it
 
-fill ~ ~2 ~ ~2 ~7 ~2 air strict
+fill ~ ~2 ~ ~2 ~5 ~2 air strict
 execute if entity @s[tag=dr_station_near] run function derailed:station/merge
 
 scoreboard players set #curr_item_count dr_arg 1

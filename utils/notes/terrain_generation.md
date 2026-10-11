@@ -1275,8 +1275,9 @@ same after each stage. `dev/bench/load` keeps the copy loaded. Each build
 removes the mining markers and the `dr_station` marker left in its area by
 the build before.
 
-Every iron and rock tile has barriers at y17 and y18 wherever those are air,
-laid last, so nothing walks over a mound.
+The whole map has barriers at y19, 5 above the surface, wherever that is air,
+laid last, so nothing gets above the trees and mounds; the tree and iron stage
+structures carry their own at the same height.
 
 A tile is **mined** a stage a break. Its mining marker holds the stage it is in
 in `dr_mine_stage`, 1 as built, and the variant its later stages are drawn with
@@ -1288,9 +1289,10 @@ and the tools' block tags from `utils/resource_blocks.json`, and solves the
 tools' speeds so that every break takes 13 ticks), and the seed finds the
 marker under the three by three columns above it (`item/event/block_mined`).
 Breaking stage 1 or 2 places the variant's next stage on the ground over it
-(`mine/advance`); every stage structure is as tall as the stage before it
-reached, so it overwrites it whole, and an iron stage takes the barriers with
-it. Breaking stage 3 clears y15 to y20, yields the tile's wood or iron on the
+(`mine/advance`); every stage structure overwrites whatever the stage before
+left up to its barrier, and an iron tile's third stage is only its bottom two
+layers, since the second is empty above those. Breaking stage 3 clears y15 to
+y18, leaving the barrier at y19, yields the tile's wood or iron on the
 middle of it and retires the marker (`mine/_done`). A tile tagged
 `dr_station_near` has the station's overhang put back after each.
 
