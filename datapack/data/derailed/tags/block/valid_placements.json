@@ -1,6 +1,7 @@
 {
     "values": [
         "air",
+        "barrier",
         "#derailed:pile_collision"
     ]
 }
