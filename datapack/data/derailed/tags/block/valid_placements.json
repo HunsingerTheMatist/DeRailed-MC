@@ -1,6 +1,6 @@
 {
     "values": [
         "air",
-        "zombie_head"
+        "#derailed:pile_collision"
     ]
 }
