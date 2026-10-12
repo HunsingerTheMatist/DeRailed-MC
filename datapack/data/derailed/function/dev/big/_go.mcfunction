@@ -72,8 +72,9 @@ execute positioned ~ ~-14 ~ run function derailed:mound/build
 fill ~-1 ~-14 ~-1 ~32 ~-14 ~16 air strict
 execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s positioned ~-1 ~ ~-1 run function derailed:dev/big/_station_edge
 
-# Barriers 5 above the surface, at y19, over the whole map wherever they are
-#  air, the height the tree and iron structures carry theirs at
-fill 1100 19 0 1195 19 47 barrier replace air strict
+# A ceiling of barriers over the whole map at y33, 4 above the highest a
+#  mountain reaches: rock stands at most 15 blocks over the ground at y15, so
+#  its top block is at y29
+fill 1100 33 0 1195 33 47 barrier replace air strict
 
 kill @e[type=marker,tag=dr_big,distance=0..]

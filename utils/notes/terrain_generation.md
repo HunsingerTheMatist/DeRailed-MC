@@ -1275,9 +1275,11 @@ same after each stage. `dev/bench/load` keeps the copy loaded. Each build
 removes the mining markers and the `dr_station` marker left in its area by
 the build before.
 
-The whole map has barriers at y19, 5 above the surface, wherever that is air,
-laid last, so nothing gets above the trees and mounds; the tree and iron stage
-structures carry their own at the same height.
+The whole map has a ceiling of barriers at y33, wherever that is air, laid
+last. Rock stands at most 240 pixels, 15 blocks, over the ground at y15, so the
+highest block a mountain can have is at y29 and a player standing on it has 3
+blocks under the ceiling. Nothing else carries barriers, so a player can climb
+onto trees, mounds and mountains as high as the ceiling lets them.
 
 A tile is **mined** a stage a break. Its mining marker holds the stage it is in
 in `dr_mine_stage`, 1 as built, and the variant its later stages are drawn with
@@ -1290,10 +1292,11 @@ tools' speeds so that every break takes 13 ticks), and the seed finds the
 marker under the three by three columns above it (`item/event/block_mined`).
 Breaking stage 1 or 2 places the variant's next stage on the ground over it
 (`mine/advance`); every stage structure overwrites whatever the stage before
-left up to its barrier, and an iron tile's third stage is only its bottom two
-layers, since the second is empty above those. Breaking stage 3 clears y15 to
-y18, leaving the barrier at y19, yields the tile's wood or iron on the
-middle of it and retires the marker (`mine/_done`). A tile tagged
+left up to y20, and an iron tile's third stage is only its bottom two
+layers, since the second is empty above those. The first stage trees leave
+structure void at y19 wherever they have no leaves or logs. Breaking stage 3
+clears y15 to y17, the highest a third stage reaches, yields the tile's wood
+or iron on the middle of it and retires the marker (`mine/_done`). A tile tagged
 `dr_station_near` has the station's overhang put back after each.
 
 The pieces are built as plain ground for now.
