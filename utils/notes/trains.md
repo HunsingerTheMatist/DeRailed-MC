@@ -47,14 +47,18 @@ own facing is set back to 0 every tick (`_turn`).
 
 | piece | shulkers (2.5) | interactions | wheels |
 | --- | --- | --- | --- |
-| engine | 2, each riding a display at ±1.5 | one on each of those, 2.51, and one riding the model, 0.75 by 2.51 | three big, one small pair |
-| supply wagon | 1, riding the model | four at the corners, 1.255 by 2.51 | two big |
-| water wagon | 1, riding the model | one riding the model, 2.51 | two big |
-| crafting wagon | 1, riding the model | one riding the model, 2.51 | two big |
+| engine | 2, each riding a display at ±1.5 | one on each of those, 2.51 by 2.81, and one riding the model, 0.75 by 2.81 | three big, one small pair |
+| supply wagon | 1, riding the model | four at the corners, 1.255 by 2.81 | two big |
+| water wagon | 1, riding the model | one riding the model, 2.51 by 2.81 | two big |
+| crafting wagon | 1, riding the model | one riding the model, 2.51 by 2.81 | two big |
 
 A shulker moves only by riding something, since one standing alone is moved to
-the middle of a block every time it moves. Every part of a piece shares its id,
-`dr_tid`.
+the middle of a block every time it moves. Each rides an interaction 0 wide
+and 0.3 tall on the display, since an interaction carries its passengers at its
+own height, so its box stands 0.3 to 2.8 above the display and a player
+carrying something cannot jump onto it from the ground (see
+[player_attributes.md](player_attributes.md)). The interactions are 0.3 taller
+than the box to match. Every part of a piece shares its id, `dr_tid`.
 
 ## Wheels
 
@@ -89,7 +93,8 @@ hundredths of its water used pick one, drawn whenever they change
 
 A player a shulker moves into is moved back out, just past the side of its box
 they are nearest, once more than 0.1 in, since the box they see and walk against
-stands where it stood a tick before (`_push`).
+stands where it stood a tick before (`_push`). The box is taken as 0.3 to 2.8
+above its display, where the shulker rides.
 
 Pink glass panes, drawn as nothing by the resource pack, stand in the two blocks
 over every straight rail the train covers all of, so nothing gets between its
