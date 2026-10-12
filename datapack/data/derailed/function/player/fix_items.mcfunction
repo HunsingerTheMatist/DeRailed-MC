@@ -28,12 +28,23 @@ execute if score @s dr_item = $Bucket dr_const run data modify storage derailed:
 #give @a acacia_boat[tool={default_mining_speed:0,rules:[{blocks:'#leaves',speed:0.48,correct_for_drops:true},{blocks:'#derailed:glass',speed:0.7,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]]
 #give @a acacia_boat[tool={default_mining_speed:0,rules:[{blocks:'#derailed:stone/mineable_glass',speed:0.3,correct_for_drops:true},{blocks:'iron_ore',speed:2.3,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]]
 data modify storage derailed:macro extra_components set value ""
+data modify storage derailed:macro tool_modifier set value ""
 execute if score @s dr_item = $Axe dr_const run \
-    data modify storage derailed:macro extra_components set value ",tool={default_mining_speed:0,rules:[{blocks:'#derailed:tree/mineable_log',speed:4.7,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]"
+    data modify storage derailed:macro extra_components set value ",tool={default_mining_speed:0,rules:[{blocks:'#derailed:tree/mineable_log',speed:4.7,correct_for_drops:true}]}"
 execute if score @s dr_item = $Pickaxe dr_const run \
-    data modify storage derailed:macro extra_components set value ",tool={default_mining_speed:0,rules:[{blocks:'#derailed:stone/mineable_basalt',speed:3,correct_for_drops:true},{blocks:'#derailed:stone/mineable_slab',speed:4.7,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]"
+    data modify storage derailed:macro extra_components set value ",tool={default_mining_speed:0,rules:[{blocks:'#derailed:stone/mineable_basalt',speed:3,correct_for_drops:true},{blocks:'#derailed:stone/mineable_slab',speed:4.7,correct_for_drops:true}]}"
+execute if score @s dr_item = $Axe dr_const run \
+    data modify storage derailed:macro tool_modifier set value ",{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}"
+execute if score @s dr_item = $Pickaxe dr_const run \
+    data modify storage derailed:macro tool_modifier set value ",{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}"
 execute if score @s dr_item = $Bucket dr_const if score #bucket_is_filled dr_var matches 1 run \
     data modify storage derailed:macro extra_components set value ",custom_model_data={strings:[filled]}"
+
+# The more a player carries, the lower they jump: from 0.39 empty handed to
+#  0.375 for one, 0.325 for two and 0.26 for three or more
+data modify storage derailed:macro jump set value "-0.015"
+execute if score @s dr_count matches 2 run data modify storage derailed:macro jump set value "-0.065"
+execute if score @s dr_count matches 3.. run data modify storage derailed:macro jump set value "-0.13"
 
 function derailed:player/_set_hand with storage derailed:macro
 return 1

@@ -10,6 +10,8 @@ scoreboard players operation @s dr_player_id = $NextPid dr_var
 scoreboard players set @s dr_item 0
 scoreboard players set @s dr_count 0
 
+attribute @s minecraft:jump_strength base set 0.39
+
 # Starting wood (temp)
 scoreboard players operation #curr_item dr_arg = $Wood dr_const
 scoreboard players set #give_count dr_arg 1
