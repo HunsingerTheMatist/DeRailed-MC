@@ -1,0 +1,21 @@
+{
+    "values": [
+        "#minecraft:slabs",
+        "#minecraft:stairs",
+        "#leaves",
+
+        "grass_block",
+        "moss_block",
+        "dirt",
+        "coarse_dirt",
+        "podzol",
+        "mossy_cobblestone",
+
+        "deepslate",
+        "basalt",
+        "polished_andesite",
+
+        "cinnabar_bricks",
+        "spruce_planks"
+    ]
+}

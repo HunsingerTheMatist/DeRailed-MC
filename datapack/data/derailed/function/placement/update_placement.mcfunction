@@ -14,9 +14,8 @@ scoreboard players operation #items_to_place dr_arg = @s dr_count
 
 tellraw @a [{score:{objective:"dr_arg",name:"#items_to_place"}}]
 execute positioned ~ ~0.5 ~ run function derailed:placement/update_placement_step
-execute if score #curr_item dr_arg <= $LastResource dr_const run function derailed:placement/_set_blocks
+function derailed:placement/_set_collision
 
 # Remove empty placements
 execute if score @s dr_count matches 1.. run return 1
 kill @s
-setblock ~ ~ ~ air strict

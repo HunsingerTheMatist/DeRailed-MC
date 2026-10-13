@@ -100,6 +100,8 @@ scoreboard players set $LastTool dr_const 19
 #  pixels a layer, and iron's and rails', drawn twice their size, 12
 scoreboard players set $WoodLayer dr_const 5625
 scoreboard players set $ScaledLayer dr_const 7500
+scoreboard players set $Pixel dr_const 625
+scoreboard players set $TenThousand dr_const 10000
 scoreboard players set $BatchHeight dr_const 3
 scoreboard players set $RotationStep dr_const 90
 scoreboard players set $HalfTurn dr_const 180

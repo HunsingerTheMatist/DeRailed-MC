@@ -1,5 +1,5 @@
-# Start a new placement on this tile holding #curr_item_count of #curr_item
-# Run as the player, at the tile
+# Start a new placement here holding #curr_item_count of #curr_item
+# Run as the player, where the placement is to stand
 #
 # Args: #curr_item, #curr_item_count, #curr_rotation
 

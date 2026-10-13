@@ -27,6 +27,5 @@ scoreboard players operation #curr_item_count dr_arg < @p[distance=..10,tag=dr_c
 
 scoreboard players set #swap_allowed dr_arg 0
 execute as @p[distance=..10,tag=dr_current] at @s align xyz positioned ~0.5 ~ ~0.5 run function derailed:item/try_place
-# Potential bug: if the player jumps then the placement logic might not work. Need to test
 
 kill @s
