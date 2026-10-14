@@ -21,9 +21,6 @@ scoreboard players operation #curr_item_count dr_arg = @s dr_count
 # Sneaking narrows the action to a single item
 execute if predicate derailed:is_sneaking if score #curr_item_count dr_arg matches 2.. run scoreboard players set #curr_item_count dr_arg 1
 
-scoreboard players set #swap_allowed dr_arg 1
-# Prevent swapping if placing 1 out of 2+ items
-execute if score #curr_item_count dr_arg matches 1 if score @s dr_count matches 2.. run scoreboard players set #swap_allowed dr_arg 0
-execute at @n[type=marker,distance=..10,tag=dr_item,tag=dr_current] align xyz positioned ~0.5 ~ ~0.5 run function derailed:item/try_place
+execute at @n[type=marker,distance=..10,tag=dr_item,tag=dr_current] align xyz positioned ~0.5 ~ ~0.5 run function derailed:item/try_place_clicked
 
 kill @e[type=marker,distance=..10,tag=dr_item,tag=dr_current]

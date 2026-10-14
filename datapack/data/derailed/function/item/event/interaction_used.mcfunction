@@ -35,4 +35,5 @@ execute if predicate derailed:is_sneaking if score #curr_item_count dr_arg match
 scoreboard players set #swap_allowed dr_arg 1
 # Prevent swapping if placing 1 out of 2+ items
 execute if score #curr_item_count dr_arg matches 1 if score @s dr_count matches 2.. run scoreboard players set #swap_allowed dr_arg 0
-execute at @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] align xyz positioned ~0.5 ~ ~0.5 run function derailed:item/try_place
+execute at @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] if function derailed:item/place_on_placement run return 1
+function derailed:item/place_fail
