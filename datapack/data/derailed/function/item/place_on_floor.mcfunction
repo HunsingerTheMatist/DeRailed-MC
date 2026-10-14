@@ -26,7 +26,15 @@ execute if score #curr_item dr_arg <= $LastResource dr_const run function derail
 execute if score #curr_item dr_arg <= $LastResource dr_const if score #fit dr_temp matches ..0 run return fail
 execute if score #curr_item dr_arg = $Bucket dr_const if score #room dr_temp matches ..9999 run return fail
 execute if score #room dr_temp matches ..624 run return fail
-execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #curr_item_count dr_arg < #fit dr_temp
+
+# As many as fit where nothing stands in the way
+scoreboard players operation #want_count dr_temp = #curr_item_count dr_arg
+execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #want_count dr_temp < #fit dr_temp
+scoreboard players set #want_min dr_temp 1
+scoreboard players operation #hit_base dr_temp = #floor_top dr_temp
+scoreboard players operation #hit_base dr_temp *= $Pixel dr_const
+execute unless function derailed:item/_fit_entities run return fail
+scoreboard players operation #curr_item_count dr_arg = #want_count dr_temp
 
 execute if score #floor_top dr_temp matches 8 positioned ~ ~0.5 ~ run return run function derailed:item/place_new
 execute if score #floor_top dr_temp matches 12 positioned ~ ~0.75 ~ run return run function derailed:item/place_new

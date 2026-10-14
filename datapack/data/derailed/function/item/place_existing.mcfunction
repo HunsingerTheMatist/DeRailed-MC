@@ -10,7 +10,18 @@ execute if score #curr_item dr_arg <= $LastResource dr_const run function derail
 execute if score #curr_item dr_arg <= $LastResource dr_const run function derailed:item/_fit
 execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #fit dr_temp -= @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count
 execute if score #curr_item dr_arg <= $LastResource dr_const if score #fit dr_temp matches ..0 run return fail
-execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #curr_item_count dr_arg < #fit dr_temp
+
+# As many as fit where nothing stands in the way of the bigger pile, someone
+#  standing on it included
+scoreboard players operation #want_count dr_temp = #curr_item_count dr_arg
+execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #want_count dr_temp < #fit dr_temp
+scoreboard players operation #want_count dr_temp += @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count
+scoreboard players operation #want_min dr_temp = @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count
+scoreboard players add #want_min dr_temp 1
+scoreboard players set #hit_base dr_temp 0
+execute if score #curr_item dr_arg <= $LastResource dr_const unless function derailed:item/_fit_entities run return fail
+execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #curr_item_count dr_arg = #want_count dr_temp
+execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #curr_item_count dr_arg -= @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count
 
 tellraw @a "Adding to existing stack"
 scoreboard players operation @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count += #curr_item_count dr_arg
