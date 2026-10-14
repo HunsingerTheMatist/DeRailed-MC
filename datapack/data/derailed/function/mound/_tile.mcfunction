@@ -1,6 +1,6 @@
 
 # Builds this tile's nine columns from the heights of its four corners, on two
-#  blocks below the ground, polished andesite under iron and deepslate under
+#  blocks below the ground, polished andesite under iron and bedrock under
 #  rock
 # Run as the tile's marker, at it, with its corners a layer above: its own
 #  place, and one east, one south and one southeast of it
@@ -33,5 +33,5 @@ scoreboard players operation #mt dr_temp *= #m3 dr_temp
 execute store result entity @n[type=marker,tag=dr_mound_at,distance=0..] Pos[2] double 1 run scoreboard players operation #mt dr_temp += #mound_dz dr_arg
 
 execute if score #mound_kind dr_arg matches 0 at @n[type=marker,tag=dr_mound_at,distance=0..] run fill ~ ~-2 ~ ~2 ~-1 ~2 polished_andesite strict
-execute if score #mound_kind dr_arg matches 1 at @n[type=marker,tag=dr_mound_at,distance=0..] run fill ~ ~-2 ~ ~2 ~-1 ~2 deepslate[axis=y] strict
+execute if score #mound_kind dr_arg matches 1 at @n[type=marker,tag=dr_mound_at,distance=0..] run fill ~ ~-2 ~ ~2 ~-1 ~2 bedrock strict
 execute at @n[type=marker,tag=dr_mound_at,distance=0..] run function derailed:mound/_blocks

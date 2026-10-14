@@ -1258,8 +1258,11 @@ ground on it, since the building is drawn as rock but the station stands
 there. `mound/build` is `dev/mound/build` without macros: iron and rock are
 written into it, every random range is one draw from `derailed:terrain` taken
 down to the range, a column is laid a block at a time, and each tile stands on
-two blocks below the ground, polished andesite under iron and deepslate under
-rock. It clears nothing, so the ground it builds on has to be clear.
+two blocks below the ground, polished andesite under iron and bedrock under
+rock. A rock column is bedrock, with a slab over its top block where it stands
+nearer 8 pixels above a whole number of blocks than 0 or 16, laid only into air
+so the station's overhang stays. It clears nothing, so the ground it builds on has to
+be clear.
 
 The station's overhang only ever fills air: a block of the tile under it is
 always kept. `station/merge` does that for one tile, on a copy of the ground 64

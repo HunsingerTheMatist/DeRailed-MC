@@ -17,7 +17,6 @@
 #  and with 'round' set, depth counts the tiles at a corner only every other
 #  step, so a mound's rings come out eight-sided rather than square
 # Iron tops out 0, 4, 8 or 12 pixels above a whole number of blocks, the 4 a
-#  tall top block and the 8 and 12 slabs; rock tops out 0, 6 or 12, both tall
-#  top blocks
+#  tall top block and the 8 and 12 slabs; rock tops out 0 or 8, the 8 a slab
 
-data modify storage derailed:mound kinds set value {iron:{full:"basalt[axis=y]",tops:["basalt[axis=x]"],caps:["sandstone_slab[type=bottom]","smooth_sandstone_slab[type=bottom]"],quant:"iron",smin:21,smax:32,max:80,rise:[0,20,34,44,50,54],noise:4,tjit:0,jit:2,peaks:3,pk:6,spike:0,spikepx:16,rmin:100,rmax:100,round:0},rock:{full:"deepslate[axis=y]",tops:["deepslate[axis=x]","deepslate[axis=z]"],caps:[],quant:"rock",smin:28,smax:44,max:240,rise:[0,105,171,204,204,204],noise:16,tjit:8,jit:4,peaks:5,pk:14,spike:25,spikepx:24,rmin:60,rmax:100,round:1}}
+data modify storage derailed:mound kinds set value {iron:{full:"basalt[axis=y]",tops:["basalt[axis=x]"],caps:["sandstone_slab[type=bottom]","smooth_sandstone_slab[type=bottom]"],quant:"iron",smin:21,smax:32,max:80,rise:[0,20,34,44,50,54],noise:4,tjit:0,jit:2,peaks:3,pk:6,spike:0,spikepx:16,rmin:100,rmax:100,round:0},rock:{full:"bedrock",tops:[],caps:["cobbled_deepslate_slab[type=bottom]"],quant:"rock",smin:28,smax:44,max:240,rise:[0,105,171,204,204,204],noise:16,tjit:8,jit:4,peaks:5,pk:14,spike:25,spikepx:24,rmin:60,rmax:100,round:1}}

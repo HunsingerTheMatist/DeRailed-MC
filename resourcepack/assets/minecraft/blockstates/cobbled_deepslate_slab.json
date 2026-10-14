@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom,waterlogged=false": {
+      "model": "derailed:block/impenetrable_stone_slab"
+    }
+  }
+}

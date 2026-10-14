@@ -4,7 +4,7 @@
 #  '#mound_h' tiles of the map becomes a mound of columns on the ground from
 #  '#mound_dx' '#mound_dy' '#mound_dz', lowest at the edge of its region and
 #  highest furthest in, on two blocks below the ground, polished andesite
-#  under iron and deepslate under rock
+#  under iron and bedrock under rock
 # Iron is light gray concrete on the map and rock gray concrete; a tile of air
 #  carries the mound on past it, so the map wants the tiles one out round it
 #  too

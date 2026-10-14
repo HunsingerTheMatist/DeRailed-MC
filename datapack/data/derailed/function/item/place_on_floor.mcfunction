@@ -7,14 +7,11 @@
 execute if score #only_same_item dr_arg matches 1 run return fail
 
 # How high the floor's top is drawn, in pixels: a slab's 8, the iron's smooth
-#  sandstone slab's 12, a whole block's 16, the iron's tall top block's 20 and
-#  the rock's 22 and 28
+#  sandstone slab's 12, a whole block's 16 and the iron's tall top block's 20
 scoreboard players set #floor_top dr_temp 16
 execute if block ~ ~ ~ #minecraft:slabs[type=bottom] run scoreboard players set #floor_top dr_temp 8
 execute if block ~ ~ ~ smooth_sandstone_slab[type=bottom] run scoreboard players set #floor_top dr_temp 12
 execute if block ~ ~ ~ basalt[axis=x] run scoreboard players set #floor_top dr_temp 20
-execute if block ~ ~ ~ deepslate[axis=x] run scoreboard players set #floor_top dr_temp 22
-execute if block ~ ~ ~ deepslate[axis=z] run scoreboard players set #floor_top dr_temp 28
 
 # Where it stands in the block it stands in, in ten-thousandths of a block
 scoreboard players operation #base_rel dr_temp = #floor_top dr_temp
@@ -35,5 +32,3 @@ execute if score #floor_top dr_temp matches 8 positioned ~ ~0.5 ~ run return run
 execute if score #floor_top dr_temp matches 12 positioned ~ ~0.75 ~ run return run function derailed:item/place_new
 execute if score #floor_top dr_temp matches 16 positioned ~ ~1 ~ run return run function derailed:item/place_new
 execute if score #floor_top dr_temp matches 20 positioned ~ ~1.25 ~ run return run function derailed:item/place_new
-execute if score #floor_top dr_temp matches 22 positioned ~ ~1.375 ~ run return run function derailed:item/place_new
-execute if score #floor_top dr_temp matches 28 positioned ~ ~1.75 ~ run return run function derailed:item/place_new
