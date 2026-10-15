@@ -1,12 +1,13 @@
-# Goes down this column, as far as 8 blocks, to the placement standing in it or
-#  the floor under it, and puts the items there
+# Goes down this column, as far as 3 blocks, to the placement standing in it or
+#  the floor under it, and puts the items there; placements tagged 'dr_shift',
+#  being moved aside, are passed over
 # The block it starts at is only taken for the floor if it is a bottom slab or
 #  stairs, which a player or a spawn egg's marker can stand in
 # Run as the player, at the bottom middle of a block
 #
 # Returns 1 when any items were placed, fail otherwise
 
-execute positioned ~ ~0.5 ~ at @n[type=interaction,tag=dr_placement,distance=..0.5] run \
+execute positioned ~ ~0.5 ~ at @n[type=interaction,tag=dr_placement,tag=!dr_shift,distance=..0.5] run \
     return run function derailed:item/place_on_placement
 execute if block ~ ~ ~ #minecraft:slabs[type=bottom] if block ~ ~ ~ #derailed:pile_floor run \
     return run function derailed:item/place_on_floor

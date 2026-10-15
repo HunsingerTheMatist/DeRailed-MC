@@ -17,6 +17,10 @@ scoreboard players operation #rotation dr_temp /= $RotationStep dr_const
 scoreboard players operation #rotation dr_temp *= $RotationStep dr_const
 execute store result entity @n[type=interaction,distance=..0.5,tag=dr_placement] Rotation[0] float 1 run scoreboard players remove #rotation dr_temp 360
 
+# While piles are moved aside for a rail it is only a reserved spot, not yet
+#  drawn and taking nothing off anyone
+execute if score #shifting dr_temp matches 1 run return run tag @n[type=interaction,distance=..0.5,tag=dr_placement] add dr_reserved
+
 execute as @n[type=interaction,distance=..0.5,tag=dr_placement] at @s run function derailed:placement/update_placement
 
 function derailed:player/take_items

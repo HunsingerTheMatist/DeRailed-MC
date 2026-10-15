@@ -106,6 +106,9 @@ scoreboard players set $BatchHeight dr_const 3
 scoreboard players set $RotationStep dr_const 90
 scoreboard players set $HalfTurn dr_const 180
 
+# A tile is three blocks across
+scoreboard players set $TileSize dr_const 3
+
 # A train's lengths are in thousandths of a block and its facings in
 #  thousandths of a degree; a corner's quarter turn of half a tile is 2356 long
 scoreboard players set $Four dr_const 4

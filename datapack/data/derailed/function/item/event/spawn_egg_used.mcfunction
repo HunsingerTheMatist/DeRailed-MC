@@ -21,6 +21,11 @@ scoreboard players operation #curr_item_count dr_arg = @s dr_count
 # Sneaking narrows the action to a single item
 execute if predicate derailed:is_sneaking if score #curr_item_count dr_arg matches 2.. run scoreboard players set #curr_item_count dr_arg 1
 
-execute at @n[type=marker,distance=..10,tag=dr_item,tag=dr_current] align xyz positioned ~0.5 ~ ~0.5 run function derailed:item/try_place_clicked
+# A rail clicked beside the end of the track is laid there, and put down as a
+#  pile anywhere else
+scoreboard players set #lay dr_temp 0
+execute if score #curr_item dr_arg = $Rail dr_const at @n[type=marker,distance=..10,tag=dr_item,tag=dr_current] align xyz positioned ~0.5 ~ ~0.5 run function derailed:track/try_lay
+execute if score #lay dr_temp matches 2 run function derailed:item/place_fail
+execute if score #lay dr_temp matches 0 at @n[type=marker,distance=..10,tag=dr_item,tag=dr_current] align xyz positioned ~0.5 ~ ~0.5 run function derailed:item/try_place_clicked
 
 kill @e[type=marker,distance=..10,tag=dr_item,tag=dr_current]

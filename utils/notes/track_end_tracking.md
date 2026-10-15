@@ -1,6 +1,40 @@
 # Tracking the End of the Track
 
-Written 2026-09-18. This is an agreed design, not yet implemented.
+Written 2026-09-18. Laying rails is built (see "Laying a rail" below); taking
+the last rail back, and its interaction, are not yet.
+
+## Laying a rail
+
+Clicking with rails on the tile beside the end of the track, any but the one
+the track came in from, lays a rail there (`track/try_lay`); anywhere else the
+rail goes down as a pile. Tiles are three blocks across from the map's corner
+at x1100 z0, and a tile's rail is a rail on its middle block and a powered rail
+on each of the two edges it runs through (`track/lay_rails`).
+
+- **Open ground.** The new tile's three rail blocks, and the end tile's edge
+  block its rail turns through, must each be free to place in, over a whole
+  floor block. Where any is not (water, an unchopped tree, unmined iron, rock)
+  the click places a pile instead.
+- **Piles in the way** are moved aside first, each whole onto a spot round it
+  by the same search dropping items uses (`track/shift_aside`). The moves are
+  planned in scores alone: a new spot is a reserved placement with no displays
+  or collision, a pile added to only has its count raised, the piles being moved
+  are passed over by the search, and the rail's blocks are barred by placements
+  no item can go on. Once every pile has somewhere to go the plan is drawn and
+  the old piles emptied; if any has nowhere, the counts come back off, the
+  reserved spots go, and nothing in the world has changed, so the click fails.
+- **The new rail** runs straight on. The end tile's rail is turned toward it
+  where the track turns, and its tile of the train's path gets the new way out
+  and a corner's length.
+- **The path** gets the new tile on its end. Axles on the changed tile take up
+  its new line at once and roll on to the next tile where they are further in
+  than its new length.
+- **The end marker** `dr_track_end` moves onto the new tile's middle block, and
+  its position is appended to `rails`. It faces the way on while a rail is laid,
+  so the blocks along that way are `^ ^ ^1` to `^ ^ ^4` from it.
+
+`dev/track/start` starts a track of one straight rail on the tile the player
+stands on, running the way they face, and takes every train away.
 
 ## The mechanic
 

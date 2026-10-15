@@ -20,11 +20,20 @@ scoreboard players operation #want_min dr_temp = @n[type=interaction,distance=..
 scoreboard players add #want_min dr_temp 1
 scoreboard players set #hit_base dr_temp 0
 execute if score #curr_item dr_arg <= $LastResource dr_const unless function derailed:item/_fit_entities run return fail
-execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #curr_item_count dr_arg = #want_count dr_temp
-execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #curr_item_count dr_arg -= @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count
+
+# A pile moved aside for a rail goes whole or not at all
+scoreboard players operation #add dr_temp = #want_count dr_temp
+scoreboard players operation #add dr_temp -= @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count
+execute if score #shifting dr_temp matches 1 if score #curr_item dr_arg <= $LastResource dr_const if score #add dr_temp < #curr_item_count dr_arg run return fail
+execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #curr_item_count dr_arg = #add dr_temp
 
 tellraw @a "Adding to existing stack"
 scoreboard players operation @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count += #curr_item_count dr_arg
+
+# While piles are moved aside for a rail the count is only noted, not yet drawn
+#  and taking nothing off anyone
+execute if score #shifting dr_temp matches 1 summon marker run function derailed:track/_shift_mark
+execute if score #shifting dr_temp matches 1 run return 1
 
 execute as @n[type=interaction,distance=..0.5,tag=dr_placement] at @s run function derailed:placement/update_placement
 
