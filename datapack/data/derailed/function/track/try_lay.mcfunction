@@ -1,9 +1,9 @@
 # Lays a rail on the tile clicked, where it is a tile beside the end of the
 #  track other than the one the track came in from, and the blocks the rail
 #  takes there, and the one the end's rail turns through, are open ground: sets
-#  '#lay' to 1 once laid, to 2 where the piles on the tile could not all be
-#  moved off it, and leaves it at 0 where no rail goes there, for the rail to
-#  be put down as a pile instead
+#  '#lay' to 1 once laid, to 2 where a pile on the tile holds more than
+#  '$HandCap' or the piles on it could not all be moved off it, and leaves it at
+#  0 where no rail goes there, for the rail to be put down as a pile instead
 # Run as the player, at the bottom middle of the clicked block
 
 execute unless data storage derailed:train path[-1] run return 0
@@ -47,6 +47,12 @@ execute at @n[type=marker,tag=dr_track_end,distance=0..] rotated as @n[type=mark
 #  first, so nothing moved aside can land anywhere on it
 execute at @n[type=marker,tag=dr_track_end,distance=0..] rotated as @n[type=marker,tag=dr_track_end,distance=0..] positioned ^ ^ ^3 align xyz positioned ~-1 ~ ~-1 run \
     tag @e[type=interaction,tag=dr_placement,dx=2,dy=0,dz=2] add dr_shift
+
+# A pile of more than a hand holds on the tile is never moved, so nothing is
+#  laid there
+execute as @e[type=interaction,tag=dr_shift,distance=0..] if score @s dr_count > $HandCap dr_config run scoreboard players set #lay dr_temp 2
+execute if score #lay dr_temp matches 2 run return run tag @e[type=interaction,tag=dr_shift,distance=0..] remove dr_shift
+
 execute at @n[type=marker,tag=dr_track_end,distance=0..] rotated as @n[type=marker,tag=dr_track_end,distance=0..] positioned ^ ^ ^3 align xyz positioned ~0.5 ~0.5 ~0.5 run \
     summon marker ~ ~ ~ {Tags:["dr_track_tile","dr_track_new"]}
 execute if entity @e[type=interaction,tag=dr_shift,distance=0..] at @n[type=marker,tag=dr_track_end,distance=0..] rotated as @n[type=marker,tag=dr_track_end,distance=0..] unless function derailed:track/shift_aside run \

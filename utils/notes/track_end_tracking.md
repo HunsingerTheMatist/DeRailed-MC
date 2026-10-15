@@ -24,7 +24,9 @@ on each of the two edges it runs through (`track/lay_rails`).
   other's, at whatever height the spot is, which a distance from the spot
   would not: a spot a block above the marker on its tile's corner is √3 away.
 - **Piles on the new tile** are moved off it first, each whole onto a spot round
-  it by the same search dropping items uses (`track/shift_aside`). The new
+  it by the same search dropping items uses (`track/shift_aside`). A pile of
+  more than a hand holds (`$HandCap`, 3 by default) is never moved, so a tile
+  with one refuses the rail, though the ghost still shows there. The new
   tile's marker goes down before they move, so none of them can land anywhere on
   it, and is taken up again if they cannot all move. The moves are planned in
   scores alone: a new spot is a reserved placement with no displays or
