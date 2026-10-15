@@ -15,14 +15,26 @@ on each of the two edges it runs through (`track/lay_rails`).
   block its rail turns through, must each be free to place in, over a whole
   floor block. Where any is not (water, an unchopped tree, unmined iron, rock)
   the click places a pile instead.
-- **Piles in the way** are moved aside first, each whole onto a spot round it
-  by the same search dropping items uses (`track/shift_aside`). The moves are
-  planned in scores alone: a new spot is a reserved placement with no displays
-  or collision, a pile added to only has its count raised, the piles being moved
-  are passed over by the search, and the rail's blocks are barred by placements
-  no item can go on. Once every pile has somewhere to go the plan is drawn and
-  the old piles emptied; if any has nowhere, the counts come back off, the
-  reserved spots go, and nothing in the world has changed, so the click fails.
+- **Track tiles.** Every tile with a rail has a marker tagged `dr_track_tile` in
+  the middle of its middle block; the station's two rail tiles get theirs when
+  the map is built. No pile ever stands on a track tile: `item/place_on_floor`,
+  behind clicking, dropping and every search, refuses any spot with one of
+  those markers in the three by three columns round it, within three blocks up
+  or down. Those columns always hold the middle of the spot's own tile and no
+  other's, at whatever height the spot is, which a distance from the spot
+  would not: a spot a block above the marker on its tile's corner is √3 away.
+- **Piles on the new tile** are moved off it first, each whole onto a spot round
+  it by the same search dropping items uses (`track/shift_aside`). The new
+  tile's marker goes down before they move, so none of them can land anywhere on
+  it, and is taken up again if they cannot all move. The moves are planned in
+  scores alone: a new spot is a reserved placement with no displays or
+  collision, a pile added to only has its count raised, and the piles being
+  moved are passed over by the search. Once every pile has somewhere to go the
+  plan is drawn and the old piles emptied; if any has nowhere, the counts come
+  back off, the reserved spots go, and nothing in the world has changed, so the
+  click fails.
+- **The search** (`item/try_place_around`) tries the spots a block away and then
+  those two blocks away, so it always reaches off the tile it starts on.
 - **The new rail** runs straight on. The end tile's rail is turned toward it
   where the track turns, and its tile of the train's path gets the new way out
   and a corner's length.

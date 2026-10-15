@@ -1,12 +1,14 @@
 # Starts the track on the tile the player stands on, the map's tiles three
 #  blocks across from its corner at x1100 z0: a straight rail across it the way
-#  they face, which is the end of the track, the only rail in
+#  they face, which is a track tile, the end of the track, the only rail in
 #  'derailed:track rails' and the whole of the path the train runs on, at the
-#  height of the block they stand in; takes every train away first
+#  height of the block they stand in; takes every train away first, and the
+#  end and track tiles of any track before it, the station's excepted
 # Run as a player in the game
 
 function derailed:dev/train/clear
 kill @e[type=marker,tag=dr_track_end,distance=0..]
+kill @e[type=marker,tag=dr_track_tile,tag=!dr_track_station,distance=0..]
 
 # The tile's middle block, and the way they face, 0 north, 1 east, 2 south and
 #  3 west, from a facing of 0 south and 90 west
@@ -27,6 +29,7 @@ scoreboard players add #d dr_temp 2
 scoreboard players operation #d dr_temp %= $Four dr_const
 
 execute summon marker run function derailed:dev/track/_end
+execute at @n[type=marker,tag=dr_track_end,distance=0..] run summon marker ~ ~ ~ {Tags:["dr_track_tile"]}
 scoreboard players operation #din dr_temp = #d dr_temp
 scoreboard players operation #dout dr_temp = #d dr_temp
 execute at @n[type=marker,tag=dr_track_end,distance=0..] positioned ~-1 ~ ~-1 run function derailed:track/lay_rails

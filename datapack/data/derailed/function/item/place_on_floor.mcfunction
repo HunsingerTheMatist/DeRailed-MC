@@ -6,6 +6,11 @@
 
 execute if score #only_same_item dr_arg matches 1 run return fail
 
+# Never on a track tile: the three by three columns round this one hold the
+#  middle of its own tile and no other's, so a track tile's marker there, three
+#  blocks up or down, means this column is on it
+execute positioned ~-1.5 ~-3 ~-1.5 if entity @e[type=marker,tag=dr_track_tile,dx=2,dy=6,dz=2] run return fail
+
 # How high the floor's top is drawn, in pixels: a slab's 8, the iron's smooth
 #  sandstone slab's 12, a whole block's 16 and the iron's tall top block's 20
 scoreboard players set #floor_top dr_temp 16

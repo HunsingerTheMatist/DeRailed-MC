@@ -5,6 +5,7 @@
 kill @e[type=marker,tag=dr_big,distance=0..]
 kill @e[type=marker,tag=dr_station,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=marker,tag=dr_mine,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
+kill @e[type=marker,tag=dr_track_tile,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 
 # The area is cleared a block wider all round than the tiles, which takes the
 #  station's overhang and anything else that reaches past them
@@ -53,6 +54,11 @@ execute as @e[type=marker,tag=dr_big_bend,distance=0..] at @s run function derai
 #  'dr_station' is left where it was placed from, which 'station/merge' finds
 execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s run place template derailed:station ~-1 ~ ~-1 none none 1 0 strict
 execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s positioned ~-1 ~ ~-1 summon marker run tag @s add dr_station
+
+# The station's two rail tiles are track tiles, each with a marker in the middle
+#  of its middle block, tagged as the station's so a new track leaves them
+execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s align xyz positioned ~1.5 ~2.5 ~4.5 run summon marker ~ ~ ~ {Tags:["dr_track_tile","dr_track_station"]}
+execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s align xyz positioned ~4.5 ~2.5 ~4.5 run summon marker ~ ~ ~ {Tags:["dr_track_tile","dr_track_station"]}
 
 # The trees go up over the station's overhang, then the overhang is put back
 #  wherever a tree beside the station left air
