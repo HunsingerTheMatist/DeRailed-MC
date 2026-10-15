@@ -45,6 +45,44 @@ on each of the two edges it runs through (`track/lay_rails`).
   its position is appended to `rails`. It faces the way on while a rail is laid,
   so the blocks along that way are `^ ^ ^1` to `^ ^ ^4` from it.
 
+- **Next tiles.** Each tile beside the end that the next rail could go on has a
+  marker tagged `dr_track_next` in the middle of its middle block, facing the
+  way on to it (`track/_mark_next`). They are put down again whenever the end
+  moves and by `dev/track/start`.
+
+## The ghost rail
+
+Every 5 ticks (`track/ghost_tick`), each player holding rails has their aim
+followed from their eyes a tenth of a block at a time out to 4.5 blocks, the
+reach for blocks and entities alike. An interaction or another player met on the
+way takes the click, so nothing shows. Otherwise the first block met is the one
+clicked: the block before it where it has collision, the block itself where it
+has none, like a flower.
+
+Blocks are tested whole, so some are passed through (`#derailed:ray_passable`):
+
+- **Air and water.**
+- **Flowers, grass, carpets and the retextured buttons**, which only stand in
+  the block over the ground the aim lands on anyway.
+- **Rails**, since an aim the game would carry over a rail's thin shape would
+  otherwise stop in its block.
+- **A pile's cakes**, since a cake's block reaches out past the pile's
+  interaction, which the game itself clicks first as the cake's own shape is
+  inside it.
+
+A slab stops the aim only in its full half. A point is in a bottom slab's empty
+top half where half a block up from it is out of the slab's block, and in a top
+slab's empty bottom half where half a block down is; two slabs stacked the same
+way read as solid between them.
+
+If that block's tile has a `dr_track_next` marker, and the rail laid there would
+stand on open ground, the tile shows a see-through rail: an item display of
+`derailed:rail_ghost`, the rail's model with its texture at half opacity, facing
+the way on. One ghost stands on a tile however many players aim at it. Every
+ghost is tagged stale before the aims are followed, a ghost still aimed at loses
+the tag, and those still stale after are removed. Laying a rail removes the ghost
+on that tile at once.
+
 `dev/track/start` starts a track of one straight rail on the tile the player
 stands on, running the way they face, and takes every train away.
 

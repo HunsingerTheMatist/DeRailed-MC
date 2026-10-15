@@ -2,8 +2,9 @@
 #  blocks across from its corner at x1100 z0: a straight rail across it the way
 #  they face, which is a track tile, the end of the track, the only rail in
 #  'derailed:track rails' and the whole of the path the train runs on, at the
-#  height of the block they stand in; takes every train away first, and the
-#  end and track tiles of any track before it, the station's excepted
+#  height of the block they stand in, with the tiles the next rail could go on
+#  marked; takes every train away first, and the end and track tiles of any
+#  track before it, the station's excepted
 # Run as a player in the game
 
 function derailed:dev/train/clear
@@ -47,3 +48,4 @@ execute store result storage derailed:train y int 1 run scoreboard players add #
 
 data modify storage derailed:track rails set value []
 data modify storage derailed:track rails append from entity @n[type=marker,tag=dr_track_end,distance=0..] Pos
+execute at @n[type=marker,tag=dr_track_end,distance=0..] run function derailed:track/_mark_next

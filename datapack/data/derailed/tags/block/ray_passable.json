@@ -1,0 +1,20 @@
+{
+    "values": [
+        "#minecraft:air",
+        "water",
+        "#minecraft:rails",
+        "#derailed:pile_collision",
+
+        "dandelion",
+        "poppy",
+        "wildflowers",
+        "#minecraft:wool_carpets",
+        "moss_carpet",
+
+        "cherry_button",
+        "jungle_button",
+        "pale_oak_button",
+        "poplar_button",
+        "stone_button"
+    ]
+}

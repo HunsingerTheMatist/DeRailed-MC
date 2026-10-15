@@ -8,34 +8,32 @@ assignment rather than in `load`.
 
 | attribute | value | vanilla default |
 |---|---|---|
-| `minecraft:block_interaction_range` | **3** | 4.5 |
-| `minecraft:entity_interaction_range` | **3.2** | 3.0 |
+| `minecraft:block_interaction_range` | 4.5 (left as it is) | 4.5 |
+| `minecraft:entity_interaction_range` | **4.5** | 3.0 |
 | `minecraft:block_break_speed` | **0** | 1.0 |
 | `minecraft:jump_strength` | **0.39** | 0.42 |
 
 ```mcfunction
-attribute @s minecraft:block_interaction_range base set 3
-attribute @s minecraft:entity_interaction_range base set 3.2
+attribute @s minecraft:entity_interaction_range base set 4.5
 attribute @s minecraft:block_break_speed base set 0
 attribute @s minecraft:jump_strength base set 0.39
 ```
 
 ## Why each
 
-**The two ranges are set together.** Vanilla ships them 1.5 apart - 4.5 for
-blocks, 3.0 for entities - which meant a tool could be placed further away than
-its interaction entity could be clicked, so you could put an item down and not
-be able to pick it back up.
+**Entity range is raised to match block range.** Vanilla ships them 1.5 apart -
+4.5 for blocks, 3.0 for entities - which meant an item could be placed further
+away than its interaction entity could be clicked, so you could put it down and
+not be able to pick it back up. Both are 4.5. The ghost rail's aim
+(`track/_ghost_step`) uses the same 4.5 for both, so it matches what a click
+reaches.
 
-**Entity range is deliberately the larger of the two.** A block is reached at its
-**near face**, while a placement's interaction sits at the **centre of the
-tile**, so the entity is always fractionally the further of the two. Clicking
-the top of a floor tile they are nearly the same distance, but clicking the side
-of a block and placing on the tile beyond it, the entity can be up to half a
-block further out than the face that was clicked. The 0.2 covers that.
-
-The numbers are a feel decision; the ordering is not. Anything that raises block
-range without raising entity range with it brings the soft lock back.
+**The edge of reach is still uneven by up to half a block.** A block is reached
+at its **near face**, while a placement's interaction sits at the **centre of
+the tile**. Clicking the side of a block at the very edge of reach places on the
+block beyond that face, whose interaction can be up to half a block further out
+than 4.5. Making entity range a little larger than block range would close that
+gap; with them equal it is left open.
 
 **Break speed goes to 0 so tools have to opt back in.** Tool items carry
 `attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,

@@ -11,6 +11,7 @@ scoreboard players set @s dr_item 0
 scoreboard players set @s dr_count 0
 
 attribute @s minecraft:jump_strength base set 0.39
+attribute @s minecraft:entity_interaction_range base set 4.5
 
 # Starting wood (temp)
 scoreboard players operation #curr_item dr_arg = $Wood dr_const

@@ -1,0 +1,4 @@
+{
+  "parent": "derailed:block/rail",
+  "textures": {"particle": "derailed:block/rail_ghost", "rail": "derailed:block/rail_ghost"}
+}

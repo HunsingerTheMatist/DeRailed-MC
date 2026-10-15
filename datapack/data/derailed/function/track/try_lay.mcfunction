@@ -55,4 +55,5 @@ execute if score #lay dr_temp matches 2 run return run kill @e[type=marker,tag=d
 
 execute at @n[type=marker,tag=dr_track_end,distance=0..] rotated as @n[type=marker,tag=dr_track_end,distance=0..] run function derailed:track/lay
 tag @e[type=marker,tag=dr_track_new,distance=0..] remove dr_track_new
+execute at @n[type=marker,tag=dr_track_end,distance=0..] run function derailed:track/_mark_next
 scoreboard players set #lay dr_temp 1
