@@ -25,7 +25,6 @@ execute store result score #curr_rotation dr_arg run data get entity @p[distance
 execute store result score #curr_item_count dr_arg run data get entity @s Item.count
 scoreboard players operation #curr_item_count dr_arg < @p[distance=..10,tag=dr_current] dr_count
 
-scoreboard players set #swap_allowed dr_arg 0
 execute as @p[distance=..10,tag=dr_current] at @s align xyz positioned ~0.5 ~ ~0.5 run function derailed:item/try_place
 
 kill @s

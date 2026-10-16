@@ -4,8 +4,6 @@
 #
 # Returns 1 when any items were placed, fail otherwise
 
-execute if score #only_same_item dr_arg matches 1 run return fail
-
 # Never on a track tile: the three by three columns round this one hold the
 #  middle of its own tile and no other's, so a track tile's marker there, three
 #  blocks up or down, means this column is on it
@@ -39,9 +37,6 @@ scoreboard players set #want_min dr_temp 1
 scoreboard players operation #hit_base dr_temp = #floor_top dr_temp
 scoreboard players operation #hit_base dr_temp *= $Pixel dr_const
 execute unless function derailed:item/_fit_entities run return fail
-
-# A pile moved aside for a rail goes whole or not at all
-execute if score #shifting dr_temp matches 1 if score #want_count dr_temp < #curr_item_count dr_arg run return fail
 scoreboard players operation #curr_item_count dr_arg = #want_count dr_temp
 
 execute if score #floor_top dr_temp matches 8 positioned ~ ~0.5 ~ run return run function derailed:item/place_new

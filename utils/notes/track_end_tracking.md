@@ -35,8 +35,8 @@ on each of the two edges it runs through (`track/lay_rails`).
   plan is drawn and the old piles emptied; if any has nowhere, the counts come
   back off, the reserved spots go, and nothing in the world has changed, so the
   click fails.
-- **The search** (`item/try_place_around`) tries the spots a block away and then
-  those two blocks away, so it always reaches off the tile it starts on.
+- **The search** is the same one dropping items uses (`item/place_near`, see
+  [pile_search.md](pile_search.md)), so a pile may be split across spots.
 - **The new rail** runs straight on. The end tile's rail is turned toward it
   where the track turns, and its tile of the train's path gets the new way out
   and a corner's length.

@@ -7,7 +7,6 @@
 #  The caller has already taken the items off the player, so a refusal ends
 #  in 'place_fail' handing them back
 
-scoreboard players set #only_same_item dr_arg 0
 execute if function derailed:item/_place_clicked run return 1
 function derailed:item/place_fail
 return fail

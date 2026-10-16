@@ -1,8 +1,8 @@
-# Puts the items down round here, and removes this throwaway marker
+# Puts the items down near here, and removes this throwaway marker
 # Run as the throwaway marker
 #
-# Returns 1 when they went down, fail otherwise
+# Returns 1 when they all went down, fail otherwise
 
-execute if function derailed:item/try_place_around run return run kill @s
+execute if function derailed:item/place_near run return run kill @s
 kill @s
 return fail

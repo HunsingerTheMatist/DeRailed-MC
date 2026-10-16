@@ -7,6 +7,16 @@ kill @e[type=marker,tag=dr_station,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=marker,tag=dr_mine,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=marker,tag=dr_track_tile,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 
+# The map's limits, for the search for a spot for a pile: the blocks across it,
+#  and the lowest and highest block a pile can stand in, over the ground at y14
+#  and over the highest rock at y29
+scoreboard players set $MapMinX dr_var 1100
+scoreboard players set $MapMaxX dr_var 1195
+scoreboard players set $MapMinZ dr_var 0
+scoreboard players set $MapMaxZ dr_var 47
+scoreboard players set $MapMinY dr_var 15
+scoreboard players set $MapMaxY dr_var 30
+
 # The area is cleared a block wider all round than the tiles, which takes the
 #  station's overhang and anything else that reaches past them
 fill 1099 11 -1 1196 16 48 air strict
