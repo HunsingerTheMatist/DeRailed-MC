@@ -1,9 +1,8 @@
 # A placement or a thrown pile was right-clicked. Run as the player
 #
 # Right click is the only button that reaches a placement, because left click is
-#  mining. Direction is decided by whether the placement can be taken from: room in
-#  hand for an item already held (or an empty hand) takes, anything else
-#  gives
+#  mining. An empty hand takes from it, anything else gives, and a resource
+#  that none of would go on a pile of its own kind takes from it instead
 
 #tellraw @a "HI"
 #tellraw @a [{score:{name:"temp",objective:"dr_temp"}}]
@@ -38,4 +37,10 @@ scoreboard players set #swap_allowed dr_arg 1
 # Prevent swapping if placing 1 out of 2+ items
 execute if score #curr_item_count dr_arg matches 1 if score @s dr_count matches 2.. run scoreboard players set #swap_allowed dr_arg 0
 execute at @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] if function derailed:item/place_on_placement run return 1
+
+# Where none would go on, a pile of the resource held is taken from instead,
+#  while the hand has room
+execute if score @s dr_item <= $LastResource dr_const if score @s dr_count < $HandCap dr_config \
+    if score @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] dr_item = @s dr_item run \
+    return run execute at @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] run function derailed:item/pickup
 function derailed:item/place_fail
