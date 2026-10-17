@@ -11,8 +11,8 @@ $fill ~28 ~ ~$(exit) ~31 ~ ~$(exit) lime_concrete strict
 $fill ~29 ~ ~$(top) ~30 ~ ~$(top) gray_concrete strict
 $setblock ~31 ~ ~$(top) lime_concrete strict
 $fill ~29 ~ ~$(low) ~31 ~ ~$(foot) lime_concrete strict
-$setblock ~29 ~1 ~$(exit) powered_rail[shape=east_west] strict
-$setblock ~30 ~1 ~$(exit) powered_rail[shape=east_west] strict
+$setblock ~29 ~1 ~$(exit) iron_trapdoor[facing=south,powered=false] strict
+$setblock ~30 ~1 ~$(exit) iron_trapdoor[facing=south,powered=false] strict
 $setblock ~31 ~1 ~$(exit) oak_fence strict
 $fill ~29 ~1 ~$(top) ~30 ~1 ~$(top) bricks strict
 $setblock ~ ~ ~$(yup) lime_concrete strict

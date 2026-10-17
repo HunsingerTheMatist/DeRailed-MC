@@ -11,6 +11,24 @@ rail goes down as a pile. Tiles are three blocks across from the map's corner
 at x1100 z0, and a tile's rail is a rail on its middle block and a powered rail
 on each of the two edges it runs through (`track/lay_rails`).
 
+Every rail is an iron trapdoor, which gives the track a 3 pixel hitbox and is
+the one trapdoor a hand cannot open. The resource pack draws each of seven of
+its states as a rail:
+
+| `powered` | `facing` | drawn as |
+|---|---|---|
+| false | north | straight, north to south |
+| false | east | straight, east to west |
+| false | south | powered rail, drawn as nothing |
+| true | north | turning south to east |
+| true | east | turning south to west |
+| true | south | turning north to west |
+| true | west | turning north to east |
+
+A block update beside one would set `powered` back to match the redstone round
+it, so everything near the track is placed `strict`. The station's rails in
+`station.nbt` are the same trapdoors.
+
 - **Open ground.** The new tile's three rail blocks, and the end tile's edge
   block its rail turns through, must each be free to place in, over a whole
   floor block. Where any is not (water, an unchopped tree, unmined iron, rock)
@@ -66,8 +84,6 @@ Blocks are tested whole, so some are passed through (`#derailed:ray_passable`):
 - **Air and water.**
 - **Flowers, grass, carpets and the retextured buttons**, which only stand in
   the block over the ground the aim lands on anyway.
-- **Rails**, since an aim the game would carry over a rail's thin shape would
-  otherwise stop in its block.
 - **A pile's cakes**, since a cake's block reaches out past the pile's
   interaction, which the game itself clicks first as the cake's own shape is
   inside it.

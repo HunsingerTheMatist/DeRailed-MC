@@ -17,7 +17,7 @@ execute if block ~ ~2 ~ gray_stained_glass run return 0
 execute if block ~ ~3 ~ tinted_glass run return 0
 execute if block ~ ~3 ~ #derailed:second_route as @n[type=marker,tag=dr_rp,distance=..0.4] run return run function derailed:dev/gen/_sec_rejoin
 execute if block ~ ~-15 ~ obsidian run return 0
-execute if block ~ ~1 ~ powered_rail run return 0
+execute if block ~ ~1 ~ iron_trapdoor run return 0
 execute if block ~ ~1 ~ oak_fence run return 0
 
 scoreboard players operation #sec_nd dr_var = #sec_d dr_var

@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "facing=north,powered=false": {
+      "model": "derailed:block/rail"
+    },
+    "facing=east,powered=false": {
+      "model": "derailed:block/rail",
+      "y": 90
+    },
+    "facing=south,powered=false": {
+      "model": "derailed:block/transparent"
+    },
+    "facing=west,powered=false": {
+      "model": "derailed:block/transparent"
+    },
+    "facing=north,powered=true": {
+      "model": "derailed:block/rail_curved"
+    },
+    "facing=east,powered=true": {
+      "model": "derailed:block/rail_curved",
+      "y": 90
+    },
+    "facing=south,powered=true": {
+      "model": "derailed:block/rail_curved",
+      "y": 180
+    },
+    "facing=west,powered=true": {
+      "model": "derailed:block/rail_curved",
+      "y": 270
+    }
+  }
+}
