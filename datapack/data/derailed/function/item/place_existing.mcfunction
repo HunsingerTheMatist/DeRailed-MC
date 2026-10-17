@@ -33,5 +33,10 @@ execute if score #shifting dr_temp matches 1 run return 1
 
 execute as @n[type=interaction,distance=..0.5,tag=dr_placement] at @s run function derailed:placement/update_placement
 
+# Held for the player who added to it, or threw what was added, so auto pickup
+#  leaves it to them until they are 3 blocks away
+execute if score @s dr_player_id matches 1.. run tag @n[type=interaction,distance=..0.5,tag=dr_placement] add dr_held
+execute if score @s dr_player_id matches 1.. run scoreboard players operation @n[type=interaction,distance=..0.5,tag=dr_placement] dr_player_id = @s dr_player_id
+
 function derailed:player/take_items
 return 1

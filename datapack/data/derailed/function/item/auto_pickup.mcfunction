@@ -1,4 +1,5 @@
-# Top up a partly full hand from a placement underfoot
+# Top up a partly full hand from placements of the same item round the player,
+#  never the one they stand on
 # Run as the player, at the player
 
 # Check if the player can take more items
@@ -9,7 +10,7 @@ execute if score @s dr_count >= $HandCap dr_config run return fail
 function derailed:item/_auto_pickup
 
 scoreboard players operation #prev_count dr_temp = @s dr_count
-execute at @n[type=interaction,distance=..1,tag=dr_current] run function derailed:item/pickup
+execute at @n[type=interaction,distance=..3,tag=dr_current] run function derailed:item/pickup
 
 # Run again if an item was picked up
 execute if score #prev_count dr_temp < @s dr_count run function derailed:item/auto_pickup
