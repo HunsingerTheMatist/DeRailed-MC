@@ -1,8 +1,8 @@
 # A vanilla item entity that appeared this tick. Run as the item entity
 #
 # Item entities exist only for the tick between a player dropping one and this
-#  turning it into a placement, so anything that cannot be traced back to a
-#  carrying player is destroyed rather than placed
+#  throwing it as a pile, so anything that cannot be traced back to a carrying
+#  player is destroyed rather than thrown
 
 tag @s add dr_processed
 
@@ -25,6 +25,6 @@ execute store result score #curr_rotation dr_arg run data get entity @p[distance
 execute store result score #curr_item_count dr_arg run data get entity @s Item.count
 scoreboard players operation #curr_item_count dr_arg < @p[distance=..10,tag=dr_current] dr_count
 
-execute as @p[distance=..10,tag=dr_current] at @s align xyz positioned ~0.5 ~ ~0.5 run function derailed:item/try_place
+execute as @p[distance=..10,tag=dr_current] at @s anchored eyes positioned ^ ^ ^ run function derailed:toss/throw
 
 kill @s

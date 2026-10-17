@@ -48,7 +48,7 @@ scoreboard players operation #rem dr_temp = #top dr_temp
 scoreboard players add #rem dr_temp 5000
 scoreboard players operation #rem dr_temp %= $TenThousand dr_const
 execute if score #cake_to dr_temp > #cake_from dr_temp if score #rem dr_temp matches 0 run return 0
-execute align y positioned ~ ~-1 ~ run summon interaction ~ ~ ~ {Tags:["dr_pile_lift","dr_pile_new"],width:0f,height:0f,Passengers:[{id:"minecraft:shulker",Tags:["dr_pile_box"],Invulnerable:true,NoAI:true,Silent:true,Health:1,DeathLootTable:"minecraft:empty",attributes:[{id:"minecraft:scale",base:0.875}],active_effects:[{id:"minecraft:invisibility",duration:-1,show_particles:false}]}]}
+execute align y positioned ~ ~-1 ~ run summon interaction ~ ~ ~ {Tags:["dr_pile_lift","dr_pile_new"],width:0f,height:0f,Passengers:[{id:"minecraft:shulker",Tags:["dr_pile_box","dr_hard"],Invulnerable:true,NoAI:true,Silent:true,Health:1,DeathLootTable:"minecraft:empty",attributes:[{id:"minecraft:scale",base:0.875}],active_effects:[{id:"minecraft:invisibility",duration:-1,show_particles:false}]}]}
 
 # It rides the top less its height of 0.875 up from the interaction, a block
 #  under the block the placement stands in

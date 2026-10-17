@@ -1,4 +1,4 @@
-# A placement was right-clicked. Run as the player
+# A placement or a thrown pile was right-clicked. Run as the player
 #
 # Right click is the only button that reaches a placement, because left click is
 #  mining. Direction is decided by whether the placement can be taken from: room in
@@ -17,6 +17,8 @@ execute store result score #curr_rotation dr_arg run data get entity @s Rotation
 
 execute at @n[type=interaction,distance=..10,tag=dr_water,tag=dr_current] run \
     return run function derailed:item/event/interacted_water
+execute if entity @n[type=interaction,distance=..10,tag=dr_toss_box,tag=dr_current] run \
+    return run function derailed:toss/catch
 
 execute store success score #placement_found dr_temp run \
     data remove entity @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] interaction

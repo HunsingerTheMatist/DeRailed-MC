@@ -87,8 +87,10 @@ game's window later, which the search needs nothing more for.
    above and nothing in the way.
 
 Each spot takes as many of the items as it can, counted off `#search_left`, and
-the search goes on with the rest; it stops once none are left. Whatever finds
-nowhere stays with whoever dropped it.
+the search goes on with the rest; it stops once none are left. What happens to
+whatever finds nowhere is up to the caller: a thrown pile leaves it as a pile
+where it came down (see [throwing.md](throwing.md)), and moving piles off a
+tile for a rail gives up the rail.
 
 ## Cost
 

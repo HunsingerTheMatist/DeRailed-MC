@@ -60,6 +60,12 @@ scoreboard objectives add dr_mh dummy "DeRailed Mound Height"
 scoreboard objectives add dr_mx dummy "DeRailed Mound Column"
 scoreboard objectives add dr_mz dummy "DeRailed Mound Row"
 
+# How many ticks a thrown pile has been in the air, and the velocity across it
+#  was thrown with, in ten-thousandths of a block a tick
+scoreboard objectives add dr_toss_age dummy "DeRailed Toss Age"
+scoreboard objectives add dr_toss_vx dummy "DeRailed Toss Velocity X"
+scoreboard objectives add dr_toss_vz dummy "DeRailed Toss Velocity Z"
+
 # Config defaults
 execute unless score $HandCap dr_config matches 1.. run scoreboard players set $HandCap dr_config 3
 execute unless score $BucketFillTicks dr_config matches 1.. run scoreboard players set $BucketFillTicks dr_config 20
@@ -73,6 +79,13 @@ execute unless score $MapMinZ dr_var = $MapMinZ dr_var run scoreboard players se
 execute unless score $MapMaxZ dr_var = $MapMaxZ dr_var run scoreboard players set $MapMaxZ dr_var 47
 execute unless score $MapMinY dr_var = $MapMinY dr_var run scoreboard players set $MapMinY dr_var 15
 execute unless score $MapMaxY dr_var = $MapMaxY dr_var run scoreboard players set $MapMaxY dr_var 30
+
+# How fast a pile is thrown by how many it holds, in ten-thousandths of a block
+#  a tick: 6000 for one is twice the 0.3 vanilla throws dropped items at, two
+#  go at three quarters of that and three or more at half
+execute unless score $TossSpeed1 dr_config matches 0.. run scoreboard players set $TossSpeed1 dr_config 6000
+execute unless score $TossSpeed2 dr_config matches 0.. run scoreboard players set $TossSpeed2 dr_config 4500
+execute unless score $TossSpeed3 dr_config matches 0.. run scoreboard players set $TossSpeed3 dr_config 3000
 
 # How far a train goes along its track a tick, in thousandths of a block: 15 is
 #  0.1 tiles a second
@@ -118,6 +131,17 @@ scoreboard players set $HalfTurn dr_const 180
 
 # A tile is three blocks across
 scoreboard players set $TileSize dr_const 3
+
+# A thrown pile falls as a dropped item does, 0.04 of a block a tick faster
+#  each tick, in ten-thousandths, and keeps 98 hundredths of its speed each tick
+scoreboard players set $TossGravity dr_const 400
+scoreboard players set $TossDrag dr_const 98
+scoreboard players set $Two dr_const 2
+
+# One landed on what it should not rest on goes back a quarter of a block at a
+#  time, in ten-thousandths, against the way it was thrown
+scoreboard players set $MinusQuarter dr_const -2500
+scoreboard players set $MinusOne dr_const -1
 
 # A train's lengths are in thousandths of a block and its facings in
 #  thousandths of a degree; a corner's quarter turn of half a tile is 2356 long

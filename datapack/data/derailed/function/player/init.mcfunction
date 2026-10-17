@@ -13,6 +13,9 @@ scoreboard players set @s dr_count 0
 attribute @s minecraft:jump_strength base set 0.39
 attribute @s minecraft:entity_interaction_range base set 4.5
 
+# Thrown piles stop against players
+tag @s add dr_hard
+
 # Starting wood (temp)
 scoreboard players operation #curr_item dr_arg = $Wood dr_const
 scoreboard players set #give_count dr_arg 1

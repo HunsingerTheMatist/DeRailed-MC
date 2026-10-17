@@ -41,6 +41,13 @@ PACKS = {
 # Repo-root files copied into the top level of every zip.
 SHARED_ROOT_FILES = ["README.md"]
 
+# Third-party data packs kept unchanged under vendor/, each its own pack in the
+#  repo, whose `data` is folded into the datapack zip so it ships as one pack.
+#  Where a vendored file has the same path as one of ours, a tag's values are
+#  merged and anything else stops the build; each one's LICENSE goes in the zip
+#  as LICENSE-<name>.
+VENDOR_DATAPACKS = [ROOT / "vendor" / "bs.move"]
+
 
 def parse_version() -> str:
     """Reads load.mcfunction's `data modify storage derailed:data Version set
@@ -88,32 +95,69 @@ def update_build_info(version: str) -> int:
     return info["build_number"]
 
 
+def merge_tag(ours: bytes, theirs: bytes, rel: str) -> bytes:
+    """Merges two copies of the same tag file: the values of both, ours first,
+    without repeats. Stops the build where either replaces rather than adds."""
+    a = json.loads(ours)
+    b = json.loads(theirs)
+    if a.get("replace") or b.get("replace"):
+        sys.exit(f"Tag {rel} replaces in one of the packs and cannot be merged.")
+    values = list(a.get("values", []))
+    values += [v for v in b.get("values", []) if v not in values]
+    return (json.dumps({"replace": False, "values": values}, indent="\t") + "\n").encode("utf-8")
+
+
+def collect_files(name: str, spec: dict) -> dict:
+    """Gathers one pack's files as {path in the zip: bytes}: its own `include`
+    entries relative to its directory, and for the datapack the vendored packs'
+    `data` and licences."""
+    files = {}
+    for entry in spec["include"]:
+        src = spec["dir"] / entry
+        if not src.exists():
+            sys.exit(f"Required entry missing from {name}: {entry}")
+        if src.is_file():
+            files[entry] = src.read_bytes()
+            continue
+        for sub in sorted(src.rglob("*")):
+            # .gitkeep only exists to keep empty dirs in git; not pack content.
+            if sub.is_file() and sub.name != ".gitkeep":
+                files[sub.relative_to(spec["dir"]).as_posix()] = sub.read_bytes()
+
+    if name != "datapack":
+        return files
+    for vendor in VENDOR_DATAPACKS:
+        if not (vendor / "data").is_dir():
+            sys.exit(f"Vendored data pack missing: {vendor}")
+        for sub in sorted((vendor / "data").rglob("*")):
+            if not sub.is_file():
+                continue
+            rel = sub.relative_to(vendor).as_posix()
+            if rel not in files:
+                files[rel] = sub.read_bytes()
+            elif "/tags/" in rel and rel.endswith(".json"):
+                files[rel] = merge_tag(files[rel], sub.read_bytes(), rel)
+            else:
+                sys.exit(f"{vendor.name} has {rel}, which the datapack already has.")
+        licence = vendor / "LICENSE"
+        if licence.is_file():
+            files[f"LICENSE-{vendor.name}"] = licence.read_bytes()
+    return files
+
+
 def build_pack(name: str, spec: dict, zip_path: Path, verbose: bool) -> int:
-    """Zips one pack: its own `include` entries relative to its directory, plus
-    the shared repo-root files at the top level. Returns the file count."""
+    """Zips one pack: its files as 'collect_files' gathers them, plus the shared
+    repo-root files at the top level. Returns the file count."""
     if zip_path.exists():
         zip_path.unlink()
 
     written = 0
     with ZipFile(zip_path, "w") as zf:
-        for entry in spec["include"]:
-            src = spec["dir"] / entry
-            if not src.exists():
-                sys.exit(f"Required entry missing from {name}: {entry}")
-            if src.is_file():
-                zf.write(src, entry)
-                if verbose:
-                    print(f"  {entry}")
-                written += 1
-                continue
-            for sub in sorted(src.rglob("*")):
-                # .gitkeep only exists to keep empty dirs in git; not pack content.
-                if sub.is_file() and sub.name != ".gitkeep":
-                    rel = sub.relative_to(spec["dir"]).as_posix()
-                    zf.write(sub, rel)
-                    if verbose:
-                        print(f"  {rel}")
-                    written += 1
+        for rel, data in collect_files(name, spec).items():
+            zf.writestr(rel, data)
+            if verbose:
+                print(f"  {rel}")
+            written += 1
 
         for entry in SHARED_ROOT_FILES:
             src = ROOT / entry
