@@ -1,32 +1,16 @@
 {
-  "variants": {
-    "facing=north,powered=false": {
-      "model": "derailed:block/rail"
-    },
-    "facing=east,powered=false": {
-      "model": "derailed:block/rail",
-      "y": 90
-    },
-    "facing=south,powered=false": {
-      "model": "derailed:block/transparent"
-    },
-    "facing=west,powered=false": {
-      "model": "derailed:block/transparent"
-    },
-    "facing=north,powered=true": {
-      "model": "derailed:block/rail_curved"
-    },
-    "facing=east,powered=true": {
-      "model": "derailed:block/rail_curved",
-      "y": 90
-    },
-    "facing=south,powered=true": {
-      "model": "derailed:block/rail_curved",
-      "y": 180
-    },
-    "facing=west,powered=true": {
-      "model": "derailed:block/rail_curved",
-      "y": 270
-    }
-  }
+  "multipart": [
+    {"when": {"facing": "north", "powered": "false"}, "apply": {"model": "derailed:block/rail"}},
+    {"when": {"facing": "north", "powered": "false"}, "apply": {"model": "derailed:block/rail_gravel"}},
+    {"when": {"facing": "east", "powered": "false"}, "apply": {"model": "derailed:block/rail", "y": 90}},
+    {"when": {"facing": "east", "powered": "false"}, "apply": {"model": "derailed:block/rail_gravel", "y": 90}},
+    {"when": {"facing": "north", "powered": "true"}, "apply": {"model": "derailed:block/rail_curved"}},
+    {"when": {"facing": "north", "powered": "true"}, "apply": {"model": "derailed:block/rail_gravel_curved"}},
+    {"when": {"facing": "east", "powered": "true"}, "apply": {"model": "derailed:block/rail_curved", "y": 90}},
+    {"when": {"facing": "east", "powered": "true"}, "apply": {"model": "derailed:block/rail_gravel_curved", "y": 90}},
+    {"when": {"facing": "south", "powered": "true"}, "apply": {"model": "derailed:block/rail_curved", "y": 180}},
+    {"when": {"facing": "south", "powered": "true"}, "apply": {"model": "derailed:block/rail_gravel_curved", "y": 180}},
+    {"when": {"facing": "west", "powered": "true"}, "apply": {"model": "derailed:block/rail_curved", "y": 270}},
+    {"when": {"facing": "west", "powered": "true"}, "apply": {"model": "derailed:block/rail_gravel_curved", "y": 270}}
+  ]
 }

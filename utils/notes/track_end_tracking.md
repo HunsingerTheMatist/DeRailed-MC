@@ -25,6 +25,15 @@ its states as a rail:
 | true | south | turning north to west |
 | true | west | turning north to east |
 
+The straight and curved rails also draw a band of pebbles two blocks wide under
+them across the whole tile, each pebble a few boxes standing half a pixel tall
+on average and never more than one (`rail_gravel` and `rail_gravel_curved`,
+models and textures of the same names, both written by
+`utils/generate_rail_gravel.py` from the vanilla gravel); the curve's band
+follows the curved rail's own line, straight in from the edges and turning on a
+tighter arc round the middle. The blockstate is multipart so each state draws
+its rail and its gravel.
+
 A block update beside one would set `powered` back to match the redstone round
 it, so everything near the track is placed `strict`. The station's rails in
 `station.nbt` are the same trapdoors.
