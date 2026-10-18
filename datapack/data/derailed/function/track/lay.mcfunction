@@ -8,8 +8,8 @@
 #  facing the way on, with the way it came in by in '#din' and the way on in
 #  '#d'
 
-execute if score #curve dr_temp matches 1 run fill ~-1 ~ ~ ~1 ~ ~ air replace #minecraft:rails strict
-execute if score #curve dr_temp matches 1 run fill ~ ~ ~-1 ~ ~ ~1 air replace #minecraft:rails strict
+execute if score #curve dr_temp matches 1 run fill ~-1 ~ ~ ~1 ~ ~ air replace iron_trapdoor strict
+execute if score #curve dr_temp matches 1 run fill ~ ~ ~-1 ~ ~ ~1 air replace iron_trapdoor strict
 scoreboard players operation #dout dr_temp = #d dr_temp
 execute if score #curve dr_temp matches 1 positioned ~-1 ~ ~-1 run function derailed:track/lay_rails
 scoreboard players operation #din dr_temp = #d dr_temp

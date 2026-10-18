@@ -4,9 +4,14 @@
 #  block the walk set off from, which the train only covers part of, and none
 #  over a curve, the middle of a corner the train only cuts across; then moves
 #  the trail onto the block it is on now
+# A straight rail or a tile's powered rail is an iron trapdoor not powered, a
+#  curve one powered, and the rail runs the way the walk left its block: the
+#  trail a block east or west of the walking marker now, or north or south
 # Positioned at the middle of the block the walking marker is on
 
-execute as @n[type=marker,tag=dr_trail_lay,tag=!dr_trail_first,distance=0..] at @s if block ~ ~ ~ #minecraft:rails[shape=east_west] positioned ~ ~0.8 ~ run fill ~ ~ ~ ~ ~1 ~ pink_stained_glass_pane[east=true,west=true] replace air strict
-execute as @n[type=marker,tag=dr_trail_lay,tag=!dr_trail_first,distance=0..] at @s if block ~ ~ ~ #minecraft:rails[shape=north_south] positioned ~ ~0.8 ~ run fill ~ ~ ~ ~ ~1 ~ pink_stained_glass_pane[north=true,south=true] replace air strict
+execute positioned ~1 ~ ~ if entity @n[type=marker,tag=dr_trail_lay,tag=!dr_trail_first,distance=..0.5] at @n[type=marker,tag=dr_trail_lay,distance=0..] if block ~ ~ ~ iron_trapdoor[powered=false] positioned ~ ~0.8 ~ run fill ~ ~ ~ ~ ~1 ~ pink_stained_glass_pane[east=true,west=true] replace air strict
+execute positioned ~-1 ~ ~ if entity @n[type=marker,tag=dr_trail_lay,tag=!dr_trail_first,distance=..0.5] at @n[type=marker,tag=dr_trail_lay,distance=0..] if block ~ ~ ~ iron_trapdoor[powered=false] positioned ~ ~0.8 ~ run fill ~ ~ ~ ~ ~1 ~ pink_stained_glass_pane[east=true,west=true] replace air strict
+execute positioned ~ ~ ~1 if entity @n[type=marker,tag=dr_trail_lay,tag=!dr_trail_first,distance=..0.5] at @n[type=marker,tag=dr_trail_lay,distance=0..] if block ~ ~ ~ iron_trapdoor[powered=false] positioned ~ ~0.8 ~ run fill ~ ~ ~ ~ ~1 ~ pink_stained_glass_pane[north=true,south=true] replace air strict
+execute positioned ~ ~ ~-1 if entity @n[type=marker,tag=dr_trail_lay,tag=!dr_trail_first,distance=..0.5] at @n[type=marker,tag=dr_trail_lay,distance=0..] if block ~ ~ ~ iron_trapdoor[powered=false] positioned ~ ~0.8 ~ run fill ~ ~ ~ ~ ~1 ~ pink_stained_glass_pane[north=true,south=true] replace air strict
 tag @n[type=marker,tag=dr_trail_lay,distance=0..] remove dr_trail_first
 tp @n[type=marker,tag=dr_trail_lay,distance=0..] ~ ~ ~
