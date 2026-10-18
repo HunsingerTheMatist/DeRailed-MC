@@ -3,6 +3,7 @@
         "#minecraft:slabs",
         "#minecraft:stairs",
         "#leaves",
+        "#logs",
 
         "grass_block",
         "moss_block",
