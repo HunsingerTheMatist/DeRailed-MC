@@ -5,10 +5,13 @@ of the same name each, covering a whole three-block tile.
 The gravel is pebbles cut from one 16 pixel tile made from the vanilla gravel
 texture: pebbles of one to seven pixels, rounded, placed at random from SEED
 until about half the tile is covered, none touching another along a side,
-wrapping across the edges so the tile repeats seamlessly. Each keeps the
-gravel's pixels, and each stands a height of its own, drawn from a normal
-spread round HEIGHT_MEAN pixels, HEIGHT_SPREAD wide, held between HEIGHT_MIN
-and HEIGHT_MAX.
+wrapping across the edges so the tile repeats seamlessly, then slid SHIFT
+pixels across, which puts as many pebbles along each side of a straight band;
+the pebbles in RESHAPE take new shapes where they stand, so no two along a side
+look alike.
+Each keeps the gravel's pixels, and each stands a height of its own, drawn from
+a normal spread round HEIGHT_MEAN pixels, HEIGHT_SPREAD wide, held between
+HEIGHT_MIN and HEIGHT_MAX.
 
 The tile is repeated across the 48 pixels and each pebble kept or dropped whole
 by where its middle falls, within BAND/2 of the line the rail's middle follows,
@@ -41,6 +44,7 @@ ASSETS = ROOT / "resourcepack" / "assets" / "derailed"
 JAR = Path.home() / "AppData" / "Roaming" / ".minecraft" / "versions" / "26.3" / "26.3.jar"
 
 SEED = 0
+SHIFT = 11
 COVER = 0.5
 TILE = 16
 SIZE = 48
@@ -68,6 +72,16 @@ SHAPES = [
 ]
 SINGLE = [(0, 0)]
 
+# Pebbles SEED gives that are reshaped where they stand, so the four along each
+#  side of a straight band are all different: SHAPES holds the notched 3x3
+#  twice, and SEED put it three times along each side
+RESHAPE = {
+    8: [(1, 0), (0, 1), (1, 1), (2, 1), (1, 2), (2, 2)],
+    12: [(0, 0), (1, 0), (2, 0), (0, 1), (1, 1), (2, 1), (1, 2)],
+    6: [(0, 0), (1, 0), (0, 1), (1, 1), (2, 1), (1, 2)],
+    11: [(0, 0), (1, 0), (2, 0), (0, 1), (1, 1), (2, 1), (1, 2)],
+}
+
 
 def pebble_tile():
     """The tile's pebbles, each a list of pixels unwrapped across the edges,
@@ -87,6 +101,19 @@ def pebble_tile():
         for x, y in cells:
             for ax, ay in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)):
                 taken[(y + ay) % TILE][(x + ax) % TILE] = True
+
+    for n, shape in RESHAPE.items():
+        ox, oy = min(x for x, _ in pebbles[n]), min(y for _, y in pebbles[n])
+        cells = [(ox + dx, oy + dy) for dx, dy in shape]
+        others = {(x % TILE, y % TILE) for m, c in enumerate(pebbles) if m != n for x, y in c}
+        if any(((x + ax) % TILE, (y + ay) % TILE) in others
+               for x, y in cells for ax, ay in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1))):
+            sys.exit("pebble %d's new shape comes beside another pebble" % n)
+        pebbles[n] = cells
+
+    # The pattern slides SHIFT pixels across, which sets where along it each
+    #  side of a straight band falls; at 11 both sides hold as many pebbles
+    pebbles = [[(x + SHIFT, y) for x, y in cells] for cells in pebbles]
 
     # The heights come from a generator of their own, so the layout stays the
     #  one SEED has always given
