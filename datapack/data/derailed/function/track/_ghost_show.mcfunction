@@ -1,6 +1,7 @@
 # Keeps the ghost rail on this tile, or puts one there, where the rail laid here
 #  would stand on open ground: its edge, middle and far edge, and the end's edge
-#  a block before them where the end's rail would turn
+#  a block before them where the end's rail would turn; where it would turn,
+#  the ghost of the end's rail turned shows over the end too
 # Run as the marker of a tile the next rail could go on, at it, facing the way
 #  on to it
 
@@ -15,6 +16,8 @@ execute positioned ^ ^ ^-1 unless function derailed:track/_open run return 0
 execute unless function derailed:track/_open run return 0
 execute positioned ^ ^ ^1 unless function derailed:track/_open run return 0
 execute if score #curve dr_temp matches 1 positioned ^ ^ ^-2 unless function derailed:track/_open run return 0
+
+execute if score #curve dr_temp matches 1 at @n[type=marker,tag=dr_track_end,distance=0..] run function derailed:track/_ghost_curve
 
 execute if entity @e[type=item_display,tag=dr_rail_ghost,distance=..0.01] run \
     return run tag @e[type=item_display,tag=dr_rail_ghost,distance=..0.01] remove dr_ghost_stale

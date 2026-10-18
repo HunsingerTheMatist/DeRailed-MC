@@ -14,7 +14,10 @@ scoreboard players operation #dout dr_temp = #d dr_temp
 execute if score #curve dr_temp matches 1 positioned ~-1 ~ ~-1 run function derailed:track/lay_rails
 scoreboard players operation #din dr_temp = #d dr_temp
 execute positioned ^ ^ ^3 positioned ~-1 ~ ~-1 run function derailed:track/lay_rails
-execute positioned ^ ^ ^3 run kill @e[type=item_display,tag=dr_rail_ghost,distance=..0.5]
+
+# Every ghost stood for a rail laid beside the old end, so none is right any
+#  more; the next ghost tick shows those the new end's tiles call for
+kill @e[type=item_display,tag=dr_rail_ghost,distance=0..]
 
 execute store result score #last dr_temp run data get storage derailed:train path
 scoreboard players remove #last dr_temp 1

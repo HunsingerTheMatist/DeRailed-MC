@@ -107,8 +107,23 @@ stand on open ground, the tile shows a see-through rail: an item display of
 `derailed:rail_ghost`, the rail's model with its texture at half opacity, facing
 the way on. One ghost stands on a tile however many players aim at it. Every
 ghost is tagged stale before the aims are followed, a ghost still aimed at loses
-the tag, and those still stale after are removed. Laying a rail removes the ghost
-on that tile at once.
+the tag, and those still stale after are removed. Laying a rail removes every
+ghost at once, whoever aimed it, since all of them stood for a rail beside the
+old end; the next ghost tick shows those the new end's tiles call for.
+
+Where the rail laid there would turn the end's rail, a ghost of the end's rail
+turned shows over it as well (`track/_ghost_curve`). It is the curved rail's
+model with see-through textures, the pack's rail and the vanilla rail and rail
+corner it uses, less its straight run in from the edge the track came in by,
+which would lie exactly on the end's straight rail, and with every piece grown
+a hundredth of a pixel each way to lie outside the straight rail's faces where
+the rest crosses it: `derailed:rail_curved_ghost_from_south` and
+`derailed:rail_curved_ghost_from_east`, the run in from the south or the east
+left out, both written by `utils/generate_rail_ghosts.py`. Each of the eight
+turns takes the one turned so its missing run is the edge the track comes in by,
+tagged `dr_ghost_turn_` and the edges in and out, 0 north to 3 west, and it is
+stale and removed like the others. An item display turns its model half a turn
+more than its facing, so each faces half a turn round from the blockstate turn.
 
 `dev/track/start` starts a track of one straight rail on the tile the player
 stands on, running the way they face, and takes every train away.
