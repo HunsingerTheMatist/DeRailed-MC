@@ -5,8 +5,10 @@
 #  it touches, and comes down where it lands, where it falls into water, or
 #  after 10 seconds in the air wherever it is
 # Its thrower is passed over until the box has cleared them
+# A pile dropped from a placement stays where it is while it waits its turn
 # Run as the thrown display, at it
 
+execute if score @s dr_toss_wait matches 1.. run return run scoreboard players remove @s dr_toss_wait 1
 scoreboard players add @s dr_toss_age 1
 execute if score @s dr_toss_age matches 200.. run return run function derailed:toss/_land
 scoreboard players operation @s bs.vel.y -= $TossGravity dr_const
@@ -27,6 +29,13 @@ execute at @s if function derailed:toss/_merge run return 0
 
 execute if entity @s[tag=dr_toss_landed] at @s run return run function derailed:toss/_land
 execute at @s if block ~ ~ ~ water run return run function derailed:toss/_land
+
+# One that started a move inside a block passes through every block after it,
+#  since Bookshelf leaves it tagged to pass through, so one that falls under
+#  the map's lowest height lands from that height straight up from it instead
+execute store result score #toss_y dr_temp run data get entity @s Pos[1]
+execute if score #toss_y dr_temp < $MapMinY dr_var store result storage derailed:toss surface.y int 1 run scoreboard players get $MapMinY dr_var
+execute if score #toss_y dr_temp < $MapMinY dr_var run return run function derailed:toss/_resurface with storage derailed:toss surface
 
 scoreboard players operation @s bs.vel.x *= $TossDrag dr_const
 scoreboard players operation @s bs.vel.x /= $Hundred dr_const

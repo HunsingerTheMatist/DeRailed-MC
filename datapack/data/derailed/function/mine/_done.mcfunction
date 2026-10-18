@@ -8,6 +8,10 @@
 fill ~ ~2 ~ ~2 ~4 ~2 air strict
 execute if entity @s[tag=dr_station_near] run function derailed:station/merge
 
+# Piles on the tile settle onto what the clearing left, from two below the
+#  ground to over the ceiling
+execute align xyz as @e[type=interaction,tag=dr_placement,dx=2,dy=22,dz=2] at @s run function derailed:placement/settle
+
 scoreboard players set #curr_item_count dr_arg 1
 execute if entity @s[tag=dr_mine_wood] run scoreboard players operation #curr_item dr_arg = $Wood dr_const
 execute if entity @s[tag=dr_mine_iron] run scoreboard players operation #curr_item dr_arg = $Iron dr_const

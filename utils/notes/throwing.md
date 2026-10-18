@@ -40,6 +40,13 @@ tagged `dr_hard`: players, and the piles' and the train's shulkers. It calls
 - **the top, going up:** it stops rising
 - **a side:** it stops going across either way, and falls
 
+A box that starts a move already inside a block passes through it, and
+Bookshelf leaves the entity tagged `bs.move.flag.-1`, which it never clears, so
+it passes through every block after it too. A thrown pile under the map's
+lowest height, `$MapMinY`, and not in water, has fallen through the map that
+way, and lands from that height straight up from where it is
+(`toss/_resurface`).
+
 Its thrower is passed over, tagged `bs.move.omit` for its own move only, until
 its box has cleared them; a throw at a wall right in front of them hits the
 wall.
@@ -67,6 +74,25 @@ on, as far as 5 blocks, and comes down there instead. The way it was thrown is
 the velocity across it set off with, kept in `dr_toss_vx` and `dr_toss_vz`,
 since hitting things takes it out of `bs.vel`. Thrown straight up there is no
 way back, and it comes down where it rests.
+
+## Dropping
+
+Mining a stage of a tile checks every pile on its three by three columns
+(`mine/advance`, and `mine/_done` for the last stage). A pile still stands where
+the floor under it would put it, as `item/place_on_floor` would, the floor's
+height coming from `item/_floor_top` for both (`placement/_supported`); any
+other block there, air, a button or a lower slab, and it falls
+(`placement/drop`); one still standing has its collision redrawn
+(`placement/settle`), since every stage's structure is three blocks across and
+six high with air over the stage, which clears the lowest cakes of a pile on the
+tile and leaves those over the structure. A falling pile's cakes are cleared
+from every block up to its interaction's top, gaps or not, so none are left
+behind. The pile is taken away, collision and all, and each section
+of it, three items, becomes a thrown pile where that section was drawn, still
+and with no thrower. The bottom one falls at once and each one over it waits 3
+ticks more than the one under it (`dr_toss_wait`), so they come down one onto
+the last and merge. They land as any thrown pile does; with no way they were
+thrown, one resting on something it may not stay on comes down where it rests.
 
 ## Catching
 

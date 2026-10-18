@@ -64,6 +64,7 @@ scoreboard objectives add dr_mz dummy "DeRailed Mound Row"
 #  was thrown with, in ten-thousandths of a block a tick
 scoreboard objectives add dr_toss_age dummy "DeRailed Toss Age"
 scoreboard objectives add dr_toss_vx dummy "DeRailed Toss Velocity X"
+scoreboard objectives add dr_toss_wait dummy "DeRailed Toss Wait"
 scoreboard objectives add dr_toss_vz dummy "DeRailed Toss Velocity Z"
 
 # Config defaults

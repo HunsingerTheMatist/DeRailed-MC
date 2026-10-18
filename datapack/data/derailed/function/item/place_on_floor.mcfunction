@@ -9,12 +9,7 @@
 #  blocks up or down, means this column is on it
 execute positioned ~-1.5 ~-3 ~-1.5 if entity @e[type=marker,tag=dr_track_tile,dx=2,dy=6,dz=2] run return fail
 
-# How high the floor's top is drawn, in pixels: a slab's 8, the iron's smooth
-#  sandstone slab's 12, a whole block's 16 and the iron's tall top block's 20
-scoreboard players set #floor_top dr_temp 16
-execute if block ~ ~ ~ #minecraft:slabs[type=bottom] run scoreboard players set #floor_top dr_temp 8
-execute if block ~ ~ ~ smooth_sandstone_slab[type=bottom] run scoreboard players set #floor_top dr_temp 12
-execute if block ~ ~ ~ basalt[axis=x] run scoreboard players set #floor_top dr_temp 20
+function derailed:item/_floor_top
 
 # Where it stands in the block it stands in, in ten-thousandths of a block
 scoreboard players operation #base_rel dr_temp = #floor_top dr_temp
