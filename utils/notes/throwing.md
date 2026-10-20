@@ -70,10 +70,24 @@ right there, whatever stands there.
 In water, or resting on a player, the train or a pile of another item, it first
 goes back against the way it was thrown, a quarter of a block at a time along
 its longer way across, until it is out of the water or clear of what it rested
-on, as far as 5 blocks, and comes down there instead. The way it was thrown is
-the velocity across it set off with, kept in `dr_toss_vx` and `dr_toss_vz`,
-since hitting things takes it out of `bs.vel`. Thrown straight up there is no
-way back, and it comes down where it rests.
+on, as far as 20 blocks, the pile search's own reach, so it finds the shore it
+crossed however far out it came down, and comes down there instead; past that
+it comes down where the walk stopped.
+
+Water is real water or the walls drawn as water on top of a lake
+(`derailed:fake_water`, together `derailed:water_like`). Those walls stand a
+block and a half tall, so a thrown pile comes to rest on them rather than
+falling in; resting on one counts as coming down in water.
+
+The walk runs at the height it came down at, so out of the water it stops
+inside the bank, under where a pile would stand; it comes up from there, as far
+as 3 blocks, to the first block a pile could stand in (`toss/_land_surface`),
+and searches from that, so it lands on the bank along its way rather than
+wherever the search reaches first from inside it.
+
+The way it was thrown is the velocity across it set off with, kept in
+`dr_toss_vx` and `dr_toss_vz`, since hitting things takes it out of `bs.vel`.
+Thrown straight up there is no way back, and it comes down where it rests.
 
 ## Dropping
 

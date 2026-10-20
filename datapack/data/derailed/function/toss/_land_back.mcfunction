@@ -1,6 +1,6 @@
 # Goes back from here along the way this thrown pile was thrown, a quarter of a
 #  block at a time measured along its longer way across, until it is clear of
-#  what '#toss_back' says it should not stay in, as far as 5 blocks, and puts
+#  what '#toss_back' says it should not stay in, as far as 20 blocks, and puts
 #  its items down there; thrown straight up, it puts them down here
 # Run as the thrown display, at it
 
@@ -22,4 +22,5 @@ scoreboard players operation #bz dr_temp /= #toss_m dr_temp
 execute store result storage derailed:toss step.x double 0.0001 run scoreboard players get #bx dr_temp
 execute store result storage derailed:toss step.z double 0.0001 run scoreboard players get #bz dr_temp
 scoreboard players set #toss_steps dr_temp 0
+scoreboard players set #toss_rise dr_temp 0
 function derailed:toss/_land_back_step with storage derailed:toss step
