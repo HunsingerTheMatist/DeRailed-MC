@@ -1,0 +1,23 @@
+{
+  "test.camel_husk_stand1": {"sounds": ["minecraft:mob/camel_husk/stand1"]},
+  "test.camel_husk_stand2": {"sounds": ["minecraft:mob/camel_husk/stand2"]},
+  "test.camel_husk_stand3": {"sounds": ["minecraft:mob/camel_husk/stand3"]},
+  "test.camel_husk_stand4": {"sounds": ["minecraft:mob/camel_husk/stand4"]},
+  "test.camel_husk_stand5": {"sounds": ["minecraft:mob/camel_husk/stand5"]},
+  "test.explode1": {"sounds": ["minecraft:random/explode1"]},
+  "test.explode2": {"sounds": ["minecraft:random/explode2"]},
+  "test.explode3": {"sounds": ["minecraft:random/explode3"]},
+  "test.explode4": {"sounds": ["minecraft:random/explode4"]},
+  "test.husk1": {"sounds": [{"name": "minecraft:mob/husk/convert1", "volume": 0.8}]},
+  "test.husk1_whoosh": {"sounds": [{"name": "derailed:test/husk1_whoosh", "volume": 0.8}]},
+  "test.husk1_tone": {"sounds": [{"name": "derailed:test/husk1_tone", "volume": 0.8}]},
+  "test.husk1_no_low": {"sounds": [{"name": "derailed:test/husk1_no_low", "volume": 0.8}]},
+  "test.husk1_whoosh_no_low": {"sounds": [{"name": "derailed:test/husk1_whoosh_no_low", "volume": 0.8}]},
+  "test.husk2": {"sounds": [{"name": "minecraft:mob/husk/convert2", "volume": 0.8}]},
+  "test.husk2_whoosh": {"sounds": [{"name": "derailed:test/husk2_whoosh", "volume": 0.8}]},
+  "test.husk2_tone": {"sounds": [{"name": "derailed:test/husk2_tone", "volume": 0.8}]},
+  "test.husk2_no_low": {"sounds": [{"name": "derailed:test/husk2_no_low", "volume": 0.8}]},
+  "test.husk2_whoosh_no_low": {"sounds": [{"name": "derailed:test/husk2_whoosh_no_low", "volume": 0.8}]},
+  "test.husk2_notch": {"sounds": [{"name": "derailed:test/husk2_notch", "volume": 0.8}]},
+  "test.husk2_untoned": {"sounds": [{"name": "derailed:test/husk2_untoned", "volume": 0.8}]}
+}

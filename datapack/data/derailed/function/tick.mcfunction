@@ -18,6 +18,7 @@ execute if score #dimension_ok dr_var matches 0 run return fail
 execute in derailed:game run function derailed:item/tick
 execute in derailed:game run function derailed:track/ghost_tick
 execute in derailed:game run function derailed:toss/tick
+execute in derailed:game as @e[type=item_display,tag=dr_emerge,distance=0..] at @s run function derailed:emerge/_tick
 
 # If two ticks have passed, check every player inventory
 # This MUST run after the item tick: a dropped item leaves the inventory before

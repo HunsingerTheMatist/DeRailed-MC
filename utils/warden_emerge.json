@@ -1,0 +1,2077 @@
+{
+ "length": 6.68,
+ "channels": [
+  {
+   "bone": "body",
+   "target": "ROTATION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.52,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      -22.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.2,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      -7.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.68,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      10.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.8,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      10.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.28,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      10.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.88,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      10.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.76,
+     "kind": "degreeVec",
+     "v": [
+      25.0,
+      0.0,
+      -7.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.92,
+     "kind": "degreeVec",
+     "v": [
+      35.0,
+      0.0,
+      -7.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.08,
+     "kind": "degreeVec",
+     "v": [
+      25.0,
+      0.0,
+      -7.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.44,
+     "kind": "degreeVec",
+     "v": [
+      47.5,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.56,
+     "kind": "degreeVec",
+     "v": [
+      47.5,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.68,
+     "kind": "degreeVec",
+     "v": [
+      47.5,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "degreeVec",
+     "v": [
+      70.0,
+      0.0,
+      2.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.8,
+     "kind": "degreeVec",
+     "v": [
+      70.0,
+      0.0,
+      2.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "body",
+   "target": "POSITION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -63.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.52,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -56.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.2,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.68,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.8,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.28,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.88,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.16,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -27.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.76,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -14.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.92,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -11.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.08,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -14.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.44,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -6.0,
+      -3.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.56,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -4.0,
+      -3.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.68,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -6.0,
+      -3.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -3.0,
+      -4.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.8,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -3.0,
+      -4.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "head",
+   "target": "ROTATION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.52,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.92,
+     "kind": "degreeVec",
+     "v": [
+      0.74,
+      0.0,
+      -40.38
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.16,
+     "kind": "degreeVec",
+     "v": [
+      -67.5,
+      0.0,
+      -2.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.24,
+     "kind": "degreeVec",
+     "v": [
+      -67.5,
+      0.0,
+      -2.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.32,
+     "kind": "degreeVec",
+     "v": [
+      -47.5,
+      0.0,
+      -2.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.4,
+     "kind": "degreeVec",
+     "v": [
+      -67.5,
+      0.0,
+      -2.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.68,
+     "kind": "degreeVec",
+     "v": [
+      -67.5,
+      0.0,
+      15.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.76,
+     "kind": "degreeVec",
+     "v": [
+      -67.5,
+      0.0,
+      -5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.84,
+     "kind": "degreeVec",
+     "v": [
+      -52.5,
+      0.0,
+      -5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.92,
+     "kind": "degreeVec",
+     "v": [
+      -67.5,
+      0.0,
+      -5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.64,
+     "kind": "degreeVec",
+     "v": [
+      -17.5,
+      0.0,
+      -10.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.76,
+     "kind": "degreeVec",
+     "v": [
+      70.0,
+      0.0,
+      12.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.04,
+     "kind": "degreeVec",
+     "v": [
+      70.0,
+      0.0,
+      12.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.12,
+     "kind": "degreeVec",
+     "v": [
+      80.0,
+      0.0,
+      12.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.24,
+     "kind": "degreeVec",
+     "v": [
+      70.0,
+      0.0,
+      12.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "degreeVec",
+     "v": [
+      77.5,
+      0.0,
+      -2.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "head",
+   "target": "POSITION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.52,
+     "kind": "posVec",
+     "v": [
+      -8.0,
+      -11.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.92,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.24,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.47,
+      -0.95
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.32,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.47,
+      -0.95
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.4,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.47,
+      -0.95
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.68,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      1.0,
+      -2.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.76,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      1.0,
+      -2.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.84,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      1.0,
+      -2.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.92,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      1.0,
+      -2.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.64,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -2.0,
+      -2.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.76,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -4.0,
+      1.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.04,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -1.0,
+      1.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.12,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -1.0,
+      1.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.24,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -1.0,
+      1.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -1.0,
+      1.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "right_arm",
+   "target": "ROTATION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.52,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.2,
+     "kind": "degreeVec",
+     "v": [
+      -152.5,
+      2.5,
+      7.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.68,
+     "kind": "degreeVec",
+     "v": [
+      -180.0,
+      12.5,
+      -10.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.8,
+     "kind": "degreeVec",
+     "v": [
+      -90.0,
+      12.5,
+      -10.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.28,
+     "kind": "degreeVec",
+     "v": [
+      -90.0,
+      12.5,
+      -10.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.88,
+     "kind": "degreeVec",
+     "v": [
+      -90.0,
+      12.5,
+      -10.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.08,
+     "kind": "degreeVec",
+     "v": [
+      -95.0,
+      12.5,
+      -10.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.24,
+     "kind": "degreeVec",
+     "v": [
+      -83.93,
+      3.93,
+      5.71
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.36,
+     "kind": "degreeVec",
+     "v": [
+      -80.0,
+      7.5,
+      17.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.76,
+     "kind": "degreeVec",
+     "v": [
+      -67.5,
+      2.5,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.08,
+     "kind": "degreeVec",
+     "v": [
+      -67.5,
+      2.5,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.44,
+     "kind": "degreeVec",
+     "v": [
+      -55.0,
+      2.5,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.56,
+     "kind": "degreeVec",
+     "v": [
+      -60.0,
+      2.5,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.68,
+     "kind": "degreeVec",
+     "v": [
+      -55.0,
+      2.5,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "degreeVec",
+     "v": [
+      -67.5,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.56,
+     "kind": "degreeVec",
+     "v": [
+      -50.45,
+      0.0,
+      2.69
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.08,
+     "kind": "degreeVec",
+     "v": [
+      -62.72,
+      0.0,
+      4.3
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "right_arm",
+   "target": "POSITION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.52,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.2,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -21.0,
+      9.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.68,
+     "kind": "posVec",
+     "v": [
+      2.0,
+      -2.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.8,
+     "kind": "posVec",
+     "v": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.28,
+     "kind": "posVec",
+     "v": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.88,
+     "kind": "posVec",
+     "v": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.08,
+     "kind": "posVec",
+     "v": [
+      2.0,
+      -2.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.24,
+     "kind": "posVec",
+     "v": [
+      2.0,
+      2.71,
+      3.86
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.36,
+     "kind": "posVec",
+     "v": [
+      2.0,
+      1.0,
+      5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.76,
+     "kind": "posVec",
+     "v": [
+      2.0,
+      3.0,
+      3.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.08,
+     "kind": "posVec",
+     "v": [
+      2.0,
+      3.0,
+      3.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.44,
+     "kind": "posVec",
+     "v": [
+      2.67,
+      4.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.56,
+     "kind": "posVec",
+     "v": [
+      2.67,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.68,
+     "kind": "posVec",
+     "v": [
+      2.67,
+      4.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "posVec",
+     "v": [
+      0.67,
+      3.0,
+      4.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "left_arm",
+   "target": "ROTATION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.12,
+     "kind": "degreeVec",
+     "v": [
+      -167.5,
+      -17.5,
+      -7.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.6,
+     "kind": "degreeVec",
+     "v": [
+      -167.5,
+      -17.5,
+      -7.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.88,
+     "kind": "degreeVec",
+     "v": [
+      -175.0,
+      -17.5,
+      15.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.16,
+     "kind": "degreeVec",
+     "v": [
+      -190.0,
+      -17.5,
+      5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.28,
+     "kind": "degreeVec",
+     "v": [
+      -90.0,
+      -5.0,
+      5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.68,
+     "kind": "degreeVec",
+     "v": [
+      -90.0,
+      -17.5,
+      -12.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.8,
+     "kind": "degreeVec",
+     "v": [
+      -90.0,
+      -17.5,
+      -12.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.28,
+     "kind": "degreeVec",
+     "v": [
+      -90.0,
+      -17.5,
+      -12.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.88,
+     "kind": "degreeVec",
+     "v": [
+      -90.0,
+      -17.5,
+      -12.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.04,
+     "kind": "degreeVec",
+     "v": [
+      -81.29,
+      -10.64,
+      -14.21
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.16,
+     "kind": "degreeVec",
+     "v": [
+      -83.5,
+      -5.5,
+      -15.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.76,
+     "kind": "degreeVec",
+     "v": [
+      -62.5,
+      -7.5,
+      5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.92,
+     "kind": "degreeVec",
+     "v": [
+      -58.75,
+      -3.75,
+      5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.08,
+     "kind": "degreeVec",
+     "v": [
+      -55.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.44,
+     "kind": "degreeVec",
+     "v": [
+      -52.5,
+      0.0,
+      5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.56,
+     "kind": "degreeVec",
+     "v": [
+      -50.0,
+      0.0,
+      5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.68,
+     "kind": "degreeVec",
+     "v": [
+      -52.5,
+      0.0,
+      5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "degreeVec",
+     "v": [
+      -72.5,
+      -2.5,
+      5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.56,
+     "kind": "degreeVec",
+     "v": [
+      -57.5,
+      -4.54,
+      2.99
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.08,
+     "kind": "degreeVec",
+     "v": [
+      -70.99,
+      -5.77,
+      1.78
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "left_arm",
+   "target": "POSITION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.12,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -8.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.6,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -8.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.88,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.2,
+     "kind": "posVec",
+     "v": [
+      -2.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.68,
+     "kind": "posVec",
+     "v": [
+      -4.0,
+      3.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.8,
+     "kind": "posVec",
+     "v": [
+      -4.0,
+      3.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.28,
+     "kind": "posVec",
+     "v": [
+      -4.0,
+      3.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.88,
+     "kind": "posVec",
+     "v": [
+      -4.0,
+      3.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.04,
+     "kind": "posVec",
+     "v": [
+      -3.23,
+      5.7,
+      4.97
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.16,
+     "kind": "posVec",
+     "v": [
+      -1.49,
+      2.22,
+      5.25
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.76,
+     "kind": "posVec",
+     "v": [
+      -1.14,
+      1.71,
+      1.86
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.92,
+     "kind": "posVec",
+     "v": [
+      -1.14,
+      1.21,
+      3.86
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.08,
+     "kind": "posVec",
+     "v": [
+      -1.14,
+      2.71,
+      4.86
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.44,
+     "kind": "posVec",
+     "v": [
+      -1.0,
+      1.0,
+      3.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.56,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      1.0,
+      1.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.68,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      1.0,
+      3.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "posVec",
+     "v": [
+      -2.0,
+      0.0,
+      4.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "right_leg",
+   "target": "ROTATION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.52,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.28,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.88,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.36,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.32,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.48,
+     "kind": "degreeVec",
+     "v": [
+      55.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.6,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.8,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "right_leg",
+   "target": "POSITION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -63.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.52,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -56.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.2,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.68,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.8,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.28,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.88,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.36,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -22.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.76,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -12.28,
+      2.48
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.92,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -9.28,
+      2.48
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.08,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -12.28,
+      2.48
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.32,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -4.14,
+      4.14
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.48,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -0.57,
+      -8.43
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.6,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.8,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "left_leg",
+   "target": "ROTATION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.52,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.28,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.88,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.36,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.84,
+     "kind": "degreeVec",
+     "v": [
+      20.0,
+      0.0,
+      -17.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.0,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.68,
+     "kind": "degreeVec",
+     "v": [
+      20.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.84,
+     "kind": "degreeVec",
+     "v": [
+      10.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.8,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "degreeVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  },
+  {
+   "bone": "left_leg",
+   "target": "POSITION",
+   "keys": [
+    {
+     "t": 0.0,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -63.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 0.52,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -56.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.2,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.68,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 1.8,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.28,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 2.88,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -32.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.36,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      -22.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 3.84,
+     "kind": "posVec",
+     "v": [
+      -4.0,
+      2.0,
+      -7.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.0,
+     "kind": "posVec",
+     "v": [
+      -4.0,
+      0.0,
+      -5.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.68,
+     "kind": "posVec",
+     "v": [
+      -4.0,
+      0.0,
+      -9.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 4.84,
+     "kind": "posVec",
+     "v": [
+      -2.0,
+      2.0,
+      -3.5
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.0,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 5.8,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    },
+    {
+     "t": 6.64,
+     "kind": "posVec",
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "interp": "CATMULLROM"
+    }
+   ]
+  }
+ ]
+}
