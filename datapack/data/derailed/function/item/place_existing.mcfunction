@@ -23,7 +23,6 @@ execute if score #curr_item dr_arg <= $LastResource dr_const unless function der
 execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #curr_item_count dr_arg = #want_count dr_temp
 execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #curr_item_count dr_arg -= @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count
 
-tellraw @a "Adding to existing stack"
 scoreboard players operation @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count += #curr_item_count dr_arg
 
 # While piles are moved aside for a rail the count is only noted, not yet drawn

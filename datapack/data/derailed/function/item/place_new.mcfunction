@@ -3,7 +3,6 @@
 #
 # Args: #curr_item, #curr_item_count, #curr_rotation
 
-tellraw @a "Placing new stack"
 function derailed:item/new_placement
 scoreboard players operation @n[type=interaction,distance=..0.5,tag=dr_placement] dr_item = #curr_item dr_arg
 scoreboard players operation @n[type=interaction,distance=..0.5,tag=dr_placement] dr_count = #curr_item_count dr_arg

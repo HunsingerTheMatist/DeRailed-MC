@@ -12,7 +12,6 @@ execute if score #curr_item dr_arg <= $LastResource dr_const store result entity
 
 scoreboard players operation #items_to_place dr_arg = @s dr_count
 
-tellraw @a [{score:{objective:"dr_arg",name:"#items_to_place"}}]
 execute positioned ~ ~0.5 ~ run function derailed:placement/update_placement_step
 function derailed:placement/_set_collision
 
