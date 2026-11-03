@@ -9,11 +9,11 @@
 execute unless entity @e[type=item_display,tag=dr_train_piece,distance=0..] run return 0
 execute as @e[type=marker,tag=dr_axle,distance=0..] run function derailed:train/_axle
 
-# The train uses its water a tick at a time until it has used all of it and
+# Each train uses its water a tick at a time until it has used all of it and
 #  catches fire
-execute if score $WaterUsed dr_var < $WaterCap dr_var run scoreboard players add $WaterUsed dr_var 1
+execute as @e[type=item_display,tag=dr_train_water,distance=0..] if score @s dr_water_used < @s dr_water_cap run scoreboard players add @s dr_water_used 1
 
-function derailed:train/craft
+execute as @e[type=item_display,tag=dr_train_crafting,distance=0..] at @s run function derailed:train/craft
 
 # The front end lays barriers over a block once it has passed all of it, and
 #  the back end clears them from a block as soon as it comes onto it, so they
@@ -23,4 +23,4 @@ execute as @e[type=marker,tag=dr_reach_back,distance=0..] at @s align xz positio
 
 execute as @e[type=item_display,tag=dr_train_piece,distance=0..] run function derailed:train/_piece
 execute as @a[distance=0..] at @s if entity @e[type=item_display,tag=dr_train_box,distance=..3] run function derailed:train/_push
-function derailed:train/_path_keep
+execute as @e[type=item_display,tag=dr_train_engine,distance=0..] run function derailed:train/_path_keep

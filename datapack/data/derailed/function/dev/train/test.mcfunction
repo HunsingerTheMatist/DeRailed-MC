@@ -1,47 +1,54 @@
-
-# Lays a test track and puts an engine, a water wagon, a supply wagon and a
-#  crafting wagon on it, going round it for as long as they are left: a loop of
-#  tiles six across and three down, an S bend at its western end, the train
-#  setting off east along the bottom row
+# Lays a test track for team $(team) and puts its engine, water wagon, supply
+#  wagon and crafting wagon on it, going round it for as long as they are left,
+#  in place of any train and track tiles the team had: a loop of tiles six
+#  across and three down, an S bend at its western end, the train setting off
+#  east along the bottom row, each tile marked as a track tile
 #   # V < < < <
 #   V < # # # ^
 #   > > > > > ^
 # Run by a player standing where the track's northwestern corner goes; it takes
 #  the 18 by 9 blocks south and east of there, on grass a block below
 
-function derailed:dev/train/clear
+$function derailed:dev/train/clear {team:$(team)}
 fill ~ ~-1 ~ ~17 ~-1 ~8 grass_block strict
 fill ~ ~ ~ ~17 ~3 ~8 air strict
+$scoreboard players set #train_team dr_temp $(team)
+execute as @e[type=marker,tag=dr_track_tile,tag=!dr_track_station,distance=0..] if score @s dr_team = #train_team dr_temp run kill @s
+
+# The train runs 0.2 above the corner's block
 execute align xyz summon marker run function derailed:dev/train/_origin
+scoreboard players operation #t dr_temp = #oy dr_temp
+scoreboard players operation #t dr_temp *= $Thousand dr_const
+$execute store result storage derailed:train t$(team).y int 1 run scoreboard players add #t dr_temp 200
+
+# Piles put down round it are put down as on the map
+scoreboard players operation #wx0 dr_temp = #ox dr_temp
+scoreboard players operation #wx1 dr_temp = #ox dr_temp
+scoreboard players add #wx1 dr_temp 17
+scoreboard players operation #wz0 dr_temp = #oz dr_temp
+scoreboard players operation #wz1 dr_temp = #oz dr_temp
+scoreboard players add #wz1 dr_temp 8
+scoreboard players operation #wy dr_temp = #oy dr_temp
+function derailed:dev/widen_map
 
 # The path runs a tile at a time, each tile's ways in and out 0 north, 1 east,
 #  2 south and 3 west
-data modify storage derailed:train path set value []
-function derailed:dev/train/_tile {x:0,z:6,din:2,dout:1}
-function derailed:dev/train/_tile {x:3,z:6,din:1,dout:1}
-function derailed:dev/train/_tile {x:6,z:6,din:1,dout:1}
-function derailed:dev/train/_tile {x:9,z:6,din:1,dout:1}
-function derailed:dev/train/_tile {x:12,z:6,din:1,dout:1}
-function derailed:dev/train/_tile {x:15,z:6,din:1,dout:0}
-function derailed:dev/train/_tile {x:15,z:3,din:0,dout:0}
-function derailed:dev/train/_tile {x:15,z:0,din:0,dout:3}
-function derailed:dev/train/_tile {x:12,z:0,din:3,dout:3}
-function derailed:dev/train/_tile {x:9,z:0,din:3,dout:3}
-function derailed:dev/train/_tile {x:6,z:0,din:3,dout:3}
-function derailed:dev/train/_tile {x:3,z:0,din:3,dout:2}
-function derailed:dev/train/_tile {x:3,z:3,din:2,dout:3}
-function derailed:dev/train/_tile {x:0,z:3,din:3,dout:2}
-data modify storage derailed:train loop set from storage derailed:train path
-
-# The train sets off with its water full, '$WaterTicks' until it catches fire
-scoreboard players operation $WaterCap dr_var = $WaterTicks dr_config
-scoreboard players set $WaterUsed dr_var 0
-
-# Its supply wagon and crafting wagon set off empty, with no rail being made
-scoreboard players set $SupplyWood dr_var 0
-scoreboard players set $SupplyIron dr_var 0
-scoreboard players set $Rails dr_var 0
-scoreboard players set $CraftLeft dr_var 0
+$data modify storage derailed:train t$(team).path set value []
+$function derailed:dev/train/_tile {team:$(team),x:0,z:6,din:2,dout:1}
+$function derailed:dev/train/_tile {team:$(team),x:3,z:6,din:1,dout:1}
+$function derailed:dev/train/_tile {team:$(team),x:6,z:6,din:1,dout:1}
+$function derailed:dev/train/_tile {team:$(team),x:9,z:6,din:1,dout:1}
+$function derailed:dev/train/_tile {team:$(team),x:12,z:6,din:1,dout:1}
+$function derailed:dev/train/_tile {team:$(team),x:15,z:6,din:1,dout:0}
+$function derailed:dev/train/_tile {team:$(team),x:15,z:3,din:0,dout:0}
+$function derailed:dev/train/_tile {team:$(team),x:15,z:0,din:0,dout:3}
+$function derailed:dev/train/_tile {team:$(team),x:12,z:0,din:3,dout:3}
+$function derailed:dev/train/_tile {team:$(team),x:9,z:0,din:3,dout:3}
+$function derailed:dev/train/_tile {team:$(team),x:6,z:0,din:3,dout:3}
+$function derailed:dev/train/_tile {team:$(team),x:3,z:0,din:3,dout:2}
+$function derailed:dev/train/_tile {team:$(team),x:3,z:3,din:2,dout:3}
+$function derailed:dev/train/_tile {team:$(team),x:0,z:3,din:3,dout:2}
+$data modify storage derailed:train t$(team).loop set from storage derailed:train t$(team).path
 
 # Each piece's middle along the path, the engine in front, 4.5 between it and
 #  the wagon behind and 3 between wagons

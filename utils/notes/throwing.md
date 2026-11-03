@@ -53,10 +53,11 @@ wall.
 
 ## Merging
 
-After each move, wood or iron touching the supply wagon goes into it first, as
-much as it has room for, and holds its thrower off taking it back by auto
-pickup as a click would (`toss/_into_supply`); the wagon's interaction is a
-little wider and taller than the shulker that stops the thrown pile. Then any
+After each move, wood or iron touching its thrower's team's supply wagon goes
+into it first, as much as it has room for, and holds its thrower off taking it
+back by auto pickup as a click would (`toss/_into_supply`); another team's
+wagon, or any for a pile no player threw, takes none. The wagon's interaction
+is a little wider and taller than the shulker that stops the thrown pile. Then any
 pile of the same resource its box touches takes as many as it can
 (`toss/_merge`), the piles holding the most first, the nearest of those
 holding as many. A pile's interaction is a little wider and taller than what
@@ -69,7 +70,15 @@ falls past it.
 It comes down where it lands, where its bottom falls into water, or after 10
 seconds in the air wherever it is (`toss/_land`). The items go through the pile
 search from the block it rests in, and whatever finds nowhere is left as a pile
-right there, whatever stands there.
+right there, whatever stands there, on the middle of that block and on the top
+of its floor as it is drawn: the block itself where a pile could not stand in
+it, and the block under it otherwise (`toss/_land_snap`).
+
+The search stays inside the map's limits, `$MapMinX` and the rest. The test
+train and test track (`dev/train/test`, `dev/track/start`) widen them to take
+in their own area with 20 blocks round it (`dev/widen_map`), so piles round a
+test outside the map land as they would on it; `dev/big/build` puts the map's
+own back.
 
 In water, or resting on a player, the train or a pile of another item, it first
 goes back against the way it was thrown, a quarter of a block at a time along

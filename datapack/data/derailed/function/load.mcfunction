@@ -53,6 +53,25 @@ scoreboard objectives add dr_spin dummy "DeRailed Train Distance"
 # The hundredth of water used the water wagon's tank was last drawn at
 scoreboard objectives add dr_water_step dummy "DeRailed Water Step"
 
+# What each wagon holds, on its display: the water wagon the ticks of water it
+#  has used and how many it holds, the supply wagon its wood and iron, and the
+#  crafting wagon its rails and the ticks left on the rail it is making
+scoreboard objectives add dr_water_used dummy "DeRailed Water Used"
+scoreboard objectives add dr_water_cap dummy "DeRailed Water Held"
+scoreboard objectives add dr_wood dummy "DeRailed Wood Held"
+scoreboard objectives add dr_iron dummy "DeRailed Iron Held"
+scoreboard objectives add dr_rails dummy "DeRailed Rails Held"
+scoreboard objectives add dr_craft_left dummy "DeRailed Crafting Ticks Left"
+
+# Teams: 1 red and 2 blue, 0 for none, held by each player from the vanilla
+#  team they are on and by everything that belongs to a team, its train, its
+#  track and its thrown piles
+scoreboard objectives add dr_team dummy "DeRailed Team"
+team add dr_red "Red"
+team modify dr_red color red
+team add dr_blue "Blue"
+team modify dr_blue color blue
+
 # Mounds, held by the markers 'mound/build' lays on each tile and corner
 scoreboard objectives add dr_mi dummy "DeRailed Mound Of Kind"
 scoreboard objectives add dr_md dummy "DeRailed Mound Depth"

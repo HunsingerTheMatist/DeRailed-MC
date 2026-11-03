@@ -35,7 +35,7 @@ players in the game dimension.
 - [ ] **Running out of track** (S). The train reads past the end of its path
   with no check; it should stop there and derail. Needs a decision on what a
   derail costs (see Progression)
-- [ ] **Water and fire** (M). At `$WaterCap` the train catches fire; the bucket
+- [ ] **Water and fire** (M). At `dr_water_cap` the train catches fire; the bucket
   puts it out and refills the tank, once `$RefillWait` has passed (unused
   today). Nothing happens at the cap yet
 - [ ] **Bucket on the map** (S). Filling only works through `dr_water`
@@ -144,15 +144,10 @@ players in the game dimension.
 
 ## Multiplayer
 
-- [ ] **Two teams, two trains** (L). Everything a team has its own of is kept
-  once for the whole game today: the train's path (`derailed:train` `path`,
-  `loop`, `y`), its water (`$WaterUsed`, `$WaterCap`), what its wagons hold
-  (`$SupplyWood`, `$SupplyIron`, `$Rails`, `$CraftLeft`), the track's end and
-  history (`derailed:track` `rails`, the `dr_track_end` and `dr_track_next`
-  markers), the bucket, and the map's bounds and section queue. Each needs
-  keying by team, likely a team id on every part of a train as `dr_tid` marks
-  a piece. Best done before 'Starting a run', and before more train state is
-  added. How the teams share or split the map is undecided
+- [ ] **Two teams, two trains** (L). The train and the track are kept for each
+  team, red and blue, `dr_team` on everything a team owns (see `trains.md`).
+  Still kept once for the whole game: the bucket, and the map's bounds and
+  section queue. How the teams share or split the map is undecided
 - [ ] **Per-player bucket state** (S). `#bucket_is_filled` and the bucket timers
   are global
 - [ ] **Joining a run in progress** (S). Only an id and a starting wood today

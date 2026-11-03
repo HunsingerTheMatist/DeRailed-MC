@@ -1,9 +1,10 @@
 
-# Puts a crafting wagon on the track with its middle '#train_s' along the path,
-#  in thousandths of a block: its model with its interaction riding it, and
-#  its shulker riding it on an interaction 0.3 tall, its axles 0.6 either
-#  way, where its wheels are, a display for each pair of wheels, and a display
-#  for the rails it holds, drawn at 0.8 of a pile's size
+# Puts a crafting wagon of team '#train_team' on the track, empty and making
+#  nothing, with its middle '#train_s' along the team's path, in thousandths of
+#  a block: its model with its interaction riding it, and its shulker riding
+#  it on an interaction 0.3 tall, its axles 0.6 either way, where its wheels
+#  are, a display for each pair of wheels, and a display for the rails it
+#  holds, drawn at 0.8 of a pile's size
 # Its parts stand wherever this runs until the trains next move
 # Run in the game's dimension
 
@@ -22,5 +23,8 @@ scoreboard players operation #train_axle dr_temp = #train_s dr_temp
 scoreboard players remove #train_axle dr_temp 600
 execute summon marker run function derailed:train/_axle_new
 
+scoreboard players set @e[type=item_display,tag=dr_train_crafting,tag=dr_train_new,distance=0..] dr_rails 0
+scoreboard players set @e[type=item_display,tag=dr_train_crafting,tag=dr_train_new,distance=0..] dr_craft_left 0
+
 function derailed:train/_spawned
-function derailed:train/draw_loads
+execute as @e[type=item_display,tag=dr_train_crafting,distance=0..] if score @s dr_tid = #train_ids dr_var run function derailed:train/draw_loads

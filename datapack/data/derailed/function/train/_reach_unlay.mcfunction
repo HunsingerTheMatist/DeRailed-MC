@@ -3,6 +3,7 @@
 #  end clearing barriers, at most 30 blocks, then goes
 # Run as a new marker, at the back end
 
+scoreboard players operation @s dr_team = @n[type=marker,tag=dr_reach_back,distance=0..] dr_team
 scoreboard players operation @s dr_ai = @n[type=marker,tag=dr_reach_back,distance=0..] dr_ai
 scoreboard players operation @s dr_ad = @n[type=marker,tag=dr_reach_back,distance=0..] dr_ad
 scoreboard players operation @s dr_acx = @n[type=marker,tag=dr_reach_back,distance=0..] dr_acx

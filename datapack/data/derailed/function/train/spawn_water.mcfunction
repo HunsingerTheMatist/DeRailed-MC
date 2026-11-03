@@ -1,8 +1,9 @@
 
-# Puts a water wagon on the track with its middle '#train_s' along the path,
-#  in thousandths of a block: its model with its interaction riding it, and
-#  its shulker riding it on an interaction 0.3 tall, its axles 0.6 either
-#  way, where its wheels are, and a display for each pair of wheels
+# Puts a water wagon of team '#train_team' on the track, its tank full, with
+#  its middle '#train_s' along the team's path, in thousandths of a block: its
+#  model with its interaction riding it, and its shulker riding it on an
+#  interaction 0.3 tall, its axles 0.6 either way, where its wheels are, and a
+#  display for each pair of wheels
 # Its parts stand wherever this runs until the trains next move
 # Run in the game's dimension
 
@@ -19,5 +20,9 @@ scoreboard players set #train_front dr_temp 0
 scoreboard players operation #train_axle dr_temp = #train_s dr_temp
 scoreboard players remove #train_axle dr_temp 600
 execute summon marker run function derailed:train/_axle_new
+
+# Its tank lasts '$WaterTicks' until the train catches fire
+scoreboard players set @e[type=item_display,tag=dr_train_water,tag=dr_train_new,distance=0..] dr_water_used 0
+scoreboard players operation @e[type=item_display,tag=dr_train_water,tag=dr_train_new,distance=0..] dr_water_cap = $WaterTicks dr_config
 
 function derailed:train/_spawned

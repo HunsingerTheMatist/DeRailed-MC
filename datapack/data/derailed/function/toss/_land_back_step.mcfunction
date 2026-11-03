@@ -4,7 +4,7 @@
 #  blocks, and otherwise takes another step of $(x) $(z) back
 # Run as the thrown display, at a point on its way back
 
-execute if score #toss_back dr_temp matches 1 positioned ~-0.5 ~-1 ~-0.5 unless entity @e[tag=dr_toss_under,dx=0,dy=0,dz=0] run return run function derailed:toss/_land_here
+execute if score #toss_back dr_temp matches 1 positioned ~-0.5 ~-1 ~-0.5 unless entity @e[tag=dr_toss_under,dx=0,dy=0,dz=0] positioned ~0.5 ~1 ~0.5 run return run function derailed:toss/_land_here
 execute if score #toss_back dr_temp matches 2 unless block ~ ~ ~ #derailed:water_like unless block ~ ~-1 ~ #derailed:water_like run return run function derailed:toss/_land_surface
 scoreboard players add #toss_steps dr_temp 1
 execute if score #toss_steps dr_temp matches 80.. run return run function derailed:toss/_land_here

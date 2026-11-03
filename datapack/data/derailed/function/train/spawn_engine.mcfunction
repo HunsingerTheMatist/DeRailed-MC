@@ -1,6 +1,6 @@
 
-# Puts an engine on the track with its middle '#train_s' along the path, in
-#  thousandths of a block: its model with an interaction riding it, its two
+# Puts an engine of team '#train_team' on the track with its middle '#train_s'
+#  along the team's path, in thousandths of a block: its model with an interaction riding it, its two
 #  shulkers each riding an interaction 0.3 tall on an item display with
 #  another interaction, its axles 1.2
 #  either way, at its front and back driving wheels as its model is drawn, and

@@ -13,6 +13,8 @@ scoreboard players set #dimension_ok dr_var 0
 execute in derailed:game run scoreboard players set #dimension_ok dr_var 1
 execute if score #dimension_ok dr_var matches 0 run return fail
 
+execute as @a run function derailed:player/team
+
 #execute as @a run function derailed:player/dash_tick
 
 execute in derailed:game run function derailed:item/tick

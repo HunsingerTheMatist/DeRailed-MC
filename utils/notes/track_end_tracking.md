@@ -7,7 +7,12 @@ the last rail back, and its interaction, are not yet.
 
 Clicking with rails on the tile beside the end of the track, any but the one
 the track came in from, lays a rail there (`track/try_lay`); anywhere else the
-rail goes down as a pile. Tiles are three blocks across from the map's corner
+rail goes down as a pile. Each team has a track of its own, and a player only
+lays rails on theirs: the end of each is a marker scored with its team in
+`dr_team` and the way its tile was come into in `dr_adin`, and the end of the
+player's team's is tagged `dr_end_on` while they lay a rail or aim at one. The
+tiles the next rail could go on, `dr_track_next`, and the track tiles carry
+their team too. Tiles are three blocks across from the map's corner
 at x1100 z0, and a tile's rail is a rail on its middle block and a powered rail
 on each of the two edges it runs through (`track/lay_rails`).
 
@@ -152,9 +157,10 @@ storage keeps the order inherently, costs nothing per rail and persists.
 
 ## The data
 
-Storage `derailed:track`, path `rails`: a list of positions, each one in `Pos`
-format - three doubles at the block centre - so entries copy straight in and out
-of an entity's `Pos` with no macro and no conversion.
+Storage `derailed:track`, one list for each team, `t1.rails` and `t2.rails`,
+written `rails` below: a list of positions, each one in `Pos` format - three
+doubles at the block centre - so entries copy straight in and out of an
+entity's `Pos` with no conversion.
 
 - `rails[-1]` is the current end of the track
 - `rails[0]` is the floor: the oldest rail that may still not be taken

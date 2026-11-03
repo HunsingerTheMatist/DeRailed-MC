@@ -1,24 +1,37 @@
 # Trains
 
 Written 2026-10-04. How a train moves along its track and what it is made of.
-`train/` holds the system; `dev/train/test` lays a looping test track and puts a
-train on it, and `dev/train/clear` takes every train away.
+`train/` holds the system; `dev/train/test {team:1}` lays a looping test track
+and puts that team's train on it, `dev/train/test_both` lays one for each team
+side by side, and `dev/train/clear {team:1}` takes a team's train away.
 
 ## The path
 
-A train runs along storage `derailed:train`, path `path`: a list of tiles, each
-`{x, z, din, dout, len}`, its middle and its length in thousandths of a block
-and the ways it is come into and left by, 0 north, 1 east, 2 south and 3 west.
-`y` is the height the train runs at, 0.2 above the rails.
+A train runs along its team's path, in storage `derailed:train`, `t1.path` for
+red and `t2.path` for blue: a list of tiles, each `{x, z, din, dout, len}`, its
+middle and its length in thousandths of a block and the ways it is come into
+and left by, 0 north, 1 east, 2 south and 3 west. The team's `y` beside it is
+the height the train runs at, 0.2 above the rails.
 
 A straight tile runs from the middle of one edge to the middle of the other,
 3000 long. A corner is one quarter circle round the tile's corner inside the
 turn, radius 1.5, 2356 long. A tile counts as a corner wherever its ways in and
 out differ.
 
-Tiles drop off the back of the path once every axle is two tiles past them.
-Where `loop` holds a copy of a looped track, another round of it goes on the end
-whenever the front comes within 16 tiles of it.
+Tiles drop off the back of the path once every axle of the team is two tiles
+past them. Where the team's `loop` holds a copy of a looped track, another round
+of it goes on the end whenever the front comes within 16 tiles of it.
+
+## Teams
+
+There are two teams, the vanilla teams `dr_red` and `dr_blue`, made by `load`.
+`dr_team` holds 1 for red, 2 for blue and 0 for none: on each player, from the
+vanilla team they are on every tick (`player/team`), and on everything that
+belongs to a team: every part of its train, its axles and the markers at its
+ends, the end of its track, its next tiles and its track tiles. A piece is
+spawned for the team in `#train_team`. A player only ever acts on their own
+team's train and track: a click on another team's train does nothing at all,
+not even the refusal sound, and a player on no team has no train.
 
 ## Axles
 
@@ -72,13 +85,13 @@ with `--middle`.
 
 ## The water wagon's tank
 
-The train's water is game state: `$WaterUsed`, the ticks of water it has used,
-and `$WaterCap`, how many it holds, both in `dr_var`; it sets off with
-none used and `$WaterCap` at `$WaterTicks`, 2400 by default, and uses one a
-tick while a train is out, catching fire once it has used all of it. Raising
-`$WaterCap` leaves the water already used as it is. Refilling is not built
-yet: it is to set `$WaterUsed` back to 0, and only once the train has used
-`$RefillWait`, 500 by default.
+The water wagon holds its train's water as scores on its display:
+`dr_water_used`, the ticks of water it has used, and `dr_water_cap`, how many
+it holds; it sets off with none used and `dr_water_cap` at `$WaterTicks`, 2400
+by default, and uses one a tick, catching fire once it has used all of it.
+Raising `dr_water_cap` leaves the water already used as it is. Refilling is not
+built yet: it is to set `dr_water_used` back to 0, and only once the train has
+used `$RefillWait`, 500 by default.
 
 Its tank is baked as white concrete taking the item's first tint
 (`--tint light_blue_concrete=white_concrete`), read from its
@@ -91,9 +104,9 @@ hundredths of its water used pick one, drawn whenever they change
 
 ## Supply and crafting
 
-What the wagons hold is game state too, in `dr_var`: `$SupplyWood` and
-`$SupplyIron` in the supply wagon, up to `$SupplyCap` of each, and `$Rails` in
-the crafting wagon, up to `$RailCap`, 3 each by default.
+What the wagons hold are scores on their displays too: `dr_wood` and `dr_iron`
+on the supply wagon, up to `$SupplyCap` of each, and `dr_rails` on the crafting
+wagon, up to `$RailCap`, 3 each by default.
 
 Clicking a piece of the train goes to `train/click`. An empty hand clicking
 the supply wagon takes whichever of wood and iron it holds, or with both, wood
@@ -125,12 +138,13 @@ halves turn with it. The aim goes a twentieth of a block at a
 time, so one that only grazes a corner of the interaction can pass through
 it unseen; that click does nothing.
 
-Every tick a train is out (`train/craft`), while the supply wagon holds a wood
-and an iron and the crafting wagon has room for another rail, a rail is made
+Every tick (`train/craft`, run as each crafting wagon), while its team's supply
+wagon holds a wood and an iron and the crafting wagon has room for another
+rail, a rail is made
 every `$CraftTicks`, 64 by default, 3.2 seconds, taking the wood and the iron
 from the supply wagon only as it joins the rails. A rail being made stops
-when either runs out, and starts over once both are back; `$CraftLeft` counts
-down the ticks left, 0 while idle.
+when either runs out, and starts over once both are back; `dr_craft_left` on
+the crafting wagon counts down the ticks left, 0 while idle.
 
 Each wagon draws what it holds as piles on its bed, at 0.8 of a pile's size:
 the wood over the front half of the supply wagon's bed, the iron over the back
