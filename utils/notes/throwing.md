@@ -53,8 +53,12 @@ wall.
 
 ## Merging
 
-After each move, any pile of the same resource its box touches takes as many as
-it can (`toss/_merge`), the piles holding the most first, the nearest of those
+After each move, wood or iron touching the supply wagon goes into it first, as
+much as it has room for, and holds its thrower off taking it back by auto
+pickup as a click would (`toss/_into_supply`); the wagon's interaction is a
+little wider and taller than the shulker that stops the thrown pile. Then any
+pile of the same resource its box touches takes as many as it can
+(`toss/_merge`), the piles holding the most first, the nearest of those
 holding as many. A pile's interaction is a little wider and taller than what
 stops the thrown pile, so it touches once it has stopped against the pile. What
 is left shrinks to fit and flies on, so one that hit the side of a full pile

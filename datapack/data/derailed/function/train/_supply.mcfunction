@@ -1,7 +1,8 @@
 
 # Sets the supply wagon on the line between its axles, midway, facing its back
-#  axle, since an item display turns its model about; its shulker rides it, and
-#  its four interactions go at its corners; then turns its model that way
+#  axle, since an item display turns its model about; its shulker and its
+#  interaction ride it, and its wood and iron go on its bed; then turns its
+#  model and them that way
 # Facing a square way, it goes by plain offsets, the same distances turned to
 #  that way
 # Run as the supply wagon's item display, with '#tid' its piece
@@ -13,32 +14,16 @@ execute if score #sq dr_temp matches 1 at @n[type=marker,tag=dr_axle_here,tag=dr
 execute if score #sq dr_temp matches 2 at @n[type=marker,tag=dr_axle_here,tag=dr_axle_back,distance=0..] run tp @s ~ ~ ~0.6
 execute if score #sq dr_temp matches 3 at @n[type=marker,tag=dr_axle_here,tag=dr_axle_back,distance=0..] run tp @s ~-0.6 ~ ~
 
-execute if score #sq dr_temp matches -1 at @s rotated as @s positioned ^0.6275 ^ ^0.6275 as @e[type=interaction,tag=dr_train_corner_a,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 0 at @s positioned ~0.6275 ~ ~0.6275 as @e[type=interaction,tag=dr_train_corner_a,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 1 at @s positioned ~-0.6275 ~ ~0.6275 as @e[type=interaction,tag=dr_train_corner_a,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 2 at @s positioned ~-0.6275 ~ ~-0.6275 as @e[type=interaction,tag=dr_train_corner_a,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 3 at @s positioned ~0.6275 ~ ~-0.6275 as @e[type=interaction,tag=dr_train_corner_a,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-
-execute if score #sq dr_temp matches -1 at @s rotated as @s positioned ^-0.6275 ^ ^0.6275 as @e[type=interaction,tag=dr_train_corner_b,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 0 at @s positioned ~-0.6275 ~ ~0.6275 as @e[type=interaction,tag=dr_train_corner_b,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 1 at @s positioned ~-0.6275 ~ ~-0.6275 as @e[type=interaction,tag=dr_train_corner_b,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 2 at @s positioned ~0.6275 ~ ~-0.6275 as @e[type=interaction,tag=dr_train_corner_b,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 3 at @s positioned ~0.6275 ~ ~0.6275 as @e[type=interaction,tag=dr_train_corner_b,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-
-execute if score #sq dr_temp matches -1 at @s rotated as @s positioned ^0.6275 ^ ^-0.6275 as @e[type=interaction,tag=dr_train_corner_c,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 0 at @s positioned ~0.6275 ~ ~-0.6275 as @e[type=interaction,tag=dr_train_corner_c,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 1 at @s positioned ~0.6275 ~ ~0.6275 as @e[type=interaction,tag=dr_train_corner_c,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 2 at @s positioned ~-0.6275 ~ ~0.6275 as @e[type=interaction,tag=dr_train_corner_c,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 3 at @s positioned ~-0.6275 ~ ~-0.6275 as @e[type=interaction,tag=dr_train_corner_c,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-
-execute if score #sq dr_temp matches -1 at @s rotated as @s positioned ^-0.6275 ^ ^-0.6275 as @e[type=interaction,tag=dr_train_corner_d,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 0 at @s positioned ~-0.6275 ~ ~-0.6275 as @e[type=interaction,tag=dr_train_corner_d,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 1 at @s positioned ~0.6275 ~ ~-0.6275 as @e[type=interaction,tag=dr_train_corner_d,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 2 at @s positioned ~0.6275 ~ ~0.6275 as @e[type=interaction,tag=dr_train_corner_d,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute if score #sq dr_temp matches 3 at @s positioned ~-0.6275 ~ ~0.6275 as @e[type=interaction,tag=dr_train_corner_d,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-
 # Its wheels at their axles, ahead toward its front, which it faces away from
 execute at @s rotated as @s positioned ^ ^0.45 ^-0.6 as @e[type=item_display,tag=dr_wheel_1,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
 execute at @s rotated as @s positioned ^ ^0.45 ^0.6 as @e[type=item_display,tag=dr_wheel_2,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
 
+# Its wood on the front half of its bed and its iron on the back half, the
+#  bed's top 1.05 over its display and each pile's middle 0.4 over its base,
+#  turned the way its model is
+execute at @s rotated as @s positioned ^ ^1.45 ^-0.375 as @e[type=item_display,tag=dr_load_wood,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
+execute at @s rotated as @s positioned ^ ^1.45 ^0.375 as @e[type=item_display,tag=dr_load_iron,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
+
 function derailed:train/_turn
+execute as @e[type=item_display,tag=dr_train_load,distance=0..] if score @s dr_tid = #tid dr_temp run data modify entity @s transformation.left_rotation set from storage derailed:train rot
+execute as @e[type=item_display,tag=dr_train_load,distance=0..] if score @s dr_tid = #tid dr_temp run data modify entity @s start_interpolation set value 0

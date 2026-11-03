@@ -1,6 +1,7 @@
-# Merges this thrown pile of a resource into the piles of the same item its box
-#  touches, as far as each takes it, the piles holding the most first, then
-#  shrinks what is left to fit, or removes it where nothing is
+# Merges this thrown pile of a resource into the supply wagon, where it is wood
+#  or iron touching it, and into the piles of the same item its box touches, as
+#  far as each takes it, the piles holding the most first, then shrinks what is
+#  left to fit, or removes it where nothing is
 # A pile's interaction stands a little wider and taller than what stops the
 #  thrown pile, so it touches once the thrown pile has stopped against the pile
 # The box tested is a block across, a little wider than the thrown pile's, and
@@ -15,6 +16,13 @@ scoreboard players operation #toss_before dr_temp = @s dr_count
 scoreboard players operation #curr_item dr_arg = @s dr_item
 scoreboard players operation #curr_item_count dr_arg = @s dr_count
 function derailed:toss/_box_height
+
+# Wood or iron touching the supply wagon goes into it first, as much as it has
+#  room for
+execute if score #toss_item dr_temp = $Wood dr_const positioned ~-0.5 ~ ~-0.5 as @e[type=interaction,tag=dr_train_click,dx=0,dy=0,dz=0] on vehicle if entity @s[tag=dr_train_supply] run tag @s add dr_toss_touch
+execute if score #toss_item dr_temp = $Iron dr_const positioned ~-0.5 ~ ~-0.5 as @e[type=interaction,tag=dr_train_click,dx=0,dy=0,dz=0] on vehicle if entity @s[tag=dr_train_supply] run tag @s add dr_toss_touch
+execute if entity @e[type=item_display,tag=dr_toss_touch,distance=..5] run function derailed:toss/_into_supply
+tag @e[type=item_display,tag=dr_toss_touch,distance=..5] remove dr_toss_touch
 
 execute if score #toss_h dr_temp matches ..10000 positioned ~-0.5 ~ ~-0.5 as @e[type=interaction,tag=dr_placement,dx=0,dy=0,dz=0] if score @s dr_item = #toss_item dr_temp run tag @s add dr_toss_touch
 execute if score #toss_h dr_temp matches 10001..20000 positioned ~-0.5 ~ ~-0.5 as @e[type=interaction,tag=dr_placement,dx=0,dy=1,dz=0] if score @s dr_item = #toss_item dr_temp run tag @s add dr_toss_touch

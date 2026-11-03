@@ -99,6 +99,12 @@ execute unless score $WaterTicks dr_config matches 1.. run scoreboard players se
 # How many ticks of water a train uses before it can be refilled
 execute unless score $RefillWait dr_config matches 0.. run scoreboard players set $RefillWait dr_config 500
 
+# How much wood and how much iron the supply wagon holds, how many rails the
+#  crafting wagon holds, and how many ticks it takes to make one
+execute unless score $SupplyCap dr_config matches 1.. run scoreboard players set $SupplyCap dr_config 3
+execute unless score $RailCap dr_config matches 1.. run scoreboard players set $RailCap dr_config 3
+execute unless score $CraftTicks dr_config matches 1.. run scoreboard players set $CraftTicks dr_config 64
+
 # Ticks the dash lasts, and how long until it can be used again
 execute unless score $DashBurst dr_config matches 1.. run scoreboard players set $DashBurst dr_config 4
 execute unless score $DashCooldown dr_config matches 1.. run scoreboard players set $DashCooldown dr_config 40

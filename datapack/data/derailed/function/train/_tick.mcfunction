@@ -13,6 +13,8 @@ execute as @e[type=marker,tag=dr_axle,distance=0..] run function derailed:train/
 #  catches fire
 execute if score $WaterUsed dr_var < $WaterCap dr_var run scoreboard players add $WaterUsed dr_var 1
 
+function derailed:train/craft
+
 # The front end lays barriers over a block once it has passed all of it, and
 #  the back end clears them from a block as soon as it comes onto it, so they
 #  stand only on blocks inside the train

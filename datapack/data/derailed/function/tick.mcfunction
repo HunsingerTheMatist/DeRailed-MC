@@ -26,9 +26,11 @@ execute in derailed:game as @e[type=item_display,tag=dr_emerge,distance=0..] at 
 #  short hand and mint the dropped item straight back
 scoreboard players add #inv_check dr_var 1
 
-# Let go of placements held for a player who has walked away from them
+# Let go of placements held for a player who has walked away from them, and of
+#  the train's holds on a player who has walked away from its wagons
 execute if score #inv_check dr_var matches 2.. in derailed:game as @e[type=interaction,tag=dr_held,distance=0..] at @s \
     run function derailed:item/_release_hold
+execute if score #inv_check dr_var matches 2.. as @a at @s run function derailed:train/release_holds
 
 # If the player is holding something check to see if they can automatically pick
 #  up more items nearby. This MUST run before the inventory check, since it

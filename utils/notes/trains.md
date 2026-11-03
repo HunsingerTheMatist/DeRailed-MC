@@ -48,7 +48,7 @@ own facing is set back to 0 every tick (`_turn`).
 | piece | shulkers (2.5) | interactions | wheels |
 | --- | --- | --- | --- |
 | engine | 2, each riding a display at ±1.5 | one on each of those, 2.51 by 2.81, and one riding the model, 0.75 by 2.81 | three big, one small pair |
-| supply wagon | 1, riding the model | four at the corners, 1.255 by 2.81 | two big |
+| supply wagon | 1, riding the model | one riding the model, 2.51 by 2.81 | two big |
 | water wagon | 1, riding the model | one riding the model, 2.51 by 2.81 | two big |
 | crafting wagon | 1, riding the model | one riding the model, 2.51 by 2.81 | two big |
 
@@ -88,6 +88,55 @@ used, from the one that makes it look like light blue concrete, full, to the
 one that makes it look like red concrete, dry, mixed in linear light. The
 hundredths of its water used pick one, drawn whenever they change
 (`_water_shade`), so the tank starts to redden as soon as it is refilled.
+
+## Supply and crafting
+
+What the wagons hold is game state too, in `dr_var`: `$SupplyWood` and
+`$SupplyIron` in the supply wagon, up to `$SupplyCap` of each, and `$Rails` in
+the crafting wagon, up to `$RailCap`, 3 each by default.
+
+Clicking a piece of the train goes to `train/click`. An empty hand clicking
+the supply wagon takes whichever of wood and iron it holds, or with both, wood
+from its front half and iron from its back half, as many as a hand holds; wood
+or iron in hand goes in wherever it is clicked, as many as there is room for.
+The crafting wagon gives its rails to a hand that is empty or holds rails, as
+many as it has room for. Sneaking narrows any of these to one, and anything
+else is refused, as is any click on the engine or the water wagon.
+
+Auto pickup tops a partly full hand up from the train as well as from piles,
+after the piles (`train/auto_take`): wood or iron from the supply wagon and
+rails from the crafting wagon, for a player standing against the wagon, whose
+interaction a box 2.5 blocks across and a block tall from 3 pixels over their
+feet touches. A player who puts a resource into a wagon or takes one out by
+clicking is held off auto pickup of that resource from the train, tagged
+`dr_hold_wood`, `dr_hold_iron` or `dr_hold_rail`, until they are more than 3
+blocks past the side of the wagon holding it, 4.25 from its middle
+(`train/release_holds`), as a pile put down is held for its player.
+
+The supply wagon has one interaction, the size of the crafting wagon's, so it
+covers the wagon's shulker from every side however the wagon is turned; boxes
+round its corners would turn with it while the shulker's box does not, and
+leave the shulker's corners out to take the click. Which half was clicked is
+found from the aim instead (`train/_supply_aim`): it is followed from the
+player's eyes to the first point inside the interaction, and the pile nearest
+that point, each scored `dr_item` with what it draws, says which; the two
+piles stand on the wagon's middle line either side of its middle, so the
+halves turn with it. The aim goes a twentieth of a block at a
+time, so one that only grazes a corner of the interaction can pass through
+it unseen; that click does nothing.
+
+Every tick a train is out (`train/craft`), while the supply wagon holds a wood
+and an iron and the crafting wagon has room for another rail, a rail is made
+every `$CraftTicks`, 64 by default, 3.2 seconds, taking the wood and the iron
+from the supply wagon only as it joins the rails. A rail being made stops
+when either runs out, and starts over once both are back; `$CraftLeft` counts
+down the ticks left, 0 while idle.
+
+Each wagon draws what it holds as piles on its bed, at 0.8 of a pile's size:
+the wood over the front half of the supply wagon's bed, the iron over the back
+half and the rails in the middle of the crafting wagon's, a layer for each, up
+to three (`train/draw_loads`). They go round their wagon by local coordinates
+and turn with it through the same `left_rotation`.
 
 ## Keeping players out
 

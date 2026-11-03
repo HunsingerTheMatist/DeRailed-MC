@@ -37,6 +37,12 @@ data modify storage derailed:train loop set from storage derailed:train path
 scoreboard players operation $WaterCap dr_var = $WaterTicks dr_config
 scoreboard players set $WaterUsed dr_var 0
 
+# Its supply wagon and crafting wagon set off empty, with no rail being made
+scoreboard players set $SupplyWood dr_var 0
+scoreboard players set $SupplyIron dr_var 0
+scoreboard players set $Rails dr_var 0
+scoreboard players set $CraftLeft dr_var 0
+
 # Each piece's middle along the path, the engine in front, 4.5 between it and
 #  the wagon behind and 3 between wagons
 scoreboard players set #train_s dr_temp 12500
