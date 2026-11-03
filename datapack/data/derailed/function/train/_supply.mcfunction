@@ -18,11 +18,12 @@ execute if score #sq dr_temp matches 3 at @n[type=marker,tag=dr_axle_here,tag=dr
 execute at @s rotated as @s positioned ^ ^0.45 ^-0.6 as @e[type=item_display,tag=dr_wheel_1,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
 execute at @s rotated as @s positioned ^ ^0.45 ^0.6 as @e[type=item_display,tag=dr_wheel_2,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
 
-# Its wood on the front half of its bed and its iron on the back half, the
-#  bed's top 1.05 over its display and each pile's middle 0.4 over its base,
-#  turned the way its model is
-execute at @s rotated as @s positioned ^ ^1.45 ^-0.375 as @e[type=item_display,tag=dr_load_wood,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
-execute at @s rotated as @s positioned ^ ^1.45 ^0.375 as @e[type=item_display,tag=dr_load_iron,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
+# Its wood in the middle of the front half of its bed and its iron in the
+#  middle of the back half, each half 0.9 long from its middle to the low step
+#  of the stairs at its end, the bed's top 1.05 over its display and each
+#  pile's middle 0.5 over its base, turned the way its model is
+execute at @s rotated as @s positioned ^ ^1.55 ^-0.45 as @e[type=item_display,tag=dr_load_wood,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
+execute at @s rotated as @s positioned ^ ^1.55 ^0.45 as @e[type=item_display,tag=dr_load_iron,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
 
 function derailed:train/_turn
 execute as @e[type=item_display,tag=dr_train_load,distance=0..] if score @s dr_tid = #tid dr_temp run data modify entity @s transformation.left_rotation set from storage derailed:train rot

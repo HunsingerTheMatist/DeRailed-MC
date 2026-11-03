@@ -19,8 +19,8 @@ execute at @s rotated as @s positioned ^ ^0.45 ^-0.6 as @e[type=item_display,tag
 execute at @s rotated as @s positioned ^ ^0.45 ^0.6 as @e[type=item_display,tag=dr_wheel_2,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
 
 # Its rails in the middle of its bed, the bed's top 1.05 over its display and
-#  the pile's middle 0.4 over its base, turned the way its model is
-execute at @s rotated as @s positioned ^ ^1.45 ^ as @e[type=item_display,tag=dr_load_rail,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
+#  the pile's middle 0.5 over its base, turned the way its model is
+execute at @s rotated as @s positioned ^ ^1.55 ^ as @e[type=item_display,tag=dr_load_rail,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
 
 function derailed:train/_turn
 execute as @e[type=item_display,tag=dr_train_load,distance=0..] if score @s dr_tid = #tid dr_temp run data modify entity @s transformation.left_rotation set from storage derailed:train rot

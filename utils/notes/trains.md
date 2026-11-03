@@ -146,10 +146,15 @@ from the supply wagon only as it joins the rails. A rail being made stops
 when either runs out, and starts over once both are back; `dr_craft_left` on
 the crafting wagon counts down the ticks left, 0 while idle.
 
-Each wagon draws what it holds as piles on its bed, at 0.8 of a pile's size:
-the wood over the front half of the supply wagon's bed, the iron over the back
-half and the rails in the middle of the crafting wagon's, a layer for each, up
-to three (`train/draw_loads`). They go round their wagon by local coordinates
+Each wagon draws what it holds as piles on its bed, a layer for each, up to
+three (`train/draw_loads`): the wood over the front half of the supply wagon's
+bed, the iron over the back half and the rails in the middle of the crafting
+wagon's. The supply wagon's bed runs 1.8 blocks along it, five slabs and the
+low step of the stairs at each end, so each half is 0.9 long. Every pile is
+drawn the size it is on the ground, in the middle of its half, so a pile 14
+pixels across, 0.875 of a block, leaves an eightieth of a block to the stairs
+and to the middle. Iron and rails are drawn wider than 14 pixels for now, so
+they stand over the edges of theirs. They go round their wagon by local coordinates
 and turn with it through the same `left_rotation`.
 
 ## Keeping players out
