@@ -32,9 +32,11 @@ players in the game dimension.
   have no handler yet
 - [x] **Crafting wagon** (M). Turns a wood and an iron into a rail on a timer.
   Needs: deposits
-- [ ] **Running out of track** (S). The train reads past the end of its path
-  with no check; it should stop there and derail. Needs a decision on what a
-  derail costs (see Progression)
+- [x] **Running out of track** (S). The train stops for good at the end of its
+  track, through the hook `train/derail`
+- [ ] **What a derail does** (S–M). Feedback when a train derails, a sound,
+  particles or a title for its team, and what it costs, which hangs on
+  'Derailing and the end of a run'; both go in `train/derail`
 - [ ] **Water and fire** (M). At `dr_water_cap` the train catches fire; the bucket
   puts it out and refills the tank, once `$RefillWait` has passed (unused
   today). Nothing happens at the cap yet

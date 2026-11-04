@@ -50,6 +50,10 @@ scoreboard objectives add dr_adout dummy "DeRailed Axle Way Out"
 scoreboard objectives add dr_alen dummy "DeRailed Axle Tile Length"
 scoreboard objectives add dr_spin dummy "DeRailed Train Distance"
 
+# How far the front end of a train, held at the end of its track, has fallen
+#  behind the train while it waits for more, in thousandths of a block
+scoreboard objectives add dr_lag dummy "DeRailed Front Lag"
+
 # The hundredth of water used the water wagon's tank was last drawn at
 scoreboard objectives add dr_water_step dummy "DeRailed Water Step"
 

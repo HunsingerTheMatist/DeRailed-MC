@@ -46,6 +46,28 @@ The axles sit where each model's wheels are, so the body swings round a curve
 as a real one does: the engine's at its front and back driving wheels, 1.2 either
 way of its display once the model's nudge is counted, and the wagons' at ±0.6.
 
+## Running out of track
+
+A train derails once its engine's front axle, its front driving wheels, would
+be past the end of its track, over a tile with no rail. Each tick, before
+anything moves, each train still running looks where its engine's front
+axle's move would take it (`train/_lead_check`, through `train/_runs_out`),
+and where it would be past the last tile of its team's path, the train
+derails: it stops where it is for
+good, its engine tagged `dr_derailed` and every axle of the team `dr_stopped`,
+which no longer move (`train/derail`). Laying more track does not set it off
+again.
+
+The train's front end, the marker 1.05 further ahead that keeps barriers over
+its rails, runs out of track first. It waits at the end of the track while its
+next move would take it past it, counting the moves it misses in `dr_lag`, and
+makes them all up at once when there is track again, so it never falls behind
+the train (`train/_front_move`); what it misses is never more than the 1.05 to
+the derail, shorter than any tile.
+
+`dev/train/test_end {team:1}` lays a test train with no more rounds of its loop
+to come, which derails after one.
+
 ## Pieces
 
 A piece's item display stands on the line between its axles, midway, facing its

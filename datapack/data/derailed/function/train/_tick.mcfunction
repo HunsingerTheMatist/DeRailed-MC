@@ -1,5 +1,6 @@
 
-# Moves every axle on along the track, then keeps barriers over the rails from
+# Derails any train about to run off the end of its track, and moves every
+#  axle of the others on along it, then keeps barriers over the rails from
 #  each train's front end to its back end, sets each piece between its two
 #  axles with its parts round it, moves any player the shulkers moved into back
 #  out of them, then keeps the track the train runs on stretching past its
@@ -7,7 +8,12 @@
 # Run in the game's dimension
 
 execute unless entity @e[type=item_display,tag=dr_train_piece,distance=0..] run return 0
-execute as @e[type=marker,tag=dr_axle,distance=0..] run function derailed:train/_axle
+
+# The front end of a train, which keeps barriers over its rails, waits at the
+#  end of its track, and the train runs on until it derails
+execute as @e[type=item_display,tag=dr_train_engine,tag=!dr_derailed,distance=0..] run function derailed:train/_lead_check
+execute as @e[type=marker,tag=dr_reach_front,tag=!dr_stopped,distance=0..] run function derailed:train/_front_move
+execute as @e[type=marker,tag=dr_axle,tag=!dr_reach_front,tag=!dr_stopped,distance=0..] run function derailed:train/_axle
 
 # Each train uses its water a tick at a time until it has used all of it and
 #  catches fire

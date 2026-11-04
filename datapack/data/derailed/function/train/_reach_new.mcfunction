@@ -12,3 +12,4 @@ tag @s add dr_reach
 execute if score #train_front dr_temp matches 1 run tag @s add dr_reach_front
 execute if score #train_front dr_temp matches 0 run tag @s add dr_reach_back
 scoreboard players set @s dr_tid 0
+scoreboard players set @s dr_lag 0
