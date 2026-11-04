@@ -76,6 +76,11 @@ round it by local coordinates; where it faces a square way they go by plain
 offsets instead, since local coordinates come from a table of sines that is out
 by up to a ten-thousandth of a block (`_square`).
 
+Every other piece of a train, counting back from the engine, stands 0.002
+higher, tagged `dr_train_raised` as it is put on the track (`_spawned`), with
+its parts round it, so two pieces turning into each other on a curve never
+draw their faces at the same heights and fight over which shows.
+
 The client is sent an entity's facing in 256 steps a turn, which jitters, so a
 piece's model is turned through its transformation's `left_rotation` and its
 own facing is set back to 0 every tick (`_turn`).
