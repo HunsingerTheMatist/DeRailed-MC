@@ -1,7 +1,10 @@
+# Starts or keeps up this player filling their empty bucket at the water they
+#  click: each click, which holding the button repeats every 4 ticks, keeps the
+#  fill going 8 ticks more, and 'item/bucket/fill_tick' counts it up to
+#  '$BucketFillTicks'
+# Run as the player
 
-execute if score #bucket_is_filled dr_var matches 1 run return 1
-execute if score #bucket_watchdog dr_arg matches ..0 run scoreboard players set #bucket_timer dr_arg 0
-scoreboard players set #bucket_watchdog dr_arg 8
+execute if score @s dr_item = $BucketFull dr_const run return 1
+execute unless score @s dr_fill_wait matches 1.. run scoreboard players set @s dr_fill_time 0
+scoreboard players set @s dr_fill_wait 8
 advancement revoke @s only derailed:bucket_tick
-
-tellraw @a [{score:{name:"#bucket_timer",objective:"dr_arg"}}]

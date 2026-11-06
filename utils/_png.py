@@ -112,13 +112,21 @@ def read(data):
     #  where a palette index is looked up as-is
     scale = 255 // ((1 << depth) - 1) if colour == 0 and depth < 8 else 1
 
+    # A greyscale or truecolour image's tRNS names the one colour that is
+    #  drawn transparent, each sample in two bytes
+    key = None
+    if transparency and colour in (0, 2):
+        key = tuple(int.from_bytes(transparency[i:i + 2], "big") for i in range(0, len(transparency), 2))
+
     pixels = []
     for chunk in _samples(raw, width, height, stride, channels, depth):
         if colour == 0:
             grey = chunk[0] * scale
-            pixels.append((grey, grey, grey, 255))
+            alpha = 0 if key == (chunk[0],) else 255
+            pixels.append((grey, grey, grey, alpha))
         elif colour == 2:
-            pixels.append((chunk[0], chunk[1], chunk[2], 255))
+            alpha = 0 if key == tuple(chunk[:3]) else 255
+            pixels.append((chunk[0], chunk[1], chunk[2], alpha))
         elif colour == 3:
             index = chunk[0]
             red, green, blue = palette[index]

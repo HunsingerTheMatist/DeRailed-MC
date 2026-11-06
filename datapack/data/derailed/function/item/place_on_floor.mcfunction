@@ -22,7 +22,7 @@ execute if score #floor_top dr_temp matches 16.. positioned ~ ~1 ~ run function 
 # Resources take as many as fit, the bucket needs a block and a tool a pixel
 execute if score #curr_item dr_arg <= $LastResource dr_const run function derailed:item/_fit
 execute if score #curr_item dr_arg <= $LastResource dr_const if score #fit dr_temp matches ..0 run return fail
-execute if score #curr_item dr_arg = $Bucket dr_const if score #room dr_temp matches ..9999 run return fail
+execute if score #curr_item dr_arg >= $Bucket dr_const if score #curr_item dr_arg <= $BucketFull dr_const if score #room dr_temp matches ..9999 run return fail
 execute if score #room dr_temp matches ..624 run return fail
 
 # As many as fit where nothing stands in the way

@@ -18,7 +18,7 @@ scoreboard players set #pile_height dr_temp 0
 execute if score @s dr_item <= $LastResource dr_const run scoreboard players operation #pile_height dr_temp = $ScaledLayer dr_const
 execute if score @s dr_item = $Wood dr_const run scoreboard players operation #pile_height dr_temp = $WoodLayer dr_const
 execute if score @s dr_item <= $LastResource dr_const run scoreboard players operation #pile_height dr_temp *= @s dr_count
-execute if score @s dr_item = $Bucket dr_const run scoreboard players set #pile_height dr_temp 10000
+execute if score @s dr_item >= $Bucket dr_const if score @s dr_item <= $BucketFull dr_const run scoreboard players set #pile_height dr_temp 10000
 
 # How high up the block it stands in it reaches
 execute store result score #base_rel dr_temp run data get entity @s Pos[1] 10000

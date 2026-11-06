@@ -5,7 +5,7 @@
 # Run at the bottom middle of the block the placement stands in
 
 scoreboard players set #room_want dr_temp 625
-execute if score #curr_item dr_arg = $Bucket dr_const run scoreboard players set #room_want dr_temp 10000
+execute if score #curr_item dr_arg >= $Bucket dr_const if score #curr_item dr_arg <= $BucketFull dr_const run scoreboard players set #room_want dr_temp 10000
 execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #room_want dr_temp = $ScaledLayer dr_const
 execute if score #curr_item dr_arg = $Wood dr_const run scoreboard players operation #room_want dr_temp = $WoodLayer dr_const
 execute if score #curr_item dr_arg <= $LastResource dr_const run scoreboard players operation #room_want dr_temp *= #want_count dr_temp

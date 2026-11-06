@@ -179,6 +179,18 @@ the attribute, so there is no evidence the default suppresses spawning.
 `min_count`/`max_count` collapsing into a single `count` does not apply, since
 no category has entries.
 
+### Found since, in play
+
+- **Loot conditions take `type`, as loot functions do**: inline predicates
+  (`execute if predicate {type:"minecraft:random_chance",chance:0.05}`) and an
+  enchantment's `requirements` both reject `condition`
+- **A block display's `block_state` is a string or has an `id`**:
+  `block_state:"minecraft:fire"`; the old `{Name:"minecraft:fire"}` fails to
+  decode, and the summon makes a display with no block, logging only a warning
+- **A new enchantment needs the world reopened**: like the dimension, it only
+  registers when the world loads, and until then every function naming it
+  fails to load
+
 ## Confirmed not to affect this pack
 
 Checked rather than assumed, so these do not need revisiting:

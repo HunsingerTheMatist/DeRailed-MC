@@ -1,7 +1,6 @@
+# Empties the full bucket in this player's hand
+# Run as the player
 
-# Validate the inventory to ensure bucket is in main hand
-function derailed:player/check_inventory
-
-item modify entity @s weapon.mainhand [{type:set_components,components:{custom_model_data:{}}}]
-scoreboard players set #bucket_is_filled dr_var 0
+scoreboard players operation @s dr_item = $Bucket dr_const
+function derailed:player/fix_items
 playsound item.bucket.empty block @s

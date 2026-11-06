@@ -1,6 +1,7 @@
 # Puts as much of this thrown pile of wood or iron as the supply wagon it
 #  touches, tagged 'dr_toss_touch', has room for into it, where the wagon is of
-#  its thrower's team, and holds its thrower off taking it back by auto pickup
+#  its thrower's team and not burning, and holds its thrower off taking it back
+#  by auto pickup
 # Run as the thrown display
 
 scoreboard players set #thrower dr_temp 0
@@ -8,6 +9,7 @@ scoreboard players operation #thrower dr_temp = @s dr_player_id
 scoreboard players set #toss_team dr_temp 0
 execute as @a if score @s dr_player_id = #thrower dr_temp run scoreboard players operation #toss_team dr_temp = @s dr_team
 execute as @e[type=item_display,tag=dr_toss_touch,distance=..5] unless score @s dr_team = #toss_team dr_temp run tag @s remove dr_toss_touch
+tag @e[type=item_display,tag=dr_toss_touch,tag=dr_burning,distance=..5] remove dr_toss_touch
 execute unless entity @e[type=item_display,tag=dr_toss_touch,distance=..5] run return fail
 
 scoreboard players operation #toss_give dr_temp = $SupplyCap dr_config

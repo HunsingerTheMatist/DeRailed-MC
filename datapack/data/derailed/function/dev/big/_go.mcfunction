@@ -6,6 +6,7 @@ kill @e[type=marker,tag=dr_big,distance=0..]
 kill @e[type=marker,tag=dr_station,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=marker,tag=dr_mine,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=marker,tag=dr_track_tile,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
+kill @e[type=interaction,tag=dr_water,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 
 # The map's limits, for the search for a spot for a pile: the blocks across it,
 #  and the lowest and highest block a pile can stand in, over the ground at y14
@@ -54,6 +55,11 @@ execute as @e[type=marker,tag=dr_big_tree,distance=0..] at @s run function derai
 execute as @e[type=marker,tag=dr_big_iron,distance=0..] at @s run function derailed:dev/big/_mine_new
 
 execute as @e[type=marker,tag=dr_big,tag=!dr_big_tree,distance=0..] at @s run function derailed:dev/big/_place
+
+# Every tile of water, lake or river, has an interaction filling it from the
+#  water up to the ground's surface, for a bucket to be filled at
+execute as @e[type=marker,tag=dr_big_lake,distance=0..] at @s run summon interaction ~1.5 ~ ~1.5 {Tags:["dr_water"],width:3f,height:2f}
+execute as @e[type=marker,tag=dr_big_river,distance=0..] at @s run summon interaction ~1.5 ~ ~1.5 {Tags:["dr_water"],width:3f,height:2f}
 
 # Each bend is eased into the straight river beside it once every river is
 #  down, since the piece doing it reaches into that river's tile

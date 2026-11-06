@@ -8,7 +8,7 @@ scoreboard players operation #want_count dr_temp = #curr_item_count dr_arg
 function derailed:item/_room_here
 execute if score #curr_item dr_arg <= $LastResource dr_const run function derailed:item/_fit
 execute if score #curr_item dr_arg <= $LastResource dr_const if score #fit dr_temp < #curr_item_count dr_arg run return fail
-execute if score #curr_item dr_arg = $Bucket dr_const if score #room dr_temp matches ..9999 run return fail
+execute if score #curr_item dr_arg >= $Bucket dr_const if score #curr_item dr_arg <= $BucketFull dr_const if score #room dr_temp matches ..9999 run return fail
 scoreboard players set #hit_base dr_temp 0
 execute if function derailed:item/_entity_in_way run return fail
 

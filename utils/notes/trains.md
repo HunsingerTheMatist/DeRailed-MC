@@ -115,10 +115,79 @@ with `--middle`.
 The water wagon holds its train's water as scores on its display:
 `dr_water_used`, the ticks of water it has used, and `dr_water_cap`, how many
 it holds; it sets off with none used and `dr_water_cap` at `$WaterTicks`, 2400
-by default, and uses one a tick, catching fire once it has used all of it.
-Raising `dr_water_cap` leaves the water already used as it is. Refilling is not
-built yet: it is to set `dr_water_used` back to 0, and only once the train has
-used `$RefillWait`, 500 by default.
+by default, and uses one a tick, catching fire once it has used all of it (see
+"Fire" below). Raising `dr_water_cap` leaves the water already used as it is.
+
+A full bucket clicked on the water wagon or the engine, which share the water,
+refills the tank, setting `dr_water_used` back to 0, and puts both out, where
+either is burning or the train has used `$RefillWait`, 500 by default;
+otherwise the bucket is refused (`train/douse`, `train/_refill`).
+
+## The bucket
+
+The bucket is an item of its own while empty, `$Bucket`, 20, and full of water,
+`$BucketFull`, 21, so whether it is full goes wherever it goes, in a hand, in
+a pile or thrown. Holding the button on water with an empty bucket fills it
+after `$BucketFillTicks`, 20: every water tile has an interaction tagged
+`dr_water` over it, the size of the tile from the water up to the ground's
+surface, which `dev/big/build` lays and `dev/pond` lays one of where a player
+stands. A click there with a bucket starts the fill (`item/bucket/fill_start`),
+each repeat of it while the button is held keeps it going 8 ticks more, and a
+tick advancement counts it up (`item/bucket/fill_tick`), all kept on the
+player in `dr_fill_time` and `dr_fill_wait`.
+
+## Fire
+
+A water wagon that has used all its water catches fire, and its team's engine
+with it (`train/_dry`). A burning piece is tagged `dr_burning`, and the engine's
+two shulker carriers with it (`train/ignite`). An engine catching fire, however
+it does, kills every survival player in three boxes along it, once: each the
+size of a shulker's box a block bigger each way, 4.5 across and 4.5 tall from
+0.7 under its carriers, round each of its two shulkers and round its middle.
+Facing straight they make the box round both shulkers a block bigger each way;
+round a curve they follow the engine aslant.
+
+Fire spreads along the train: every tick a piece takes a tick of heat,
+`dr_heat`, for each piece beside it that is burning, by their places in the
+train, `dr_slot`, 0 for the engine and counting back, and catches fire once it
+has taken `$HeatTicks`, 300, 15 seconds with one burning beside it and 7.5
+with two, or for the engine `$EngineHeatTicks`, 600 (`train/_heat`). The water
+wagon takes no heat; it only burns once it runs dry. A piece keeps the heat it
+has taken when the fires beside it are put out, and loses all of it once it
+has caught and been put out itself (`train/extinguish`), so it takes the whole
+of it again to catch.
+
+A burning piece does nothing: the crafting wagon makes no rails, and neither
+does a crafting wagon whose supply wagon is burning; clicks on it are refused
+but for a full bucket, and auto pickup and thrown piles pass it by.
+
+A burning piece has its fire laid over it, which goes when it is put out
+(`train/_fire_on`): a display of the piece's `_burning` model riding it, drawn
+full bright, scaled as the piece's own model is and turned with it every tick
+(`train/_fire_turn`). Each model is the fire alone from a copy of its piece's
+structure with fire laid over it, in `utils/structures`, baked by
+`utils/bake_burning.py` at the scale and nudge the piece's model is, so it
+lies over the piece block for block; a fire on the floor that stands on a
+bottom slab or bottom stairs is moved down half a block onto it.
+
+Every burning box of a train, the wagons and the engine's carriers, also gives
+off smoke and now and then the sound of fire, and any survival player touching
+it is set on fire (`train/_flames`). The smoke spreads from the box on a bell
+curve kept to where any piece's fire is drawn: 0.5 across, so nearly all of it
+stays within the 1.05 a wagon's fire reaches out each side whichever way it
+faces, starting at 1.8 over the box, 0.15 either way, under the 2.1 the
+lowest fire reaches, the supply and crafting wagons', so it comes out of the
+top of every fire. A player set on fire has their `dr_burn` set to 1 for the
+tick,
+and the saddle every player carries in their saddle slot (`player/saddle`,
+given back by the inventory check whenever it is missing) carries the
+enchantment `derailed:burn`, which ignites its wearer for 4 seconds every tick
+`dr_burn` is 1.
+
+A full bucket on a burning piece other than the engine and the water wagon
+puts that piece out; on those two it refills the tank and puts both out. Each
+burning piece has to be put out on its own. Players keep what they hold when
+they die (`keep_inventory`).
 
 Its tank is baked as white concrete taking the item's first tint
 (`--tint light_blue_concrete=white_concrete`), read from its

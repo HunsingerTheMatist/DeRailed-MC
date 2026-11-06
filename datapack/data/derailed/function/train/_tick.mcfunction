@@ -1,8 +1,9 @@
 
 # Derails any train about to run off the end of its track, and moves every
-#  axle of the others on along it, then keeps barriers over the rails from
-#  each train's front end to its back end, sets each piece between its two
-#  axles with its parts round it, moves any player the shulkers moved into back
+#  axle of the others on along it, uses the trains' water and spreads their
+#  fires, then keeps barriers over the rails from each train's front end to its
+#  back end, sets each piece between its two axles with its parts round it,
+#  burns what touches its fires, moves any player the shulkers moved into back
 #  out of them, then keeps the track the train runs on stretching past its
 #  front and trimmed behind its back
 # Run in the game's dimension
@@ -18,6 +19,11 @@ execute as @e[type=marker,tag=dr_axle,tag=!dr_reach_front,tag=!dr_stopped,distan
 # Each train uses its water a tick at a time until it has used all of it and
 #  catches fire
 execute as @e[type=item_display,tag=dr_train_water,distance=0..] if score @s dr_water_used < @s dr_water_cap run scoreboard players add @s dr_water_used 1
+execute as @e[type=item_display,tag=dr_train_water,tag=!dr_burning,distance=0..] if score @s dr_water_used >= @s dr_water_cap run function derailed:train/_dry
+
+# Fire heats the pieces beside it until they catch too, all but the water
+#  wagon, which only catches once it runs dry
+execute if entity @e[type=item_display,tag=dr_train_piece,tag=dr_burning,distance=0..] as @e[type=item_display,tag=dr_train_piece,tag=!dr_burning,tag=!dr_train_water,distance=0..] run function derailed:train/_heat
 
 execute as @e[type=item_display,tag=dr_train_crafting,distance=0..] at @s run function derailed:train/craft
 
@@ -28,5 +34,10 @@ execute as @e[type=marker,tag=dr_reach_front,distance=0..] at @s align xz positi
 execute as @e[type=marker,tag=dr_reach_back,distance=0..] at @s align xz positioned ~0.5 ~ ~0.5 unless entity @e[type=marker,tag=dr_trail_back,distance=..0.1] run function derailed:train/_reach_back_moved
 
 execute as @e[type=item_display,tag=dr_train_piece,distance=0..] run function derailed:train/_piece
+
+# Burning boxes give off flames and set alight the survival players touching
+#  them, through the 'derailed:burn' enchantment on their saddles
+scoreboard players set @a[scores={dr_burn=1..}] dr_burn 0
+execute as @e[type=item_display,tag=dr_train_box,tag=dr_burning,distance=0..] at @s run function derailed:train/_flames
 execute as @a[distance=0..] at @s if entity @e[type=item_display,tag=dr_train_box,distance=..3] run function derailed:train/_push
 execute as @e[type=item_display,tag=dr_train_engine,distance=0..] run function derailed:train/_path_keep

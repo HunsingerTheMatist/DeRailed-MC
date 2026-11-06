@@ -67,6 +67,19 @@ scoreboard objectives add dr_iron dummy "DeRailed Iron Held"
 scoreboard objectives add dr_rails dummy "DeRailed Rails Held"
 scoreboard objectives add dr_craft_left dummy "DeRailed Crafting Ticks Left"
 
+# Fire: on each piece of a train its place in the train, 0 for the engine and
+#  counting back, and the ticks of heat it has taken from burning pieces beside
+#  it; on each player 1 while they touch a burning piece, which sets them on
+#  fire through the 'derailed:burn' enchantment
+scoreboard objectives add dr_slot dummy "DeRailed Train Slot"
+scoreboard objectives add dr_heat dummy "DeRailed Heat"
+scoreboard objectives add dr_burn dummy "DeRailed Burning"
+
+# Filling a bucket, on the player filling it: the ticks it has filled for, and
+#  the ticks it goes on filling without another click
+scoreboard objectives add dr_fill_time dummy "DeRailed Bucket Fill Time"
+scoreboard objectives add dr_fill_wait dummy "DeRailed Bucket Fill Wait"
+
 # Teams: 1 red and 2 blue, 0 for none, held by each player from the vanilla
 #  team they are on and by everything that belongs to a team, its train, its
 #  track and its thrown piles
@@ -122,6 +135,11 @@ execute unless score $WaterTicks dr_config matches 1.. run scoreboard players se
 # How many ticks of water a train uses before it can be refilled
 execute unless score $RefillWait dr_config matches 0.. run scoreboard players set $RefillWait dr_config 500
 
+# How many ticks of heat from a burning piece beside it a wagon takes before it
+#  catches fire, and the engine; two burning beside it heat it twice as fast
+execute unless score $HeatTicks dr_config matches 1.. run scoreboard players set $HeatTicks dr_config 300
+execute unless score $EngineHeatTicks dr_config matches 1.. run scoreboard players set $EngineHeatTicks dr_config 600
+
 # How much wood and how much iron the supply wagon holds, how many rails the
 #  crafting wagon holds, and how many ticks it takes to make one
 execute unless score $SupplyCap dr_config matches 1.. run scoreboard players set $SupplyCap dr_config 3
@@ -139,12 +157,15 @@ execute unless score $MapEnabled dr_config matches 0..1 run scoreboard players s
 #    1-9    resources, which stack to $HandCap and are consumed
 #    10-19  equipment, carried one at a time, mining tools from $FirstTool up
 #    20+    anything else
+# The bucket is 20 empty and 21 full of water, so whether it is full goes
+#  wherever it goes
 scoreboard players set $Wood dr_const 1
 scoreboard players set $Iron dr_const 2
 scoreboard players set $Rail dr_const 3
 scoreboard players set $Axe dr_const 10
 scoreboard players set $Pickaxe dr_const 11
 scoreboard players set $Bucket dr_const 20
+scoreboard players set $BucketFull dr_const 21
 
 scoreboard players set $LastResource dr_const 9
 scoreboard players set $FirstTool dr_const 10
@@ -190,6 +211,10 @@ scoreboard players set $Hundred dr_const 100
 data modify storage derailed:train tank_tint set value [2925805,3187692,3384299,3580650,3777001,3973352,4169959,4300774,4497125,4628196,4759010,4955361,5086176,5217247,5348062,5478877,5609692,5674971,5806042,5936856,6067671,6132950,6264021,6329300,6460115,6525393,6656208,6721487,6852558,6917837,7048651,7113930,7179209,7310023,7375302,7440837,7571652,7636930,7702209,7767488,7898302,7963581,8028859,8094138,8159417,8224695,8355510,8420788,8486067,8551345,8616624,8681902,8747181,8812459,8877738,8943016,9008295,9073573,9138851,9204130,9269408,9334430,9399708,9464987,9530265,9595543,9660565,9725843,9791121,9856399,9921421,9921163,9986441,10051463,10116741,10181763,10247041,10312062,10377340,10376826,10442103,10507125,10572402,10637424,10702445,10701930,10767207,10832228,10897249,10962270,10961754,11026519,11091539,11156559,11155787,11220806,11285569,11350332,11415094,11414319,11478823]
 
 gamerule random_tick_speed 0
+
+# A player who dies keeps what they hold, which the record of what they carry
+#  still says they hold, and the saddle with their enchantments
+gamerule keep_inventory true
 
 # A search for a spot for a pile can run tens of thousands of commands where
 #  nothing near is free, more than the default limit of 65536 a function chain

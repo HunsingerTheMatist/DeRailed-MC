@@ -2,7 +2,7 @@
 #say Water
 data remove entity @n[type=interaction,distance=..1,tag=dr_water,tag=dr_current] interaction
 
-execute if score #curr_item dr_arg = $Bucket dr_const run \
+execute if score #curr_item dr_arg >= $Bucket dr_const if score #curr_item dr_arg <= $BucketFull dr_const run \
     return run function derailed:item/bucket/fill_start
 
 scoreboard players set #curr_item_count dr_arg 1

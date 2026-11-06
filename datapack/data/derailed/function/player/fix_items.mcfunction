@@ -16,7 +16,7 @@ execute if score @s dr_item = $Iron dr_const run data modify storage derailed:ma
 execute if score @s dr_item = $Rail dr_const run data modify storage derailed:macro item_model set value "derailed:rail"
 execute if score @s dr_item = $Axe dr_const run data modify storage derailed:macro item_model set value "minecraft:stone_axe"
 execute if score @s dr_item = $Pickaxe dr_const run data modify storage derailed:macro item_model set value "minecraft:stone_pickaxe"
-execute if score @s dr_item = $Bucket dr_const run data modify storage derailed:macro item_model set value "derailed:bucket"
+execute if score @s dr_item >= $Bucket dr_const if score @s dr_item <= $BucketFull dr_const run data modify storage derailed:macro item_model set value "derailed:bucket"
 
 execute if score @s dr_item = $Wood dr_const run data modify storage derailed:macro item_name set value "Wood"
 execute if score @s dr_item = $Iron dr_const run data modify storage derailed:macro item_name set value "Iron"
@@ -24,6 +24,7 @@ execute if score @s dr_item = $Rail dr_const run data modify storage derailed:ma
 execute if score @s dr_item = $Axe dr_const run data modify storage derailed:macro item_name set value "Stone Axe"
 execute if score @s dr_item = $Pickaxe dr_const run data modify storage derailed:macro item_name set value "Stone Pickaxe"
 execute if score @s dr_item = $Bucket dr_const run data modify storage derailed:macro item_name set value "Bucket"
+execute if score @s dr_item = $BucketFull dr_const run data modify storage derailed:macro item_name set value "Water Bucket"
 
 #give @a acacia_boat[tool={default_mining_speed:0,rules:[{blocks:'#leaves',speed:0.48,correct_for_drops:true},{blocks:'#derailed:glass',speed:0.7,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]]
 #give @a acacia_boat[tool={default_mining_speed:0,rules:[{blocks:'#derailed:stone/mineable_glass',speed:0.3,correct_for_drops:true},{blocks:'iron_ore',speed:2.3,correct_for_drops:true}]},attribute_modifiers=[{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}]]
@@ -37,7 +38,7 @@ execute if score @s dr_item = $Axe dr_const run \
     data modify storage derailed:macro tool_modifier set value ",{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}"
 execute if score @s dr_item = $Pickaxe dr_const run \
     data modify storage derailed:macro tool_modifier set value ",{type:block_break_speed,id:can_mine,slot:mainhand,amount:1,operation:add_value}"
-execute if score @s dr_item = $Bucket dr_const if score #bucket_is_filled dr_var matches 1 run \
+execute if score @s dr_item = $BucketFull dr_const run \
     data modify storage derailed:macro extra_components set value ",custom_model_data={strings:[filled]}"
 
 # The more a player carries, the lower they jump: from 0.39 empty handed to

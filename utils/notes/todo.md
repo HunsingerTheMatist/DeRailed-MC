@@ -37,12 +37,9 @@ players in the game dimension.
 - [ ] **What a derail does** (S–M). Feedback when a train derails, a sound,
   particles or a title for its team, and what it costs, which hangs on
   'Derailing and the end of a run'; both go in `train/derail`
-- [ ] **Water and fire** (M). At `dr_water_cap` the train catches fire; the bucket
-  puts it out and refills the tank, once `$RefillWait` has passed (unused
-  today). Nothing happens at the cap yet
-- [ ] **Bucket on the map** (S). Filling only works through `dr_water`
-  interactions, which nothing places on the full-size map. `bucket/empty` is
-  never called
+- [x] **Water and fire** (M). See "Fire" in `trains.md`
+- [x] **Bucket on the map** (S). `dev/big/build` lays a `dr_water` interaction
+  over every water tile
 - [ ] **Bridges** (M). Putting wood on water lays a bridge
   (`item/event/interacted_water` TODO, `item/bridge/try_place_wood`, the unused
   `bridge` structure)
@@ -59,9 +56,9 @@ players in the game dimension.
   also need a way to respawn themselves on purpose: a `trigger` command, an
   item they use, or an item kept in the inventory that they throw out or click
   in some way that can be detected. Undecided which
-- [ ] **Death and keepInventory** (S). keepInventory on; the saddle-slot item
-  given back after anything that clears inventories (see the snow plan). Items
-  dropped on death today hit the debug path in `item/event/item_dropped`
+- [ ] **Death** (S). `keep_inventory` is on, and the inventory check gives the
+  saddle back whenever it is missing. Still to come: what dying costs, and
+  where the player comes back (see Respawning)
 - [ ] **Healing near the train** (S). Natural regeneration off, players heal
   within some distance of the train
 - [ ] **Train speed over a run** (S). `$TrainSpeed` is constant; speeding up
@@ -125,6 +122,10 @@ players in the game dimension.
 - [ ] **The HUD map follows the world** (M). It is drawn once and does not
   change when the world does: a tree mined, a pile put down or taken, a rail
   laid. Needs: which HUD
+- [ ] **Rain** (M). Rain falling on a train cools every piece of it, taking heat
+  off each wagon's `dr_heat` and refilling the tank's `dr_water_used`, which
+  puts out any piece whose heat drops below what it takes to catch; rain
+  landing on a player fills their bucket. Also how it looks and when it comes
 - [ ] **Day and night** (M). A day and night cycle, with vision cut down at
   night. Find out first whether vision can be limited; if it cannot, the cycle
   is dropped
@@ -148,21 +149,18 @@ players in the game dimension.
 
 - [ ] **Two teams, two trains** (L). The train and the track are kept for each
   team, red and blue, `dr_team` on everything a team owns (see `trains.md`).
-  Still kept once for the whole game: the bucket, and the map's bounds and
-  section queue. How the teams share or split the map is undecided
-- [ ] **Per-player bucket state** (S). `#bucket_is_filled` and the bucket timers
-  are global
+  Still kept once for the whole game: the map's bounds and section queue. How
+  the teams share or split the map is undecided
 - [ ] **Joining a run in progress** (S). Only an id and a starting wood today
 - [ ] **A four-player playtest and profile** (M) (suggested)
 
 ## Before release
 
-- [ ] **Debug messages to `@a`**: `item/bucket/fill_start`,
-  `player/check_inventory` (two), `item/event/item_dropped`,
-  `dev/gen/queue_tick`; and `#say Water` in `item/event/interacted_water`
+- [ ] **Debug messages to `@a`**: `player/check_inventory` (two),
+  `item/event/item_dropped`, `dev/gen/queue_tick`; and `#say Water` in
+  `item/event/interacted_water`
 - [ ] **Commented-out leftovers**: `item/event/interaction_used`,
-  `item/bridge/try_place_wood`, `placement/_add_item_display`, the boat
-  `give` in `player/fix_items`
+  `item/bridge/try_place_wood`, the boat `give` in `player/fix_items`
 - [ ] **The starting wood** in `player/init`
 - [ ] **Test and rejected assets**: `sounds/test` and its `sounds.json`
   entries, the `tests` models, textures and blockstates, `items/rejected`,
