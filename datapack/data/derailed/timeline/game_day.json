@@ -1,0 +1,1600 @@
+{
+  "clock": "derailed:game",
+  "period_ticks": 12000,
+  "time_markers": {
+    "derailed:day": {
+      "show_in_commands": true,
+      "ticks": 0
+    },
+    "derailed:dusk": {
+      "show_in_commands": true,
+      "ticks": 6700
+    },
+    "derailed:night": {
+      "show_in_commands": true,
+      "ticks": 8200
+    },
+    "derailed:dawn": {
+      "show_in_commands": true,
+      "ticks": 10500
+    }
+  },
+  "tracks": {
+    "minecraft:visual/ambient_light_color": {
+      "keyframes": [
+        {
+          "ticks": 0,
+          "value": "#ffffff"
+        },
+        {
+          "ticks": 6700,
+          "value": "#ffffff"
+        },
+        {
+          "ticks": 6750,
+          "value": "#b6b6b6"
+        },
+        {
+          "ticks": 6800,
+          "value": "#9b9b9b"
+        },
+        {
+          "ticks": 6850,
+          "value": "#868686"
+        },
+        {
+          "ticks": 6900,
+          "value": "#767676"
+        },
+        {
+          "ticks": 6950,
+          "value": "#686868"
+        },
+        {
+          "ticks": 7000,
+          "value": "#5d5d5d"
+        },
+        {
+          "ticks": 7050,
+          "value": "#525252"
+        },
+        {
+          "ticks": 7100,
+          "value": "#494949"
+        },
+        {
+          "ticks": 7150,
+          "value": "#414141"
+        },
+        {
+          "ticks": 7200,
+          "value": "#393939"
+        },
+        {
+          "ticks": 7250,
+          "value": "#333333"
+        },
+        {
+          "ticks": 7300,
+          "value": "#2d2d2d"
+        },
+        {
+          "ticks": 7350,
+          "value": "#272727"
+        },
+        {
+          "ticks": 7400,
+          "value": "#222222"
+        },
+        {
+          "ticks": 7450,
+          "value": "#1d1d1d"
+        },
+        {
+          "ticks": 7500,
+          "value": "#191919"
+        },
+        {
+          "ticks": 7550,
+          "value": "#161616"
+        },
+        {
+          "ticks": 7600,
+          "value": "#121212"
+        },
+        {
+          "ticks": 7650,
+          "value": "#0f0f0f"
+        },
+        {
+          "ticks": 7700,
+          "value": "#0d0d0d"
+        },
+        {
+          "ticks": 7750,
+          "value": "#0a0a0a"
+        },
+        {
+          "ticks": 7800,
+          "value": "#080808"
+        },
+        {
+          "ticks": 7850,
+          "value": "#070707"
+        },
+        {
+          "ticks": 7900,
+          "value": "#050505"
+        },
+        {
+          "ticks": 7950,
+          "value": "#040404"
+        },
+        {
+          "ticks": 8000,
+          "value": "#030303"
+        },
+        {
+          "ticks": 8050,
+          "value": "#020202"
+        },
+        {
+          "ticks": 8100,
+          "value": "#010101"
+        },
+        {
+          "ticks": 8150,
+          "value": "#010101"
+        },
+        {
+          "ticks": 8200,
+          "value": "#010101"
+        },
+        {
+          "ticks": 10500,
+          "value": "#010101"
+        },
+        {
+          "ticks": 10550,
+          "value": "#010101"
+        },
+        {
+          "ticks": 10600,
+          "value": "#010101"
+        },
+        {
+          "ticks": 10650,
+          "value": "#020202"
+        },
+        {
+          "ticks": 10700,
+          "value": "#030303"
+        },
+        {
+          "ticks": 10750,
+          "value": "#040404"
+        },
+        {
+          "ticks": 10800,
+          "value": "#050505"
+        },
+        {
+          "ticks": 10850,
+          "value": "#070707"
+        },
+        {
+          "ticks": 10900,
+          "value": "#080808"
+        },
+        {
+          "ticks": 10950,
+          "value": "#0a0a0a"
+        },
+        {
+          "ticks": 11000,
+          "value": "#0d0d0d"
+        },
+        {
+          "ticks": 11050,
+          "value": "#0f0f0f"
+        },
+        {
+          "ticks": 11100,
+          "value": "#121212"
+        },
+        {
+          "ticks": 11150,
+          "value": "#161616"
+        },
+        {
+          "ticks": 11200,
+          "value": "#191919"
+        },
+        {
+          "ticks": 11250,
+          "value": "#1d1d1d"
+        },
+        {
+          "ticks": 11300,
+          "value": "#222222"
+        },
+        {
+          "ticks": 11350,
+          "value": "#272727"
+        },
+        {
+          "ticks": 11400,
+          "value": "#2d2d2d"
+        },
+        {
+          "ticks": 11450,
+          "value": "#333333"
+        },
+        {
+          "ticks": 11500,
+          "value": "#393939"
+        },
+        {
+          "ticks": 11550,
+          "value": "#414141"
+        },
+        {
+          "ticks": 11600,
+          "value": "#494949"
+        },
+        {
+          "ticks": 11650,
+          "value": "#525252"
+        },
+        {
+          "ticks": 11700,
+          "value": "#5d5d5d"
+        },
+        {
+          "ticks": 11750,
+          "value": "#686868"
+        },
+        {
+          "ticks": 11800,
+          "value": "#767676"
+        },
+        {
+          "ticks": 11850,
+          "value": "#868686"
+        },
+        {
+          "ticks": 11900,
+          "value": "#9b9b9b"
+        },
+        {
+          "ticks": 11950,
+          "value": "#b6b6b6"
+        }
+      ]
+    },
+    "minecraft:visual/sky_color": {
+      "keyframes": [
+        {
+          "ticks": 0,
+          "value": "#ffffff"
+        },
+        {
+          "ticks": 6700,
+          "value": "#ffffff"
+        },
+        {
+          "ticks": 6750,
+          "value": "#b6b6b6"
+        },
+        {
+          "ticks": 6800,
+          "value": "#9a9a9a"
+        },
+        {
+          "ticks": 6850,
+          "value": "#868686"
+        },
+        {
+          "ticks": 6900,
+          "value": "#767676"
+        },
+        {
+          "ticks": 6950,
+          "value": "#686868"
+        },
+        {
+          "ticks": 7000,
+          "value": "#5c5c5c"
+        },
+        {
+          "ticks": 7050,
+          "value": "#525252"
+        },
+        {
+          "ticks": 7100,
+          "value": "#484848"
+        },
+        {
+          "ticks": 7150,
+          "value": "#404040"
+        },
+        {
+          "ticks": 7200,
+          "value": "#393939"
+        },
+        {
+          "ticks": 7250,
+          "value": "#323232"
+        },
+        {
+          "ticks": 7300,
+          "value": "#2c2c2c"
+        },
+        {
+          "ticks": 7350,
+          "value": "#262626"
+        },
+        {
+          "ticks": 7400,
+          "value": "#212121"
+        },
+        {
+          "ticks": 7450,
+          "value": "#1d1d1d"
+        },
+        {
+          "ticks": 7500,
+          "value": "#181818"
+        },
+        {
+          "ticks": 7550,
+          "value": "#151515"
+        },
+        {
+          "ticks": 7600,
+          "value": "#111111"
+        },
+        {
+          "ticks": 7650,
+          "value": "#0e0e0e"
+        },
+        {
+          "ticks": 7700,
+          "value": "#0c0c0c"
+        },
+        {
+          "ticks": 7750,
+          "value": "#090909"
+        },
+        {
+          "ticks": 7800,
+          "value": "#070707"
+        },
+        {
+          "ticks": 7850,
+          "value": "#060606"
+        },
+        {
+          "ticks": 7900,
+          "value": "#040404"
+        },
+        {
+          "ticks": 7950,
+          "value": "#030303"
+        },
+        {
+          "ticks": 8000,
+          "value": "#020202"
+        },
+        {
+          "ticks": 8050,
+          "value": "#010101"
+        },
+        {
+          "ticks": 8100,
+          "value": "#000000"
+        },
+        {
+          "ticks": 8150,
+          "value": "#000000"
+        },
+        {
+          "ticks": 8200,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10500,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10550,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10600,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10650,
+          "value": "#010101"
+        },
+        {
+          "ticks": 10700,
+          "value": "#020202"
+        },
+        {
+          "ticks": 10750,
+          "value": "#030303"
+        },
+        {
+          "ticks": 10800,
+          "value": "#040404"
+        },
+        {
+          "ticks": 10850,
+          "value": "#060606"
+        },
+        {
+          "ticks": 10900,
+          "value": "#070707"
+        },
+        {
+          "ticks": 10950,
+          "value": "#090909"
+        },
+        {
+          "ticks": 11000,
+          "value": "#0c0c0c"
+        },
+        {
+          "ticks": 11050,
+          "value": "#0e0e0e"
+        },
+        {
+          "ticks": 11100,
+          "value": "#111111"
+        },
+        {
+          "ticks": 11150,
+          "value": "#151515"
+        },
+        {
+          "ticks": 11200,
+          "value": "#181818"
+        },
+        {
+          "ticks": 11250,
+          "value": "#1d1d1d"
+        },
+        {
+          "ticks": 11300,
+          "value": "#212121"
+        },
+        {
+          "ticks": 11350,
+          "value": "#262626"
+        },
+        {
+          "ticks": 11400,
+          "value": "#2c2c2c"
+        },
+        {
+          "ticks": 11450,
+          "value": "#323232"
+        },
+        {
+          "ticks": 11500,
+          "value": "#393939"
+        },
+        {
+          "ticks": 11550,
+          "value": "#404040"
+        },
+        {
+          "ticks": 11600,
+          "value": "#484848"
+        },
+        {
+          "ticks": 11650,
+          "value": "#525252"
+        },
+        {
+          "ticks": 11700,
+          "value": "#5c5c5c"
+        },
+        {
+          "ticks": 11750,
+          "value": "#686868"
+        },
+        {
+          "ticks": 11800,
+          "value": "#767676"
+        },
+        {
+          "ticks": 11850,
+          "value": "#868686"
+        },
+        {
+          "ticks": 11900,
+          "value": "#9a9a9a"
+        },
+        {
+          "ticks": 11950,
+          "value": "#b6b6b6"
+        }
+      ],
+      "modifier": "multiply"
+    },
+    "minecraft:visual/fog_color": {
+      "keyframes": [
+        {
+          "ticks": 0,
+          "value": "#ffffff"
+        },
+        {
+          "ticks": 6700,
+          "value": "#ffffff"
+        },
+        {
+          "ticks": 6750,
+          "value": "#b6b6b6"
+        },
+        {
+          "ticks": 6800,
+          "value": "#9a9a9a"
+        },
+        {
+          "ticks": 6850,
+          "value": "#868686"
+        },
+        {
+          "ticks": 6900,
+          "value": "#767676"
+        },
+        {
+          "ticks": 6950,
+          "value": "#686868"
+        },
+        {
+          "ticks": 7000,
+          "value": "#5c5c5c"
+        },
+        {
+          "ticks": 7050,
+          "value": "#525252"
+        },
+        {
+          "ticks": 7100,
+          "value": "#484848"
+        },
+        {
+          "ticks": 7150,
+          "value": "#404040"
+        },
+        {
+          "ticks": 7200,
+          "value": "#393939"
+        },
+        {
+          "ticks": 7250,
+          "value": "#323232"
+        },
+        {
+          "ticks": 7300,
+          "value": "#2c2c2c"
+        },
+        {
+          "ticks": 7350,
+          "value": "#262626"
+        },
+        {
+          "ticks": 7400,
+          "value": "#212121"
+        },
+        {
+          "ticks": 7450,
+          "value": "#1d1d1d"
+        },
+        {
+          "ticks": 7500,
+          "value": "#181818"
+        },
+        {
+          "ticks": 7550,
+          "value": "#151515"
+        },
+        {
+          "ticks": 7600,
+          "value": "#111111"
+        },
+        {
+          "ticks": 7650,
+          "value": "#0e0e0e"
+        },
+        {
+          "ticks": 7700,
+          "value": "#0c0c0c"
+        },
+        {
+          "ticks": 7750,
+          "value": "#090909"
+        },
+        {
+          "ticks": 7800,
+          "value": "#070707"
+        },
+        {
+          "ticks": 7850,
+          "value": "#060606"
+        },
+        {
+          "ticks": 7900,
+          "value": "#040404"
+        },
+        {
+          "ticks": 7950,
+          "value": "#030303"
+        },
+        {
+          "ticks": 8000,
+          "value": "#020202"
+        },
+        {
+          "ticks": 8050,
+          "value": "#010101"
+        },
+        {
+          "ticks": 8100,
+          "value": "#000000"
+        },
+        {
+          "ticks": 8150,
+          "value": "#000000"
+        },
+        {
+          "ticks": 8200,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10500,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10550,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10600,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10650,
+          "value": "#010101"
+        },
+        {
+          "ticks": 10700,
+          "value": "#020202"
+        },
+        {
+          "ticks": 10750,
+          "value": "#030303"
+        },
+        {
+          "ticks": 10800,
+          "value": "#040404"
+        },
+        {
+          "ticks": 10850,
+          "value": "#060606"
+        },
+        {
+          "ticks": 10900,
+          "value": "#070707"
+        },
+        {
+          "ticks": 10950,
+          "value": "#090909"
+        },
+        {
+          "ticks": 11000,
+          "value": "#0c0c0c"
+        },
+        {
+          "ticks": 11050,
+          "value": "#0e0e0e"
+        },
+        {
+          "ticks": 11100,
+          "value": "#111111"
+        },
+        {
+          "ticks": 11150,
+          "value": "#151515"
+        },
+        {
+          "ticks": 11200,
+          "value": "#181818"
+        },
+        {
+          "ticks": 11250,
+          "value": "#1d1d1d"
+        },
+        {
+          "ticks": 11300,
+          "value": "#212121"
+        },
+        {
+          "ticks": 11350,
+          "value": "#262626"
+        },
+        {
+          "ticks": 11400,
+          "value": "#2c2c2c"
+        },
+        {
+          "ticks": 11450,
+          "value": "#323232"
+        },
+        {
+          "ticks": 11500,
+          "value": "#393939"
+        },
+        {
+          "ticks": 11550,
+          "value": "#404040"
+        },
+        {
+          "ticks": 11600,
+          "value": "#484848"
+        },
+        {
+          "ticks": 11650,
+          "value": "#525252"
+        },
+        {
+          "ticks": 11700,
+          "value": "#5c5c5c"
+        },
+        {
+          "ticks": 11750,
+          "value": "#686868"
+        },
+        {
+          "ticks": 11800,
+          "value": "#767676"
+        },
+        {
+          "ticks": 11850,
+          "value": "#868686"
+        },
+        {
+          "ticks": 11900,
+          "value": "#9a9a9a"
+        },
+        {
+          "ticks": 11950,
+          "value": "#b6b6b6"
+        }
+      ],
+      "modifier": "multiply"
+    },
+    "minecraft:visual/water_fog_color": {
+      "keyframes": [
+        {
+          "ticks": 0,
+          "value": "#ffffff"
+        },
+        {
+          "ticks": 6700,
+          "value": "#ffffff"
+        },
+        {
+          "ticks": 6750,
+          "value": "#b6b6b6"
+        },
+        {
+          "ticks": 6800,
+          "value": "#9a9a9a"
+        },
+        {
+          "ticks": 6850,
+          "value": "#868686"
+        },
+        {
+          "ticks": 6900,
+          "value": "#767676"
+        },
+        {
+          "ticks": 6950,
+          "value": "#686868"
+        },
+        {
+          "ticks": 7000,
+          "value": "#5c5c5c"
+        },
+        {
+          "ticks": 7050,
+          "value": "#525252"
+        },
+        {
+          "ticks": 7100,
+          "value": "#484848"
+        },
+        {
+          "ticks": 7150,
+          "value": "#404040"
+        },
+        {
+          "ticks": 7200,
+          "value": "#393939"
+        },
+        {
+          "ticks": 7250,
+          "value": "#323232"
+        },
+        {
+          "ticks": 7300,
+          "value": "#2c2c2c"
+        },
+        {
+          "ticks": 7350,
+          "value": "#262626"
+        },
+        {
+          "ticks": 7400,
+          "value": "#212121"
+        },
+        {
+          "ticks": 7450,
+          "value": "#1d1d1d"
+        },
+        {
+          "ticks": 7500,
+          "value": "#181818"
+        },
+        {
+          "ticks": 7550,
+          "value": "#151515"
+        },
+        {
+          "ticks": 7600,
+          "value": "#111111"
+        },
+        {
+          "ticks": 7650,
+          "value": "#0e0e0e"
+        },
+        {
+          "ticks": 7700,
+          "value": "#0c0c0c"
+        },
+        {
+          "ticks": 7750,
+          "value": "#090909"
+        },
+        {
+          "ticks": 7800,
+          "value": "#070707"
+        },
+        {
+          "ticks": 7850,
+          "value": "#060606"
+        },
+        {
+          "ticks": 7900,
+          "value": "#040404"
+        },
+        {
+          "ticks": 7950,
+          "value": "#030303"
+        },
+        {
+          "ticks": 8000,
+          "value": "#020202"
+        },
+        {
+          "ticks": 8050,
+          "value": "#010101"
+        },
+        {
+          "ticks": 8100,
+          "value": "#000000"
+        },
+        {
+          "ticks": 8150,
+          "value": "#000000"
+        },
+        {
+          "ticks": 8200,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10500,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10550,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10600,
+          "value": "#000000"
+        },
+        {
+          "ticks": 10650,
+          "value": "#010101"
+        },
+        {
+          "ticks": 10700,
+          "value": "#020202"
+        },
+        {
+          "ticks": 10750,
+          "value": "#030303"
+        },
+        {
+          "ticks": 10800,
+          "value": "#040404"
+        },
+        {
+          "ticks": 10850,
+          "value": "#060606"
+        },
+        {
+          "ticks": 10900,
+          "value": "#070707"
+        },
+        {
+          "ticks": 10950,
+          "value": "#090909"
+        },
+        {
+          "ticks": 11000,
+          "value": "#0c0c0c"
+        },
+        {
+          "ticks": 11050,
+          "value": "#0e0e0e"
+        },
+        {
+          "ticks": 11100,
+          "value": "#111111"
+        },
+        {
+          "ticks": 11150,
+          "value": "#151515"
+        },
+        {
+          "ticks": 11200,
+          "value": "#181818"
+        },
+        {
+          "ticks": 11250,
+          "value": "#1d1d1d"
+        },
+        {
+          "ticks": 11300,
+          "value": "#212121"
+        },
+        {
+          "ticks": 11350,
+          "value": "#262626"
+        },
+        {
+          "ticks": 11400,
+          "value": "#2c2c2c"
+        },
+        {
+          "ticks": 11450,
+          "value": "#323232"
+        },
+        {
+          "ticks": 11500,
+          "value": "#393939"
+        },
+        {
+          "ticks": 11550,
+          "value": "#404040"
+        },
+        {
+          "ticks": 11600,
+          "value": "#484848"
+        },
+        {
+          "ticks": 11650,
+          "value": "#525252"
+        },
+        {
+          "ticks": 11700,
+          "value": "#5c5c5c"
+        },
+        {
+          "ticks": 11750,
+          "value": "#686868"
+        },
+        {
+          "ticks": 11800,
+          "value": "#767676"
+        },
+        {
+          "ticks": 11850,
+          "value": "#868686"
+        },
+        {
+          "ticks": 11900,
+          "value": "#9a9a9a"
+        },
+        {
+          "ticks": 11950,
+          "value": "#b6b6b6"
+        }
+      ],
+      "modifier": "multiply"
+    },
+    "minecraft:visual/cloud_color": {
+      "keyframes": [
+        {
+          "ticks": 0,
+          "value": "#ffffffff"
+        },
+        {
+          "ticks": 6700,
+          "value": "#ffffffff"
+        },
+        {
+          "ticks": 6750,
+          "value": "#ffbbbbbd"
+        },
+        {
+          "ticks": 6800,
+          "value": "#ffa0a0a4"
+        },
+        {
+          "ticks": 6850,
+          "value": "#ff8d8d91"
+        },
+        {
+          "ticks": 6900,
+          "value": "#ff7e7e82"
+        },
+        {
+          "ticks": 6950,
+          "value": "#ff717176"
+        },
+        {
+          "ticks": 7000,
+          "value": "#ff66666b"
+        },
+        {
+          "ticks": 7050,
+          "value": "#ff5c5c62"
+        },
+        {
+          "ticks": 7100,
+          "value": "#ff545459"
+        },
+        {
+          "ticks": 7150,
+          "value": "#ff4c4c52"
+        },
+        {
+          "ticks": 7200,
+          "value": "#ff45454b"
+        },
+        {
+          "ticks": 7250,
+          "value": "#ff3f3f45"
+        },
+        {
+          "ticks": 7300,
+          "value": "#ff393940"
+        },
+        {
+          "ticks": 7350,
+          "value": "#ff34343b"
+        },
+        {
+          "ticks": 7400,
+          "value": "#ff2f2f36"
+        },
+        {
+          "ticks": 7450,
+          "value": "#ff2b2b32"
+        },
+        {
+          "ticks": 7500,
+          "value": "#ff27272e"
+        },
+        {
+          "ticks": 7550,
+          "value": "#ff23232b"
+        },
+        {
+          "ticks": 7600,
+          "value": "#ff202028"
+        },
+        {
+          "ticks": 7650,
+          "value": "#ff1e1e25"
+        },
+        {
+          "ticks": 7700,
+          "value": "#ff1b1b23"
+        },
+        {
+          "ticks": 7750,
+          "value": "#ff191921"
+        },
+        {
+          "ticks": 7800,
+          "value": "#ff17171f"
+        },
+        {
+          "ticks": 7850,
+          "value": "#ff15151d"
+        },
+        {
+          "ticks": 7900,
+          "value": "#ff14141c"
+        },
+        {
+          "ticks": 7950,
+          "value": "#ff13131b"
+        },
+        {
+          "ticks": 8000,
+          "value": "#ff12121a"
+        },
+        {
+          "ticks": 8050,
+          "value": "#ff111119"
+        },
+        {
+          "ticks": 8100,
+          "value": "#ff101018"
+        },
+        {
+          "ticks": 8150,
+          "value": "#ff101018"
+        },
+        {
+          "ticks": 8200,
+          "value": "#ff101018"
+        },
+        {
+          "ticks": 10500,
+          "value": "#ff101018"
+        },
+        {
+          "ticks": 10550,
+          "value": "#ff101018"
+        },
+        {
+          "ticks": 10600,
+          "value": "#ff101018"
+        },
+        {
+          "ticks": 10650,
+          "value": "#ff111119"
+        },
+        {
+          "ticks": 10700,
+          "value": "#ff12121a"
+        },
+        {
+          "ticks": 10750,
+          "value": "#ff13131b"
+        },
+        {
+          "ticks": 10800,
+          "value": "#ff14141c"
+        },
+        {
+          "ticks": 10850,
+          "value": "#ff15151d"
+        },
+        {
+          "ticks": 10900,
+          "value": "#ff17171f"
+        },
+        {
+          "ticks": 10950,
+          "value": "#ff191921"
+        },
+        {
+          "ticks": 11000,
+          "value": "#ff1b1b23"
+        },
+        {
+          "ticks": 11050,
+          "value": "#ff1e1e25"
+        },
+        {
+          "ticks": 11100,
+          "value": "#ff202028"
+        },
+        {
+          "ticks": 11150,
+          "value": "#ff23232b"
+        },
+        {
+          "ticks": 11200,
+          "value": "#ff27272e"
+        },
+        {
+          "ticks": 11250,
+          "value": "#ff2b2b32"
+        },
+        {
+          "ticks": 11300,
+          "value": "#ff2f2f36"
+        },
+        {
+          "ticks": 11350,
+          "value": "#ff34343b"
+        },
+        {
+          "ticks": 11400,
+          "value": "#ff393940"
+        },
+        {
+          "ticks": 11450,
+          "value": "#ff3f3f45"
+        },
+        {
+          "ticks": 11500,
+          "value": "#ff45454b"
+        },
+        {
+          "ticks": 11550,
+          "value": "#ff4c4c52"
+        },
+        {
+          "ticks": 11600,
+          "value": "#ff545459"
+        },
+        {
+          "ticks": 11650,
+          "value": "#ff5c5c62"
+        },
+        {
+          "ticks": 11700,
+          "value": "#ff66666b"
+        },
+        {
+          "ticks": 11750,
+          "value": "#ff717176"
+        },
+        {
+          "ticks": 11800,
+          "value": "#ff7e7e82"
+        },
+        {
+          "ticks": 11850,
+          "value": "#ff8d8d91"
+        },
+        {
+          "ticks": 11900,
+          "value": "#ffa0a0a4"
+        },
+        {
+          "ticks": 11950,
+          "value": "#ffbbbbbd"
+        }
+      ],
+      "modifier": "multiply"
+    },
+    "minecraft:visual/star_brightness": {
+      "keyframes": [
+        {
+          "ticks": 0,
+          "value": 0.0
+        },
+        {
+          "ticks": 6700,
+          "value": 0.0
+        },
+        {
+          "ticks": 6750,
+          "value": 0.1431
+        },
+        {
+          "ticks": 6800,
+          "value": 0.1978
+        },
+        {
+          "ticks": 6850,
+          "value": 0.2376
+        },
+        {
+          "ticks": 6900,
+          "value": 0.2696
+        },
+        {
+          "ticks": 6950,
+          "value": 0.2965
+        },
+        {
+          "ticks": 7000,
+          "value": 0.3197
+        },
+        {
+          "ticks": 7050,
+          "value": 0.3401
+        },
+        {
+          "ticks": 7100,
+          "value": 0.3583
+        },
+        {
+          "ticks": 7150,
+          "value": 0.3745
+        },
+        {
+          "ticks": 7200,
+          "value": 0.3891
+        },
+        {
+          "ticks": 7250,
+          "value": 0.4023
+        },
+        {
+          "ticks": 7300,
+          "value": 0.4143
+        },
+        {
+          "ticks": 7350,
+          "value": 0.4251
+        },
+        {
+          "ticks": 7400,
+          "value": 0.435
+        },
+        {
+          "ticks": 7450,
+          "value": 0.4439
+        },
+        {
+          "ticks": 7500,
+          "value": 0.452
+        },
+        {
+          "ticks": 7550,
+          "value": 0.4593
+        },
+        {
+          "ticks": 7600,
+          "value": 0.4658
+        },
+        {
+          "ticks": 7650,
+          "value": 0.4717
+        },
+        {
+          "ticks": 7700,
+          "value": 0.477
+        },
+        {
+          "ticks": 7750,
+          "value": 0.4816
+        },
+        {
+          "ticks": 7800,
+          "value": 0.4856
+        },
+        {
+          "ticks": 7850,
+          "value": 0.4891
+        },
+        {
+          "ticks": 7900,
+          "value": 0.4921
+        },
+        {
+          "ticks": 7950,
+          "value": 0.4946
+        },
+        {
+          "ticks": 8000,
+          "value": 0.4966
+        },
+        {
+          "ticks": 8050,
+          "value": 0.4981
+        },
+        {
+          "ticks": 8100,
+          "value": 0.4992
+        },
+        {
+          "ticks": 8150,
+          "value": 0.4998
+        },
+        {
+          "ticks": 8200,
+          "value": 0.5
+        },
+        {
+          "ticks": 10500,
+          "value": 0.5
+        },
+        {
+          "ticks": 10550,
+          "value": 0.4998
+        },
+        {
+          "ticks": 10600,
+          "value": 0.4992
+        },
+        {
+          "ticks": 10650,
+          "value": 0.4981
+        },
+        {
+          "ticks": 10700,
+          "value": 0.4966
+        },
+        {
+          "ticks": 10750,
+          "value": 0.4946
+        },
+        {
+          "ticks": 10800,
+          "value": 0.4921
+        },
+        {
+          "ticks": 10850,
+          "value": 0.4891
+        },
+        {
+          "ticks": 10900,
+          "value": 0.4856
+        },
+        {
+          "ticks": 10950,
+          "value": 0.4816
+        },
+        {
+          "ticks": 11000,
+          "value": 0.477
+        },
+        {
+          "ticks": 11050,
+          "value": 0.4717
+        },
+        {
+          "ticks": 11100,
+          "value": 0.4658
+        },
+        {
+          "ticks": 11150,
+          "value": 0.4593
+        },
+        {
+          "ticks": 11200,
+          "value": 0.452
+        },
+        {
+          "ticks": 11250,
+          "value": 0.4439
+        },
+        {
+          "ticks": 11300,
+          "value": 0.435
+        },
+        {
+          "ticks": 11350,
+          "value": 0.4251
+        },
+        {
+          "ticks": 11400,
+          "value": 0.4143
+        },
+        {
+          "ticks": 11450,
+          "value": 0.4023
+        },
+        {
+          "ticks": 11500,
+          "value": 0.3891
+        },
+        {
+          "ticks": 11550,
+          "value": 0.3745
+        },
+        {
+          "ticks": 11600,
+          "value": 0.3583
+        },
+        {
+          "ticks": 11650,
+          "value": 0.3401
+        },
+        {
+          "ticks": 11700,
+          "value": 0.3197
+        },
+        {
+          "ticks": 11750,
+          "value": 0.2965
+        },
+        {
+          "ticks": 11800,
+          "value": 0.2696
+        },
+        {
+          "ticks": 11850,
+          "value": 0.2376
+        },
+        {
+          "ticks": 11900,
+          "value": 0.1978
+        },
+        {
+          "ticks": 11950,
+          "value": 0.1431
+        }
+      ]
+    },
+    "minecraft:visual/sun_angle": {
+      "ease": {
+        "cubic_bezier": [
+          0.362,
+          0.241,
+          0.638,
+          0.759
+        ]
+      },
+      "keyframes": [
+        {
+          "ticks": 2600,
+          "value": 360.0
+        },
+        {
+          "ticks": 2600,
+          "value": 0.0
+        }
+      ]
+    },
+    "minecraft:visual/moon_angle": {
+      "ease": {
+        "cubic_bezier": [
+          0.362,
+          0.241,
+          0.638,
+          0.759
+        ]
+      },
+      "keyframes": [
+        {
+          "ticks": 2600,
+          "value": 540.0
+        },
+        {
+          "ticks": 2600,
+          "value": 180.0
+        }
+      ]
+    },
+    "minecraft:visual/star_angle": {
+      "ease": {
+        "cubic_bezier": [
+          0.362,
+          0.241,
+          0.638,
+          0.759
+        ]
+      },
+      "keyframes": [
+        {
+          "ticks": 2600,
+          "value": 360.0
+        },
+        {
+          "ticks": 2600,
+          "value": 0.0
+        }
+      ]
+    }
+  }
+}

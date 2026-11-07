@@ -2,13 +2,14 @@
   "ambient_light": 1.0,
   "attributes": {
     "minecraft:visual/ambient_light_color": "#ffffff",
+    "minecraft:visual/block_light_tint": "#ffd88d",
     "minecraft:visual/cloud_color": "#ccffffff",
     "minecraft:visual/cloud_height": 192.33,
     "minecraft:visual/fog_color": "#c0d8ff",
     "minecraft:visual/sky_color": "#78a7ff"
   },
   "coordinate_scale": 1,
-  "default_clock": "minecraft:overworld",
+  "default_clock": "derailed:game",
   "has_ceiling": false,
   "has_ender_dragon_fight": false,
   "has_fixed_time": false,
@@ -20,5 +21,5 @@
   "monster_spawn_block_light_limit": 0,
   "monster_spawn_light_level": 0,
   "skybox": "overworld",
-  "timelines": "#minecraft:in_overworld"
+  "timelines": "#derailed:in_game"
 }

@@ -126,9 +126,10 @@ players in the game dimension.
   off each wagon's `dr_heat` and refilling the tank's `dr_water_used`, which
   puts out any piece whose heat drops below what it takes to catch; rain
   landing on a player fills their bucket. Also how it looks and when it comes
-- [ ] **Day and night** (M). A day and night cycle, with vision cut down at
-  night. Find out first whether vision can be limited; if it cannot, the cycle
-  is dropped
+- [x] **Day and night** (M). A ten-minute day with pitch-black nights, lit
+  round each player and each piece of a train. See `day_and_night.md`
+- [ ] **Day and night under Sodium** (S). Check the night effect and the
+  lightmap override still work with Sodium installed
 - [ ] **Water and time before derailing** (M). The two numbers players act on
   (brief). Needs: the HUD
 - [ ] **Where the tools are** (M). On the HUD (brief)

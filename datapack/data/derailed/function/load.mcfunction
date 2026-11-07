@@ -89,6 +89,11 @@ team modify dr_red color red
 team add dr_blue "Blue"
 team modify dr_blue color blue
 
+# Lights, held by each light the night post effect lights the world round: its
+#  slot, 256 for each, and how far it reaches in blocks, the green and blue of
+#  its glow colour
+scoreboard objectives add dr_light dummy "DeRailed Light"
+
 # Mounds, held by the markers 'mound/build' lays on each tile and corner
 scoreboard objectives add dr_mi dummy "DeRailed Mound Of Kind"
 scoreboard objectives add dr_md dummy "DeRailed Mound Depth"
@@ -145,6 +150,11 @@ execute unless score $EngineHeatTicks dr_config matches 1.. run scoreboard playe
 execute unless score $SupplyCap dr_config matches 1.. run scoreboard players set $SupplyCap dr_config 3
 execute unless score $RailCap dr_config matches 1.. run scoreboard players set $RailCap dr_config 3
 execute unless score $CraftTicks dr_config matches 1.. run scoreboard players set $CraftTicks dr_config 64
+
+# How far the light round each player and each piece of a train reaches, in
+#  blocks, up to 255: 5 tiles and 3
+execute unless score $PlayerLight dr_config matches 1..255 run scoreboard players set $PlayerLight dr_config 15
+execute unless score $TrainLight dr_config matches 1..255 run scoreboard players set $TrainLight dr_config 9
 
 # Ticks the dash lasts, and how long until it can be used again
 execute unless score $DashBurst dr_config matches 1.. run scoreboard players set $DashBurst dr_config 4
@@ -209,6 +219,12 @@ scoreboard players set $CornerTurn dr_const 2356
 #  light
 scoreboard players set $Hundred dr_const 100
 data modify storage derailed:train tank_tint set value [2925805,3187692,3384299,3580650,3777001,3973352,4169959,4300774,4497125,4628196,4759010,4955361,5086176,5217247,5348062,5478877,5609692,5674971,5806042,5936856,6067671,6132950,6264021,6329300,6460115,6525393,6656208,6721487,6852558,6917837,7048651,7113930,7179209,7310023,7375302,7440837,7571652,7636930,7702209,7767488,7898302,7963581,8028859,8094138,8159417,8224695,8355510,8420788,8486067,8551345,8616624,8681902,8747181,8812459,8877738,8943016,9008295,9073573,9138851,9204130,9269408,9334430,9399708,9464987,9530265,9595543,9660565,9725843,9791121,9856399,9921421,9921163,9986441,10051463,10116741,10181763,10247041,10312062,10377340,10376826,10442103,10507125,10572402,10637424,10702445,10701930,10767207,10832228,10897249,10962270,10961754,11026519,11091539,11156559,11155787,11220806,11285569,11350332,11415094,11414319,11478823]
+
+# How dark it is goes in the red of a light's glow colour
+scoreboard players set $GlowNight dr_const 65536
+
+# The day's fades, for the lights
+function derailed:light/curve
 
 gamerule random_tick_speed 0
 
