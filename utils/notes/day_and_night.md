@@ -30,9 +30,11 @@ tick of dusk and dawn, so change the day there and nowhere else.
 
 ### Without the resource pack it is black
 
-The ambient light is all the light the dimension has, since it has no sky light,
-so the timeline fading it to `#010101` leaves nothing to see. `#010101` rather
-than black, because the brightness option divides by the strongest channel.
+The ambient light is all the light the dimension shows, so the timeline fading
+it to `#010101` leaves nothing to see. The dimension type has sky light, which
+the weather needs, but its `visual/sky_light_factor` is 0, so sky light never
+lights anything. `#010101` rather than black, because the brightness option
+divides by the strongest channel.
 
 ### With it, the pack draws the darkness
 

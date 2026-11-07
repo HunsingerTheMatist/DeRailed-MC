@@ -156,6 +156,17 @@ execute unless score $CraftTicks dr_config matches 1.. run scoreboard players se
 execute unless score $PlayerLight dr_config matches 1..255 run scoreboard players set $PlayerLight dr_config 15
 execute unless score $TrainLight dr_config matches 1..255 run scoreboard players set $TrainLight dr_config 9
 
+# Weather: how many ticks each turn of it lasts, and the clear first turn of a
+#  run, how many times in 10000 a turn is rain, how many times in 10000 a tick
+#  rain at full strength hits each piece of a train or empty bucket on the
+#  ground, and how many ticks of heat, and of water used, a hit takes off every
+#  piece of the train
+execute unless score $WeatherTicks dr_config matches 1.. run scoreboard players set $WeatherTicks dr_config 500
+execute unless score $WeatherClearStart dr_config matches 1.. run scoreboard players set $WeatherClearStart dr_config 600
+execute unless score $RainOdds dr_config matches 0.. run scoreboard players set $RainOdds dr_config 1667
+execute unless score $RainHitChance dr_config matches 0.. run scoreboard players set $RainHitChance dr_config 125
+execute unless score $RainCool dr_config matches 0.. run scoreboard players set $RainCool dr_config 60
+
 # Ticks the dash lasts, and how long until it can be used again
 execute unless score $DashBurst dr_config matches 1.. run scoreboard players set $DashBurst dr_config 4
 execute unless score $DashCooldown dr_config matches 1.. run scoreboard players set $DashCooldown dr_config 40
@@ -225,6 +236,16 @@ scoreboard players set $GlowNight dr_const 65536
 
 # The day's fades, for the lights
 function derailed:light/curve
+
+# Rain grows and dies away a hundredth of its strength a tick, as the game's
+#  own does, so over 100 ticks
+scoreboard players set $RainFade dr_const 100
+
+# Only 'weather/tick' changes the weather, and only while '#weather_on' is 1;
+#  the first load keeps it still, as a run starts
+gamerule advance_weather false
+execute unless score #weather_on dr_var matches 0..1 run scoreboard players set #weather_on dr_var 0
+execute unless score #weather_t dr_var = #weather_t dr_var run function derailed:weather/reset
 
 gamerule random_tick_speed 0
 

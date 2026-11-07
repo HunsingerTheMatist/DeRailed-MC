@@ -23,8 +23,9 @@ players in the game dimension.
 - [ ] **Entering the game** (S). Put players into `derailed:game` with a
   spawnpoint, and move the forceloads gameplay needs out of `dev/bench/load`
 - [ ] **Starting a run** (M). Build the first section, lay the starting track,
-  spawn the train and put the tools down. Needs: entering the game; a section
-  to start on (`dev/big` can stand in until terrain is built in play)
+  spawn the train, put the tools down, and set the weather going from how a run
+  starts (`weather/reset`, then `#weather_on` 1). Needs: entering the game; a
+  section to start on (`dev/big` can stand in until terrain is built in play)
 - [ ] **Tools in the world** (S). Axe, pickaxe and bucket put down as piles at
   the start. Nothing gives or places them today
 - [x] **Deposits** (M). Clicking the supply wagon with wood or iron puts it in,
@@ -121,10 +122,8 @@ players in the game dimension.
 - [ ] **The HUD map follows the world** (M). It is drawn once and does not
   change when the world does: a tree mined, a pile put down or taken, a rail
   laid. Needs: which HUD
-- [ ] **Rain** (M). Rain falling on a train cools every piece of it, taking heat
-  off each wagon's `dr_heat` and refilling the tank's `dr_water_used`, which
-  puts out any piece whose heat drops below what it takes to catch; rain
-  landing on a player fills their bucket. Also how it looks and when it comes
+- [x] **Rain** (M). Turns of weather with rain one in six, cooling the train and
+  filling buckets on the ground. See `weather.md`
 - [x] **Day and night** (M). A ten-minute day with pitch-black nights, lit
   round each player and each piece of a train. See `day_and_night.md`
 - [ ] **Day and night under Sodium** (S). Check the night effect and the

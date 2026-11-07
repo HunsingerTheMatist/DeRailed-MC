@@ -16,6 +16,7 @@ execute if score #dimension_ok dr_var matches 0 run return fail
 execute as @a run function derailed:player/team
 
 execute in derailed:game run function derailed:light/tick
+execute in derailed:game run function derailed:weather/tick
 
 #execute as @a run function derailed:player/dash_tick
 
