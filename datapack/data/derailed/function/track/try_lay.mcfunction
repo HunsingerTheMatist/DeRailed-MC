@@ -20,7 +20,8 @@ scoreboard players operation #cx dr_temp -= #ex dr_temp
 scoreboard players operation #cz dr_temp -= #ez dr_temp
 
 # The way on from the end's tile to the clicked one, 0 north, 1 east, 2 south
-#  and 3 west, which turns the end's rail where it is not the way it came in
+#  and 3 west: the end's rail turns, '#curve', where it is not the way it came
+#  in, and is laid anew, '#reshape', where it does not already leave that way
 scoreboard players set #d dr_temp -1
 execute if score #cz dr_temp matches -1..1 if score #cx dr_temp matches 2..4 run scoreboard players set #d dr_temp 1
 execute if score #cz dr_temp matches -1..1 if score #cx dr_temp matches -4..-2 run scoreboard players set #d dr_temp 3
@@ -34,6 +35,8 @@ scoreboard players operation #back dr_temp %= $Four dr_const
 execute if score #d dr_temp = #back dr_temp run return 0
 scoreboard players set #curve dr_temp 0
 execute unless score #d dr_temp = #din dr_temp run scoreboard players set #curve dr_temp 1
+scoreboard players set #reshape dr_temp 0
+execute unless score #d dr_temp = @n[type=marker,tag=dr_end_on,distance=0..] dr_adout run scoreboard players set #reshape dr_temp 1
 
 # The end faces the way on, so the blocks along it are a block apart ahead of
 #  it: a facing of 0 is south and 90 west

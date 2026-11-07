@@ -3,8 +3,10 @@
 #  across it the way they face, which is a track tile, the end of the track,
 #  the only rail in the team's rails and the whole of the path its train runs
 #  on, at the height of the block they stand in, with the tiles the next rail
-#  could go on marked; takes the team's train away first, and the end, next
-#  tiles and track tiles of any track it had before, the station's excepted
+#  could go on marked and no take interactions, since there is no rail before
+#  it; takes the team's train away first, and the end, next tiles, track tiles,
+#  rails and take interactions of any track it had before, the station's
+#  excepted, and any track tile on no team
 # Run as a player in the game, on a team
 
 scoreboard players operation #train_team dr_temp = @s dr_team
@@ -13,7 +15,7 @@ execute store result storage derailed:train arg.team int 1 run scoreboard player
 function derailed:dev/train/clear with storage derailed:train arg
 execute as @e[type=marker,tag=dr_track_end,distance=0..] if score @s dr_team = #train_team dr_temp run kill @s
 execute as @e[type=marker,tag=dr_track_next,distance=0..] if score @s dr_team = #train_team dr_temp run kill @s
-execute as @e[type=marker,tag=dr_track_tile,tag=!dr_track_station,distance=0..] if score @s dr_team = #train_team dr_temp run kill @s
+function derailed:dev/track/clear
 
 # The tile's middle block, and the way they face, 0 north, 1 east, 2 south and
 #  3 west, from a facing of 0 south and 90 west
@@ -61,5 +63,6 @@ scoreboard players operation #t dr_temp = #ty dr_temp
 scoreboard players operation #t dr_temp *= $Thousand dr_const
 execute store result storage derailed:train arg.y int 1 run scoreboard players add #t dr_temp 200
 function derailed:dev/track/_path with storage derailed:train arg
+function derailed:track/_place_take with storage derailed:train arg
 
 execute at @n[type=marker,tag=dr_end_on,distance=0..] run function derailed:track/_mark_next

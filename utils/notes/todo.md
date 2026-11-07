@@ -43,9 +43,8 @@ players in the game dimension.
 - [ ] **Bridges** (M). Putting wood on water lays a bridge
   (`item/event/interacted_water` TODO, `item/bridge/try_place_wood`, the unused
   `bridge` structure)
-- [ ] **Taking the last rail back** (M). Designed in `track_end_tracking.md`,
-  with two things still to decide there: whether the train pops `rails[0]`
-  as it goes, and whether taking is refused next to the train
+- [x] **Taking the last rail back** (M). An empty hand takes the end's rail,
+  refused while the train is on its tile. See `track_end_tracking.md`
 - [ ] **Reaching a station** (M). The train arriving stops the run between
   sections and the next one begins. Needs: terrain built in play
 - [ ] **Derailing and the end of a run** (M). Lives, what a derail costs, game

@@ -1,5 +1,5 @@
-# A placement, a thrown pile or a piece of the train was right-clicked. Run as
-#  the player
+# A placement, a thrown pile, a piece of the train or the last rail of a track
+#  was right-clicked. Run as the player
 #
 # Right click is the only button that reaches a placement, because left click is
 #  mining. An empty hand takes from it, anything else gives, and a resource
@@ -21,6 +21,8 @@ execute if entity @n[type=interaction,distance=..10,tag=dr_toss_box,tag=dr_curre
     return run function derailed:toss/catch
 execute if entity @n[type=interaction,distance=..10,tag=dr_train_click,tag=dr_current] run \
     return run function derailed:train/click
+execute if entity @n[type=interaction,distance=..10,tag=dr_track_take,tag=dr_current] run \
+    return run function derailed:track/take
 
 execute store success score #placement_found dr_temp run \
     data remove entity @n[type=interaction,distance=..10,tag=dr_placement,tag=dr_current] interaction

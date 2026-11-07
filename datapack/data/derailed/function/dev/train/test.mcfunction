@@ -1,8 +1,8 @@
 # Lays a test track for team $(team) and puts its engine, water wagon, supply
 #  wagon and crafting wagon on it, going round it for as long as they are left,
-#  in place of any train and track tiles the team had: a loop of tiles six
-#  across and three down, an S bend at its western end, the train setting off
-#  east along the bottom row, each tile marked as a track tile
+#  in place of any train, track tiles and rails the team had: a loop of tiles
+#  six across and three down, an S bend at its western end, the train setting
+#  off east along the bottom row, each tile marked as a track tile
 #   # V < < < <
 #   V < # # # ^
 #   > > > > > ^
@@ -13,7 +13,7 @@ $function derailed:dev/train/clear {team:$(team)}
 fill ~ ~-1 ~ ~17 ~-1 ~8 grass_block strict
 fill ~ ~ ~ ~17 ~3 ~8 air strict
 $scoreboard players set #train_team dr_temp $(team)
-execute as @e[type=marker,tag=dr_track_tile,tag=!dr_track_station,distance=0..] if score @s dr_team = #train_team dr_temp run kill @s
+function derailed:dev/track/clear
 
 # The train runs 0.2 above the corner's block
 execute align xyz summon marker run function derailed:dev/train/_origin

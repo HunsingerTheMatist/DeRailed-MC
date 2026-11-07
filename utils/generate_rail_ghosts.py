@@ -1,5 +1,6 @@
-"""Writes what the ghost rails are drawn with: the see-through textures, and the
-two models of the ghost of a curve.
+"""Writes what the ghost rails are drawn with: the see-through textures, the
+two models of the ghost of a curve, and the ghost of a straight rail over a
+curve.
 
 Each texture a rail model uses is written with every pixel that shows at
 GHOST_ALPHA instead. 'rail_ghost' is the pack's own rail, which the straight
@@ -15,6 +16,12 @@ the south edge, the curve's elements from LEAD on south, and
 east. The rest of the curve still crosses the straight rail, so every element
 is grown GROW pixels each way, held inside the model's limits, to lie just
 outside the straight rail's faces.
+
+The ghost of a straight rail shows over the end's curve where the end's rail
+would be laid straight on, so 'rail_ghost_over_curve' is the straight rail with
+every element grown GROW pixels the same way, to lie just outside the curve's
+faces. The ghost of a rail on a tile of its own has nothing under it and is
+the straight rail as it is.
 
 Run from the repository root: py -3 utils/generate_rail_ghosts.py
 """
@@ -42,6 +49,10 @@ CURVE_TEXTURES = {
     "rail_corner": "derailed:block/vanilla_rail_corner_ghost",
     "dr_rail": "derailed:block/rail_ghost",
 }
+STRAIGHT_TEXTURES = {
+    "particle": "derailed:block/rail_ghost",
+    "rail": "derailed:block/rail_ghost",
+}
 
 # Each ghost texture and where its texture comes from: the pack's own, or the
 #  client jar's
@@ -62,11 +73,11 @@ def grown(element):
     return out
 
 
-def write_curve(name, elements):
+def write_ghost(name, textures, elements):
     lines = [
         "{",
         '  "ambientocclusion": false,',
-        '  "textures": ' + json.dumps(CURVE_TEXTURES, separators=(", ", ": ")) + ",",
+        '  "textures": ' + json.dumps(textures, separators=(", ", ": ")) + ",",
         '  "elements": [',
     ]
     lines += ["    " + json.dumps(e, separators=(", ", ": ")) + ("," if i < len(elements) - 1 else "")
@@ -93,8 +104,11 @@ def main():
     curve = json.loads((ASSETS / "models" / "block" / "rail_curved.json").read_text())["elements"]
     south = [e for e in curve if min(e["from"][2], e["to"][2]) < LEAD]
     east = [e for e in curve if min(e["from"][0], e["to"][0]) < LEAD]
-    write_curve("rail_curved_ghost_from_south", [grown(e) for e in south])
-    write_curve("rail_curved_ghost_from_east", [grown(e) for e in east])
+    write_ghost("rail_curved_ghost_from_south", CURVE_TEXTURES, [grown(e) for e in south])
+    write_ghost("rail_curved_ghost_from_east", CURVE_TEXTURES, [grown(e) for e in east])
+
+    straight = json.loads((ASSETS / "models" / "block" / "rail.json").read_text())["elements"]
+    write_ghost("rail_ghost_over_curve", STRAIGHT_TEXTURES, [grown(e) for e in straight])
 
 
 if __name__ == "__main__":

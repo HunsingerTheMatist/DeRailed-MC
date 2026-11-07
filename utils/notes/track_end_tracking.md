@@ -1,7 +1,8 @@
 # Tracking the End of the Track
 
-Written 2026-09-18. Laying rails is built (see "Laying a rail" below); taking
-the last rail back, and its interaction, are not yet.
+Written 2026-09-18. Laying rails is built (see "Laying a rail" below), and
+since 2026-11-07 so is taking the last rail back (see "Taking the last rail
+back").
 
 ## Laying a rail
 
@@ -69,15 +70,20 @@ it, so everything near the track is placed `strict`. The station's rails in
   click fails.
 - **The search** is the same one dropping items uses (`item/place_near`, see
   [pile_search.md](pile_search.md)), so a pile may be split across spots.
-- **The new rail** runs straight on. The end tile's rail is turned toward it
-  where the track turns, and its tile of the train's path gets the new way out
-  and a corner's length.
+- **The new rail** runs straight on. The end tile's rail is laid anew toward it
+  only where it does not already leave that way (`#reshape`): turned where the
+  way on is not the way the track came in (`#curve`), and straight on where it
+  is but the end's rail is turned, as one left behind by a rail taken back is.
+  The end's tile of the train's path gets the new way out and a corner's length
+  or a straight tile's.
 - **The path** gets the new tile on its end. Axles on the changed tile take up
   its new line at once and roll on to the next tile where they are further in
   than its new length.
 - **The end marker** `dr_track_end` moves onto the new tile's middle block, and
-  its position is appended to `rails`. It faces the way on while a rail is laid,
-  so the blocks along that way are `^ ^ ^1` to `^ ^ ^4` from it.
+  its position is appended to `rails`. It holds the way its tile was come into
+  in `dr_adin` and the way its rail leaves in `dr_adout`, the same on a straight
+  rail. It faces the way on while a rail is laid, so the blocks along that way
+  are `^ ^ ^1` to `^ ^ ^4` from it.
 
 - **Next tiles.** Each tile beside the end that the next rail could go on has a
   marker tagged `dr_track_next` in the middle of its middle block, facing the
@@ -86,7 +92,7 @@ it, so everything near the track is placed `strict`. The station's rails in
 
 ## The ghost rail
 
-Every 5 ticks (`track/ghost_tick`), each player holding rails has their aim
+Every 2 ticks (`track/ghost_tick`), each player holding rails has their aim
 followed from their eyes a tenth of a block at a time out to 4.5 blocks, the
 reach for blocks and entities alike. An interaction or another player met on the
 way takes the click, so nothing shows. Otherwise the first block met is the one
@@ -116,8 +122,8 @@ the tag, and those still stale after are removed. Laying a rail removes every
 ghost at once, whoever aimed it, since all of them stood for a rail beside the
 old end; the next ghost tick shows those the new end's tiles call for.
 
-Where the rail laid there would turn the end's rail, a ghost of the end's rail
-turned shows over it as well (`track/_ghost_curve`). It is the curved rail's
+Where the rail laid there would lay the end's rail anew turned, a ghost of the
+end's rail turned shows over it as well (`track/_ghost_curve`). It is the curved rail's
 model with see-through textures, the pack's rail and the vanilla rail and rail
 corner it uses, less its straight run in from the edge the track came in by,
 which would lie exactly on the end's straight rail, and with every piece grown
@@ -130,8 +136,29 @@ tagged `dr_ghost_turn_` and the edges in and out, 0 north to 3 west, and it is
 stale and removed like the others. An item display turns its model half a turn
 more than its facing, so each faces half a turn round from the blockstate turn.
 
+Where it would lay the end's turned rail anew straight on, a ghost of a straight
+rail shows over it instead (`track/_ghost_straight`, tagged
+`dr_ghost_straight`): `derailed:rail_ghost_over_curve`, the straight rail with
+every piece grown the same hundredth of a pixel to lie outside the turned
+rail's faces, also written by `utils/generate_rail_ghosts.py`.
+
 `dev/track/start` starts a track of one straight rail on the tile the player
-stands on, running the way they face, and takes every train away.
+stands on, running the way they face, and takes the team's train away, with
+the rails and track tiles of the team's track before (`dev/track/clear`).
+
+## Taking the last rail back
+
+Right-clicking the end's rail with an empty hand takes it back into the hand
+(`track/take`). It is refused, with the refusal sound, while the hand holds
+anything, where there is no rail before it to be the end, and while any axle of
+the team's train, its front and back ends included, is on the end's tile of the
+path (`track/_can_take`). Another team's take, or any for a player on no team,
+is passed over in silence, as the trains are.
+
+Taking it clears its tile's rails and track tile marker, takes it off the path
+and off `rails` (`track/_path_unlay`), and steps the end back onto the tile
+before, which keeps its rail as it lies, turned or straight. The next tiles are
+marked again and the take interactions moved.
 
 ## The mechanic
 
@@ -166,21 +193,23 @@ entity's `Pos` with no conversion.
 - `rails[0]` is the floor: the oldest rail that may still not be taken
 - the list holds only the rails that are still removable
 
-## The two entities
+## The entities
 
 - a **marker** tagged `dr_track_end` - the placement anchor. It always sits on
   the end of the track, and placement is allowed on tiles within 1 of it
-- an **interaction** tagged `dr_track_take` - the click target for taking the
-  last rail back
+- **interactions** tagged `dr_track_take` - the click targets for taking the
+  last rail back, each scored with its team (`track/_place_take`). Two stand on
+  the rail's two ends where a straight rail running out by each edge would have
+  them, 0.75 out from the middle, 1.51 wide; a turned rail has a third on its
+  middle block, 1.01 wide. All are 4.5 pixels tall, the rail's height, and a
+  hundredth of a block wider than the blocks they cover, so a click on the
+  rail's trapdoors lands on them instead. The inside of a curve near the tile's
+  corner is left uncovered
 
 They are split because the two affordances come and go separately: there is
-always somewhere to place, but not always something to take. The interaction is
-**parked below the map** rather than killed when nothing may be taken, which
-keeps it out of both the click and the `distance=` tests.
-
-Park it shallow. Entities are discarded once their Y drops below the dimension's
-`min_y` minus 64, and `derailed:game` has `min_y` 0, so anything below **-64 is
-deleted**. Around -20 is safely out of reach and safely above the line.
+always somewhere to place, but not always something to take. After **any**
+change to `rails` the team's take interactions are made again, on the end if
+`rails[1]` exists, and otherwise the team has none.
 
 ## The operations
 
@@ -190,20 +219,16 @@ Placing, after moving the anchor onto the new rail:
 data modify storage derailed:track rails append from entity @n[type=marker,tag=dr_track_end,distance=0..] Pos
 ```
 
-Taking the last rail back:
+Taking the last rail back, once `rails[1]` is known to exist:
 
 ```mcfunction
-# nothing to take once the list is down to its floor entry
-execute unless data storage derailed:track rails[1] run return fail
-
-data modify entity @n[type=marker,tag=dr_track_end,distance=0..] Pos set from storage derailed:track rails[-2]
-data remove storage derailed:track rails[-1]
+data remove storage derailed:train t1.path[-1]
+data remove storage derailed:track t1.rails[-1]
 ```
 
-Then move the interaction onto the new end, or park it if the list is now down to
-its floor. A single rule is easier to keep right than scattered spawn and hide
-logic: after **any** change to the list, the interaction belongs on the end if
-`rails[1]` exists and below the map otherwise.
+The anchor steps back a tile with `tp`, facing the way it came in, rather than
+having its `Pos` set from `rails[-1]`, so it is moved the same way laying moves
+it.
 
 ## What the command set gives us
 
@@ -226,21 +251,22 @@ All checked against 26.3 rather than assumed:
   bite - but it is the first thing to suspect if something is off by exactly one
   tick
 
-## Still to decide
+## What was decided
 
-- **Whether the train pops `rails[0]` as it advances.** If it does, the rule
-  becomes "`rails[0]` is where the train is", everything behind the train is
-  already gone from the list, and **no station reset is needed** - rails from
-  before the last station are unremovable for the same reason as any other rail
-  the train has passed. If it does not, the list needs clearing at each station,
-  reseeded with the anchor's position as the new floor
-- **Whether taking should also be refused when the train is next to the end**, so
-  a rail cannot be pulled out from under it
+- **The train does not pop `rails[0]`.** The train itself is the floor: taking
+  is refused while any part of it is on the last tile, and it is never past the
+  last tile, so every rail it is on or has passed stays. `rails[0]` is only the
+  floor of a track no train has reached. No station reset is needed for the
+  same reason
+- **Taking is refused while the train is on the last tile, and not before.** A
+  train on the tile before keeps running and derails at its end, as it would
+  had the rail never been laid
 
 ## Gotchas
 
 - Writing the list from the entity's `Pos` makes storage downstream of the
   entity, so a mispositioned anchor quietly poisons the history. Writing both
   from the same computed placement position avoids that
-- Two players taking in the same tick would both pop. Funnel removals through one
-  function
+- Two players taking in the same tick each take a rail: every click runs
+  `track/take` on its own, with its own checks against the track as the click
+  before left it
