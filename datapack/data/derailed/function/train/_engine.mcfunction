@@ -1,8 +1,8 @@
 
 # Sets the engine on the line between its axles, midway, facing its back axle,
 #  since an item display turns its model about, and its two shulkers, each
-#  with its interaction, 1.5 either way along it, then turns its model that
-#  way
+#  with its interaction, 1.5 either way along it, puffs smoke from its chimney
+#  while it moves, then turns its model that way
 # Facing a square way, it goes by plain offsets, the same distances turned to
 #  that way
 # A piece tagged 'dr_train_raised' stands 0.002 higher
@@ -33,5 +33,12 @@ execute at @s rotated as @s positioned ^ ^0.45 ^-1.2 as @e[type=item_display,tag
 execute at @s rotated as @s positioned ^ ^0.45 ^ as @e[type=item_display,tag=dr_wheel_2,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
 execute at @s rotated as @s positioned ^ ^0.45 ^1.2 as @e[type=item_display,tag=dr_wheel_3,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
 execute at @s rotated as @s positioned ^ ^0.3 ^-2.25 as @e[type=item_display,tag=dr_wheel_4,distance=0..] if score @s dr_tid = #tid dr_temp run tp @s ~ ~ ~
+
+# While it moves, its chimney puffs out campfire smoke one tick in five, seen
+#  from as far off as any player is: the chimney's mouth, 16.32 pixels over
+#  the model's bottom and 9.6 toward its front from its middle, is 2.55 up and
+#  1.5 toward the front at the model's two and a half times its size
+execute if score $TrainSpeed dr_config matches 1.. unless entity @s[tag=dr_derailed] if predicate {type:"minecraft:random_chance",chance:0.2} at @s rotated as @s run \
+    particle minecraft:campfire_signal_smoke ^ ^2.55 ^-1.5 0 0.035 0 1 0 force
 
 function derailed:train/_turn
