@@ -21,13 +21,7 @@ scoreboard players operation #gen_repaints dr_var += #gen_repainted dr_var
 scoreboard players operation #gen_repair_swaps_total dr_var += #gen_repair_swaps dr_var
 scoreboard players operation #gen_repair_paints_total dr_var += #gen_repair_paints dr_var
 data modify storage derailed:gen prev_cols set from storage derailed:gen sec_cols
-scoreboard players operation #gen_pieces_placed dr_var += #piece_cows dr_var
-scoreboard players operation #gen_pieces_placed dr_var += #piece_bandits dr_var
-scoreboard players operation #gen_pieces_dropped dr_var += #piece_lost dr_var
 scoreboard players operation #gen_order_fixed dr_var += #ofixed dr_var
-
-# A piece the section ships without has black glass on its northwestern tile
-execute as @e[type=marker,tag=dr_piece,tag=dr_dropped,dx=31,dy=0,dz=15] at @s run setblock ~ ~16 ~ black_stained_glass strict
 
 # For the report, once, on the section as it ships: what each route costs to
 #  lay across it, priced the way the flood prices the first, and what the tiles

@@ -84,8 +84,8 @@ players in the game dimension.
   batches and check none ships without one
 - [ ] **Polishing the rivers and lakes** (M). Their saved structures, bends and
   how they meet the bank, reworked with the help of Minecraft builders
-- [ ] **Cows** (M). Placed by the generator as plan blocks only; what they do
-  in play is undecided
+- [ ] **Cows** (M). Not placed by the generator; where they stand and what
+  they do in play is undecided
 - [ ] **More biomes** (L). Grass is the only one. Snow first needs the snow
   slowdown and a new block for pile collision, which uses snow layers today
   (see the snow plan). The brief warns iron reads poorly on sand-toned ground
@@ -96,9 +96,8 @@ players in the game dimension.
 
 - [ ] **Bandits** (L). A design of their own, acting quite differently from
   the usual train thieves, and climbing out of the ground with the zombie
-  emerge animation. The generator places bandit pieces as plan blocks; the
-  animation works, but nothing calls it and what climbs out is a vanilla
-  zombie. When and where they come up, and what they go after, is undecided
+  emerge animation. The animation works, but nothing calls it and what climbs
+  out is a vanilla zombie. When and where they come up, and what they go after, is undecided
 - [ ] **Zombie emerge sounds** (S–M). Paused; see `zombie_emerge.md`
 
 ## Players and items

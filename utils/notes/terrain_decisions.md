@@ -102,7 +102,7 @@ the cheapest way across once the second route has cut what it cuts, since that
 is what the players can lay; the first route is only held to the floor, since
 a first route over the ceiling can still have a cheaper way beside it. Medium's
 band of 1.60 to 2.50 is the middle eighty percent of a batch measured on the
-cheapest way, with the pieces in. Hard's of 2.20 to 3.00 was chosen from a
+cheapest way. Hard's of 2.20 to 3.00 was chosen from a
 batch measured the same way, whose middle eighty percent ran from 2.07 to
 2.87. The two overlap from 2.20 to 2.50: holding medium under hard's floor
 would have turned away more than a quarter of medium's sections as too
@@ -390,22 +390,9 @@ and a longest line falling back is not laid at all, since laying it shifted
 is the only thing that could have saved it. No choice may put water across the
 seam into the section before; column 0 itself is as open to water as it was.
 
-The next prefabs are grass's **pieces**, decided 2026-09-26: a herd of cows,
-one on every tile of a patch two wide and one to three tall, and two bandits
-on a patch two wide and one tall, each on its own coin in every section and on every
-tier. They are ground, marked apart from the section's own ground, and like the
-station they cannot be repainted or swapped, nor anything else a prefab is kept
-from. They are ground to the track as well: it may run across a herd, so the
-pieces add nothing to what a section costs and pinch nothing. What is asked of
-them is that the players can get to them, walking anywhere but rock and
-bridging water where they must, with the bridges on the way to each paid for
-out of the section's supply like the bridges to a region. A piece nobody can
-get to is dropped rather than the section rerolled: rerolling for it cost 18
-rerolls in 33 hard runs and left 5 sections shipping invalid anyway, since the
-rock that walls a piece in stays where it is across attempts. On hard about one
-piece in six was walled in, so hard places each piece six times in ten rather
-than half the time, to ship about as many; easy and medium, which dropped
-about one in fifteen and one in thirty, stay at half.
+Grass's **pieces**, a herd of cows and a pair of bandits laid as prefabs in
+every section, were taken out on 2026-11-07. What cows and bandits do is still
+to be designed, so where they stand is decided along with it.
 
 ## Placeholders and open questions
 
@@ -421,7 +408,7 @@ about one in fifteen and one in thirty, stay at half.
   still to be counted
 - Nothing has been profiled since the sections were 35 by 20 with one river and
   a depth-first flood. The least-cost flood, the bag, the second route, the
-  cheapest way's flood, the water check, the pieces and the supply on every
+  cheapest way's flood, the water check and the supply on every
   attempt all cost more than what came before, and how much is not known; a
   hard section now takes long enough that a batch falls behind the tick
 - There is no hard cap on how many regions of a kind a section can hold, only
@@ -431,8 +418,7 @@ about one in fifteen and one in thirty, stay at half.
   up to four times, and the report counts any hole left
 - Sections are placeholder blocks in a test area. Real blocks are still to come
 - **A section has to be built across many ticks, not in one.** Today `build`
-  runs start to finish inside a single function call: the station, the pieces,
-  the scatter, growth, the wall, the rivers, the strays and then up to nine
+  runs start to finish inside a single function call: the station, the scatter, growth, the wall, the rivers, the strays and then up to nine
   attempts, each with its paint, validate, second route, cheapest way, supply
   and water check. A hard section takes long enough that a test batch falls
   behind the tick, which in play would be the game freezing every time a

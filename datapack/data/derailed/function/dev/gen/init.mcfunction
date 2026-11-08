@@ -27,7 +27,6 @@ kill @e[type=marker,tag=dr_cut_run,distance=0..]
 kill @e[type=marker,tag=dr_pinch,distance=0..]
 kill @e[type=armor_stand,tag=dr_seed_mark,distance=0..]
 kill @e[type=marker,tag=dr_seed,distance=0..]
-kill @e[type=marker,tag=dr_piece,distance=0..]
 kill @e[type=marker,tag=dr_cp,distance=0..]
 kill @e[type=marker,tag=dr_wq,distance=0..]
 kill @e[type=marker,tag=dr_bq,distance=0..]
@@ -71,8 +70,6 @@ scoreboard players set #gen_fail_water dr_var 0
 scoreboard players set #gen_fail_order dr_var 0
 scoreboard players set #gen_searches dr_var 0
 scoreboard players set #gen_order_fixed dr_var 0
-scoreboard players set #gen_pieces_placed dr_var 0
-scoreboard players set #gen_pieces_dropped dr_var 0
 scoreboard players set #gen_fail_cheap dr_var 0
 scoreboard players set #gen_fail_costly dr_var 0
 scoreboard players set #gen_rate_n dr_var 0

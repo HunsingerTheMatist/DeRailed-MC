@@ -20,7 +20,6 @@ scoreboard players set #sup_done dr_var 0
 scoreboard players set #gen_spread_gaps dr_var 0
 scoreboard players set #gen_spread_fail dr_var 0
 scoreboard players set #water_far dr_var -1
-scoreboard players set #piece_lost dr_var 0
 scoreboard players set #order_ran dr_var 0
 scoreboard players set #ofixed dr_var 0
 kill @e[type=marker,tag=dr_cp,distance=0..]
@@ -42,11 +41,8 @@ clone ~ ~9 ~ ~31 ~9 ~15 ~ ~15 ~ strict filtered #derailed:river_cut
 #  comes up and is swapped for plain water
 fill ~ ~15 ~ ~31 ~15 ~15 light_blue_concrete replace magenta_glazed_terracotta strict
 
-# The station is drawn over whatever the attempt painted where it stands, and
-#  the pieces as the ground they are
+# The station is drawn over whatever the attempt painted where it stands
 execute if score #gen_station dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/_station_show with storage derailed:gen r
-fill ~ ~15 ~ ~31 ~15 ~15 lime_concrete replace hay_block strict
-fill ~ ~15 ~ ~31 ~15 ~15 lime_concrete replace red_nether_bricks strict
 
 scoreboard players set #q_step dr_var 41
 return 1

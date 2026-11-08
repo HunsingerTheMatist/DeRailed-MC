@@ -40,10 +40,6 @@ execute if score #gen_cuts2 dr_var matches 1.. if score #gen_relieved2 dr_var ma
 execute if score #gen_supply_short dr_var matches 0 run tellraw @a [{text:"[gen] sections short of wood or iron after repainting: ",color:"gray"},{score:{name:"#gen_supply_short",objective:"dr_var"},color:"green"},{text:"   swaps by the repair: "},{score:{name:"#gen_repair_swaps_total",objective:"dr_var"}},{text:", repaints: "},{score:{name:"#gen_repair_paints_total",objective:"dr_var"}},{text:"   windows left wanting: "},{score:{name:"#gen_spread_total",objective:"dr_var"}},{text:"   tails left wanting: "},{score:{name:"#gen_tail_gaps",objective:"dr_var"}}]
 execute if score #gen_supply_short dr_var matches 1.. run tellraw @a [{text:"[gen] sections short of wood or iron after repainting: ",color:"gray"},{score:{name:"#gen_supply_short",objective:"dr_var"},color:"red"},{text:"   swaps by the repair: "},{score:{name:"#gen_repair_swaps_total",objective:"dr_var"}},{text:", repaints: "},{score:{name:"#gen_repair_paints_total",objective:"dr_var"}},{text:"   windows left wanting: "},{score:{name:"#gen_spread_total",objective:"dr_var"}},{text:"   tails left wanting: "},{score:{name:"#gen_tail_gaps",objective:"dr_var"}}]
 
-# And the pieces, how many were placed and how many the players could not get
-#  to and were dropped
-tellraw @a [{text:"[gen] pieces placed: ",color:"gray"},{score:{name:"#gen_pieces_placed",objective:"dr_var"}},{text:"   dropped out of reach: "},{score:{name:"#gen_pieces_dropped",objective:"dr_var"}}]
-
 # And how many regions were repainted as wood to get the players their wood in
 #  order
 tellraw @a [{text:"[gen] regions repainted as wood for the order: ",color:"gray"},{score:{name:"#gen_order_fixed",objective:"dr_var"}}]

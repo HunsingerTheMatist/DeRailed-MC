@@ -36,13 +36,6 @@ execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_max dr_var 216
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_pinch_min dr_var 8
 
-# The chance, in percent, that a section gets each piece; a piece the players
-#  cannot get to is dropped, which on hard's rock is about one in six, so hard
-#  places them more often to ship about as many
-execute if score #gen_difficulty dr_var matches 0 run scoreboard players set #gen_piece_odds dr_var 50
-execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #gen_piece_odds dr_var 50
-execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_piece_odds dr_var 60
-
 # And the fewest regions of each kind a section may have, met by holding back
 #  the last seeds drawn for whatever is still owed; rock's, since rock is what
 #  makes a section hard to move about in rather than just expensive to cross

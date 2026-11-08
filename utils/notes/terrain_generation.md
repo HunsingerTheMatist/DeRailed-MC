@@ -36,7 +36,7 @@ question about a section answerable for as long as the section takes:
 | 19 | the tiles the second route's detour search has reached, in a flood's glass for the way each was reached from, while it runs; where no second way was found, the band it was looked for in | `_sec_new`, `_second_search_b` | `_sec_visit`, `_sec_det_walk`, looked at |
 | 18 | the first route and the band and zone round it, while the second is found; the routes kept aside while a later flood has y17; and a ring of tinted glass round the section every attempt | `second`, `supply`, `_cheapest`, `_order`, `_step_paint` | `_sec_visit`, `_pinch_cut`, the floods' route checks |
 | 17 | the flood's working layer, then both routes | `validate`, `second` | `_cost_spread`, `_trace` |
-| 16 | glass over what was cut, opened, repainted, handed on or taken into a lake, the station's rails and the pieces | many | looked at |
+| 16 | glass over what was cut, opened, repainted, handed on or taken into a lake, the station's rails | many | looked at |
 | 15 | the section as it is meant to be seen | the attempt loop, then `lakeside` | `_edge_kind`, `validate` |
 | 14 | how far water is, while the water check runs; the water under each route while it is counted | `_water_area`, `_supply_wet` | `_water_check`, `_supply_wet` |
 | 13 | the region a cut tile took, cleared every attempt, and the lake a river tile was taken into | `_carve_from`, `_cut_own`, `_lakeside_join` | `_read_owner` |
@@ -80,7 +80,7 @@ did real work and 0 where it found nothing to do (`_q_do` runs the step
 | step | function | what it does |
 |---|---|---|
 | 1 | `_step_start` | the tier's bounds, the route and the station |
-| 2 | `_step_grow` | the pieces, the seeds and the regions they grow |
+| 2 | `_step_grow` | the seeds and the regions they grow |
 | 3 | `_step_wall` | hard's wall, and the kinds layer started from the regions |
 | 4 | `_step_rivers` | the first river set up (`_rivers_a_pre`) and walked for a share of steps (`_river_one`), then walked on (54) where it paused, and ended (55) |
 | 54 | `_step_river_walk` | a paused river walked `#riv_slice_max` steps further (`_river_walk_on`), again on the tick after while it pauses, then back to `#q_river_ret` |
@@ -181,38 +181,6 @@ second route and the supply flood walk everything but it, since the players
 can. The station's four tiles on the eastern edge leave notes reading ground,
 so the section after carries ground in from them and grows it from there on
 whatever rows its yard does not already cover.
-
-### The pieces, straight after
-
-`_pieces` then lays the section's **pieces** on y0 the same way, each on a
-coin of its own and on every tier: a herd of cows, two columns wide and one to
-three rows tall with a cow on every tile, in **hay**, and a pair of bandits,
-two wide and one tall with a bandit on each tile, in **red nether bricks**. Each goes at a spot taken at
-random from column 2 to column 27, so clear of the yard and the station, where
-none of its tiles is a prefab's already, tried up to `#gen_piece_tries` times,
-30, before the section goes without it. Both blocks are in `#derailed:prefab`,
-so a piece is kept out of everything the station is kept out of: no seed, no
-growth, no region, no river, no stray, no cut, no repaint and no swap, and a
-wall through it has a hole. Its rectangle is kept in the storage list
-`pieces`, which `grow` lays again over its black fill; its northwestern tile
-has a `dr_piece` marker tagged `dr_cows` or `dr_bandits`, with how many
-creatures it holds in `dr_size`; and white glass for cows or red for bandits
-goes over it on y16. Every attempt draws it on y15 as plain ground, so the
-routes, the pinch measure, the supply and the water check all take it for
-ground, and the track may run across it.
-
-A piece the players cannot get to is no use, so the supply check's flood,
-which sets out from the first route and walks everything but rock, is asked
-whether it reached each one. `_piece_reach` walks the flood back from each
-piece it reached before any region is taken, charging the bridges on the way
-to it like the bridges to a region and building them for whatever comes after,
-and **drops** each piece it did not reach, tagging its marker `dr_dropped` for
-that attempt; a section that ships with one dropped has black glass on the
-dropped piece's northwestern tile, and the piece stays plain ground with no
-creatures. The chance of each piece is `#gen_piece_odds` percent, set by tier
-in `build`: 50 on easy and medium, where about one piece in fifteen and one in
-thirty was out of reach, and 60 on hard, where about one in six was. The report prints which pieces a section got and how many
-were dropped, and totals both for the run.
 
 ### 1. Scatter
 
@@ -786,8 +754,8 @@ tier's floor; the ceiling is held to the cheapest way across once the second
 route is found (below), since a first route over the ceiling can still have a
 cheaper way beside it, while one under the floor never has. The bands are set
 in `build`: 1.40 to 2.00 on easy, 1.60 to 2.50 on medium and 2.20 to 3.00 on
-hard. All three were measured on the cheapest way across, pieces and all,
-over 99, 99 and 98 sections: easy's tenth and ninetieth percentiles came to
+hard. All three were measured on the cheapest way across, over 99, 99 and 98
+sections: easy's tenth and ninetieth percentiles came to
 1.32 and 2.06 and its band is set at 1.40 to 2.00 from that, medium's to 1.60
 and 2.49 and its band is set on them, and hard's to 2.07 and 2.87 and its band
 set at 2.20 to 3.00 from that. A tier whose band is being measured lets its routes through
@@ -802,8 +770,7 @@ When those run out the section is **laid afresh** (`_fresh`), up to
 is: its seeds, what stood over them, what waited on their growth and the notes
 they left at the eastern edge are thrown away, the layer the regions grow on
 and the marker layer are cleared, the station is laid again where it was, and
-the laying steps `build` starts with lay new pieces, new seeds, the
-regions they grow, hard's wall, the rivers and the stray sweep, before a new
+the laying steps `build` starts with lay new seeds, the regions they grow, hard's wall, the rivers and the stray sweep, before a new
 round of attempts. The entry row, the exit row and the station's notes for the
 section after stay as they were. The section before's notes are read again by
 the seam, since the seam only puts a note aside as `dr_edge_kept` when it reads
@@ -1302,8 +1269,6 @@ clears y15 to y17, the highest a third stage reaches, yields the tile's wood
 or iron on the middle of it and retires the marker (`mine/_done`). A tile tagged
 `dr_station_near` has the station's overhang put back after each.
 
-The pieces are built as plain ground for now.
-
 ## Looking at it
 
 - `dev/gen/test` builds three joined sections at x 1000, one on each tier -
@@ -1412,8 +1377,7 @@ at all**, and its seam fails silently. Play builds into fresh ground and
 
 ## Known gaps
 
-- **Grass's pieces only.** The station, the cows and the bandits are the only
-  prefabs so far
+- **The station is the only prefab.** Nothing places cows or bandits
 - **Placeholder blocks**, not DeRailed's own
 - **The queue runs one step a tick.** Timed with `#q_gap` at 1 under
   `/tick sprint`, every step comes in under about 25ms but the first river's

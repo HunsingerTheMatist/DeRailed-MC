@@ -45,8 +45,6 @@ scoreboard players set #gen_fail_shortcut dr_var 0
 scoreboard players set #gen_fail_water dr_var 0
 scoreboard players set #gen_fail_order dr_var 0
 scoreboard players set #gen_order_fixed dr_var 0
-scoreboard players set #gen_pieces_placed dr_var 0
-scoreboard players set #gen_pieces_dropped dr_var 0
 scoreboard players set #gen_fail_cheap dr_var 0
 scoreboard players set #gen_fail_costly dr_var 0
 scoreboard players set #gen_rate_n dr_var 0

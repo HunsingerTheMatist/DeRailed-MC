@@ -296,9 +296,6 @@ scoreboard players set #gen_order_reroll dr_var 1
 scoreboard players set #gen_order_fixes dr_var 3
 scoreboard players set #order_on dr_var 0
 
-# How many spots a piece is tried at before the section goes without it
-scoreboard players set #gen_piece_tries dr_var 30
-
 # How many attempts a section gets on one set of regions, and how many times it
 #  may be thrown out and laid again from new seeds before it ships as it is
 scoreboard players set #gen_attempt_count dr_var 3
