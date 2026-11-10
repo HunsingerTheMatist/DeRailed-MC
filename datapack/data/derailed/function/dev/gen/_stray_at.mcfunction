@@ -20,15 +20,17 @@ execute unless block ~-1 ~9 ~ magenta_glazed_terracotta if blocks ~ ~5 ~ ~ ~5 ~ 
 execute unless block ~ ~9 ~1 magenta_glazed_terracotta if blocks ~ ~5 ~ ~ ~5 ~ ~ ~5 ~1 all run return 0
 execute unless block ~ ~9 ~-1 magenta_glazed_terracotta if blocks ~ ~5 ~ ~ ~5 ~ ~ ~5 ~-1 all run return 0
 
-# The wall's rock stays, since a river cutting a thin part of it can leave a
-#  stray beside the cut, and handing that on would open the cut two wide; a
-#  lake's water stays too, since water beside a river looks as it should
+# The wall's rock stays while more of the wall touches it, since a river
+#  cutting a thin part of it can leave a stray beside the cut, and handing that
+#  on would open the cut two wide; a lake's water stays too, since water beside
+#  a river looks as it should
 scoreboard players set #gen_id dr_var -1
 function derailed:dev/gen/_read_id
 scoreboard players set #stray_keep dr_var 0
-execute as @e[type=marker,tag=dr_seed,tag=dr_wall,distance=0..] if score @s dr_id = #gen_id dr_var run scoreboard players set #stray_keep dr_var 1
+execute as @e[type=marker,tag=dr_seed,tag=dr_wall,distance=0..] if score @s dr_id = #gen_id dr_var run scoreboard players set #stray_keep dr_var 2
 execute as @e[type=marker,tag=dr_seed,tag=dr_lake,distance=0..] if score @s dr_id = #gen_id dr_var run scoreboard players set #stray_keep dr_var 1
 execute if score #stray_keep dr_var matches 1 run return 0
+execute if score #stray_keep dr_var matches 2 if function derailed:dev/gen/_stray_wall run return 0
 
 # The nearest seed among the regions beside it takes it, and where none of them
 #  has a seed here it copies a neighbour instead

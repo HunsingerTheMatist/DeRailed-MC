@@ -534,12 +534,14 @@ The stray goes to the **nearest seed among the regions beside it**, written to
 y0 and y5 both. Where none of those regions has a seed here, all of them being
 carried over the seam, it copies the tile to its north, or failing that the
 first other neighbour that is terrain; with river all round it stays as it is.
-Some tiles are never handed on: the wall's rock, since a river cutting a thin
+Some tiles are never handed on: the wall's rock while any of the eight tiles
+round it is still the wall's and not river, since a river cutting a thin
 part of the wall would leave a stray beside the cut and handing it on would
-open the cut two wide; a lake's water, since water beside a river looks as it
-should; and tiles carried over the seam, since they have to match the section
-before. The report counts the tiles handed on, and light blue glass on y16
-marks each of them.
+open the cut two wide, though a piece of the wall the river has cut off from
+the rest is handed on like any other stray; a lake's water, since water
+beside a river looks as it should; and tiles carried over the seam, since they
+have to match the section before. The report counts the tiles handed on, and
+light blue glass on y16 marks each of them.
 
 ### 6. Kinds
 
