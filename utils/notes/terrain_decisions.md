@@ -394,6 +394,27 @@ Grass's **pieces**, a herd of cows and a pair of bandits laid as prefabs in
 every section, were taken out on 2026-11-07. What cows and bandits do is still
 to be designed, so where they stand is decided along with it.
 
+The first section starts at a **start station**, decided 2026-11-07: ten
+tiles along and five across at its western end, on the entry row, with its
+buffer stop on the first tile, seven rails laid already after it and its
+building above the first two, and six wood and six iron piled on it, which the
+supply counts as in hand. Its ground spreads into the section round it
+wherever no seed is nearer, as a region grown from three points on it would,
+decided 2026-11-09: each a random tile at least 1 in from the station's edge,
+which seeds keep the spacing from that they keep from each other. A single
+point at its middle lost nearly every tile beside it, since it stood 3 tiles
+inside the station and seeds stood as near it as 6. The end
+station keeps its stamped shape, which already clears the ground it needs,
+until the start station's spread has been seen in play.
+
+The first section's floor on what its route may cost a rail is 94 percent of
+the tier's, decided 2026-11-09. Its route after the start station's rails is
+21 rails rather than 29, and over 90 seeds a tier it fell under the floor
+about twice as often as the other sections, with its middle cost and its
+ceiling about the same as theirs. Measured a tier at a time the floor would be
+0.97 on easy, 0.90 on medium and 0.95 on hard; one figure for all three, taken
+together, was chosen over three.
+
 ## Placeholders and open questions
 
 - The test run builds all three of its sections on the tier

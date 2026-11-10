@@ -9,10 +9,11 @@
 
 # River is no one's, the station is its own, and a tile carried over the seam
 #  keeps what it was, since it has to match the section before across the
-#  boundary
+#  boundary; the first section has no section before, and the start station's
+#  ground is all that is drawn as a kind there yet
 execute if block ~ ~9 ~ magenta_glazed_terracotta run return 0
 execute if block ~ ~5 ~ #derailed:prefab run return 0
-execute if block ~ ~5 ~ #derailed:gen_is_kind run return 0
+execute unless score #gen_section dr_var matches 0 if block ~ ~5 ~ #derailed:gen_is_kind run return 0
 
 # A tile with an edge to another of its own region is where it belongs
 execute unless block ~1 ~9 ~ magenta_glazed_terracotta if blocks ~ ~5 ~ ~ ~5 ~ ~1 ~5 ~ all run return 0

@@ -4,6 +4,8 @@
 # A region the supply count cannot take, one whose seed the flood never got to
 #  or with more water on the way to it than the count looks past, is tagged
 #  'dr_untake', since its tiles count toward the windows but not the totals
+# The first section's start station's wood and iron count toward the columns
+#  they are piled on, 2 and 3
 # Positioned at the section's corner, on the visible layer, while the supply
 #  check's flood is still laid
 
@@ -12,6 +14,8 @@ tag @e[type=marker,tag=dr_seed,tag=!dr_reach,distance=0..] add dr_untake
 tag @e[type=marker,tag=dr_seed,scores={dr_bridge=9..},distance=0..] add dr_untake
 
 function derailed:dev/gen/_rep_scan
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players operation #c_w2 dr_var += #gen_start_wood dr_var
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players operation #c_i3 dr_var += #gen_start_iron dr_var
 function derailed:dev/gen/_supply_count
 function derailed:dev/gen/_supply_need
 function derailed:dev/gen/_rep_vload

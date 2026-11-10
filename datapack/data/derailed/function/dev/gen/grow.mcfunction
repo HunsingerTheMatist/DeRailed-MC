@@ -28,6 +28,8 @@ scoreboard players set #bleed_rock dr_var 0
 
 execute as @e[type=marker,tag=dr_seed,distance=0..] at @s run function derailed:dev/gen/_seed_claim
 function derailed:dev/gen/seam
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run function derailed:dev/gen/_start_spill with storage derailed:gen r
+execute if score #gen_section dr_var matches 0 run function derailed:dev/gen/_start_void
 
 scoreboard players set #gen_wave dr_var 0
 function derailed:dev/gen/_wave

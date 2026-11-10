@@ -15,6 +15,10 @@ scoreboard players set #sup_iron_free dr_var 0
 data modify storage derailed:gen e.f set value "_supply_tile_at"
 function derailed:dev/gen/_each
 
+# The first section's start station's wood and iron are in hand from the start
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players operation #sup_wood_free dr_var += #gen_start_wood dr_var
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players operation #sup_iron_free dr_var += #gen_start_iron dr_var
+
 fill ~ ~5 ~ ~31 ~5 ~15 air replace cyan_stained_glass strict
 tag @e[type=marker,tag=dr_seed,distance=0..] remove dr_used
 scoreboard players operation #sup_wood dr_var = #sup_wood_free dr_var

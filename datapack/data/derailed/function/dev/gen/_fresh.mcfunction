@@ -19,6 +19,7 @@ function derailed:dev/gen/_lay_restore
 #  where they reached the eastern edge; the station's notes stay
 kill @e[type=marker,tag=dr_seed,distance=0..]
 kill @e[type=armor_stand,tag=dr_seed_mark,dx=31,dy=24,dz=15]
+execute if score #gen_section dr_var matches 0 positioned ~-2 ~ ~ run kill @e[type=armor_stand,tag=dr_seed_mark,dx=1,dy=24,dz=15]
 kill @e[type=marker,tag=dr_seam_wait,distance=0..]
 kill @e[type=marker,tag=dr_edge,tag=!dr_prefab,dx=31,dy=0,dz=15]
 

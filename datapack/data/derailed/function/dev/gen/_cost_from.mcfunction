@@ -1,5 +1,6 @@
 
 # Starts the least-cost flood on the tile the track comes in on
-# Takes $(entry), the row the track enters on
+# Takes $(entry), the row the track enters on, and $(start), the column of its
+#  first tile
 
-$execute positioned ~ ~ ~$(entry) run function derailed:dev/gen/_cost_run
+$execute positioned ~$(start) ~ ~$(entry) run function derailed:dev/gen/_cost_run

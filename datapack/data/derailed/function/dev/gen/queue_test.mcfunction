@@ -1,7 +1,8 @@
 
-# Builds what 'dev/gen/test' builds from seed '#q_seed', three joined sections,
-#  easy, medium then hard, through the section queue a step a tick, and prints
-#  the report once they are done
+# Builds what 'dev/gen/test' builds from seed '#q_seed', four joined sections,
+#  easy, medium, hard and easy again, through the section queue a step a tick,
+#  and covers the fourth but for its preview and prints the report once they
+#  are done
 # No section is ever given up on: fresh starts go on for as long as it takes
 # '#q_log' at 1 says in chat which step each tick runs
 # Positions itself, so it is safe to call from anywhere
@@ -16,7 +17,8 @@ scoreboard players set #q_survey dr_var 0
 scoreboard players operation #q_tier_was dr_var = #gen_difficulty dr_var
 scoreboard players operation #q_fresh_was dr_var = #gen_fresh_max dr_var
 scoreboard players set #gen_fresh_max dr_var 2147483647
-scoreboard players set #q_left dr_var 3
+scoreboard players set #q_left dr_var 4
+scoreboard players set #q_preview dr_var 1
 scoreboard players set #q_tier dr_var 0
 scoreboard players set #q_step dr_var 0
 scoreboard players set #q_on dr_var 1

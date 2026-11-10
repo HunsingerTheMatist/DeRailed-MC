@@ -9,7 +9,7 @@
 tag @e[type=marker,tag=dr_pinch_edge,distance=0..] remove dr_pinch_edge
 tag @e[type=marker,tag=dr_pinch_near_in,distance=0..] remove dr_pinch_near_in
 tag @e[type=marker,tag=dr_pinch_near_out,distance=0..] remove dr_pinch_near_out
-$execute positioned ~ ~ ~$(entry) run tag @e[type=marker,tag=dr_pinch,distance=..2.1] add dr_pinch_near_in
+$execute positioned ~$(start) ~ ~$(entry) run tag @e[type=marker,tag=dr_pinch,distance=..2.1] add dr_pinch_near_in
 $execute positioned ~$(goal) ~ ~$(exit) run tag @e[type=marker,tag=dr_pinch,distance=..2.1] add dr_pinch_near_out
 $execute if score #gen_station dr_var matches 1 positioned ~29 ~ ~$(low) run tag @e[type=marker,tag=dr_pinch,distance=..2.1] add dr_pinch_near_out
 execute as @e[type=marker,tag=dr_pinch_near_in,distance=0..] run function derailed:dev/gen/_pinch_edge_run

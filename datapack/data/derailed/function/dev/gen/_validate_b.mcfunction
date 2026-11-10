@@ -8,6 +8,9 @@ function derailed:dev/gen/_validate_judge
 
 execute if score #gen_reached dr_var matches 1 run function derailed:dev/gen/_rate_tally
 
+# Every attempt's rate, while '#gen_rate_log' is 1, for measuring a tier's band
+execute if score #gen_reached dr_var matches 1 if score #gen_rate_log dr_var matches 1 run tellraw @a [{text:"[rate] section ",color:"gray"},{score:{name:"#gen_section",objective:"dr_var"}}," tier ",{score:{name:"#gen_difficulty",objective:"dr_var"}}," rate ",{score:{name:"#gen_rate",objective:"dr_var"}}]
+
 # Counted for the report, as seeds rather than tiles, since a seed is a whole
 #  patch
 execute store result score #gen_wood dr_var if entity @e[type=marker,tag=dr_seed,scores={dr_kind=1},distance=0..]

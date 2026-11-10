@@ -20,12 +20,21 @@ execute store result storage derailed:gen r.exit int 1 run scoreboard players ge
 scoreboard players set #gen_goal dr_var 31
 execute if score #gen_station dr_var matches 1 run scoreboard players set #gen_goal dr_var 28
 execute store result storage derailed:gen r.goal int 1 run scoreboard players get #gen_goal dr_var
+
+# The first tile the track is laid on: column 0 of the entry row, or in the
+#  first section the tile after the start station's seven rails, which are laid
+#  already
+scoreboard players set #gen_start dr_var 0
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players set #gen_start dr_var 8
+execute store result storage derailed:gen r.start int 1 run scoreboard players get #gen_start dr_var
 scoreboard players operation #gen_straight dr_var = #gen_goal dr_var
+scoreboard players operation #gen_straight dr_var -= #gen_start dr_var
 scoreboard players add #gen_straight dr_var 1
 
-# The rows the station's building and its two rows of ground fall on, and the
+# The rows the station's building and its two rows of ground fall on, the
 #  rows of the yard on this side of the seam, which the section before's
-#  station reaches into on its own rail row
+#  station reaches into on its own rail row, and the last of the first
+#  section's start station, three below its rail row
 scoreboard players operation #gen_srow dr_var = #gen_exit dr_var
 scoreboard players remove #gen_srow dr_var 1
 execute store result storage derailed:gen r.top int 1 run scoreboard players get #gen_srow dr_var
@@ -38,3 +47,5 @@ scoreboard players remove #gen_srow dr_var 1
 execute store result storage derailed:gen r.yup int 1 run scoreboard players get #gen_srow dr_var
 scoreboard players add #gen_srow dr_var 2
 execute store result storage derailed:gen r.ydown int 1 run scoreboard players get #gen_srow dr_var
+scoreboard players add #gen_srow dr_var 2
+execute store result storage derailed:gen r.sfoot int 1 run scoreboard players get #gen_srow dr_var

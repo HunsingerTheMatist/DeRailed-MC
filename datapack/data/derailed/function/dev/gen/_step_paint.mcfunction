@@ -44,5 +44,9 @@ fill ~ ~15 ~ ~31 ~15 ~15 light_blue_concrete replace magenta_glazed_terracotta s
 # The station is drawn over whatever the attempt painted where it stands
 execute if score #gen_station dr_var matches 1 positioned ~ ~15 ~ run function derailed:dev/gen/_station_show with storage derailed:gen r
 
+# And the void the first section's western edge breaks into, which is
+#  obsidian still, the station's building being drawn over already, as black
+fill ~ ~15 ~ ~31 ~15 ~15 black_concrete replace obsidian strict
+
 scoreboard players set #q_step dr_var 41
 return 1

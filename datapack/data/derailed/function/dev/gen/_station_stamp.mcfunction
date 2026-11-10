@@ -5,10 +5,13 @@
 #  yard, all of it open to the players and the track alike, and obsidian for
 #  the building above its first two rails, which nothing crosses
 # The yard on this side of the seam belongs to the station of the section
-#  before, on that section's rail row, which is this section's entry row; the
-#  first section has the same yard at its entry, with no station before it
+#  before, on that section's rail row, which is this section's entry row
+# The first section has the start station at its entry instead, its yard
+#  inside it: ground ten tiles along and five across, from the row above
+#  its rail row to three below, with its buffer stop on the first tile of the
+#  rail row, its seven rails after it, and its building above the first two
 # Takes the rows from 'r': $(exit), $(top), $(low), $(foot), $(entry),
-#  $(yup), $(ydown)
+#  $(yup), $(ydown), $(sfoot)
 # Positioned at the section's corner
 
 $fill ~28 ~ ~$(exit) ~31 ~ ~$(exit) bedrock strict
@@ -18,3 +21,5 @@ $fill ~29 ~ ~$(low) ~31 ~ ~$(foot) bedrock strict
 $setblock ~ ~ ~$(yup) bedrock strict
 $fill ~ ~ ~$(entry) ~1 ~ ~$(entry) bedrock strict
 $setblock ~ ~ ~$(ydown) bedrock strict
+$execute if score #gen_section dr_var matches 0 run fill ~ ~ ~$(yup) ~9 ~ ~$(sfoot) bedrock strict
+$execute if score #gen_section dr_var matches 0 run fill ~1 ~ ~$(yup) ~2 ~ ~$(yup) obsidian strict

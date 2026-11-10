@@ -7,5 +7,7 @@ scoreboard players operation #prof_seed dr_var += #prof_base dr_var
 execute store result storage derailed:gen prof.seed int 1 run scoreboard players get #prof_seed dr_var
 function derailed:dev/gen/_reseed with storage derailed:gen prof
 data remove storage derailed:gen prof.left[0]
+scoreboard players set #gen_test_preview dr_var 0
 function derailed:dev/gen/test
+scoreboard players set #gen_test_preview dr_var 1
 execute if data storage derailed:gen prof.left[0] run function derailed:dev/gen/_profile_map

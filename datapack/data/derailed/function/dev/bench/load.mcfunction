@@ -6,7 +6,7 @@ scoreboard objectives add dr_wave dummy "DeRailed Bench Wave"
 
 function derailed:dev/idmap/load
 
-execute in derailed:game run forceload add 999 -1 1096 16
+execute in derailed:game run forceload add 967 -1 1096 16
 
 # Where 'dev/big/build' builds a section's large version
 execute in derailed:game run forceload add 1099 -1 1196 48

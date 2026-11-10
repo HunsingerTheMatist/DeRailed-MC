@@ -14,7 +14,7 @@ scoreboard objectives add dr_bord dummy "DeRailed Big Cut Order"
 
 scoreboard players operation #big_x dr_temp = #big_section dr_var
 scoreboard players operation #big_x dr_temp *= $SectionWidth dr_const
-execute store result storage derailed:big s.x int 1 run scoreboard players add #big_x dr_temp 1000
+execute store result storage derailed:big s.x int 1 run scoreboard players add #big_x dr_temp 968
 scoreboard players operation #big_s dr_temp = #big_seed dr_var
 execute store result storage derailed:big s.seed int 1 run scoreboard players operation #big_s dr_temp += #big_section dr_var
 execute in derailed:game run function derailed:dev/big/_at with storage derailed:big s

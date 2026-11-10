@@ -14,6 +14,13 @@ execute if score #gen_difficulty dr_var matches 1 run scoreboard players set #ge
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_min dr_var 220
 execute if score #gen_difficulty dr_var matches 2 run scoreboard players set #gen_rate_max dr_var 300
 
+# The first section's route, after the start station's rails, is shorter than
+#  the others, so what it costs a rail spreads further either way and falls
+#  under the floor more often; its floor is '#gen_start_cheap' percent of the
+#  tier's, which brings that back to about as often as the other sections
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players operation #gen_rate_min dr_var *= #gen_start_cheap dr_var
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players operation #gen_rate_min dr_var /= $Hundred dr_const
+
 # A section starts strict, and is loosened only after many fresh starts
 scoreboard players set #gen_lenient dr_var 0
 

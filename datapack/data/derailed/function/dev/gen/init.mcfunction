@@ -4,7 +4,7 @@
 
 execute unless dimension derailed:game run return run execute in derailed:game run function derailed:dev/gen/init
 
-scoreboard players set #gen_origin_x dr_var 1000
+scoreboard players set #gen_origin_x dr_var 968
 scoreboard players set #gen_section dr_var 0
 
 function derailed:dev/gen/clear

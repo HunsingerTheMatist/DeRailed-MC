@@ -11,8 +11,20 @@
 execute unless score #gen_fresh dr_var matches 1 run kill @e[type=marker,tag=dr_prev_seed,distance=0..]
 execute as @e[type=marker,tag=dr_seed,distance=0..] run function derailed:dev/gen/_age_seed
 
+# In the first section no seed comes nearer the three points the start
+#  station's ground grows from than seeds come to each other, so its ground
+#  reaches out wherever a seed is no nearer ('_start_spill')
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run function derailed:dev/gen/_start_mids
+
+# Nor does a seed come nearer where the void grows in from at the first
+#  section's western edge ('_start_void') than seeds come to each other, three
+#  starts picked here
+execute if score #gen_section dr_var matches 0 run function derailed:dev/gen/_void_pick
+
 scoreboard players operation #gen_left dr_var = $SectionSeeds dr_const
 function derailed:dev/gen/_seed
+kill @e[type=marker,tag=dr_start_mid,distance=0..]
+kill @e[type=marker,tag=dr_void_mid,distance=0..]
 
 # Each region grows as its own block so that the boundary between two of them can
 #  be seen even where both end up the same kind, which is what a river follows

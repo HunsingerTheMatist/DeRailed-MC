@@ -182,6 +182,70 @@ can. The station's four tiles on the eastern edge leave notes reading ground,
 so the section after carries ground in from them and grows it from there on
 whatever rows its yard does not already cover.
 
+### The start station
+
+The first section has a **start station** at its entry instead of a yard,
+stamped with the end station by `_station_stamp`: bedrock ten tiles along
+from column 0 and five across, from the row above the entry row (the rail row,
+8) to three below it, with obsidian for its two-tile building above columns 1
+and 2. `_station_show` draws it with an oak fence for its buffer stop on
+column 0, rails on columns 1 to 7 and bricks over the building. Its buffer stop
+and rails count as seen on the flood's layer (`_mark_goal`), so the track's
+first tile is column 8 of the entry row, kept as `r.start`, which every flood
+and check that starts from the entry tile reads; the straight crossing is
+measured from it.
+
+Its ground spreads into the section round it the way a region grown from three
+points on it would. The scatter picks each point on a random tile at least 1 in
+from the station's edge, columns 1 to 8 on its rail row or the two below, and
+no two under 2.1 apart, all three drawn again until none are (`_start_mids`,
+`_start_pick`), so two on the same row stand at least 3 columns apart, two a
+row apart at least 2, and two rows apart at least 1.
+Seeds keep the spacing from them they keep from each other (`dr_start_mid`,
+read by `_place_at`); a small stand marks each point when the marks are on. The station stands in the way of growth, so
+`_start_spill` leaves each of the 27 tiles next to it, along its long sides
+and its eastern end, waiting to grow as ground on the wave the nearest point
+would reach it on, 5 a straight step and 7 a diagonal one (`_spill_tile`,
+`_grow_waves`), the way a region carried over the seam waits; a tile taken
+first is counted among the seam's lost. The ground takes a tile wherever no
+seed is nearer, a waiting tile waking before a wave hands anything out.
+
+It holds `#gen_start_wood` wood and `#gen_start_iron` iron to begin with, 6
+of each, piled on columns 2 and 3, which the supply counts toward those
+columns' windows and the repair's scores and as in hand toward the totals and
+the order.
+
+Its route, after the station's rails, is 21 rails across against 29, so what
+it costs a rail spreads further either way: measured over 90 seeds a tier, its
+middle cost a rail came within 2 to 4 percent of the other sections', but it
+fell under the tier's floor about twice as often, while its ceiling held. Its
+floor is therefore `#gen_start_cheap` percent of the tier's, 94, which is what
+section 0's tenth percentile against the other sections' came to over the
+three tiers together (0.97 on easy, 0.90 on medium, 0.95 on hard).
+
+### The void at the start
+
+The map starts at the first section's western edge, and the edge breaks into
+**void** in irregular bites. The void comes in over the seam the way a region
+carried from a section before would (`_start_void`), from three starts the
+scatter picks at random (`_void_pick`). Each start is a row anywhere but the
+middle three of the start station's rows, its rail row and the two below, at
+least 4 rows from the others, and the three are never all on one side of the
+station. Each stands in the first column or 1 or 2 tiles west of it, the
+three equally likely. Each tile of the column waits for the wave the void
+would reach it on from the nearest start, 5 a straight step and 7 a diagonal
+one as growth counts them (`_void_row`, `_grow_waves`, `_void_at`), and grows
+on from there. Seeds keep the spacing from the three starts they keep from
+each other (`dr_void_mid`, read by `_place_at`), so the
+section's own regions stop the void a tile or two in. A fresh start picks the
+rows again with its seeds.
+
+The void is region 31, which grows as **obsidian** on the layer the regions
+grow on, so nothing seeds, grows, cuts, paints or rivers into it, and the
+route's flood, the second route and the supply's flood all treat it as the
+station's building: a wall. Every attempt draws it black on y15, once the
+station's building has been drawn over its own obsidian.
+
 ### 1. Scatter
 
 `scatter` places 18 seeds as markers, each rolled into a random tile and rejected
@@ -540,8 +604,10 @@ part of the wall would leave a stray beside the cut and handing it on would
 open the cut two wide, though a piece of the wall the river has cut off from
 the rest is handed on like any other stray; a lake's water, since water
 beside a river looks as it should; and tiles carried over the seam, since they
-have to match the section before. The report counts the tiles handed on, and
-light blue glass on y16 marks each of them.
+have to match the section before, though the start station's ground, which
+comes in the same way, has no section before to match and is handed on like
+any other. The report counts the tiles handed on, and light blue glass on y16
+marks each of them.
 
 ### 6. Kinds
 
@@ -1271,12 +1337,19 @@ clears y15 to y17, the highest a third stage reaches, yields the tile's wood
 or iron on the middle of it and retires the marker (`mine/_done`). A tile tagged
 `dr_station_near` has the station's overhang put back after each.
 
+The first section's start station is built as plain ground for now.
+
 ## Looking at it
 
-- `dev/gen/test` builds three joined sections at x 1000, one on each tier -
-  easy, then medium, then hard - saying what each cost against its bounds, and
+- `dev/gen/test` builds four joined sections at x 968, on the tiers easy,
+  medium, hard and easy again, saying what each cost against its bounds, and
   prints a report. It positions itself, so it is safe to call from anywhere, and
-  it puts the tier back to what it was
+  it puts the tier back to what it was. The fourth is covered in black concrete
+  a block over its visible layer but for its **preview** (`dev/gen/preview`),
+  so the third ends as the players see it before the fourth opens: the tiles
+  the third's regions took, carried over the seam, and the yard of the third's
+  station. Its section is built whole, so a section opened on the same biome is
+  the one already built, and the preview always matches it
 - `#gen_difficulty` is the tier every section from then on is built to: 0 easy,
   1 medium, 2 hard. `run_grow` builds all of its sections on it
 - `dev/gen/profile` builds what `test` builds once for every seed in the
@@ -1289,7 +1362,12 @@ or iron on the middle of it and retires the marker (`mine/_done`). A tile tagged
 - `dev/gen/survey` builds a map from each of `#survey_count` seeds from
   `#survey_from` on, 30 from 1, one a tick, and says for each its attempts,
   fresh starts, detour searches and the sections it gave up on, which is how
-  the seeds costliest to build are found for `prof.seeds`
+  the seeds costliest to build are found for `prof.seeds`. It builds three
+  sections a map, with `#gen_test_preview` at 0 while it runs, and gives each
+  section's attempts and its rerolls for too cheap and too expensive on a
+  line of its own (`_test_keep`, `_survey_sections`)
+- `#gen_rate_log` at 1 has every attempt's first route say in chat what it
+  costs a rail, with its section and tier, which is how a band is measured
 - `dev/gen/queue_survey` builds the survey's maps through the section queue,
   one after another, and says for each seed its attempts, fresh starts,
   sections loosened and floods stopped; with `#q_gap` and `#q_log` at 1 and
@@ -1379,7 +1457,7 @@ at all**, and its seam fails silently. Play builds into fresh ground and
 
 ## Known gaps
 
-- **The station is the only prefab.** Nothing places cows or bandits
+- **The stations are the only prefabs.** Nothing places cows or bandits
 - **Placeholder blocks**, not DeRailed's own
 - **The queue runs one step a tick.** Timed with `#q_gap` at 1 under
   `/tick sprint`, every step comes in under about 25ms but the first river's

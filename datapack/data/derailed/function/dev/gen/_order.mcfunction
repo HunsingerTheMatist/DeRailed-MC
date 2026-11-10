@@ -7,6 +7,7 @@
 #  the section passes where every tile of the first route is reached, by the
 #  flood at all and at a level paid for, and the wood and iron reached cover
 #  what the routes need
+# The first section's start station's wood and iron are in hand from the start
 # Positioned at the section's corner, with the routes drawn two above and the
 #  layer above them clear
 
@@ -28,6 +29,8 @@ scoreboard players set #orn dr_var 0
 scoreboard players operation #oW dr_var = #gen_order_allow dr_var
 execute if score #gen_lenient dr_var matches 1 run scoreboard players operation #oW dr_var += #gen_carry_in dr_var
 scoreboard players set #oI dr_var 0
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players operation #oW dr_var += #gen_start_wood dr_var
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players operation #oI dr_var += #gen_start_iron dr_var
 scoreboard players set #oR dr_var 0
 scoreboard players set #order_cut dr_var 0
 function derailed:dev/gen/_order_source with storage derailed:gen r
@@ -52,6 +55,8 @@ execute if score #order_cut dr_var matches 1 run function derailed:dev/gen/_each
 scoreboard players operation #oW dr_var = #gen_order_allow dr_var
 execute if score #gen_lenient dr_var matches 1 run scoreboard players operation #oW dr_var += #gen_carry_in dr_var
 scoreboard players set #oI dr_var 0
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players operation #oW dr_var += #gen_start_wood dr_var
+execute if score #gen_section dr_var matches 0 if score #gen_station dr_var matches 1 run scoreboard players operation #oI dr_var += #gen_start_iron dr_var
 scoreboard players set #oR dr_var 0
 scoreboard players set #oL dr_var -1
 scoreboard players set #ok dr_var 1

@@ -46,6 +46,10 @@ scoreboard players set $Two dr_const 2
 # For flipping a difference to its absolute value
 scoreboard players set $NegOne dr_const -1
 
+# The waves growth takes for a straight step, for working out when a region from
+#  a point would reach a tile
+scoreboard players set $Five dr_const 5
+
 # For keeping a rate in hundredths, since a score is a whole number
 scoreboard players set $Hundred dr_const 100
 
@@ -196,6 +200,15 @@ scoreboard players set #gen_difficulty dr_var 1
 #  tier, easy, medium, then hard
 scoreboard players set #gen_test_tier dr_var 2
 
+# Whether a test run builds a fourth section and covers it but for its
+#  preview, 1, or stops at three, 0, as the survey, the profile and the test
+#  batch have it so their numbers measure the same three sections
+scoreboard players set #gen_test_preview dr_var 1
+
+# Whether every attempt's first route says in chat what it costs a rail, with
+#  the length counted, for measuring the bands from, 1, or not, 0
+scoreboard players set #gen_rate_log dr_var 0
+
 # How many test runs 'dev/gen/test_batch' makes, one a tick
 scoreboard players set #gen_batch_size dr_var 33
 
@@ -310,6 +323,18 @@ scoreboard players set #gen_fresh dr_var 0
 #  cuts or paints there and every check can tell them at a glance; what it
 #  looks like goes on the visible layer and the one above it
 scoreboard players set #gen_station dr_var 1
+
+# What the first section's start station holds to begin with, its wood piled on
+#  its column 2 and its iron on its column 3, which the supply counts toward
+#  those columns and the totals as already within reach
+scoreboard players set #gen_start_wood dr_var 6
+scoreboard players set #gen_start_iron dr_var 6
+
+# The first section's floor on what its route may cost a rail, in percent of
+#  the tier's, measured so its shorter route falls under the floor about as
+#  often as the other sections' do: 0.97 on easy, 0.90 on medium and 0.95 on
+#  hard over 90 seeds each, taken together
+scoreboard players set #gen_start_cheap dr_var 94
 
 # How much of one seed's share of the bag a draw takes off the kind drawn, in
 #  percent, to be handed out to the others
