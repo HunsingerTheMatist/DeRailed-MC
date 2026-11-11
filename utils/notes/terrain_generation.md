@@ -1337,8 +1337,18 @@ down to the range, a column is laid a block at a time, and each tile stands on
 two blocks below the ground, polished andesite under iron and bedrock under
 rock. A rock column is bedrock, with a slab over its top block where it stands
 nearer 8 pixels above a whole number of blocks than 0 or 16, laid only into air
-so the station's overhang stays. It clears nothing, so the ground it builds on has to
-be clear.
+so the station's overhang stays. It clears nothing, so the ground it builds on
+has to be clear.
+
+A tile works out all nine of its columns' heights before it lays any
+(`_blocks`), and where every one would come out at the same height, to the
+half block for rock and the quarter for iron, it is given a spiking corner
+taken at random (`_unflat`), so no tile is laid flat. That happens most at a
+region's edge, where all four corners stand at the start alone and the tile's
+own nudge can take every column down to the least a column may be. Iron, whose
+tiles never spike by chance, gets one too, as high as its `#mspkpx`, a block;
+an edge tile comes out flat about one time in four for rock and one in seventy
+for iron.
 
 The station's overhang only ever fills air: a block of the tile under it is
 always kept. `station/merge` does that for one tile, on a copy of the ground 64

@@ -1,11 +1,9 @@
 
-# Builds this column of the tile: its height the four corners weighed by how
-#  near the column stands to each, out of thirty-six, a little either way on
-#  its own and with the whole tile, a spike higher where it stands in the
-#  tile's spiking corner, kept between '#msmin' and '#mmax' pixels, then made
-#  of whole blocks with whatever of the kind's tops tops them nearest what is
-#  left over
-# Positioned at the column's foot
+# Works out how high this column of the tile stands, in pixels, into '#mH':
+#  the four corners weighed by how near the column stands to each, out of
+#  thirty-six, a little either way on its own and with the whole tile, a spike
+#  higher where it stands in the tile's spiking corner, kept between '#msmin'
+#  and '#mmax'
 
 # Each corner's weight is one of 5, 3 and 1 from its side of the tile to the
 #  far side, one way times the other
@@ -50,17 +48,3 @@ execute if score #msq dr_temp matches 3 if score #mcx dr_temp matches 1.. if sco
 execute if score #mhit dr_temp matches 1 run scoreboard players operation #mH dr_temp += #mspkpx dr_temp
 execute if score #mH dr_temp < #msmin dr_temp run scoreboard players operation #mH dr_temp = #msmin dr_temp
 execute if score #mH dr_temp > #mmax dr_temp run scoreboard players operation #mH dr_temp = #mmax dr_temp
-
-# How many whole blocks, and what tops them: '#mtopi' the tall top block in
-#  place of the top whole block and '#mcap' the slab over them, each -1 for
-#  none
-scoreboard players operation #mk dr_temp = #mH dr_temp
-scoreboard players operation #mk dr_temp /= #m16 dr_temp
-scoreboard players operation #mH dr_temp %= #m16 dr_temp
-scoreboard players set #mtopi dr_temp -1
-scoreboard players set #mcap dr_temp -1
-execute if score #mound_kind dr_arg matches 0 run function derailed:mound/_quant_iron
-execute if score #mound_kind dr_arg matches 1 run function derailed:mound/_quant_rock
-
-execute if score #mound_kind dr_arg matches 0 run function derailed:mound/_column_iron
-execute if score #mound_kind dr_arg matches 1 run function derailed:mound/_column_rock

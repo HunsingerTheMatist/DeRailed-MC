@@ -9,7 +9,8 @@
 #  '#mjit'; up to '#mpeaks' corners two or more tiles in are raised twice
 #  '#mpk' and every corner beside them '#mpk'; a tile has a '#mspk' in a
 #  hundred chance of the two by two columns in one of its corners standing
-#  '#mspkpx' higher; and with '#mround' set, the tiles at a corner count toward
+#  '#mspkpx' higher, and a tile that would come out flat always has them
+#  ('_unflat'); and with '#mround' set, the tiles at a corner count toward
 #  depth only every other step, so the rings come out eight-sided
 
 scoreboard players set #msmin dr_temp 21
