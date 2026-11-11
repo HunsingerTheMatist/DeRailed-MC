@@ -19,7 +19,9 @@ scoreboard players set $MapMinY dr_var 15
 scoreboard players set $MapMaxY dr_var 30
 
 # The area is cleared a block wider all round than the tiles, which takes the
-#  station's overhang and anything else that reaches past them
+#  station's overhang and anything else that reaches past them, from y9,
+#  under the bottom of the lakes at y10
+fill 1099 9 -1 1196 10 48 air strict
 fill 1099 11 -1 1196 16 48 air strict
 fill 1099 17 -1 1196 22 48 air strict
 fill 1099 23 -1 1196 28 48 air strict
@@ -60,10 +62,12 @@ execute as @e[type=marker,tag=dr_big_iron,distance=0..] at @s run function derai
 
 execute as @e[type=marker,tag=dr_big,tag=!dr_big_tree,distance=0..] at @s run function derailed:dev/big/_place
 
-# Every tile of water, lake or river, has an interaction filling it from the
-#  water up to the ground's surface, for a bucket to be filled at
-execute as @e[type=marker,tag=dr_big_lake,distance=0..] at @s run summon interaction ~1.5 ~ ~1.5 {Tags:["dr_water"],width:3f,height:2f}
-execute as @e[type=marker,tag=dr_big_river,distance=0..] at @s run summon interaction ~1.5 ~ ~1.5 {Tags:["dr_water"],width:3f,height:2f}
+# Every tile of water, lake or river, has an interaction filling its water up
+#  to the surface, 14 pixels into the block under the ground's, for a bucket to
+#  be filled at: from two below the ground in a river and from three below in
+#  a lake, which is a block deeper
+execute as @e[type=marker,tag=dr_big_lake,distance=0..] at @s run summon interaction ~1.5 ~-1 ~1.5 {Tags:["dr_water"],width:3f,height:2.875f}
+execute as @e[type=marker,tag=dr_big_river,distance=0..] at @s run summon interaction ~1.5 ~ ~1.5 {Tags:["dr_water"],width:3f,height:1.875f}
 
 # Each bend is eased into the straight river beside it once every river is
 #  down, since the piece doing it reaches into that river's tile

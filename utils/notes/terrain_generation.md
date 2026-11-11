@@ -1239,7 +1239,7 @@ half ticks as a burst and nothing at all spread across three or four.
 
 `dev/big/build` builds section `#big_section` of the test map at full size,
 three by three blocks to a tile, from 1100 15 0 southeast, with its ground at
-y15. It reads the section's finished layer, clears y11 to y40 a block wider
+y15. It reads the section's finished layer, clears y9 to y40 a block wider
 all round than its 96 by 48 blocks, and builds it in this order:
 
 1. every tile but rock gets a marker where its large version's northwestern
@@ -1275,10 +1275,11 @@ bottom of the world, and nothing walls in the map's edges either: a player who
 walks off the map falls to their death and respawns.
 
 Every structure is saved two blocks below the ground it stands on and placed
-with `strict`, the lake and the rivers two lower again, since they reach two
-further down. The random picks, and the mounds' heights, come from their own
-sequence, `derailed:terrain`, started over from `#big_seed` plus the section's
-number, so a section always comes out the same.
+with `strict`, the rivers two lower again, since they reach two further down,
+and the lake three lower, since its water is two blocks deep. The random
+picks, and the mounds' heights, come from their own sequence,
+`derailed:terrain`, started over from `#big_seed` plus the section's number,
+so a section always comes out the same.
 
 A river tile flows the way its glaze on y9 points, which is the way the walk
 laid it, and a junction flows the way the river it lies on does. A cut through

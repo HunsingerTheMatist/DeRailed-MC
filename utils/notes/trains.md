@@ -129,10 +129,12 @@ The bucket is an item of its own while empty, `$Bucket`, 20, and full of water,
 `$BucketFull`, 21, so whether it is full goes wherever it goes, in a hand, in
 a pile or thrown. Holding the button on water with an empty bucket fills it
 after `$BucketFillTicks`, 20: every water tile has an interaction tagged
-`dr_water` over it, the size of the tile from the water up to the ground's
-surface, which `dev/big/build` lays and `dev/pond` lays one of where a player
-stands. A click there with a bucket starts the fill (`item/bucket/fill_start`),
-each repeat of it while the button is held keeps it going 8 ticks more, and a
+`dr_water` filling its water, the size of the tile from the bottom of the
+water, two below the ground in a river and three in a lake, up to the water's
+surface, 14 pixels into its block, which `dev/big/build` lays and
+`dev/pond` lays one of where a player stands. A click there with a bucket
+starts the fill (`item/bucket/fill_start`), each repeat of it while the button
+is held keeps it going 8 ticks more, and a
 tick advancement counts it up (`item/bucket/fill_tick`), all kept on the
 player in `dr_fill_time` and `dr_fill_wait`.
 
