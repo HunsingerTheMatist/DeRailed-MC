@@ -1301,6 +1301,33 @@ river's tile, the next on the bend's, so it is placed a block into the straight
 river's tile from the bend's. A bend beside a bend, a lake or anything else is
 left as it is.
 
+Where rivers meet, a tile can feed two others, a **split**, or be fed by two,
+a **merge**. `utils/generate_river_junctions.py` writes a piece for each from
+four layouts drawn by hand: `split_n_nw`, fed flowing north and leaving north
+and west, and `merge_ne_n`, fed flowing north and east and leaving north, each
+turned and mirrored into seven more; and `split_n_ew`, fed flowing north and
+leaving east and west, and `merge_ew_n`, fed flowing east and west and leaving
+north, each its own mirror image and turned into three more. Each wall takes
+the wall of its turned flow, and still water stays still. A piece is the tile's
+whole surface, and each side it is fed from or leaves by has a part of its own,
+`<piece>_<side>`, with the walls it reaches into the tile on that side, empty
+where it reaches nothing there; all of them are five by five from a block west
+and north of the tile, laid a block up from the tile's marker.
+
+`dev/big` finds them once the bends are known. Each river tile is tagged with
+the ways the rivers flowing into it flow (`_junction_in`, `dr_big_in_<way>`).
+A tile nothing flows into is fed by a river tile beside it where there is one,
+the one behind it first and then those to either side, never the one it flows
+into (`_junction_unfed`): that tile leaves toward it as well as its own way
+(`dr_big_out_<way>`), and it is a bend where it is fed from a side. That is
+what a second river that runs into the first comes to, since it flows away
+from the first. A tile fed one way that leaves two is a split and one fed two
+ways that leaves one a merge (`_junction_kind`, `dr_big_junction`), laid as
+the river it is and then, once the bends are eased, with its piece over that
+(`_junction_place`): the tile's part always, and each side's part only where
+the tile on that side is a straight river flowing into or out of it the way the
+piece expects. A junction is never eased, and no bend eases into one.
+
 The mounds read a copy of the finished layer on y1, a tile wider all round so
 a mound carries on past the section's edge, with the station's building made
 ground on it, since the building is drawn as rock but the station stands

@@ -40,12 +40,20 @@ scoreboard players set #big_z dr_temp 0
 function derailed:dev/big/_row
 function derailed:dev/big/_cuts
 
-# Every river tile fed from a way other than the one it flows is a bend
+# Every river tile fed from a way other than the one it flows is a bend, and
+#  one fed one way that leaves two, or fed two ways that leaves one, is a
+#  junction, laid as its river and with a piece of its own over that; a tile
+#  nothing flows into is fed by a river tile beside it, where one is, which
+#  leaves both its own way and toward it
 execute as @e[type=marker,tag=dr_big_river,distance=0..] at @s run function derailed:dev/big/_feed
+execute as @e[type=marker,tag=dr_big_river,distance=0..] at @s run function derailed:dev/big/_junction_in
+execute as @e[type=marker,tag=dr_big_river,tag=!dr_big_in_n,tag=!dr_big_in_e,tag=!dr_big_in_s,tag=!dr_big_in_w,distance=0..] at @s run function derailed:dev/big/_junction_unfed
+execute as @e[type=marker,tag=dr_big_river,distance=0..] run function derailed:dev/big/_junction_kind
 tag @e[type=marker,tag=dr_big_feed_n,distance=0..] add dr_big_bend
 tag @e[type=marker,tag=dr_big_feed_e,distance=0..] add dr_big_bend
 tag @e[type=marker,tag=dr_big_feed_s,distance=0..] add dr_big_bend
 tag @e[type=marker,tag=dr_big_feed_w,distance=0..] add dr_big_bend
+tag @e[type=marker,tag=dr_big_junction,distance=0..] remove dr_big_bend
 
 # A mining marker on every tree and iron tile, which stays when the build is
 #  done; with no station no tile is near it
@@ -70,8 +78,10 @@ execute as @e[type=marker,tag=dr_big_lake,distance=0..] at @s run summon interac
 execute as @e[type=marker,tag=dr_big_river,distance=0..] at @s run summon interaction ~1.5 ~ ~1.5 {Tags:["dr_water"],width:3f,height:1.875f}
 
 # Each bend is eased into the straight river beside it once every river is
-#  down, since the piece doing it reaches into that river's tile
+#  down, since the piece doing it reaches into that river's tile, and each
+#  junction's piece goes over its river after that
 execute as @e[type=marker,tag=dr_big_bend,distance=0..] at @s run function derailed:dev/big/_ease
+execute as @e[type=marker,tag=dr_big_junction,distance=0..] at @s run function derailed:dev/big/_junction_place with entity @s data.j
 
 # The station hangs a block over the tiles to its north and west, and its
 #  structure voids leave what is under that as it is; a marker tagged
