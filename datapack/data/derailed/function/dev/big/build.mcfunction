@@ -13,6 +13,8 @@ scoreboard objectives add dr_bx dummy "DeRailed Big Tile Column"
 scoreboard objectives add dr_bz dummy "DeRailed Big Tile Row"
 scoreboard objectives add dr_brun dummy "DeRailed Big Cut Run"
 scoreboard objectives add dr_bord dummy "DeRailed Big Cut Order"
+scoreboard objectives add dr_bh dummy "DeRailed Big Column Height"
+scoreboard objectives add dr_bd dummy "DeRailed Big Rock Depth"
 
 scoreboard players operation #big_x dr_temp = #big_section dr_var
 scoreboard players operation #big_x dr_temp *= $SectionWidth dr_const

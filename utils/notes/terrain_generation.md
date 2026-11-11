@@ -1269,10 +1269,43 @@ all round than its 96 by 48 blocks, and builds it in this order:
 7. the rock and iron at y17 along the station's northern and western edges
    stood upright (`_station_edge`), and along the start station's northern and
    eastern edges (`_start_edge`)
+8. an ender chest hidden in the rock (`_chest`)
 
 The void's tiles get nothing at all (`dr_big_void`), so each is a drop to the
 bottom of the world, and nothing walls in the map's edges either: a player who
 walks off the map falls to their death and respawns.
+
+The **ender chest** goes on the top block of one rock column, in place of it.
+Every rock tile is given a depth first, 1 beside a tile that is not rock along
+a side, a tile past the section's edge counting as not rock, and one more for
+each tile further in (`_chest_depth`). Every rock column is then measured to
+its top block of bedrock, slabs left out, with a marker there holding its
+height and its tile's depth (`_chest_cols`, `dr_big_col`). The heights are
+counted up from the lowest to find the one 90% of the way through
+(`_chest_height`), and the chest may go on any column within two blocks of it
+that has bedrock on all four sides of its top block (`_chest_band`,
+`_chest_fits`). Where none has, the band widens a block either way at a time,
+and a rock slab beside the top block does as well as bedrock. One of them is
+taken at random, each as likely as its tile is deep, going through them in
+order of how near they stand to a point no two can be equally near
+(`_chest_walk`). The slab over the chosen block goes, any rock slab beside it
+becomes bedrock, and the chest faces the nearest side of the mountain: the
+fewest blocks out to a column with no rock at the ground, north, then south,
+then east, then west where two are as near (`_chest_place`, `_chest_side`).
+The pick draws from `derailed:terrain` after everything else is built, so the
+same section always hides it in the same place, and a section with no rock has
+none.
+
+The ender chest block is there for its particles alone: the resource pack
+draws every ender chest as nothing, with the vanilla chest texture
+transparent, and an item display tagged `dr_ender_chest_lid` draws it instead,
+from the item model `derailed:ender_chest` and a copy of the texture,
+`derailed:ender`. The model is the `minecraft:chest` special model at one of
+eleven lid angles picked by the item's custom model data, 0 shut to 10 open,
+eased the way the vanilla lid is. An interaction tagged `dr_ender_chest`, a
+hundredth of a block bigger than the chest, takes right clicks before the
+block can: one opens the lid a step a tick with the ender chest's own sound
+and leaves it open (`ender_chest/open`). It does nothing else yet.
 
 Every structure is saved two blocks below the ground it stands on and placed
 with `strict`, the rivers two lower again, since they reach two further down,

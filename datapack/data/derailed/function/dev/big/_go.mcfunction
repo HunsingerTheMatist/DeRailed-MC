@@ -7,6 +7,8 @@ kill @e[type=marker,tag=dr_station,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=marker,tag=dr_mine,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=marker,tag=dr_track_tile,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=interaction,tag=dr_water,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
+kill @e[type=interaction,tag=dr_ender_chest,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
+kill @e[type=item_display,tag=dr_ender_chest_lid,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 
 # The map's limits, for the search for a spot for a pile: the blocks across it,
 #  and the lowest and highest block a pile can stand in, over the ground at y14
@@ -120,6 +122,9 @@ execute positioned ~ ~-14 ~ run function derailed:mound/build
 fill ~-1 ~-14 ~-1 ~32 ~-14 ~16 air strict
 execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s positioned ~-1 ~ ~-1 run function derailed:dev/big/_station_edge
 execute as @e[type=marker,tag=dr_big_start,distance=0..] at @s positioned ~6 ~ ~-1 run function derailed:dev/big/_start_edge
+
+# An ender chest hidden in the rock, once the mountains stand as they will
+function derailed:dev/big/_chest
 
 # A ceiling of barriers over the whole map at y33, 4 above the highest a
 #  mountain reaches: rock stands at most 15 blocks over the ground at y15, so

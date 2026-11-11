@@ -108,6 +108,7 @@ scoreboard objectives add dr_toss_vx dummy "DeRailed Toss Velocity X"
 scoreboard objectives add dr_toss_wait dummy "DeRailed Toss Wait"
 scoreboard objectives add dr_emerge dummy "DeRailed Emerge Frame"
 scoreboard objectives add dr_toss_vz dummy "DeRailed Toss Velocity Z"
+scoreboard objectives add dr_lid dummy "DeRailed Ender Chest Lid"
 
 # Config defaults
 execute unless score $HandCap dr_config matches 1.. run scoreboard players set $HandCap dr_config 3
