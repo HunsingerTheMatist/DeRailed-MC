@@ -49,8 +49,12 @@ tag @e[type=marker,tag=dr_big_feed_w,distance=0..] add dr_big_bend
 #  done; with no station no tile is near it
 scoreboard players set #big_ax dr_temp -99
 scoreboard players set #big_az dr_temp -99
+scoreboard players set #big_sx dr_temp -99
+scoreboard players set #big_sz dr_temp -99
 execute as @e[type=marker,tag=dr_big_station,distance=0..] run scoreboard players operation #big_ax dr_temp = @s dr_bx
 execute as @e[type=marker,tag=dr_big_station,distance=0..] run scoreboard players operation #big_az dr_temp = @s dr_bz
+execute as @e[type=marker,tag=dr_big_start,distance=0..] run scoreboard players operation #big_sx dr_temp = @s dr_bx
+execute as @e[type=marker,tag=dr_big_start,distance=0..] run scoreboard players operation #big_sz dr_temp = @s dr_bz
 execute as @e[type=marker,tag=dr_big_tree,distance=0..] at @s run function derailed:dev/big/_mine_new
 execute as @e[type=marker,tag=dr_big_iron,distance=0..] at @s run function derailed:dev/big/_mine_new
 
@@ -76,6 +80,14 @@ execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s positioned ~-1 
 execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s align xyz positioned ~1.5 ~2.5 ~4.5 run summon marker ~ ~ ~ {Tags:["dr_track_tile","dr_track_station"]}
 execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s align xyz positioned ~4.5 ~2.5 ~4.5 run summon marker ~ ~ ~ {Tags:["dr_track_tile","dr_track_station"]}
 
+# The first section's start station is the same station mirrored east to west,
+#  its buffer stop on the section's first tile, so it hangs a block over the
+#  tiles to its north and east; its marker is tagged 'dr_station_start' as well
+#  for 'station/merge' to mirror it too, and its rails are laid anew, all seven
+execute as @e[type=marker,tag=dr_big_start,distance=0..] at @s run place template derailed:station ~6 ~ ~-1 none front_back 1 0 strict
+execute as @e[type=marker,tag=dr_big_start,distance=0..] at @s run summon marker ~6 ~ ~-1 {Tags:["dr_station","dr_station_start"]}
+execute as @e[type=marker,tag=dr_big_start,distance=0..] at @s run function derailed:dev/big/_start_rails
+
 # The trees go up over the station's overhang, then the overhang is put back
 #  wherever a tree beside the station left air
 execute as @e[type=marker,tag=dr_big_tree,distance=0..] at @s run function derailed:dev/big/_tree
@@ -93,6 +105,7 @@ scoreboard players set #mound_kind dr_arg 1
 execute positioned ~ ~-14 ~ run function derailed:mound/build
 fill ~-1 ~-14 ~-1 ~32 ~-14 ~16 air strict
 execute as @e[type=marker,tag=dr_big_station,distance=0..] at @s positioned ~-1 ~ ~-1 run function derailed:dev/big/_station_edge
+execute as @e[type=marker,tag=dr_big_start,distance=0..] at @s positioned ~6 ~ ~-1 run function derailed:dev/big/_start_edge
 
 # A ceiling of barriers over the whole map at y33, 4 above the highest a
 #  mountain reaches: rock stands at most 15 blocks over the ground at y15, so

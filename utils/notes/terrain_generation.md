@@ -1246,20 +1246,33 @@ all round than its 96 by 48 blocks, and builds it in this order:
    block stands (`_new`), tagged with what goes there, and every tree and iron
    tile a **mining marker** there as well (`_mine_new`), which stays once the
    build is done: tagged `dr_mine` and `dr_mine_wood` or `dr_mine_iron`, and
-   `dr_station_near` on the ten tiles round the station's two-tile building,
-   along a side or at a corner
+   `dr_station_near` on the ten tiles round either station's two-tile
+   building, along a side or at a corner
 2. the ground, one of five taken at random, the lakes and the rivers, then
    each bend eased into the straight river beside it (`_ease`)
 3. the station, from a block north and west of its building's northwestern
    tile, since it hangs a block over the tiles round it; its structure voids
    leave what is under the overhang as it is
-4. the trees, one of five oak and five spruce taken at random, over the
-   station's overhang, which is then put back wherever a tree tagged
+4. in the first section, the start station: the same structure mirrored east to
+   west, so its buffer stop stands on the section's first tile and it hangs a
+   block over the tiles to its north and east, from a block east of its
+   building and north of it; its marker is tagged `dr_station_start` too, so
+   `station/merge` mirrors it as well. Its seven rails are then laid anew
+   straight east along its rail row (`_start_rails`), since the structure's own
+   two come out facing a way the resource pack does not draw once mirrored,
+   each a track tile on no team tagged `dr_track_start`
+5. the trees, one of five oak and five spruce taken at random, over the
+   stations' overhang, which is then put back wherever a tree tagged
    `dr_station_near` left air (`station/merge`)
-5. the iron mounds and then the rock mounds (`mound/build`), over the overhang
+6. the iron mounds and then the rock mounds (`mound/build`), over the overhang
    too
-6. the rock and iron at y17 along the station's northern and western edges
-   stood upright (`_station_edge`)
+7. the rock and iron at y17 along the station's northern and western edges
+   stood upright (`_station_edge`), and along the start station's northern and
+   eastern edges (`_start_edge`)
+
+The void's tiles get nothing at all (`dr_big_void`), so each is a drop to the
+bottom of the world, and nothing walls in the map's edges either: a player who
+walks off the map falls to their death and respawns.
 
 Every structure is saved two blocks below the ground it stands on and placed
 with `strict`, the lake and the rivers two lower again, since they reach two

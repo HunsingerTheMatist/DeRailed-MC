@@ -1,8 +1,10 @@
 
 # Builds the large version of section '#big_section' of the test map, three by
 #  three blocks to a tile, from 1100 15 0 southeast: the ground, rivers and
-#  lakes first, then the station, then the trees and mounds of iron and rock
-#  over the station's overhang
+#  lakes first, then the station and, in the first section, the start station
+#  with its seven rails, then the trees and mounds of iron and rock over the
+#  stations' overhang; the void is left empty and the map's edges open, so a
+#  player can fall off either
 # The same section always comes out the same, from '#big_seed' moved on by the
 #  section's number
 # Positions itself, so it is safe to call from anywhere

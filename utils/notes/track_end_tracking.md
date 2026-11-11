@@ -145,6 +145,10 @@ rail's faces, also written by `utils/generate_rail_ghosts.py`.
 `dev/track/start` starts a track of one straight rail on the tile the player
 stands on, running the way they face, and takes the team's train away, with
 the rails and track tiles of the team's track before (`dev/track/clear`).
+`dev/track/station` does the same on the start station's seven rails, which
+`dev/big/build` lays in the first section: it lays them anew as the team's
+track, all seven on its path and in `rails`, the end on the seventh, so the
+last of them can be taken back.
 
 ## Taking the last rail back
 

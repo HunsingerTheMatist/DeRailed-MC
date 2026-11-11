@@ -57,8 +57,9 @@ players in the game dimension.
   item they use, or an item kept in the inventory that they throw out or click
   in some way that can be detected. Undecided which
 - [ ] **Death** (S). `keep_inventory` is on, and the inventory check gives the
-  saddle back whenever it is missing. Still to come: what dying costs, and
-  where the player comes back (see Respawning)
+  saddle back whenever it is missing. Nothing walls in the map's edges or the
+  void, so walking off the map is one way to die, decided 2026-11-11. Still to
+  come: what dying costs, and where the player comes back (see Respawning)
 - [ ] **Healing near the train** (S). Natural regeneration off, players heal
   within some distance of the train
 - [ ] **Train speed over a run** (S). `$TrainSpeed` is constant; speeding up
