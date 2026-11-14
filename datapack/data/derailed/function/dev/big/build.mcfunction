@@ -15,6 +15,9 @@ scoreboard objectives add dr_brun dummy "DeRailed Big Cut Run"
 scoreboard objectives add dr_bord dummy "DeRailed Big Cut Order"
 scoreboard objectives add dr_bh dummy "DeRailed Big Column Height"
 scoreboard objectives add dr_bd dummy "DeRailed Big Rock Depth"
+scoreboard objectives add dr_breg dummy "DeRailed Big Region"
+scoreboard objectives add dr_bpx dummy "DeRailed Big Column X"
+scoreboard objectives add dr_bpz dummy "DeRailed Big Column Z"
 
 scoreboard players operation #big_x dr_temp = #big_section dr_var
 scoreboard players operation #big_x dr_temp *= $SectionWidth dr_const

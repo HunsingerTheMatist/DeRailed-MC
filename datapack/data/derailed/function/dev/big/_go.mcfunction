@@ -9,6 +9,7 @@ kill @e[type=marker,tag=dr_track_tile,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=interaction,tag=dr_water,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=interaction,tag=dr_ender_chest,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=item_display,tag=dr_ender_chest_lid,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
+kill @e[type=marker,tag=dr_chest_spark,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=item_display,tag=dr_waterfall,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 
 # The map's limits, for the search for a spot for a pile: the blocks across it,
@@ -42,6 +43,11 @@ scoreboard players set #big_3 dr_temp 3
 scoreboard players set #big_z dr_temp 0
 function derailed:dev/big/_row
 function derailed:dev/big/_cuts
+
+# Every tile of a station is marked by light at y1 under it, invisible and
+#  giving none, for the hidden chests' lines of sight to know it by
+fill 1099 1 -1 1196 1 48 air strict
+execute as @e[type=marker,tag=dr_big_prefab,distance=0..] at @s run fill ~ 1 ~ ~2 1 ~2 light[level=0] strict
 
 # Every river tile fed from a way other than the one it flows is a bend, and
 #  one fed one way that leaves two, or fed two ways that leaves one, is a

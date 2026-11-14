@@ -1269,7 +1269,7 @@ all round than its 96 by 48 blocks, and builds it in this order:
 7. the rock and iron at y17 along the station's northern and western edges
    stood upright (`_station_edge`), and along the start station's northern and
    eastern edges (`_start_edge`)
-8. an ender chest hidden in the rock (`_chest`)
+8. the chests hidden in the rock, one or two by the difficulty (`_chest`)
 
 The void's tiles get nothing at all (`dr_big_void`), so each is a drop to the
 bottom of the world, and nothing walls in the map's edges either: a player who
@@ -1303,37 +1303,92 @@ section's eastern edge are there only until the next section is laid beside
 it: laying it removes them, since the water then runs on into the new
 section's ground instead of falling off the map.
 
-The **ender chest** goes on the top block of one rock column, in place of it.
-Every rock tile is given a depth first, 1 beside a tile that is not rock along
-a side, a tile past the section's edge counting as not rock, and one more for
-each tile further in (`_chest_depth`). Every rock column is then measured to
-its top block of bedrock, slabs left out, with a marker there holding its
-height and its tile's depth (`_chest_cols`, `dr_big_col`). The heights are
-counted up from the lowest to find the one 90% of the way through
-(`_chest_height`), and the chest may go on any column within two blocks of it
-that has bedrock on all four sides of its top block (`_chest_band`,
-`_chest_fits`). Where none has, the band widens a block either way at a time,
-and a rock slab beside the top block does as well as bedrock. One of them is
-taken at random, each as likely as its tile is deep, going through them in
-order of how near they stand to a point no two can be equally near
-(`_chest_walk`). The slab over the chosen block goes, any rock slab beside it
-becomes bedrock, and the chest faces the nearest side of the mountain: the
-fewest blocks out to a column with no rock at the ground, north, then south,
-then east, then west where two are as near (`_chest_place`, `_chest_side`).
-The pick draws from `derailed:terrain` after everything else is built, so the
-same section always hides it in the same place, and a section with no rock has
-none.
+The **hidden chests** go on the top blocks of rock columns, in place of them:
+one on easy and two on medium and hard, by the game's difficulty,
+`$Difficulty` in `dr_config`, 0 easy, 1 medium and 2 hard. Every rock tile is
+given a depth first, 1 beside a tile that is not rock along a side, a tile past
+the section's edge counting as not rock, and one more for each tile further in
+(`_chest_depth`). Every rock column is then measured to its top block of
+bedrock, slabs left out, with a marker there holding its height, its tile's
+depth and region, and where it stands (`_chest_cols`, `dr_big_col`). The
+heights are counted up from the lowest to find the one 90% of the way through
+(`_chest_height`), and the pool is every column within two blocks of it
+(`_chest_pool`).
 
-The ender chest block is there for its particles alone: the resource pack
-draws every ender chest as nothing, with the vanilla chest texture
-transparent, and an item display tagged `dr_ender_chest_lid` draws it instead,
-from the item model `derailed:ender_chest` and a copy of the texture,
-`derailed:ender`. The model is the `minecraft:chest` special model at one of
-eleven lid angles picked by the item's custom model data, 0 shut to 10 open,
-eased the way the vanilla lid is. An interaction tagged `dr_ender_chest`, a
-hundredth of a block bigger than the chest, takes right clicks before the
-block can: one opens the lid a step a tick with the ender chest's own sound
-and leaves it open (`ender_chest/open`). It does nothing else yet.
+A chest fits on a column where two changes or fewer to the rock beside its top
+block give it the sides its difficulty asks for (`_chest_fit`, `_chest_eval`):
+hard a full block on all four, medium a slab on two, a full block on one and
+a slab or a full block on the last, and easy air on one, a slab on one, a slab or air on
+one and a full block on the last. The changes are a rock slab made bedrock or air, bedrock
+with air over it made a slab, and air over bedrock made a slab; a side two
+changes away, bedrock to air or air to bedrock, takes both. Nothing but the
+mountain's own rock is changed. Each way of sharing the sides out is counted,
+1 on hard, 12 on medium and 24 on easy (`_chest_cost`, `_chest_try`), and the
+first of the cheapest kept, and a column's answer is kept on it for the next
+time it is asked.
+
+On easy a chest must also be seen from the ground within 20 blocks of it across
+the ground (`_chest_seen`), looked at with the rock beside it changed as its
+count found, then put back from a copy at y2 under it. Rays go out from a point
+12/16 up the chest and two pixels in from its side the way they go, each of
+sixteen ways a sixteenth of a turn apart: 6/16 out from the middle along the
+way, and 6/16 or 3/16 across it for the ways between (`_chest_dir`). Each way
+lands a ray at every half block of the ground from 1 block out to 20, aimed at
+the eyes, 1.62 up, of a player standing there where one could once anything
+mined is cleared: on ground, a tree or iron, but not on rock, water, the void
+or a station's tile (`_chest_land`, `_chest_ground`). A ray steps a quarter of
+a block at a time and gets through everything but bedrock, the lower half of a
+rock slab and a station's tile (`_chest_ray`, `_chest_clear`); one reaching the
+eyes is enough. A way with bedrock in the block beside the chest it leaves by
+sends no rays at all. Each station tile is marked by invisible light giving
+none at y1 under it, which the build lays for this.
+
+Columns are taken from the pool one at a time at random, each as likely as its
+tile is deep, going through them in order of how near they stand to a point no
+two can be equally near (`_chest_draw`, `_chest_walk`), and the first that fits
+is used; while none does, the band widens a block either way at a time. For two
+chests a first that fits only stands where a second fits too, on another region
+and 30 or more blocks from it across the ground, taken the same way
+(`_chest_second`), and a first with none is passed over. Where no pair is found
+in any band they may be 20 apart; where not even that, the section has one
+chest, and says so in chat, as it does where no column fits at all.
+
+The chosen block loses the slab over it, the rock beside it is changed as its
+count found (`_chest_edits`), and the chest faces the nearest side of the
+mountain: the fewest blocks out to a column with no rock at the ground that is
+ground to stand on, a way that reaches the void or the map's edge first
+finding no side at all, north, then south, then east, then west where two are
+as near (`_chest_place`, `_chest_side`). The picks draw from nothing fixed, so each build hides the
+chests somewhere new, or from `derailed:terrain` where the dev switch
+`#big_chest_seeded` is 1; a section with no rock has none.
+
+Each chest is a trapped chest block, which the resource pack draws as nothing,
+the vanilla trapped chest texture being transparent, and an item display tagged
+`dr_ender_chest_lid` draws it instead: an ender chest from the item model
+`derailed:ender_chest` and the vanilla `minecraft:ender`, or on easy a regular
+chest from `derailed:chest` and the vanilla `minecraft:normal`. The model is
+the `minecraft:chest` special model at one of eleven lid angles picked by the
+item's custom model data, 0 shut to 10 open, eased the way the vanilla lid is.
+An interaction tagged `dr_ender_chest`, a hundredth of a block bigger than the
+chest, takes right clicks before the block can: one opens the lid a step a tick
+with the ender chest's own sound and leaves it open (`ender_chest/open`). It
+does nothing else yet.
+
+Each chest sparkles gold the way an ender chest does until it is opened: a
+marker tagged `dr_chest_spark` in the middle of its block, which opening the
+chest takes away, gives off a `trail` particle one
+tick in ten, about as often as an ender chest gives off its own (`tick`). It
+starts 0.35 to 1.25 blocks out from the middle of the block, the way out taken
+at random, and 1 to 2 blocks up from its bottom, which is always over the rock
+round the chest, and glides to the middle of the block in 2 seconds, gold
+(`ender_chest/_sparkle`, `_sparkle_at`). The trail particle stands 0.26 blocks
+across, against the portal particle's 0.06 on average, but was drawn with a
+single pixel; it is pointed at six textures, `derailed:spark_0` to `spark_5`,
+the smallest six of the vanilla `generic_0` to `generic_7` the portal particle
+takes one of, from a single pixel to a full scatter, each drawn in the middle
+of the trail's square at twice the size it shows at on a portal particle
+(`utils/generate_trail_particles.py`). Particles from a command reach players
+within 32 blocks.
 
 Every structure is saved two blocks below the ground it stands on and placed
 with `strict`, the rivers two lower again, since they reach two further down,

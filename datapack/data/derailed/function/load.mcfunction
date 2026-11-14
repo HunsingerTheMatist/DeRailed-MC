@@ -152,6 +152,9 @@ execute unless score $SupplyCap dr_config matches 1.. run scoreboard players set
 execute unless score $RailCap dr_config matches 1.. run scoreboard players set $RailCap dr_config 3
 execute unless score $CraftTicks dr_config matches 1.. run scoreboard players set $CraftTicks dr_config 64
 
+# How hard the game is, 0 easy, 1 medium and 2 hard
+execute unless score $Difficulty dr_config matches 0..2 run scoreboard players set $Difficulty dr_config 1
+
 # How far the light round each player and each piece of a train reaches, in
 #  blocks, up to 255: 5 tiles and 3
 execute unless score $PlayerLight dr_config matches 1..255 run scoreboard players set $PlayerLight dr_config 15

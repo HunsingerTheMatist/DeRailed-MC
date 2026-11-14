@@ -33,6 +33,10 @@ scoreboard players set #sec_slice_max dr_var 1
 execute unless score #big_section dr_var matches 0.. run scoreboard players set #big_section dr_var 0
 execute unless score #big_seed dr_var matches -2147483648.. run scoreboard players set #big_seed dr_var 0
 
+# Whether the chests hidden in the large version's rock are placed from that
+#  seed too, 1, or somewhere new each build, 0
+execute unless score #big_chest_seeded dr_var matches 0..1 run scoreboard players set #big_chest_seeded dr_var 0
+
 # The wave delays are 5 and 7, so eight tags cycle without a delay ever landing
 #  back on the wave being woken
 scoreboard players set $Eight dr_const 8

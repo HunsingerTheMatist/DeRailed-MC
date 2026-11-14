@@ -23,6 +23,10 @@ execute in derailed:game run function derailed:weather/tick
 execute in derailed:game run function derailed:item/tick
 execute in derailed:game run function derailed:track/ghost_tick
 execute in derailed:game run function derailed:toss/tick
+
+# Each hidden chest sparkles, a gold mote about it one tick in ten, as often as
+#  an ender chest gives off its own
+execute in derailed:game as @e[type=marker,tag=dr_chest_spark,distance=0..] at @s if predicate {type:"minecraft:random_chance",chance:0.1} run function derailed:ender_chest/_sparkle
 execute in derailed:game as @e[type=item_display,tag=dr_emerge,distance=0..] at @s run function derailed:emerge/_tick
 
 # If two ticks have passed, check every player inventory

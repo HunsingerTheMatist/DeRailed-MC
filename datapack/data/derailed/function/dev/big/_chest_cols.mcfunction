@@ -4,6 +4,7 @@
 #  block
 
 scoreboard players operation #ch_d dr_temp = @s dr_bd
+scoreboard players operation #ch_g dr_temp = @s dr_breg
 execute positioned ~ ~2 ~ if block ~ ~ ~ bedrock run function derailed:dev/big/_chest_top
 execute positioned ~1 ~2 ~ if block ~ ~ ~ bedrock run function derailed:dev/big/_chest_top
 execute positioned ~2 ~2 ~ if block ~ ~ ~ bedrock run function derailed:dev/big/_chest_top
