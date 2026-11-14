@@ -1351,19 +1351,6 @@ lake or a river at both ends; nothing records which river was laid first. Each
 tile flows toward the next along the run, and the last into the water it opens
 onto.
 
-Every river then runs from north to south (`_south`). Each river tile nothing
-flows into is followed down, tile by tile, to where its river leaves the map,
-meets a lake or meets a river already followed; the longest of them goes
-first, and the one nearest a point no two can be equally near where two are as
-long. Where the stretch it follows ends further north than it starts, the
-stretch flows the other way: its first tile the way opposite to the way it
-flowed, out of the end the river came in by, and each tile after it back into
-the one before it. So a river is turned round as a whole, and a second river
-that meets one already followed is turned or not on its own stretch alone,
-coming out as a split from it where it is turned and a merge into it where it
-is not. A river that ends in a lake and is turned flows out of the lake
-instead. Only the full size build turns rivers; the plan keeps its glazes.
-
 A river tile is fed by the river beside it flowing into it, and where that one
 flows another way the tile is a **bend** (`_feed`), `river/river_<fed><flows>`:
 `river_sw` is fed by a river flowing south and turns west. A junction fed by a

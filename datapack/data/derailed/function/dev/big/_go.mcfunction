@@ -43,10 +43,6 @@ scoreboard players set #big_z dr_temp 0
 function derailed:dev/big/_row
 function derailed:dev/big/_cuts
 
-# Every river runs from north to south, turned round where it runs the other
-#  way
-function derailed:dev/big/_south
-
 # Every river tile fed from a way other than the one it flows is a bend, and
 #  one fed one way that leaves two, or fed two ways that leaves one, is a
 #  junction, laid as its river and with a piece of its own over that; a tile
