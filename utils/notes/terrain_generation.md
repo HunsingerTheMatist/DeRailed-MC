@@ -1275,6 +1275,34 @@ The void's tiles get nothing at all (`dr_big_void`), so each is a drop to the
 bottom of the world, and nothing walls in the map's edges either: a player who
 walks off the map falls to their death and respawns.
 
+Water with nothing past one of its edges, a void tile or the map's edge, has a
+**waterfall** there (`_waterfall`): one up from the bed of the water along a
+northern edge, as the water coming in from above, and one down from the
+water's surface along each southern, western and eastern edge, as the water
+falling away. The bed is the top of the gravel, a block deeper under a lake
+than under a river; the surface is 8/9 of a block up its block, 14 and 2/9
+pixels, as high as vanilla draws still water and the fake water's flow model
+stands. Each is an item display tagged `dr_waterfall` of `derailed:waterfall`,
+a sheet three blocks wide seen from both sides, stood twenty high by the
+display's scale and turned a quarter along a western or eastern edge, a
+thousandth of a block out past the edge so it lies against it without
+fighting the faces there. A lake runs toward each edge it falls away at
+(`_lake_spill`): each block of its still surface along that edge becomes the
+wall that draws the flow toward the edges it touches added together, so a
+corner runs between them, toward the south-west or south-east. Water draws
+no sides at all, the resource pack's `water_flow` and `water_overlay` being
+blank, so the sheet is all that shows along an edge; the top of water that
+is not a source would be blank too, but
+the map's water is all source. `utils/generate_waterfall.py` writes the
+sheet's texture, the vanilla flowing water run twice as fast with every other
+one of its 32 frames kept, its model and its item model, tinted the forest
+biome's water colour.
+
+Once sections are built one after another in play, the waterfalls down a
+section's eastern edge are there only until the next section is laid beside
+it: laying it removes them, since the water then runs on into the new
+section's ground instead of falling off the map.
+
 The **ender chest** goes on the top block of one rock column, in place of it.
 Every rock tile is given a depth first, 1 beside a tile that is not rock along
 a side, a tile past the section's edge counting as not rock, and one more for

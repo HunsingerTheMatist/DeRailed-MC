@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "derailed:item/waterfall",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": 4159204
+      }
+    ]
+  }
+}

@@ -69,7 +69,9 @@ players in the game dimension.
 
 - [ ] **Sections built ahead of the train** (L). The queue builds plan
   sections only in the test area; in play one has to be built out of sight
-  and brought in before the players reach it
+  and brought in before the players reach it. Laying a section removes the
+  waterfalls down the eastern edge of the one before it (`dr_waterfall`), since
+  its water then runs on into the new section
 - [ ] **Full-size builder out of `dev/`** (M). `dev/big` builds one section at
   fixed coordinates; it needs to build any section where the run has reached,
   making the mining markers as it goes. Placeholder plan blocks become real

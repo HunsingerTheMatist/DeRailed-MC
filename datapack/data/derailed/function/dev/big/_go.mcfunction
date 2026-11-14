@@ -9,6 +9,7 @@ kill @e[type=marker,tag=dr_track_tile,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=interaction,tag=dr_water,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=interaction,tag=dr_ender_chest,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 kill @e[type=item_display,tag=dr_ender_chest_lid,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
+kill @e[type=item_display,tag=dr_waterfall,x=1099,y=11,z=-1,dx=97,dy=29,dz=49]
 
 # The map's limits, for the search for a spot for a pile: the blocks across it,
 #  and the lowest and highest block a pile can stand in, over the ground at y14
@@ -82,6 +83,13 @@ execute as @e[type=marker,tag=dr_big,tag=!dr_big_tree,distance=0..] at @s run fu
 #  a lake, which is a block deeper
 execute as @e[type=marker,tag=dr_big_lake,distance=0..] at @s run summon interaction ~1.5 ~-1 ~1.5 {Tags:["dr_water"],width:3f,height:2.875f}
 execute as @e[type=marker,tag=dr_big_river,distance=0..] at @s run summon interaction ~1.5 ~ ~1.5 {Tags:["dr_water"],width:3f,height:1.875f}
+
+# Water with nothing past its edge, the void or the map's edge, falls in from
+#  above at the north and falls away at every other side, a lake running toward
+#  where it falls away
+execute as @e[type=marker,tag=dr_big_lake,distance=0..] at @s run function derailed:dev/big/_lake_spill
+execute as @e[type=marker,tag=dr_big_lake,distance=0..] at @s run function derailed:dev/big/_waterfall
+execute as @e[type=marker,tag=dr_big_river,distance=0..] at @s run function derailed:dev/big/_waterfall
 
 # Each bend is eased into the straight river beside it once every river is
 #  down, since the piece doing it reaches into that river's tile, and each
